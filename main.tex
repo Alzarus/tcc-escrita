@@ -1,0 +1,295 @@
+\documentclass[11pt]{relatorio_tcc_ads_ifba}
+\begin{document}
+
+% Aluno/autor do documento (obrigatório)
+% e.g. \aluno{Luiz Felipe Torres Farias}
+\aluno{Pedro Batista de Almeida Filho}
+
+% Titulo do seu projeto (obrigatório)
+% e.g. \titulo{Desenvolvimento de Software XPTO}
+\titulo{Tô De Olho: Democratizando a Transparência da Câmara dos Deputados através de Dados Abertos}
+
+% Data da sua defesa (obrigatório)
+% e.g. \date{21 de janeiro de 2024}
+\date{Fevereiro de 2026}
+
+% Orientador (obrigatório)
+% Opção: [f] para orientadora. O valor default é [m]
+% e.g. \orientador[f]{Flavia Maristela}
+% e.g. \orientador{Frederico Barboza}
+\orientador{Pablo Vieira Florentino}
+
+% Coorientador (opcional)
+% Opção: [f] para coorientadora. O valor default é [m]. Caso não possua coorientador, comentar ou deletar essa linha.
+% e.g. \orientador[f]{Flavia Maristela}
+% e.g. \orientador{Frederico Barboza}
+% \coorientador{NOME}
+%\coorientador{}
+
+% Pretextual (obrigatório)
+% Comando responsável por imprimir o conteúdo pré-textual (capa e sumário)
+\pretextual
+
+% ---------------------------------------------------------------------
+% INÍCIO DA PARTE ESCRITA 
+% ---------------------------------------------------------------------
+\section{Visão geral }
+
+% Recomendo manter cada seção ou subseção de texto em um arquivo separado e depois utilizados com o comando include, conforme o exemplo a seguir. Porém, se preferir, também pode deixar seu texto neste arquivo
+%\input{src/sections/objetivos}
+%\input{src/sections/definicoes}
+
+\subsection{Declaração do Problema}
+
+A transparência governamental é um pilar fundamental para o fortalecimento da democracia, e a Lei de Acesso à Informação (LAI), instituída em 2011, representa um marco regulatório importante no Brasil ao estabelecer diretrizes para que órgãos públicos disponibilizem informações de interesse coletivo. No entanto, embora os dados da Câmara dos Deputados sejam públicos e estejam disponíveis através de uma API oficial (\url{https://dadosabertos.camara.leg.br/api/v2/}), eles encontram-se dispersos e em formatos que não favorecem a análise por cidadãos leigos.
+
+O problema central reside na complexidade de acesso e interpretação dessas informações. A disponibilidade de dados abertos não elimina a dificuldade; ela apenas transfere o desafio do acesso para o processamento, organização e apresentação dos dados de forma compreensível. O cidadão comum não possui conhecimento técnico para consumir APIs, processar grandes volumes de dados ou correlacionar informações sobre despesas parlamentares, votações e proposições legislativas.
+
+Esse cenário gera um distanciamento entre eleitores e seus representantes, prejudicando a fiscalização cidadã e o exercício pleno da democracia. Com as eleições federais de 2026 no horizonte, torna-se ainda mais urgente a necessidade de ferramentas que permitam aos brasileiros acompanhar e avaliar a atuação de seus deputados de forma informada e acessível.
+
+\subsection{Proposta de Solução de Software}
+
+O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência política concebida para democratizar o acesso aos dados da Câmara dos Deputados do Brasil. A solução organiza, processa e apresenta dados públicos oficiais de forma acessível, visando fomentar uma democracia digital mais participativa em âmbito nacional.
+
+A plataforma centraliza informações sobre os 513 deputados federais, incluindo:
+
+\begin{itemize}
+    \item \textbf{Perfil do Parlamentar}: dados biográficos, partido, estado, links para redes sociais e resumo de atividades;
+    \item \textbf{Transparência Financeira}: visualização clara e pesquisável dos gastos da Cota Parlamentar;
+    \item \textbf{Atividade Legislativa}: lista de proposições apresentadas e histórico de votações nas principais pautas;
+    \item \textbf{Fórum de Discussão}: espaço para debate cívico entre cidadãos, com validação via API do TSE para garantir a participação de eleitores reais.
+\end{itemize}
+
+O \textit{Tô De Olho} agrega valor ao transformar dados brutos em informação útil, permitindo que o cidadão comum fiscalize seus representantes sem necessidade de conhecimento técnico. A plataforma atua como uma ponte entre os dados abertos governamentais e a população, tornando a transparência efetivamente acessível.
+
+\subsection{Tecnologias adotadas}
+
+A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \textit{microservices}, escolhido por sua escalabilidade, manutenibilidade e resiliência. As principais tecnologias adotadas são:
+
+\textbf{Backend:}
+\begin{itemize}
+    \item \textbf{Golang}: linguagem principal para desenvolvimento dos microsserviços, escolhida por seu alto desempenho, eficiência em concorrência e baixo consumo de recursos;
+    \item \textbf{PostgreSQL}: banco de dados relacional para persistência dos dados legislativos;
+    \item \textbf{Redis}: sistema de cache em memória para otimização de consultas frequentes;
+    \item \textbf{RabbitMQ/Google Pub/Sub}: \textit{message queue} para comunicação assíncrona entre microsserviços e desacoplamento do processo de ingestão de dados.
+\end{itemize}
+
+\textbf{Frontend:}
+\begin{itemize}
+    \item \textbf{Next.js 15}: \textit{framework} React para renderização híbrida (SSR/SSG);
+    \item \textbf{TypeScript}: tipagem estática para maior segurança e manutenibilidade do código;
+    \item \textbf{Tailwind CSS}: \textit{framework} CSS utilitário para estilização responsiva e \textit{mobile-first}.
+\end{itemize}
+
+\textbf{Infraestrutura e DevOps:}
+\begin{itemize}
+    \item \textbf{Docker}: containerização dos serviços para portabilidade e consistência entre ambientes;
+    \item \textbf{Kubernetes (GKE)}: orquestração de containers na Google Cloud Platform;
+    \item \textbf{GitHub Actions}: pipelines de CI/CD para integração e deploy contínuos.
+\end{itemize}
+
+\textbf{Fontes de Dados:}
+\begin{itemize}
+    \item \textbf{API RESTful v2 da Câmara dos Deputados}: fonte primária de dados atualizados;
+    \item \textbf{Arquivos em Massa (JSON/CSV)}: utilizados para carga inicial histórica (\textit{backfill});
+    \item \textbf{API do TSE}: validação de eleitores para acesso ao fórum.
+\end{itemize}
+
+\subsection{Trabalhos Relacionados}
+
+Diversas iniciativas no Brasil e no mundo buscam promover a transparência política através da tecnologia. Entre os trabalhos relacionados, destacam-se:
+
+\textbf{Portal da Transparência (CGU):} Principal ferramenta oficial do governo federal para transparência, disponibiliza dados sobre gastos públicos, servidores e convênios. Embora abrangente, sua interface é voltada para consultas técnicas e não oferece visualizações consolidadas por parlamentar ou fórum de discussão cidadã.
+
+\textbf{Portal de Dados Abertos da Câmara:} Fonte oficial dos dados legislativos, oferece API e arquivos para download. Contudo, exige conhecimento técnico para consumo e não provê interpretação ou contextualização das informações.
+
+\textbf{Ranking dos Políticos:} Iniciativa da sociedade civil que avalia parlamentares com base em critérios predefinidos. Diferencia-se do \textit{Tô De Olho} por adotar uma abordagem de \textit{ranking} com critérios fixos, enquanto nossa plataforma permite que o próprio cidadão analise os dados e forme sua opinião.
+
+\textbf{Serenata de Amor:} Projeto de \textit{data science} que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares. Foca em análise automatizada de anomalias, enquanto o \textit{Tô De Olho} prioriza a apresentação acessível dos dados para fiscalização cidadã direta.
+
+\textbf{Diferencial do Tô De Olho:} Nossa solução se diferencia por: (1) consolidar múltiplas fontes de dados em uma interface única e acessível; (2) oferecer um fórum validado para discussão cívica; (3) utilizar arquitetura de microsserviços escalável para suportar picos de acesso em períodos eleitorais; (4) focar na experiência do usuário leigo, seguindo princípios de acessibilidade (WCAG 2.1).
+
+\section{Requisitos}
+
+\subsection{Requisitos Funcionais}
+
+\textbf{Módulo de Deputados:}
+\begin{itemize}
+    \item \textbf{[RF01]} Como cidadão, eu preciso visualizar a lista de todos os deputados federais para conhecer meus representantes.
+    \item \textbf{[RF02]} Como cidadão, eu preciso filtrar deputados por estado, partido ou nome para encontrar parlamentares específicos.
+    \item \textbf{[RF03]} Como cidadão, eu preciso acessar o perfil completo de um deputado para conhecer suas informações biográficas e de contato.
+\end{itemize}
+
+\textbf{Módulo de Despesas:}
+\begin{itemize}
+    \item \textbf{[RF04]} Como cidadão, eu preciso visualizar os gastos da cota parlamentar de cada deputado para fiscalizar o uso de recursos públicos.
+    \item \textbf{[RF05]} Como cidadão, eu preciso filtrar despesas por período, tipo e fornecedor para análises específicas.
+    \item \textbf{[RF06]} Como cidadão, eu preciso ver o total de gastos por categoria para entender como os recursos são utilizados.
+\end{itemize}
+
+\textbf{Módulo de Atividade Legislativa:}
+\begin{itemize}
+    \item \textbf{[RF07]} Como cidadão, eu preciso visualizar as proposições apresentadas por um deputado para acompanhar sua produtividade.
+    \item \textbf{[RF08]} Como cidadão, eu preciso ver como um deputado votou nas principais pautas para avaliar seu posicionamento.
+    \item \textbf{[RF09]} Como cidadão, eu preciso acompanhar a tramitação de projetos de lei para entender o processo legislativo.
+\end{itemize}
+
+\textbf{Módulo de Fórum:}
+\begin{itemize}
+    \item \textbf{[RF10]} Como eleitor validado, eu preciso criar discussões sobre temas políticos para debater com outros cidadãos.
+    \item \textbf{[RF11]} Como eleitor validado, eu preciso comentar em discussões existentes para contribuir com o debate.
+    \item \textbf{[RF12]} Como usuário, eu preciso validar meu CPF junto ao TSE para participar do fórum como eleitor verificado.
+\end{itemize}
+
+\textbf{Módulo de Usuário:}
+\begin{itemize}
+    \item \textbf{[RF13]} Como usuário, eu preciso criar uma conta na plataforma para personalizar minha experiência.
+    \item \textbf{[RF14]} Como usuário, eu preciso salvar deputados favoritos para acompanhá-los mais facilmente.
+\end{itemize}
+
+\subsection{Requisitos Não-Funcionais}
+
+\textbf{Desempenho:}
+\begin{itemize}
+    \item \textbf{[RNF01]} O sistema deve responder a requisições de consulta em até 2 segundos sob condições normais de uso.
+    \item \textbf{[RNF02]} A arquitetura deve suportar escalabilidade horizontal para lidar com picos de acesso em períodos eleitorais.
+\end{itemize}
+
+\textbf{Usabilidade e Acessibilidade:}
+\begin{itemize}
+    \item \textbf{[RNF03]} O sistema deve ser acessível via navegadores \textit{web} em dispositivos \textit{desktop} e \textit{mobile}.
+    \item \textbf{[RNF04]} A interface deve seguir o padrão \textit{mobile-first} para garantir boa experiência em dispositivos móveis.
+    \item \textbf{[RNF05]} O sistema deve seguir as diretrizes de acessibilidade WCAG 2.1 nível AA.
+\end{itemize}
+
+\textbf{Confiabilidade:}
+\begin{itemize}
+    \item \textbf{[RNF06]} Os dados devem ser sincronizados diariamente com a API oficial da Câmara dos Deputados.
+    \item \textbf{[RNF07]} O sistema deve manter disponibilidade mínima de 99\% durante o período eleitoral.
+\end{itemize}
+
+\textbf{Segurança:}
+\begin{itemize}
+    \item \textbf{[RNF08]} As comunicações devem ser criptografadas utilizando HTTPS/TLS.
+    \item \textbf{[RNF09]} A validação de eleitores deve ser realizada através da API oficial do TSE.
+    \item \textbf{[RNF10]} O sistema deve estar em conformidade com a LGPD (Lei Geral de Proteção de Dados).
+\end{itemize}
+
+\textbf{Manutenibilidade:}
+\begin{itemize}
+    \item \textbf{[RNF11]} A arquitetura de microsserviços deve permitir atualizações independentes de cada módulo.
+    \item \textbf{[RNF12]} O código deve seguir padrões de desenvolvimento e estar documentado.
+    \item \textbf{[RNF13]} O sistema deve possuir \textit{pipelines} de CI/CD para integração e deploy contínuos.
+\end{itemize}
+
+\section{Design}
+\subsection{Projeto UML}
+\textcolor{blue}{
+    [Insira os seguintes Diagramas de UML para o seu projeto: 
+    \begin{enumerate}
+        \item Diagrama de Classe
+        \item Diagrama de Atividades da principal atividade do sistema
+        \item Diagrama de Sequência da principal atividade do sistema
+        \item Diagrama de Estado do principal objeto do sistema
+        \item Diagrama de Componentes
+        \item Diagrama de Implantação
+    \end{enumerate}
+    OBS: Como cada sistema tem particularidades específicas, a escolha de qual a principal atividade e qual o principal objeto do sistema deve ser discutida com o orientador. Consideramos que existem alguns diagramas básicos que devem existir em qualquer projeto. São eles: Diagrama de Classes, Componentes e Implantação. A elaboração dos outros diagramas devem ser discutidos com seu orientador.]
+} \\
+\textcolor{red}{
+    [Obrigatório - A seção é obrigatória, os diagramas de classes e diagrama de casos de uso são obrigatórios. Os outros diagramas são opcionais a depender do tipo do sistema a ser desenvolvido. Deve ser discutido com o orientador quais diagramas devem constar no trabalho.]
+}
+
+\subsection{Visão arquitetural}
+
+O \textit{Tô De Olho} adota uma arquitetura de \textbf{microsserviços}, onde cada componente é responsável por um domínio específico do negócio e pode ser desenvolvido, implantado e escalado de forma independente. Essa escolha arquitetural foi motivada pelos seguintes fatores:
+
+\begin{itemize}
+    \item \textbf{Escalabilidade}: permite escalar individualmente serviços com maior demanda, como o de consulta de despesas durante períodos de maior fiscalização;
+    \item \textbf{Manutenibilidade}: atualizações em um serviço (ex: despesas) não afetam os demais (ex: votações);
+    \item \textbf{Resiliência}: falhas em um microsserviço não comprometem todo o sistema.
+\end{itemize}
+
+\textbf{Microsserviços Principais:}
+\begin{itemize}
+    \item \texttt{servico-deputados}: gestão de dados dos parlamentares;
+    \item \texttt{servico-despesas}: transparência financeira e cota parlamentar;
+    \item \texttt{servico-atividades}: proposições e votações legislativas;
+    \item \texttt{servico-usuarios}: autenticação e gerenciamento de perfis;
+    \item \texttt{servico-forum}: discussões e participação cidadã;
+    \item \texttt{servico-ingestao-dados}: ETL (\textit{Extract, Transform, Load}) de dados da Câmara.
+\end{itemize}
+
+\textbf{Estratégia de Ingestão de Dados:}
+
+A plataforma utiliza uma estratégia híbrida de ingestão:
+\begin{enumerate}
+    \item \textbf{Backfill}: carga inicial histórica através de arquivos em massa (JSON/CSV) disponibilizados pela Câmara;
+    \item \textbf{Sincronização Contínua}: \textit{CronJobs} diários que consomem a API RESTful v2 para manter os dados atualizados.
+\end{enumerate}
+
+\textbf{Comunicação entre Serviços:}
+
+Os microsserviços comunicam-se através de:
+\begin{itemize}
+    \item \textbf{APIs REST}: para comunicação síncrona entre serviços;
+    \item \textbf{Message Queue (RabbitMQ)}: para comunicação assíncrona e desacoplamento, especialmente no processo de ingestão de dados.
+\end{itemize}
+
+\textbf{Infraestrutura:}
+
+Todos os serviços são containerizados com Docker e orquestrados pelo Kubernetes (GKE - Google Kubernetes Engine), permitindo auto-scaling, balanceamento de carga e alta disponibilidade.
+
+\subsection{Modelo de Banco de Dados}
+\textcolor{blue}{
+    [Descreva o modelo de Dados Físico e Lógico]
+} \\
+\textcolor{red}{
+    [Obrigatório - Somente se o sistema possui banco de dados.]
+}
+
+\section{Testes de Software}
+
+\subsection{Projeto de Testes}
+\textcolor{blue}{
+    [Descreva em detalhes as estratégias de Testes que utilizou para desenvolvimento do seu software. Se utilizou casos de testes, testes automatizados ou manuais, ferramentas, etc.]
+} \\
+\textcolor{red}{[Obrigatório]}
+
+\section{Implantação}
+\subsection{Projeto de Implantação}
+\textcolor{blue}{
+    [Descreva a Plataforma de Hardware e Software requeridas para instalação e operação do seu software.]
+} \\
+\textcolor{red}{[Obrigatório]}
+
+\section{Manual do Usuário}{
+\textcolor{blue}{
+    [Descreva o Manual de Usuário, como utilizar o seu software. Sugerimos que coloque figuras com as telas do seu sistema se necessário para melhorar o entendimento do usuário.]
+} \\
+\textcolor{red}{[Obrigatório]}
+}
+
+\section*{Agradecimentos}
+\textcolor{blue}{
+    [Agradecimentos a colaboradores do seu projeto]
+} \\
+\textcolor{red}{[Opcional]}
+
+\bibliography{referencias}
+\textcolor{blue}{
+    [Forneça uma lista completa de todos os documentos mencionados ou que foram utilizados como referência na elaboração deste documento. Todos os documentos devem ser identificados por título, data, nome e organização responsável por sua publicação. Especifique as fontes dessas referências. Utilize o padrão ABNT para o formato das referências.]
+} \\
+\textcolor{red}{[Obrigatório]} \\
+\textbf{[Dica: insira suas referencias no arquivo "referencias.bib" e utilize o comando "cite" para utilizá-la]}
+
+\newpage
+\section*{Apêndices}
+
+\section*{Glossário, Siglas e Abreviações}
+\textcolor{blue}{
+[Forneça as definições de todos os termos, siglas e abreviações necessárias à compreensão deste documento.]
+[Opcional]}
+
+
+\end{document}
