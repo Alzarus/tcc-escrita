@@ -1,0 +1,56 @@
+# Arquivos auxiliares do LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
+# Arquivos de índice e glossário
+*.idx
+*.ilg
+*.ind
+*.glo
+*.gls
+*.glg
+*.ist
+
+# Arquivos de nomenclatura
+*.nlo
+*.nls
+
+# Arquivos temporários do MiKTeX
+*.maf
+*.mtc*
+*.ptc
+
+# PDF gerado (descomente se quiser ignorar)
+# *.pdf
+
+# Arquivos de backup
+*.bak
+*.backup
+*~
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Diretórios de saída
+output/
+build/
+
+# Arquivos do editor
+*.swp
+*.swo
+.vscode/
+*.sublime-*

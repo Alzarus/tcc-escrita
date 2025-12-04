@@ -18,13 +18,13 @@
 \RequirePackage{graphicx} % Necessário para inserir imagens 
 \RequirePackage{xcolor} % Necessário para alterar cores
 \RequirePackage[utf8]{inputenc} % Permite a utilização de caracteres UTF-8
-\RequirePackage[brazil]{babel} % Altera o idioma para PT-BR
+\RequirePackage[brazilian]{babel} % Altera o idioma para PT-BR
 \RequirePackage[a4paper, margin=2.54cm]{geometry} % Definir a margem do documento
 \RequirePackage{helvet} % Package with arial font 
 \RequirePackage{textcase} % Caso seja necessário alterar a caixa do texto
 \RequirePackage[num, abnt-repeated-title-omit=yes, abnt-emphasize=bf]{abntex2cite} % Utilizzado para as referências no padrão ABNT
 \RequirePackage{indentfirst} 
-\RequirePackage{hyperref}
+\RequirePackage[plainpages=false,pdfpagelabels,hidelinks]{hyperref}
 \RequirePackage[skip=10pt, indent=20pt]{parskip}
 \RequirePackage{setspace}
 \RequirePackage{titlesec}
@@ -75,7 +75,11 @@
     }
     \gdef\nomeCoorientador{#2}
 }
+% Inicializa coorientador como vazio por padrão
+\gdef\nomeCoorientador{}
+\gdef\tituloCoorientador{}
 \newcommand{\pretextual}{
+    \pagenumbering{roman} % Usa numeração romana para páginas pré-textuais
     \thispagestyle{empty}
     \begin{center}
         \begin{figure}
@@ -124,7 +128,7 @@
     \thispagestyle{empty}
     \tableofcontents
     \newpage
-    \setcounter{page}{1}
+    \pagenumbering{arabic} % Volta para numeração arábica no texto principal
 }
 
 \setstretch{1.15} % Espaçamento entre linhas

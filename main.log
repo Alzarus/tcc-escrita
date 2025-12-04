@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  3 DEC 2025 02:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  4 DEC 2025 00:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -106,20 +106,15 @@ Package babel Info: Configuration files are deprecated, as
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
  babel
 )
-(C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/invalid\
-babel-brazil.tex)
-
-Package babel Warning: Name 'brazil' is deprecated.
-(babel)                Use 'brazilian' instead.
-(babel)                Reported on input line 4298.
-
-Package babel Info: Importing font and identification data for brazil
+(C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/pt\babel
+-brazilian.tex)
+Package babel Info: Importing font and identification data for brazilian
 (babel)             from babel-pt-BR.ini. Reported on input line 4298.
 
 (C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/babel-portuges\brazilia
 n.ldf
 Language: portuges 2021/07/09 v1.2t Portuguese support from the babel system
-Package babel Info: Hyphen rules for 'brazil' set to \l@portuguese
+Package babel Info: Hyphen rules for 'brazilian' set to \l@portuguese
 (babel)             (\language56). Reported on input line 111.
 Package babel Info: Making " an active character on input line 143.
 ))
@@ -275,6 +270,8 @@ File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
+Package hyperref Info: Option `plainpages' set `false' on input line 4066.
+Package hyperref Info: Option `pdfpagelabels' set `true' on input line 4066.
 Package hyperref Info: Hyper figures OFF on input line 4195.
 Package hyperref Info: Link nesting OFF on input line 4200.
 Package hyperref Info: Hyper index ON on input line 4203.
@@ -352,7 +349,10 @@ File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 tex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count305
-) (main.aux)
+) (main.aux
+Package babel Info: 'brazilian' activates 'portuges' shorthands.
+(babel)             Reported on input line 12.
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
@@ -399,9 +399,6 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package babel Info: 'brazil' activates 'portuges' shorthands.
-(babel)             Reported on input line 2.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -441,35 +438,12 @@ Package hyperref Info: Link coloring OFF on input line 2.
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-<src/images/logo-ads-nova.jpg, id=3, 540.51938pt x 382.42876pt>
+<src/images/logo-ads-nova.jpg, id=71, 540.51938pt x 382.42876pt>
 File: src/images/logo-ads-nova.jpg Graphic file (type jpg)
 <use src/images/logo-ads-nova.jpg>
 Package pdftex.def Info: src/images/logo-ads-nova.jpg  used on input line 31.
 (pdftex.def)             Requested size: 226.48413pt x 160.23967pt.
-
-! Undefined control sequence.
-\pretextual ...mpty \null \else \nomeCoorientador 
-                                                  \\ \tituloCoorientador \fi...
-l.31 \pretextual
-                
-? 
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.31 \pretextual
-                
-? 
-! Undefined control sequence.
-<recently read> \tituloCoorientador 
-                                    
-l.31 \pretextual
-                
-? 
-[1
+ [1
 
 {C:/Users/pedro/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/pedr
 o/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <./src/images/logo
@@ -485,85 +459,31 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \openout4 = `main.toc'.
 
  [3]
-Overfull \hbox (2.80357pt too wide) in paragraph at lines 46--47
-[]\OT1/phv/m/n/10.95 O pro-blema cen-tral re-side na com-ple-xi-dade de acesso 
-e interpreta[][]ao des-sas informa[][]oes.
- []
-
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
 (Font)              Font shape `OT1/phv/m/sl' tried instead on input line 52.
 LaTeX Font Info:    Trying to load font information for TS1+phv on input line 5
 7.
+
 (C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
-Overfull \hbox (5.7775pt too wide) in paragraph at lines 63--64
-\OT1/phv/m/n/10.95 que o ci-dad[]ao co-mum fis-ca-lize seus re-pre-sen-tan-tes 
-sem ne-ces-si-dade de co-nhe-ci-mento t[]ecnico.
- []
+[1] [2] [3] [4] [5] [6] (main.bbl
 
+LaTeX Warning: Empty `thebibliography' environment on input line 8.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.64 
-      [1]
-Overfull \hbox (46.51663pt too wide) in paragraph at lines 74--75
-[]\OT1/phv/b/n/10.95 RabbitMQ/Google Pub/Sub\OT1/phv/m/n/10.95 : \OT1/phv/m/sl/
-10.95 mes-sage queue \OT1/phv/m/n/10.95 para comunica[][]ao ass[]^^Pncrona en-t
-re microsservi[]os
- []
-
-
-Overfull \hbox (1.95042pt too wide) in paragraph at lines 100--101
-[]\OT1/phv/m/n/10.95 Diversas ini-ci-a-ti-vas no Bra-sil e no mundo bus-cam pro
--mo-ver a trans-par[]encia pol[]^^Ptica atrav[]es
- []
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.103 
-       [2]
-pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.128 \end{itemize}
-                    [3] [4] [5] [6]
-No file main.bbl.
-
-Overfull \hbox (0.89287pt too wide) in paragraph at lines 282--285
-\OT1/phv/b/n/10.95 [Dica: in-sira suas re-fe-ren-cias no ar-quivo "re-fe-ren-ci
-as.bib"e uti-lize o co-mando "cite"para
- []
-
-[7] [8] [9] (main.aux)
+) [7] [8] [9] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  BA97020C12A93906C6AF80BC6C3AED5B;2542.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: BA97020C12A93906C6AF80BC6C3AED5B;2542.
  ) 
 Here is how much of TeX's memory you used:
- 11679 strings out of 467871
- 187301 string characters out of 5418376
- 630606 words of memory out of 5000000
- 40356 multiletter control sequences out of 15000+600000
+ 11698 strings out of 467871
+ 187763 string characters out of 5418376
+ 630679 words of memory out of 5000000
+ 40369 multiletter control sequences out of 15000+600000
  645978 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,6n,93p,1195b,525s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -573,9 +493,9 @@ fonts/cm/cmtt10.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/u
 rw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type
 1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (12 pages, 110296 bytes).
+Output written on main.pdf (12 pages, 116874 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 35 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 189 PDF objects out of 1000 (max. 8388607)
+ 38 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 

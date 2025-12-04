@@ -43,7 +43,7 @@
 
 A transparência governamental é um pilar fundamental para o fortalecimento da democracia, e a Lei de Acesso à Informação (LAI), instituída em 2011, representa um marco regulatório importante no Brasil ao estabelecer diretrizes para que órgãos públicos disponibilizem informações de interesse coletivo. No entanto, embora os dados da Câmara dos Deputados sejam públicos e estejam disponíveis através de uma API oficial (\url{https://dadosabertos.camara.leg.br/api/v2/}), eles encontram-se dispersos e em formatos que não favorecem a análise por cidadãos leigos.
 
-O problema central reside na complexidade de acesso e interpretação dessas informações. A disponibilidade de dados abertos não elimina a dificuldade; ela apenas transfere o desafio do acesso para o processamento, organização e apresentação dos dados de forma compreensível. O cidadão comum não possui conhecimento técnico para consumir APIs, processar grandes volumes de dados ou correlacionar informações sobre despesas parlamentares, votações e proposições legislativas.
+O problema central está na complexidade de acesso e interpretação dessas informações. A disponibilidade de dados abertos não elimina a dificuldade; ela apenas transfere o desafio do acesso para o processamento, organização e apresentação dos dados de forma compreensível. O cidadão comum não possui conhecimento técnico para consumir APIs, processar grandes volumes de dados ou correlacionar informações sobre despesas parlamentares, votações e proposições.
 
 Esse cenário gera um distanciamento entre eleitores e seus representantes, prejudicando a fiscalização cidadã e o exercício pleno da democracia. Com as eleições federais de 2026 no horizonte, torna-se ainda mais urgente a necessidade de ferramentas que permitam aos brasileiros acompanhar e avaliar a atuação de seus deputados de forma informada e acessível.
 
@@ -60,7 +60,7 @@ A plataforma centraliza informações sobre os 513 deputados federais, incluindo
     \item \textbf{Fórum de Discussão}: espaço para debate cívico entre cidadãos, com validação via API do TSE para garantir a participação de eleitores reais.
 \end{itemize}
 
-O \textit{Tô De Olho} agrega valor ao transformar dados brutos em informação útil, permitindo que o cidadão comum fiscalize seus representantes sem necessidade de conhecimento técnico. A plataforma atua como uma ponte entre os dados abertos governamentais e a população, tornando a transparência efetivamente acessível.
+O \textit{Tô De Olho} agrega valor ao transformar dados brutos em informação útil, permitindo que o cidadão comum fiscalize seus representantes sem exigir conhecimento técnico. A plataforma atua como ponte entre os dados abertos governamentais e a população, tornando a transparência efetivamente acessível.
 
 \subsection{Tecnologias adotadas}
 
@@ -71,7 +71,7 @@ A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \texti
     \item \textbf{Golang}: linguagem principal para desenvolvimento dos microsserviços, escolhida por seu alto desempenho, eficiência em concorrência e baixo consumo de recursos;
     \item \textbf{PostgreSQL}: banco de dados relacional para persistência dos dados legislativos;
     \item \textbf{Redis}: sistema de cache em memória para otimização de consultas frequentes;
-    \item \textbf{RabbitMQ/Google Pub/Sub}: \textit{message queue} para comunicação assíncrona entre microsserviços e desacoplamento do processo de ingestão de dados.
+    \item \textbf{RabbitMQ ou Google Pub/Sub}: \textit{message queue} para comunicação assíncrona entre microsserviços e desacoplamento da ingestão de dados.
 \end{itemize}
 
 \textbf{Frontend:}
@@ -97,7 +97,7 @@ A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \texti
 
 \subsection{Trabalhos Relacionados}
 
-Diversas iniciativas no Brasil e no mundo buscam promover a transparência política através da tecnologia. Entre os trabalhos relacionados, destacam-se:
+Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. Entre os trabalhos relacionados, destacam-se:
 
 \textbf{Portal da Transparência (CGU):} Principal ferramenta oficial do governo federal para transparência, disponibiliza dados sobre gastos públicos, servidores e convênios. Embora abrangente, sua interface é voltada para consultas técnicas e não oferece visualizações consolidadas por parlamentar ou fórum de discussão cidadã.
 
@@ -281,7 +281,7 @@ Todos os serviços são containerizados com Docker e orquestrados pelo Kubernete
     [Forneça uma lista completa de todos os documentos mencionados ou que foram utilizados como referência na elaboração deste documento. Todos os documentos devem ser identificados por título, data, nome e organização responsável por sua publicação. Especifique as fontes dessas referências. Utilize o padrão ABNT para o formato das referências.]
 } \\
 \textcolor{red}{[Obrigatório]} \\
-\textbf{[Dica: insira suas referencias no arquivo "referencias.bib" e utilize o comando "cite" para utilizá-la]}
+\textbf{[Dica: insira suas referências no arquivo ``referencias.bib'' e utilize o comando ``cite'']}
 
 \newpage
 \section*{Apêndices}
