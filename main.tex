@@ -1,3 +1,5 @@
+% Garante modo numerico do abnTeX2 para sincronizar com o estilo bibliografico
+\PassOptionsToPackage{num}{abntex2cite}
 \documentclass[11pt]{relatorio_tcc_ads_ifba}
 \begin{document}
 
@@ -35,17 +37,15 @@
 % ---------------------------------------------------------------------
 \section{Visão geral }
 
+O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência parlamentar focada na Câmara dos Deputados. Sua proposta é aproximar cidadãos dos dados legislativos oficiais, convertendo informação dispersa em conhecimento acessível. O projeto se ancora na LAI e nos princípios de dados abertos, mas reconhece que a disponibilidade bruta não basta para garantir fiscalização social \cite{avelino2021democracia}. Ao combinar arquitetura de \textit{microservices}, ingestão híbrida (API v2 + arquivos em massa) e um front-end em Next.js 15/TypeScript, a plataforma busca reduzir barreiras técnicas e fomentar participação cidadã \cite{Gomes2010}.
+
 % Recomendo manter cada seção ou subseção de texto em um arquivo separado e depois utilizados com o comando include, conforme o exemplo a seguir. Porém, se preferir, também pode deixar seu texto neste arquivo
 %\input{src/sections/objetivos}
 %\input{src/sections/definicoes}
 
 \subsection{Declaração do Problema}
 
-A transparência governamental é um pilar fundamental para o fortalecimento da democracia, e a Lei de Acesso à Informação (LAI), instituída em 2011, representa um marco regulatório importante no Brasil ao estabelecer diretrizes para que órgãos públicos disponibilizem informações de interesse coletivo. No entanto, embora os dados da Câmara dos Deputados sejam públicos e estejam disponíveis através de uma API oficial (\url{https://dadosabertos.camara.leg.br/api/v2/}), eles encontram-se dispersos e em formatos que não favorecem a análise por cidadãos leigos.
-
-O problema central está na complexidade de acesso e interpretação dessas informações. A disponibilidade de dados abertos não elimina a dificuldade; ela apenas transfere o desafio do acesso para o processamento, organização e apresentação dos dados de forma compreensível. O cidadão comum não possui conhecimento técnico para consumir APIs, processar grandes volumes de dados ou correlacionar informações sobre despesas parlamentares, votações e proposições.
-
-Esse cenário gera um distanciamento entre eleitores e seus representantes, prejudicando a fiscalização cidadã e o exercício pleno da democracia. Com as eleições federais de 2026 no horizonte, torna-se ainda mais urgente a necessidade de ferramentas que permitam aos brasileiros acompanhar e avaliar a atuação de seus deputados de forma informada e acessível.
+Embora a API oficial da Câmara (\url{https://dadosabertos.camara.leg.br/api/v2/}) disponibilize dados públicos, eles permanecem dispersos, heterogêneos e tecnicamente onerosos para o cidadão leigo. A democracia digital exige não apenas acesso, mas condições de interpretação e participação qualificadas \cite{Gomes2010, pateman1970}. Sem interfaces acessíveis e contexto, a transparência corre o risco de se converter em pseudoparticipação, mantendo o distanciamento entre eleitores e representantes \cite{avelino2021democracia}. Com as eleições federais de 2026 no horizonte, torna-se urgente consolidar dados de deputados, despesas, votações e proposições em um ambiente \textit{web} usável, que permita fiscalização cidadã informada e inclusiva.
 
 \subsection{Proposta de Solução de Software}
 

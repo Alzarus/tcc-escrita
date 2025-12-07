@@ -22,9 +22,10 @@
 \RequirePackage[a4paper, margin=2.54cm]{geometry} % Definir a margem do documento
 \RequirePackage{helvet} % Package with arial font 
 \RequirePackage{textcase} % Caso seja necessário alterar a caixa do texto
-\RequirePackage[num, abnt-repeated-title-omit=yes, abnt-emphasize=bf]{abntex2cite} % Utilizzado para as referências no padrão ABNT
 \RequirePackage{indentfirst} 
 \RequirePackage[plainpages=false,pdfpagelabels,hidelinks]{hyperref}
+% Carrega o abnTeX2 cite após o hyperref para preservar ajustes de \bibitem
+\RequirePackage[num, abnt-repeated-title-omit=yes, abnt-emphasize=bf]{abntex2cite} % Utilizzado para as referências no padrão ABNT
 \RequirePackage[skip=10pt, indent=20pt]{parskip}
 \RequirePackage{setspace}
 \RequirePackage{titlesec}
