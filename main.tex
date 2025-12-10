@@ -42,7 +42,7 @@ O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência parlamen
 A literatura de democracia digital evidencia que TICs ampliam possibilidades de participação, mas só geram valor quando articuladas a contextos de uso e inclusão. Avelino et al. mapeiam iniciativas de dados abertos e ouvidorias digitais, reforçando que tecnologias precisam ser mediadas por desenho institucional e pela criação de esferas públicas qualificadas \cite{avelino2021democracia}. Farias destaca que a internet desloca o cidadão de receptor para produtor de conteúdo, ampliando o espaço público virtual e a demanda por accountability contínua \cite{farias2013possibilidades}. Dados recentes da PNAD TIC 2024 mostram que a hiperconexão é majoritariamente móvel, mas ainda há lacunas de acesso, o que exige interfaces acessíveis e mobile-first \cite{pnad2024}. À luz desses estudos, o \textit{Tô De Olho} procura transformar a abertura de dados em participação concreta, aproximando a lógica deliberativa discutida por Gomes e Pateman da prática cotidiana de fiscalização e debate \cite{Gomes2010, pateman1970, gomes2019}.
 
 % Recomendo manter cada seção ou subseção de texto em um arquivo separado e depois utilizados com o comando include, conforme o exemplo a seguir. Porém, se preferir, também pode deixar seu texto neste arquivo
-%\input{src/sections/objetivos}
+\input{src/sections/objetivos}
 %\input{src/sections/definicoes}
 
 \subsection{Declaração do Problema}
@@ -58,8 +58,7 @@ A plataforma centraliza informações sobre os 513 deputados federais, incluindo
 \begin{itemize}
     \item \textbf{Perfil do Parlamentar}: dados biográficos, partido, estado, links para redes sociais e resumo de atividades;
     \item \textbf{Transparência Financeira}: visualização clara e pesquisável dos gastos da Cota Parlamentar;
-    \item \textbf{Atividade Legislativa}: lista de proposições apresentadas e histórico de votações nas principais pautas;
-    \item \textbf{Fórum de Discussão}: espaço para debate cívico entre cidadãos, com validação via API do TSE para garantir a participação de eleitores reais.
+    \item \textbf{Atividade Legislativa}: lista de proposições apresentadas e histórico de votações nas principais pautas.
 \end{itemize}
 
 O \textit{Tô De Olho} agrega valor ao transformar dados brutos em informação útil, permitindo que o cidadão comum fiscalize seus representantes sem exigir conhecimento técnico. A plataforma atua como ponte entre os dados abertos governamentais e a população, tornando a transparência efetivamente acessível.
@@ -93,15 +92,14 @@ A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \texti
 \textbf{Fontes de Dados:}
 \begin{itemize}
     \item \textbf{API RESTful v2 da Câmara dos Deputados}: fonte primária de dados atualizados;
-    \item \textbf{Arquivos em Massa (JSON/CSV)}: utilizados para carga inicial histórica (\textit{backfill});
-    \item \textbf{API do TSE}: validação de eleitores para acesso ao fórum.
+    \item \textbf{Arquivos em Massa (JSON/CSV)}: utilizados para carga inicial histórica (\textit{backfill}).
 \end{itemize}
 
 \subsection{Trabalhos Relacionados}
 
 Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. Entre os trabalhos relacionados, destacam-se:
 
-\textbf{Portal da Transparência (CGU):} Principal ferramenta oficial do governo federal para transparência, disponibiliza dados sobre gastos públicos, servidores e convênios. Embora abrangente, sua interface é voltada para consultas técnicas e não oferece visualizações consolidadas por parlamentar ou fórum de discussão cidadã.
+\textbf{Portal da Transparência (CGU):} Principal ferramenta oficial do governo federal para transparência, disponibiliza dados sobre gastos públicos, servidores e convênios. Embora abrangente, sua interface é voltada para consultas técnicas e não oferece visualizações consolidadas por parlamentar.
 
 \textbf{Portal de Dados Abertos da Câmara:} Fonte oficial dos dados legislativos, oferece API e arquivos para download. Contudo, exige conhecimento técnico para consumo e não provê interpretação ou contextualização das informações.
 
@@ -109,7 +107,7 @@ Diversas iniciativas no Brasil e no mundo buscam promover a transparência polí
 
 \textbf{Serenata de Amor:} Projeto de \textit{data science} que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares. Foca em análise automatizada de anomalias, enquanto o \textit{Tô De Olho} prioriza a apresentação acessível dos dados para fiscalização cidadã direta.
 
-\textbf{Diferencial do Tô De Olho:} Nossa solução se diferencia por: (1) consolidar múltiplas fontes de dados em uma interface única e acessível; (2) oferecer um fórum validado para discussão cívica; (3) utilizar arquitetura de microsserviços escalável para suportar picos de acesso em períodos eleitorais; (4) focar na experiência do usuário leigo, seguindo princípios de acessibilidade (WCAG 2.1).
+\textbf{Diferencial do Tô De Olho:} Nossa solução se diferencia por: (1) consolidar múltiplas fontes de dados em uma interface única e acessível; (2) utilizar arquitetura de microsserviços escalável para suportar picos de acesso em períodos eleitorais; (3) focar na experiência do usuário leigo, seguindo princípios de acessibilidade (WCAG 2.1).
 
 \section{Requisitos}
 
@@ -134,13 +132,6 @@ Diversas iniciativas no Brasil e no mundo buscam promover a transparência polí
     \item \textbf{[RF07]} Como cidadão, eu preciso visualizar as proposições apresentadas por um deputado para acompanhar sua produtividade.
     \item \textbf{[RF08]} Como cidadão, eu preciso ver como um deputado votou nas principais pautas para avaliar seu posicionamento.
     \item \textbf{[RF09]} Como cidadão, eu preciso acompanhar a tramitação de projetos de lei para entender o processo legislativo.
-\end{itemize}
-
-\textbf{Módulo de Fórum:}
-\begin{itemize}
-    \item \textbf{[RF10]} Como eleitor validado, eu preciso criar discussões sobre temas políticos para debater com outros cidadãos.
-    \item \textbf{[RF11]} Como eleitor validado, eu preciso comentar em discussões existentes para contribuir com o debate.
-    \item \textbf{[RF12]} Como usuário, eu preciso validar meu CPF junto ao TSE para participar do fórum como eleitor verificado.
 \end{itemize}
 
 \textbf{Módulo de Usuário:}
@@ -173,7 +164,6 @@ Diversas iniciativas no Brasil e no mundo buscam promover a transparência polí
 \textbf{Segurança:}
 \begin{itemize}
     \item \textbf{[RNF08]} As comunicações devem ser criptografadas utilizando HTTPS/TLS.
-    \item \textbf{[RNF09]} A validação de eleitores deve ser realizada através da API oficial do TSE.
     \item \textbf{[RNF10]} O sistema deve estar em conformidade com a LGPD (Lei Geral de Proteção de Dados).
 \end{itemize}
 
@@ -218,7 +208,6 @@ O \textit{Tô De Olho} adota uma arquitetura de \textbf{microsserviços}, onde c
     \item \texttt{servico-despesas}: transparência financeira e cota parlamentar;
     \item \texttt{servico-atividades}: proposições e votações legislativas;
     \item \texttt{servico-usuarios}: autenticação e gerenciamento de perfis;
-    \item \texttt{servico-forum}: discussões e participação cidadã;
     \item \texttt{servico-ingestao-dados}: ETL (\textit{Extract, Transform, Load}) de dados da Câmara.
 \end{itemize}
 
@@ -271,6 +260,8 @@ Todos os serviços são containerizados com Docker e orquestrados pelo Kubernete
 } \\
 \textcolor{red}{[Obrigatório]}
 }
+
+\input{src/sections/conclusao}
 
 \section*{Agradecimentos}
 \textcolor{blue}{

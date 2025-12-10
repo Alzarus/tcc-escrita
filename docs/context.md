@@ -78,8 +78,6 @@ O **"Tô De Olho"** é uma plataforma web de transparência política concebida 
 
 - `servico-usuarios`: Autenticação e perfis
 
-- `servico-forum`: Discussões cidadãs
-
 - `servico-ingestao-dados`: ETL de dados públicos
 
 
@@ -141,12 +139,6 @@ O **"Tô De Olho"** é uma plataforma web de transparência política concebida 
     - 171+: apresentar requerimento de urgência
 
     - 257+: inclusão imediata na pauta
-
-
-
-**API do TSE**:
-
-- Validação de eleitores para acesso ao fórum
 
 - Verificação de CPF e dados regionais
 

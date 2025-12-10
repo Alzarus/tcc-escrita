@@ -81,7 +81,6 @@ Principais Funcionalidades (com screenshots ou mockups):
 Perfil do Parlamentar: Foto, partido, estado, links para redes sociais, resumo de atividades.
 Transparência Financeira: Visualização clara e pesquisável dos gastos da Cota Parlamentar.
 Atividade Legislativa: Lista de proposições, como votou nas principais pautas.
-Fórum de Discussão: Espaço para debate cívico, com validação via API do TSE para garantir a participação de eleitores reais.
 Design e Usabilidade: Discutir a abordagem mobile-first e a preocupação com a acessibilidade (WCAG 2.1).
 
 6. Resultados e Discussão
@@ -99,7 +98,7 @@ Objetivo: Amarrar todas as pontas do trabalho, reforçar suas contribuições e 
 Tópicos a Cobrir:
 Síntese: Recapitular brevemente o problema, a solução implementada e os principais achados.
 Contribuições do Trabalho: Destacar a contribuição técnica (implementação de uma arquitetura robusta para dados cívicos), acadêmica (análise do tema) e social (ferramenta para a cidadania).
-Limitações: Ser honesto sobre as limitações (ex: o fórum ainda não foi testado em larga escala, a análise de dados ainda é descritiva).
+Limitações: Ser honesto sobre as limitações (ex: a análise de dados ainda é descritiva).
 Trabalhos Futuros:
 Expansão para o Senado Federal.
 Criação de um microsserviço de análise de dados com Machine Learning para identificar padrões de gastos ou votações.
