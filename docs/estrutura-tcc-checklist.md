@@ -1,6 +1,6 @@
 ## Estrutura sugerida e checklists — alinhado ao `main.tex` (TCC "Tô De Olho")
 
-Use como guia rápido para manter coerência com `main.tex`, `docs/planejamento.md`, `docs/context.md` e padrões de formatação (\textit{}, \texttt{}, \textbf{}). Ajuste conforme o texto evoluir.
+Use como guia rápido para manter coerência com `main.tex`, `docs/context.md` e padrões de formatação (\textit{}, \texttt{}, \textbf{}). Ajuste conforme o texto evoluir.
 
 ### Esqueleto comentado conforme `main.tex`
 - **Visão geral**: Breve apresentação do projeto e do propósito do documento.

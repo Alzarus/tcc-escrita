@@ -2,7 +2,7 @@
 
 ### Contexto do projeto
 - Este repositório cobre a **parte escrita** do TCC sobre a plataforma "Tô De Olho" (transparência da Câmara dos Deputados). A implementação (código) está em `C:\Users\pedro\OneDrive\Documentos\projetos\to-de-olho`.
-- Fontes principais neste repo: `docs/context.md`, `docs/planejamento.md`, `docs/resumo-democracia-digital.md`, `docs/roadmap.md`.
+- Fontes principais neste repo: `docs/estrutura-tcc-checklist.md`, `docs/context.md`, `docs/resumo-democracia-digital.md`, `docs/roadmap.md`.
 
 ### Persona e tom
 - Escrever em português, registro acadêmico-formal porém claro e direto.
@@ -11,7 +11,7 @@
 
 ### Formatação e LaTeX
 - Seguir padrões descritos em `docs/context.md`: termos em inglês com `\textit{}`; código com `\texttt{}`; negrito com `\textbf{}`.
-- Manter coerência de seções sugeridas em `docs/planejamento.md` (Resumo, Introdução, Fundamentação, Metodologia, Solução, Resultados, Conclusão, Referências).
+- Manter coerência com o esqueleto em `docs/estrutura-tcc-checklist.md` e `main.tex` (Resumo, Introdução, Fundamentação, Metodologia, Solução, Resultados, Conclusão, Referências).
 - Preferir listas e parágrafos enxutos; cite referências já presentes em `referencias.bib` quando possível.
 
 ### Escopo e limites
