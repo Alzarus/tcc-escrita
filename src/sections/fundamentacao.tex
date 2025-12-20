@@ -1,0 +1,35 @@
+\section{Fundamentação Teórica}
+
+Esta seção apresenta os conceitos fundamentais que embasam o desenvolvimento do \textit{Tô De Olho}, abrangendo transparência pública, democracia digital e arquitetura de sistemas distribuídos.
+
+\subsection{Transparência Pública e Dados Abertos}
+
+A transparência governamental constitui pilar fundamental do Estado Democrático de Direito. No Brasil, a Lei de Acesso à Informação (LAI – Lei nº 12.527/2011) estabelece que o acesso é a regra e o sigilo, a exceção, garantindo aos cidadãos o direito de solicitar e receber informações públicas sem necessidade de justificativa \cite{avelino2021democracia}.
+
+A literatura distingue duas modalidades de transparência: a \textbf{transparência ativa}, na qual o Estado disponibiliza informações de forma proativa em portais e bases de dados; e a \textbf{transparência passiva}, que responde às solicitações dos cidadãos via canais específicos. O Portal de Dados Abertos do Senado Federal exemplifica a primeira modalidade, disponibilizando APIs e arquivos para consulta pública.
+
+O conceito de \textit{Open Government Data} (Dados Governamentais Abertos) preconiza que as informações públicas devem ser disponibilizadas em formatos abertos, processáveis por máquina e livres de licenças restritivas. Tim Berners-Lee propôs uma escala de cinco estrelas para avaliar a qualidade dos dados abertos, sendo o nível máximo aquele em que os dados são linkados (\textit{Linked Open Data}), permitindo cruzamentos entre diferentes fontes \cite{avelino2021democracia}.
+
+\subsection{Democracia Digital e Tecnologia Cívica}
+
+O conceito de democracia digital refere-se ao emprego de tecnologias de informação e comunicação (TICs) para produzir ``mais democracia e melhores democracias'' \cite{Gomes2010}. Gomes identifica três fases históricas neste campo: a teledemocracia (anos 1970-90), marcada por experimentos com televisão interativa; a fase da internet (1995-2005), caracterizada pelo debate sobre potenciais e limites da rede; e a autonomização contemporânea, onde subtemas como governo aberto, \textit{smart cities} e parlamento digital desenvolvem-se de forma independente \cite{gomes2019}.
+
+A participação cidadã mediada por tecnologia pode assumir diferentes níveis de profundidade. Arnstein propõe uma escala que vai da manipulação e terapia (não-participação), passa pela informação e consulta (participação simbólica), até alcançar a parceria, delegação de poder e controle cidadão (poder real). Ferramentas como o \textit{Tô De Olho} situam-se nos níveis de informação e transparência, provendo ao cidadão subsídios para o exercício da fiscalização e do controle social \cite{avelino2021democracia}.
+
+No contexto brasileiro, Avelino et al. mapeiam iniciativas de governo aberto no âmbito federal, identificando avanços significativos na disponibilização de dados, porém alertando para desafios como a brecha digital e o analfabetismo funcional, que limitam o acesso efetivo da população às informações disponibilizadas \cite{avelino2021democracia}.
+
+\subsection{Arquitetura de Microsserviços}
+
+A arquitetura de \textit{microservices} representa uma abordagem de desenvolvimento na qual uma aplicação é estruturada como conjunto de serviços independentes, cada qual responsável por uma funcionalidade específica do negócio. Diferentemente das arquiteturas monolíticas tradicionais, os microsserviços podem ser desenvolvidos, implantados e escalados de forma independente \cite{taibi2017microservices}.
+
+Munaf et al. identificam os principais benefícios desta arquitetura: escalabilidade granular, que permite alocar recursos apenas aos serviços mais demandados; manutenibilidade, uma vez que alterações em um serviço não afetam os demais; e resiliência, já que a falha de um componente não compromete todo o sistema \cite{munaf2019microservices}.
+
+No contexto de e-governo, Maureal et al. demonstram a aplicabilidade desta arquitetura em sistemas públicos de larga escala, citando benefícios como a capacidade de integrar múltiplas fontes de dados governamentais de forma desacoplada \cite{maureal2024enhancing}. Para o \textit{Tô De Olho}, esta abordagem permite que os serviços de ingestão de dados (APIs do Senado, Portal da Transparência) operem independentemente dos serviços de apresentação (\textit{frontend}), garantindo que picos de acesso em períodos eleitorais possam ser absorvidos mediante escalamento horizontal seletivo.
+
+\subsection{Engenharia de Dados: APIs e Processos ETL}
+
+A estratégia de ingestão de dados do \textit{Tô De Olho} fundamenta-se no padrão ETL (\textit{Extract, Transform, Load}): extração dos dados brutos das fontes oficiais, transformação para normalização e enriquecimento, e carga no banco de dados da aplicação.
+
+A abordagem híbrida adotada combina dois mecanismos: \textit{backfill}, que realiza carga inicial massiva através de arquivos históricos disponibilizados em formato CSV; e sincronização contínua, que consome as APIs RESTful oficiais via tarefas agendadas (\textit{cron jobs}) para manter os dados atualizados.
+
+Ulbricht discute as implicações da coleta automatizada de dados públicos para projetos democráticos, argumentando que técnicas de \textit{web scraping} podem democratizar o acesso à informação ao superar as limitações de interfaces oficiais pouco amigáveis \cite{ulbricht2020scraping}. No contexto do \textit{Tô De Olho}, o \textit{scraping} é empregado de forma complementar às APIs, capturando dados não estruturados como valores de remuneração de gabinete que não estão disponíveis via interface programática.

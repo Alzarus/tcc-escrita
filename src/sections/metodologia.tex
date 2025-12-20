@@ -1,0 +1,98 @@
+\section{Metodologia}
+
+Esta seção descreve a metodologia adotada para o desenvolvimento do \textit{Tô De Olho}, detalhando a abordagem de desenvolvimento, as fontes de dados utilizadas, a arquitetura do sistema e a infraestrutura de implantação.
+
+\subsection{Abordagem de Desenvolvimento}
+
+O desenvolvimento do projeto seguiu uma abordagem iterativa e incremental, inspirada em práticas ágeis. O trabalho foi organizado em ciclos de desenvolvimento focados em entregas funcionais, permitindo validação contínua das funcionalidades implementadas.
+
+A divisão do trabalho ocorreu em cinco fases principais:
+\begin{enumerate}
+    \item \textbf{Fundação}: Estruturação do projeto em Golang, implementação do cliente para a API Legislativa do Senado, criação das \textit{migrations} do banco de dados e configuração inicial do \textit{frontend} em Next.js;
+    \item \textbf{Ingestão de Dados}: Implementação do cliente para a API Administrativa, configuração do \textit{scheduler} para tarefas agendadas, coleta de votações nominais e carga de dados históricos;
+    \item \textbf{Ranking e API}: Desenvolvimento do serviço de cálculo de rankings, criação dos \textit{endpoints} REST para consumo pelo \textit{frontend}, configuração do cache Redis e implementação de testes automatizados;
+    \item \textbf{Frontend}: Desenvolvimento do \textit{dashboard} principal, interface de ranking interativo e páginas de perfil dos senadores;
+    \item \textbf{Emendas e Polimento}: Integração com o Portal da Transparência para dados de emendas parlamentares, visualizações de dados e preparação para \textit{deploy}.
+\end{enumerate}
+
+\subsection{Fontes de Dados}
+
+O sistema integra três fontes de dados governamentais oficiais, cada uma com características e formatos distintos:
+
+\subsubsection{API Legislativa do Senado}
+
+Disponível em \texttt{legis.senado.leg.br/dadosabertos}, esta API RESTful fornece dados do processo legislativo: lista de senadores em exercício, histórico de mandatos, votações nominais em plenário e comissões, proposições de autoria parlamentar, discursos proferidos e composição das comissões. Os dados são retornados em formato JSON, com paginação para grandes volumes.
+
+\subsubsection{API Administrativa do Senado}
+
+Acessível em \texttt{adm.senado.gov.br/adm-dadosabertos}, esta interface disponibiliza dados administrativos: lançamentos da Cota para o Exercício da Atividade Parlamentar dos Senadores (CEAPS), informações sobre auxílio-moradia, escritórios de apoio, lista de servidores por lotação e remunerações mensais. Alguns dados sensíveis são disponibilizados apenas em arquivos CSV para \textit{download}.
+
+\subsubsection{Portal da Transparência (CGU)}
+
+A API do Portal da Transparência (\texttt{api.portaldatransparencia.gov.br}) fornece dados de emendas parlamentares e transferências da União. Para acesso, é necessária autenticação via chave de API. O filtro \texttt{tipoEmenda=Transferência Especial} permite identificar as chamadas ``emendas PIX'', modalidade de repasse que dispensa convênio e apresenta menor rastreabilidade.
+
+\subsection{Estratégia de Ingestão}
+
+A ingestão de dados segue uma estratégia híbrida que combina carga inicial massiva com atualização contínua:
+
+\textbf{Backfill (Carga Histórica)}: Para a população inicial do banco de dados com dados históricos, podem ser utilizados arquivos em massa CSV quando disponíveis. A API Administrativa do Senado fornece endpoint REST para consulta de despesas CEAPS por ano, sendo a fonte principal para sincronização contínua.
+
+\textbf{Sincronização Contínua}: Tarefas agendadas (\textit{cron jobs}) executam diariamente a coleta de atualizações via APIs. O serviço de ingestão verifica a data da última atualização de cada entidade e solicita apenas os registros novos ou modificados, otimizando o consumo de recursos e respeitando os limites de requisição das APIs.
+
+\subsection{Arquitetura do Sistema}
+
+O \textit{Tô De Olho} adota uma arquitetura de \textit{microservices}, na qual cada componente é responsável por um domínio específico do negócio:
+
+\begin{itemize}
+    \item \texttt{servico-senadores}: Gerencia dados cadastrais dos parlamentares e cálculo de rankings;
+    \item \texttt{servico-ceaps}: Processa e totaliza despesas da Cota Parlamentar;
+    \item \texttt{servico-emendas}: Integra dados de emendas e transferências do Portal da Transparência;
+    \item \texttt{servico-legislativo}: Coleta e armazena votações, discursos e proposições;
+    \item \texttt{servico-ingestao}: Orquestra as tarefas agendadas de coleta de dados.
+\end{itemize}
+
+A comunicação entre serviços ocorre de duas formas: APIs REST para chamadas síncronas (consultas do \textit{frontend}) e filas de mensagens para operações assíncronas (processamento de grandes volumes durante a ingestão).
+
+\subsection{Stack Tecnológico}
+
+A escolha das tecnologias foi orientada por critérios de desempenho, manutenibilidade e adequação ao domínio do problema:
+
+\textbf{Backend}: Golang foi selecionada pela sua eficiência em processamento concorrente, característica essencial para a ingestão paralela de múltiplas fontes de dados. O framework Gin provê roteamento HTTP de alto desempenho, enquanto GORM oferece mapeamento objeto-relacional com suporte a migrações.
+
+\textbf{Frontend}: Next.js 15 com \textit{App Router} possibilita renderização híbrida (servidor e cliente), otimizando o tempo de carregamento inicial e o SEO. A biblioteca Recharts é utilizada para visualização de dados, permitindo gráficos interativos de evolução de gastos e comparativos entre senadores.
+
+\textbf{Banco de Dados}: PostgreSQL armazena os dados de forma estruturada, com índices otimizados para as consultas mais frequentes (agregações por senador, período e tipo de despesa). Redis atua como cache para rankings pré-computados e resultados de consultas complexas.
+
+\textbf{Scraping}: Go-Colly é empregado para captura de dados não disponíveis via API, como informações de remuneração de gabinete que são publicadas apenas em páginas HTML dinâmicas.
+
+\subsection{Infraestrutura e Implantação}
+
+Todos os serviços são containerizados com Docker, utilizando \textit{multi-stage builds} para otimização das imagens. A orquestração ocorre via Google Kubernetes Engine (GKE), que gerencia o ciclo de vida dos containers, balanceamento de carga e escalamento automático baseado em métricas de CPU e memória.
+
+O \textit{pipeline} de CI/CD, implementado com GitHub Actions, automatiza as etapas de \textit{build}, testes e \textit{deploy}:
+\begin{enumerate}
+    \item \textbf{Build}: Compilação dos binários Go e verificação de erros de sintaxe;
+    \item \textbf{Test}: Execução de testes unitários e de integração, utilizando \textit{testcontainers} para instâncias efêmeras de PostgreSQL e Redis;
+    \item \textbf{Publish}: Construção da imagem Docker e envio para o Google Container Registry;
+    \item \textbf{Deploy}: Aplicação dos manifestos Kubernetes para atualização dos serviços em produção.
+\end{enumerate}
+
+\subsection{Algoritmo de Ranking}
+
+O cálculo do \textit{score} de cada senador baseia-se em cinco critérios objetivos, ponderados conforme sua relevância para a fiscalização cidadã:
+
+\begin{itemize}
+    \item \textbf{Presença em Votações (25\%)}: Percentual de participação nas votações nominais em plenário;
+    \item \textbf{Produtividade Legislativa (25\%)}: Quantidade de proposições de autoria e relatorias assumidas;
+    \item \textbf{Economia na Cota (20\%)}: Relação entre o valor utilizado e o teto disponível da CEAPS;
+    \item \textbf{Participação em Comissões (15\%)}: Envolvimento efetivo nas comissões permanentes e temporárias;
+    \item \textbf{Transparência (15\%)}: Disponibilidade de informações públicas sobre o mandato.
+\end{itemize}
+
+Cada métrica é normalizada em uma escala de 0 a 100 antes do cálculo final, permitindo comparabilidade entre critérios de natureza distinta. A fórmula resultante é:
+
+\[
+Score = (Presença \times 0.25) + (Produtividade \times 0.25) + (Economia \times 0.20) + (Comissões \times 0.15) + (Transparência \times 0.15)
+\]
+
+Os rankings são recalculados diariamente após a conclusão das tarefas de ingestão e armazenados em cache Redis, garantindo resposta imediata às consultas do \textit{frontend}.

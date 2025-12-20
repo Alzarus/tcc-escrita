@@ -1,11 +1,12 @@
 \subsection{Objetivos}
 
 \subsubsection{Objetivo Geral}
-Desenvolver uma plataforma \textit{web} de transparência política que centralize, organize e simplifique o acesso aos dados públicos da Câmara dos Deputados, fomentando a fiscalização cidadã e o debate qualificado sobre a atuação parlamentar.
+Desenvolver uma plataforma \textit{web} de transparência política que centralize, organize e simplifique o acesso aos dados públicos do Senado Federal, fomentando a fiscalização cidadã e o debate qualificado sobre a atuação dos 81 senadores, com ênfase no monitoramento de gastos e emendas parlamentares.
 
 \subsubsection{Objetivos Específicos}
 \begin{itemize}
-    \item Implementar uma arquitetura de \textit{microservices} em Golang para ingestão, processamento e disponibilização escalável de dados legislativos;
-    \item Desenvolver rotinas de ETL (\textit{Extract, Transform, Load}) para integrar dados da API RESTful v2 da Câmara e arquivos históricos em massa;
-    \item Construir uma interface \textit{front-end} responsiva e acessível (WCAG 2.1) utilizando Next.js, facilitando a visualização de despesas e votações por cidadãos leigos.
+    \item Implementar uma arquitetura de \textit{microservices} em Golang para ingestão de dados da API do Senado e do Portal da Transparência;
+    \item Desenvolver rotinas ETL para consumir a API Administrativa do Senado (CEAPS) e utilizar \textit{Web Scraping} apenas para dados não estruturados, como remuneração de gabinete;
+    \item Criar algoritmos de \textit{Ranking} para avaliar senadores com base em assiduidade, transparência de gastos e disciplina partidária;
+    \item Construir uma interface \textit{front-end} responsiva utilizando Next.js 15, permitindo a visualização intuitiva de perfis, despesas e "scorecards" de fiscalização.
 \end{itemize}
