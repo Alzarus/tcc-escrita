@@ -97,19 +97,36 @@ A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \texti
     \item \textbf{API do Portal da Transparência (CGU)}: dados de emendas parlamentares e transferências da união.
 \end{itemize}
 
-\subsection{Trabalhos Relacionados - A FAZER}
+\subsection{Trabalhos Relacionados}
 
-Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. Entre os trabalhos relacionados, destacam-se:
+Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. À luz da Escada de Participação de Arnstein \cite{arnstein1969ladder}, podemos classificar essas ferramentas conforme o grau de poder que conferem ao cidadão:
 
-\textbf{Portal da Transparência (CGU):} Principal ferramenta oficial do governo federal para transparência, disponibiliza dados sobre gastos públicos, servidores e convênios. Embora abrangente, sua interface é voltada para consultas técnicas e não oferece visualizações consolidadas por parlamentar.
+\textbf{Nível Informação:}
 
-\textbf{Portal de Dados Abertos da Câmara:} Fonte oficial dos dados legislativos, oferece API e arquivos para download. Contudo, exige conhecimento técnico para consumo e não provê interpretação ou contextualização das informações.
+\textbf{Portal da Transparência (CGU):} Principal ferramenta oficial do governo federal para acesso a dados de gastos públicos, servidores e transferências. Embora abrangente, sua interface é voltada para consultas técnicas, exigindo conhecimento prévio sobre a estrutura orçamentária para navegação efetiva. O cidadão tem acesso aos dados, mas sem ferramentas de análise comparativa.
 
-\textbf{Ranking dos Políticos:} Iniciativa da sociedade civil que avalia parlamentares com base em critérios predefinidos. Diferencia-se do \textit{Tô De Olho} por adotar uma abordagem de \textit{ranking} com critérios fixos, enquanto nossa plataforma permite que o próprio cidadão analise os dados e forme sua opinião.
+\textbf{Portal de Dados Abertos da Câmara e Senado:} Fontes oficiais que disponibilizam APIs e arquivos para download. Seguem os princípios de \textit{Open Government Data}, porém exigem conhecimento técnico para consumo. Situam-se no degrau mais básico da informação --- dados brutos sem interpretação.
 
-\textbf{Serenata de Amor:} Projeto de \textit{data science} que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares. Foca em análise automatizada de anomalias, enquanto o \textit{Tô De Olho} prioriza a apresentação acessível dos dados para fiscalização cidadã direta.
+\textbf{Nível Consulta:}
 
-\textbf{Diferencial do Tô De Olho:} Nossa solução se diferencia por: (1) consolidar múltiplas fontes de dados em uma interface única e acessível; (2) utilizar arquitetura de microsserviços escalável para suportar picos de acesso em períodos eleitorais; (3) focar na experiência do usuário leigo, seguindo princípios de acessibilidade (WCAG 2.1).
+\textbf{Ranking dos Políticos:} Iniciativa da sociedade civil que avalia parlamentares com base em critérios predefinidos de votação. Diferencia-se por adotar uma abordagem de \textit{ranking} com critérios fixos focados em posicionamento ideológico. Avança em relação aos portais oficiais ao oferecer interpretação, porém a metodologia fechada limita a autonomia do cidadão.
+
+\textbf{Nível Fiscalização Qualificada:}
+
+\textbf{Operação Serenata de Amor:} Projeto de código aberto que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares da Câmara dos Deputados. Albuquerque, Almeida e Costa \cite{albuquerque2018serenata} analisaram o projeto sob a ótica de \textbf{valor público}, demonstrando como tecnologias desenvolvidas com dados governamentais abertos podem potencializar o controle social.
+
+O projeto é composto por dois componentes principais: a \textit{Rosie}, algoritmo de \textit{machine learning} que analisa notas fiscais em busca de padrões anômalos; e o \textit{Jarbas}, interface web que permite ao cidadão consultar as suspeitas identificadas. O estudo aponta que, entre 2016 e 2018, a Rosie analisou mais de 3 milhões de reembolsos e gerou milhares de denúncias formais ao Congresso.
+
+\textbf{Diferencial do Tô De Olho:}
+
+O \textit{Tô De Olho} posiciona-se como evolução dessas iniciativas, com foco específico no \textbf{Senado Federal} --- casa legislativa menos coberta por ferramentas de fiscalização. A proposta diferencia-se por:
+
+\begin{enumerate}
+    \item \textbf{Consolidação Multi-Fonte}: Integra três APIs distintas (Legislativa, Administrativa e Portal da Transparência) em interface única, superando a fragmentação dos portais oficiais;
+    \item \textbf{Metodologia Transparente}: Inspirado no \textit{Legislative Effectiveness Score} de Volden e Wiseman \cite{volden2018legislative}, o algoritmo de ranking expõe claramente critérios e pesos, permitindo que o cidadão compreenda --- e questione --- a avaliação;
+    \item \textbf{Design Orientado à Ação}: Seguindo princípios de visualização retórica \cite{hullman2011visualization}, a plataforma contextualiza dados absolutos com médias e comparativos, reduzindo a manipulação e estimulando conclusões informadas;
+    \item \textbf{Foco em Emendas PIX}: Rastreia transferências especiais (modalidade criada em 2020), preenchendo lacuna de transparência não coberta por ferramentas anteriores.
+\end{enumerate}
 
 % Fundamentação Teórica - Conceitos base do projeto
 \input{src/sections/fundamentacao}
@@ -163,7 +180,7 @@ Diversas iniciativas no Brasil e no mundo buscam promover a transparência polí
 
 \textbf{Confiabilidade:}
 \begin{itemize}
-    \item \textbf{[RNF06]} Os dados devem ser sincronizados diariamente com a API oficial da Câmara dos Deputados.
+    \item \textbf{[RNF06]} Os dados devem ser sincronizados diariamente com as APIs oficiais do Senado Federal e Portal da Transparência.
     \item \textbf{[RNF07]} O sistema deve manter disponibilidade mínima de 99\% durante o período eleitoral.
 \end{itemize}
 
@@ -198,7 +215,7 @@ O Diagrama de Classes modela a estrutura estática do domínio. As principais en
     \centering
     \caption{Diagrama de Classes Simplificado (Conceitual)}
     % Placeholder para imagem
-    \includegraphics[width=0.8\textwidth]{docs/diagrama_classes_placeholder.png} 
+    \includegraphics[width=0.8\textwidth]{docs/diagrama_classes.png} 
     \par\small{Fonte: Autoria Própria}
 \end{figure}
 
@@ -209,7 +226,7 @@ O sistema é implantado em nuvem (GCP), utilizando orquestração de containers.
     \centering
     \caption{Diagrama de Implantação e Infraestrutura}
     % Placeholder para imagem
-    \includegraphics[width=0.8\textwidth]{docs/diagrama_implantacao_placeholder.png}
+    \includegraphics[width=0.8\textwidth]{docs/diagrama_implantacao.png}
     \par\small{Fonte: Autoria Própria}
 \end{figure}
 
@@ -236,7 +253,7 @@ O \textit{Tô De Olho} adota uma arquitetura de \textbf{microsserviços}, onde c
 
 A plataforma utiliza uma estratégia híbrida de ingestão:
 \begin{enumerate}
-    \item \textbf{Backfill}: carga inicial histórica através de arquivos em massa (JSON/CSV) disponibilizados pela Câmara;
+    \item \textbf{Backfill}: carga inicial histórica através de arquivos em massa (JSON/CSV) disponibilizados pelo Senado;
     \item \textbf{Sincronização Contínua}: \textit{CronJobs} diários que consomem a API RESTful v2 para manter os dados atualizados.
 \end{enumerate}
 
