@@ -2,6 +2,7 @@
 \PassOptionsToPackage{num}{abntex2cite}
 \documentclass[11pt]{relatorio_tcc_ads_ifba}
 \usepackage{float}
+\usepackage{amsmath}
 \begin{document}
 
 % Aluno/autor do documento (obrigatório)
@@ -38,9 +39,9 @@
 % ---------------------------------------------------------------------
 \section{Visão geral }
 
-O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência parlamentar focada no Senado Federal. Sua proposta é aproximar cidadãos dos dados legislativos oficiais, convertendo informação dispersa em conhecimento fiscalizável. O projeto vai além dos dados abertos básicos, integrando fontes complexas como a Cota para o Exercício da Atividade Parlamentar dos Senadores (CEAPS) e as "emendas PIX". Ao combinar arquitetura de \textit{microservices}, ingestão híbrida (API do Senado, Scrapers e Portal da Transparência) e um front-end em Next.js 15, a plataforma busca reduzir a assimetria de informação sobre os 81 senadores da República \cite{Gomes2010}.
+O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência parlamentar focada no Senado Federal. Sua proposta é aproximar cidadãos dos dados legislativos oficiais, convertendo informação dispersa em conhecimento fiscalizável e de fácil compreensão. O projeto vai além dos dados abertos básicos, integrando fontes complexas como a Cota para o Exercício da Atividade Parlamentar dos Senadores (CEAPS) e as ``emendas PIX''. Ao combinar uma arquitetura de \textbf{monolito modular} em Go, ingestão via APIs oficiais (Senado e Portal da Transparência) e um \textit{front-end} em Next.js, a plataforma busca reduzir a assimetria de informação sobre os 81 senadores da República \cite{Gomes2010}.
 
-A literatura de democracia digital evidencia que TICs ampliam possibilidades de participação, mas só geram valor quando articuladas a contextos de uso e inclusão. Avelino et al. mapeiam iniciativas de dados abertos, reforçando que tecnologias precisam ser mediadas por visualizações claras para efetivação do controle social \cite{avelino2021democracia}. Com um corpo legislativo menor e mais "caro" per capita que a Câmara, o Senado carece de ferramentas focadas que cruzem votações nominais com a execução orçamentária de emendas. À luz desses estudos, o \textit{Tô De Olho} procura transformar a transparência passiva em *accountability* ativa, oferecendo rankings e métricas objetivas de desempenho parlamentar \cite{pateman1970, gomes2019}.
+A literatura de democracia digital evidencia que TICs ampliam possibilidades de participação, mas só geram valor quando articuladas a contextos de uso e inclusão. Avelino et al. mapeiam iniciativas de dados abertos, reforçando que tecnologias precisam ser mediadas por visualizações claras para efetivação do controle social \cite{avelino2021democracia}. Com um corpo legislativo menor e mais "caro" per capita que a Câmara, o Senado carece de ferramentas focadas que cruzem votações nominais com a execução orçamentária de emendas. À luz desses estudos, o \textit{Tô De Olho} procura transformar a transparência passiva em \textit{accountability} ativa, oferecendo rankings e métricas objetivas de desempenho parlamentar \cite{pateman1970, gomes2019}.
 
 % Recomendo manter cada seção ou subseção de texto em um arquivo separado e depois utilizados com o comando include, conforme o exemplo a seguir. Porém, se preferir, também pode deixar seu texto neste arquivo
 \input{src/sections/objetivos}
@@ -48,11 +49,15 @@ A literatura de democracia digital evidencia que TICs ampliam possibilidades de 
 
 \subsection{Declaração do Problema}
 
-Embora o Senado Federal disponibilize dados via API e Portal da Transparência, estas fontes sofrem de fragmentação. A API de Dados Abertos Legislativa foca no processo legislativo (matérias, votações), enquanto a API Administrativa contém dados da CEAPS em formato estruturado. Contudo, informações de remuneração de gabinete são disponibilizadas apenas em arquivos CSV dinâmicos. Além disso, a recente explosão das "Emendas PIX" (Transferências Especiais) criou um vácuo de transparência, onde o rastro do dinheiro público se perde. Sem uma ferramenta que consolide mandato, gastos de gabinete e destinação de emendas em uma visão unificada, o cidadão não possui insumos para avaliar qualitativamente seus representantes \cite{avelino2021democracia}.
+O Senado Federal disponibiliza dados públicos por meio de APIs próprias, enquanto a Controladoria-Geral da União (CGU) mantém o Portal da Transparência com dados de emendas parlamentares. Contudo, essas fontes encontram-se fragmentadas em órgãos distintos: a API Legislativa do Senado concentra informações sobre matérias e votações; a API Administrativa do Senado reúne dados da CEAPS e remunerações de gabinete; e o Portal da Transparência da CGU hospeda os registros de emendas e transferências federais. Para construir uma visão completa de um único senador, o cidadão precisaria consultar três sistemas de dois órgãos diferentes, com interfaces, formatos e periodicidades de atualização distintos.
+
+Essa fragmentação adquire contornos mais graves quando analisamos as ``Transferências Especiais'' --- popularmente conhecidas como ``emendas PIX''. Criada em 2019, essa modalidade dispensa convênio e transfere recursos federais diretamente a estados e municípios. Alencar \cite{alencar2024emendaspix} demonstra que, do total de R\$ 20,5 bilhões transferidos por essa via, apenas R\$ 933 milhões tiveram prestação de contas adequada --- menos de 5\%. Em 2020, primeiro ano de vigência, as transferências especiais representavam 6,4\% das emendas individuais; em 2023, esse percentual saltou para 32,4\%. A distribuição é ainda mais desigual: no mesmo estado, alguns municípios receberam mais de R\$ 4.500 \textit{per capita}, enquanto outros receberam menos de R\$ 1 --- sem qualquer justificativa pública dos parlamentares.
+
+Além da barreira técnica imposta pela fragmentação dos dados, há uma barreira social igualmente relevante. Segundo o Indicador de Alfabetismo Funcional \cite{inaf2024}, 29\% da população brasileira entre 15 e 64 anos é funcionalmente analfabeta, o que limita severamente a capacidade de interpretar planilhas, gráficos e relatórios disponibilizados nos portais oficiais. Nesse contexto, a simples disponibilização de dados brutos não garante transparência efetiva: é necessária uma ferramenta que consolide as informações dispersas e as apresente de forma visual e acessível, permitindo ao cidadão comum avaliar qualitativamente seus representantes \cite{avelino2021democracia}.
 
 \subsection{Proposta de Solução de Software}
 
-O \textit{Tô De Olho} é uma plataforma \textit{web} concebida para centralizar a fiscalização do Senado Federal. A solução integra múltiplas APIs oficiais e utiliza \textit{crawlers} apenas para dados não estruturados (como remuneração de gabinete), agregando informações de três dimensões do mandato: Atividade Legislativa, Gestão de Recursos (CEAPS) e Articulação Orçamentária (Emendas).
+O \textit{Tô De Olho} é uma plataforma \textit{web} concebida para centralizar a fiscalização do Senado Federal. A solução integra múltiplas APIs oficiais (legislativa, administrativa e Portal da Transparência), agregando informações de três dimensões do mandato: Atividade Legislativa, Gestão de Recursos (CEAPS) e Articulação Orçamentária (Emendas).
 
 A plataforma centraliza informações sobre os 81 senadores, incluindo:
 
@@ -66,7 +71,7 @@ O sistema atua como um "auditor digital", automatizando o cruzamento de dados qu
 
 \subsection{Tecnologias adotadas}
 
-A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \textit{microservices}, escolhido por sua escalabilidade, manutenibilidade e resiliência. As principais tecnologias adotadas são:
+A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \textbf{monolito modular}, escolhido por sua simplicidade de desenvolvimento e deploy, mantendo a organização interna em módulos bem definidos para garantir manutenibilidade. As principais tecnologias adotadas são:
 
 \textbf{Backend:}
 \begin{itemize}
@@ -86,8 +91,8 @@ A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \texti
 \textbf{Infraestrutura e DevOps:}
 \begin{itemize}
     \item \textbf{Docker}: containerização;
-    \item \textbf{Google Cloud Run / GKE}: orquestração serverless/container;
-    \item \textbf{GitHub Actions}: CI/CD.
+    \item \textbf{Google Cloud Run}: deploy serverless (escala a zero quando inativo);
+    \item \textbf{GitHub Actions}: CI/CD automatizado.
 \end{itemize}
 
 \textbf{Fontes de Dados:}
@@ -116,6 +121,8 @@ Diversas iniciativas no Brasil e no mundo buscam promover a transparência polí
 \textbf{Operação Serenata de Amor:} Projeto de código aberto que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares da Câmara dos Deputados. Albuquerque, Almeida e Costa \cite{albuquerque2018serenata} analisaram o projeto sob a ótica de \textbf{valor público}, demonstrando como tecnologias desenvolvidas com dados governamentais abertos podem potencializar o controle social.
 
 O projeto é composto por dois componentes principais: a \textit{Rosie}, algoritmo de \textit{machine learning} que analisa notas fiscais em busca de padrões anômalos; e o \textit{Jarbas}, interface web que permite ao cidadão consultar as suspeitas identificadas. O estudo aponta que, entre 2016 e 2018, a Rosie analisou mais de 3 milhões de reembolsos e gerou milhares de denúncias formais ao Congresso.
+
+\textbf{De Olho em Você:} Plataforma \textit{web} de código aberto focada na Câmara dos Deputados, que oferece rankings de gastos, visualização de Emendas PIX em mapas geoespaciais e ferramentas de engajamento social. O projeto inspirou a concepção inicial do \textit{Tô De Olho}, porém identificou-se uma lacuna: a ausência de ferramenta equivalente para o \textbf{Senado Federal}. Adicionalmente, o \textit{De Olho em Você} não explicita a metodologia de seus rankings, enquanto o \textit{Tô De Olho} adota abordagem baseada no \textit{Legislative Effectiveness Score} \cite{volden2018legislative}, com critérios e pesos publicados.
 
 \textbf{Diferencial do Tô De Olho:}
 
@@ -192,9 +199,10 @@ O \textit{Tô De Olho} posiciona-se como evolução dessas iniciativas, com foco
 
 \textbf{Manutenibilidade:}
 \begin{itemize}
-    \item \textbf{[RNF11]} A arquitetura de microsserviços deve permitir atualizações independentes de cada módulo.
-    \item \textbf{[RNF12]} O código deve seguir padrões de desenvolvimento e estar documentado.
-    \item \textbf{[RNF13]} O sistema deve possuir \textit{pipelines} de CI/CD para integração e deploy contínuos.
+    \item \textbf{[RNF09]} O sistema deve estar em conformidade com a LGPD (Lei Geral de Proteção de Dados).
+    \item \textbf{[RNF10]} A arquitetura modular deve permitir atualizações isoladas de cada módulo.
+    \item \textbf{[RNF11]} O código deve seguir padrões de desenvolvimento e estar documentado.
+    \item \textbf{[RNF12]} O sistema deve possuir \textit{pipelines} de CI/CD para integração e deploy contínuos.
 \end{itemize}
 
 \section{Design}
@@ -232,42 +240,39 @@ O sistema é implantado em nuvem (GCP), utilizando orquestração de containers.
 
 \subsection{Visão arquitetural}
 
-O \textit{Tô De Olho} adota uma arquitetura de \textbf{microsserviços}, onde cada componente é responsável por um domínio específico do negócio e pode ser desenvolvido, implantado e escalado de forma independente. Essa escolha arquitetural foi motivada pelos seguintes fatores:
+O \textit{Tô De Olho} adota uma arquitetura de \textbf{monolito modular}, onde os componentes são organizados internamente em módulos bem definidos, mas compartilham um único processo de deploy. Essa escolha arquitetural foi motivada pelos seguintes fatores:
 
 \begin{itemize}
-    \item \textbf{Escalabilidade}: permite escalar individualmente serviços com maior demanda, como o de consulta de despesas durante períodos de maior fiscalização;
-    \item \textbf{Manutenibilidade}: atualizações em um serviço (ex: despesas) não afetam os demais (ex: votações);
-    \item \textbf{Resiliência}: falhas em um microsserviço não comprometem todo o sistema.
+    \item \textbf{Simplicidade de Deploy}: um único container simplifica a infraestrutura e reduz custos operacionais;
+    \item \textbf{Manutenibilidade}: a organização em módulos internos permite atualizações isoladas sem a complexidade de orquestração distribuída;
+    \item \textbf{Evolução Futura}: a estrutura modular permite migração gradual para microsserviços, se necessário.
 \end{itemize}
 
-\textbf{Microsserviços Principais:}
+\textbf{Módulos Internos:}
 \begin{itemize}
-    \item \texttt{servico-senadores}: Core do domínio, gerencia dados cadastrais e ranking;
-    \item \texttt{servico-ceaps}: Responsável pelo processamento e totalização da Cota Parlamentar (ETL dos CSVs);
-    \item \texttt{servico-emendas}: Integração com API da Transparência para buscar transferências e convênios;
-    \item \texttt{servico-legislativo}: Coleta dados de votações e matérias das APIs do Senado;
-    \item \texttt{servico-ingestao}: Workers agendados para atualização diária dos dados.
+    \item \texttt{internal/senador}: Gerencia dados cadastrais dos parlamentares e mandatos;
+    \item \texttt{internal/ceaps}: Processa e totaliza despesas da Cota Parlamentar;
+    \item \texttt{internal/votacao}: Armazena e consulta votações nominais em plenário;
+    \item \texttt{internal/emenda}: Integração com Portal da Transparência para emendas parlamentares;
+    \item \texttt{internal/ranking}: Cálculo e agregação de scores de desempenho.
 \end{itemize}
 
 \textbf{Estratégia de Ingestão de Dados:}
 
 A plataforma utiliza uma estratégia híbrida de ingestão:
 \begin{enumerate}
-    \item \textbf{Backfill}: carga inicial histórica através de arquivos em massa (JSON/CSV) disponibilizados pelo Senado;
-    \item \textbf{Sincronização Contínua}: \textit{CronJobs} diários que consomem a API RESTful v2 para manter os dados atualizados.
+    \item \textbf{Backfill}: carga inicial histórica através das APIs do Senado, processando dados desde 2019;
+    \item \textbf{Sincronização Contínua}: \textit{CronJobs} diários às 03:00 BRT que consomem as APIs oficiais para manter os dados atualizados.
 \end{enumerate}
-
-\textbf{Comunicação entre Serviços:}
-
-Os microsserviços comunicam-se através de:
-\begin{itemize}
-    \item \textbf{APIs REST}: para comunicação síncrona entre serviços;
-    \item \textbf{Message Queue (RabbitMQ)}: para comunicação assíncrona e desacoplamento, especialmente no processo de ingestão de dados.
-\end{itemize}
 
 \textbf{Infraestrutura:}
 
-Todos os serviços são containerizados com Docker e orquestrados pelo Kubernetes (GKE - Google Kubernetes Engine), permitindo auto-scaling, balanceamento de carga e alta disponibilidade.
+O sistema é containerizado com Docker e implantado no Google Cloud Run, que oferece:
+\begin{itemize}
+    \item \textbf{Escala a Zero}: sem custos quando não há tráfego;
+    \item \textbf{Deploy Simplificado}: um único Dockerfile para toda a aplicação;
+    \item \textbf{Escalabilidade Automática}: instâncias são criadas sob demanda durante picos de acesso.
+\end{itemize}
 
 \subsection{Modelo de Banco de Dados}
 O modelo de dados relacional foi projetado para garantir integridade e eficiência nas consultas analíticas. As tabelas principais são:
@@ -297,15 +302,15 @@ A estratégia de qualidade do \textit{Tô De Olho} combina testes em diferentes 
 A implantação do sistema segue as práticas de \textit{GitOps} e Infraestrutura como Código.
 
 \textbf{Ambiente de Execução:}
-Os microsserviços são empacotados em imagens Docker otimizadas (\textit{multi-stage builds}) e implantados em um cluster Kubernetes (Google Kubernetes Engine - GKE). O cluster gerencia automaticamente o ciclo de vida dos containers, escalando réplicas (\textit{Horizontal Pod Autoscaling}) com base no uso de CPU/Memória.
+O sistema é empacotado em uma imagem Docker otimizada (\textit{multi-stage build}) e implantado no Google Cloud Run. Esta plataforma serverless oferece escala automática baseada na demanda, incluindo escala a zero quando não há tráfego, otimizando custos operacionais.
 
 \textbf{Pipeline de CI/CD:}
 Utiliza-se GitHub Actions para automação. A cada \textit{push} na branch principal:
 \begin{enumerate}
     \item \textit{Build}: Compilação dos binários Go e checagem de erros;
     \item \textit{Test}: Execução dos testes unitários e de integração;
-    \item \textit{Publish}: Criação da imagem Docker e envio para o Registry (GCR);
-    \item \textit{Deploy}: Atualização dos manifestos Kubernetes no cluster de produção.
+    \item \textit{Publish}: Criação da imagem Docker e envio para o Google Container Registry;
+    \item \textit{Deploy}: Atualização automática do serviço no Cloud Run.
 \end{enumerate}
 
 \section{Manual do Usuário Simplificado}
@@ -323,10 +328,7 @@ A plataforma é pública e não requer cadastro para consulta, maximizando a tra
 \input{src/sections/conclusao}
 
 \section*{Agradecimentos}
-\textcolor{blue}{
-    [Agradecimentos a colaboradores do seu projeto]
-} \\
-\textcolor{red}{[Opcional]}
+Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e apoio durante o desenvolvimento deste trabalho. Aos colegas de curso que contribuíram com discussões e sugestões. À minha família pelo apoio incondicional. Por fim, às comunidades de código aberto que mantiveram as ferramentas e documentações utilizadas neste projeto.
 
 \bibliography{referencias}
 \textcolor{blue}{
@@ -339,9 +341,25 @@ A plataforma é pública e não requer cadastro para consulta, maximizando a tra
 \section*{Apêndices}
 
 \section*{Glossário, Siglas e Abreviações}
-\textcolor{blue}{
-[Forneça as definições de todos os termos, siglas e abreviações necessárias à compreensão deste documento.]
-[Opcional]}
+
+\begin{description}
+    \item[API] \textit{Application Programming Interface} --- Interface de programação que permite a comunicação entre sistemas de software.
+    \item[CEAPS] Cota para o Exercício da Atividade Parlamentar dos Senadores --- verba destinada ao custeio de despesas relacionadas ao exercício do mandato parlamentar.
+    \item[CI/CD] \textit{Continuous Integration / Continuous Deployment} --- práticas de integração e implantação contínuas de software.
+    \item[ETL] \textit{Extract, Transform, Load} --- processo de extração, transformação e carga de dados.
+    \item[GCP] \textit{Google Cloud Platform} --- plataforma de serviços em nuvem do Google.
+    \item[LES] \textit{Legislative Effectiveness Score} --- metodologia para avaliação de efetividade legislativa desenvolvida por Volden e Wiseman.
+    \item[LGPD] Lei Geral de Proteção de Dados --- legislação brasileira sobre privacidade e proteção de dados pessoais.
+    \item[MVP] \textit{Minimum Viable Product} --- produto mínimo viável, versão inicial com funcionalidades essenciais.
+    \item[ORM] \textit{Object-Relational Mapping} --- técnica de mapeamento objeto-relacional para persistência de dados.
+    \item[PIX] Sistema de pagamentos instantâneos do Banco Central; no contexto parlamentar, refere-se às ``Emendas PIX'' (Transferências Especiais) --- modalidade de repasse que dispensa convênio.
+    \item[REST] \textit{Representational State Transfer} --- estilo arquitetural para APIs \textit{web}.
+    \item[SSR] \textit{Server-Side Rendering} --- renderização de páginas no servidor.
+    \item[TIC] Tecnologias da Informação e Comunicação.
+    \item[TTL] \textit{Time To Live} --- tempo de vida de dados em cache.
+    \item[UF] Unidade Federativa --- estado brasileiro.
+    \item[WCAG] \textit{Web Content Accessibility Guidelines} --- diretrizes de acessibilidade para conteúdo \textit{web}.
+\end{description}
 
 
 \end{document}

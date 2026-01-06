@@ -41,17 +41,17 @@ A ingestão de dados segue uma estratégia híbrida que combina carga inicial ma
 
 \subsection{Arquitetura do Sistema}
 
-O \textit{Tô De Olho} adota uma arquitetura de \textit{microservices}, na qual cada componente é responsável por um domínio específico do negócio:
+O \textit{Tô De Olho} adota uma arquitetura de \textbf{monolito modular}, na qual os componentes são organizados internamente em módulos bem definidos:
 
 \begin{itemize}
-    \item \texttt{servico-senadores}: Gerencia dados cadastrais dos parlamentares e cálculo de rankings;
-    \item \texttt{servico-ceaps}: Processa e totaliza despesas da Cota Parlamentar;
-    \item \texttt{servico-emendas}: Integra dados de emendas e transferências do Portal da Transparência;
-    \item \texttt{servico-legislativo}: Coleta e armazena votações, discursos e proposições;
-    \item \texttt{servico-ingestao}: Orquestra as tarefas agendadas de coleta de dados.
+    \item \texttt{internal/senador}: Gerencia dados cadastrais dos parlamentares e cálculo de rankings;
+    \item \texttt{internal/ceaps}: Processa e totaliza despesas da Cota Parlamentar;
+    \item \texttt{internal/emenda}: Integra dados de emendas e transferências do Portal da Transparência;
+    \item \texttt{internal/votacao}: Coleta e armazena votações nominais;
+    \item \texttt{internal/ranking}: Orquestra o cálculo de scores e agregações.
 \end{itemize}
 
-A comunicação entre serviços ocorre de duas formas: APIs REST para chamadas síncronas (consultas do \textit{frontend}) e filas de mensagens para operações assíncronas (processamento de grandes volumes durante a ingestão).
+Os módulos internos comunicam-se através de chamadas de função diretas, simplificando o fluxo de dados e facilitando a depuração. Para operações de ingestão, utilizam-se \textit{goroutines} para processamento concorrente.
 
 \subsection{Stack Tecnológico}
 
@@ -67,7 +67,7 @@ A escolha das tecnologias foi orientada por critérios de desempenho, manutenibi
 
 \subsection{Infraestrutura e Implantação}
 
-Todos os serviços são containerizados com Docker, utilizando \textit{multi-stage builds} para otimização das imagens. A orquestração ocorre via Google Kubernetes Engine (GKE), que gerencia o ciclo de vida dos containers, balanceamento de carga e escalamento automático baseado em métricas de CPU e memória.
+Todos os componentes são containerizados com Docker, utilizando \textit{multi-stage builds} para otimização das imagens. A implantação ocorre via Google Cloud Run, que oferece escala automática (inclusive a zero) e deploy simplificado a partir de um único Dockerfile.
 
 O \textit{pipeline} de CI/CD, implementado com GitHub Actions, automatiza as etapas de \textit{build}, testes e \textit{deploy}:
 \begin{enumerate}
@@ -92,7 +92,7 @@ O cálculo do \textit{score} de cada senador baseia-se em cinco critérios objet
 Cada métrica é normalizada em uma escala de 0 a 100 antes do cálculo final, permitindo comparabilidade entre critérios de natureza distinta. A fórmula resultante é:
 
 \[
-Score = (Presença \times 0.25) + (Produtividade \times 0.25) + (Economia \times 0.20) + (Comissões \times 0.15) + (Transparência \times 0.15)
+Score = (\text{Presença} \times 0.25) + (\text{Produtividade} \times 0.25) + (\text{Economia} \times 0.20) + (\text{Comissões} \times 0.15) + (\text{Transparência} \times 0.15)
 \]
 
 Os rankings são recalculados diariamente após a conclusão das tarefas de ingestão e armazenados em cache Redis, garantindo resposta imediata às consultas do \textit{frontend}.
