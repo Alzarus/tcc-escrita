@@ -57,17 +57,29 @@ Além da barreira técnica imposta pela fragmentação dos dados, há uma barrei
 
 \subsection{Proposta de Solução de Software}
 
-O \textit{Tô De Olho} é uma plataforma \textit{web} concebida para centralizar a fiscalização do Senado Federal. A solução integra múltiplas APIs oficiais (legislativa, administrativa e Portal da Transparência), agregando informações de três dimensões do mandato: Atividade Legislativa, Gestão de Recursos (CEAPS) e Articulação Orçamentária (Emendas).
+Diante da fragmentação de dados descrita e da barreira de letramento que impede o cidadão comum de interpretar planilhas e relatórios oficiais, propõe-se o \textit{Tô De Olho}: uma plataforma \textit{web} de código aberto concebida para centralizar a fiscalização do Senado Federal. A solução integra três APIs oficiais distintas --- Legislativa do Senado, Administrativa do Senado e Portal da Transparência da CGU --- consolidando informações dispersas em uma interface única e acessível.
 
-A plataforma centraliza informações sobre os 81 senadores, incluindo:
+O sistema organiza os dados em três dimensões complementares do mandato parlamentar:
 
 \begin{itemize}
-    \item \textbf{Ranking de Desempenho}: avaliação baseada em métricas objetivas como assiduidade, economia de cota e fidelidade partidária;
-    \item \textbf{Raio-X da CEAPS}: análise detalhada dos gastos com passagens, divulgação e consultorias, identificando padrões de uso;
-    \item \textbf{Rastreio de Emendas}: cruzamento de dados do Portal da Transparência para evidenciar o destino das emendas parlamentares, com foco nas modalidades de transferência especial.
+    \item \textbf{Atividade Legislativa}: votações nominais, participação em comissões, proposições de autoria e relatorias;
+    \item \textbf{Gestão de Recursos}: despesas detalhadas da Cota Parlamentar (CEAPS), com identificação de fornecedores e categorias de gasto;
+    \item \textbf{Articulação Orçamentária}: emendas parlamentares com destaque para Transferências Especiais (``emendas PIX''), permitindo rastrear o destino dos recursos.
 \end{itemize}
 
-O sistema atua como um "auditor digital", automatizando o cruzamento de dados que, manualmente, seria inviável para o eleitor comum.
+O diferencial da plataforma reside em quatro pilares:
+
+\begin{enumerate}
+    \item \textbf{Ranking Metodologicamente Fundamentado}: inspirado no \textit{Legislative Effectiveness Score} de Volden e Wiseman \cite{volden2018legislative}, o algoritmo de avaliação pondera presença em votações (25\%), produtividade legislativa (25\%), economia na cota parlamentar (20\%), participação em comissões (15\%) e transparência de dados (15\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
+    
+    \item \textbf{Visualização Orientada à Ação}: seguindo os princípios de retórica visual de Hullman \cite{hullman2011visualization}, cada dado absoluto é contextualizado com médias comparativas, reduzindo a possibilidade de interpretações manipuladas e estimulando conclusões informadas;
+    
+    \item \textbf{Acessibilidade como Requisito}: a interface segue as diretrizes WCAG 2.1 nível AA, garantindo navegação por leitores de tela, contraste adequado e operação via teclado --- essencial para atingir os 29\% de brasileiros funcionalmente analfabetos identificados pelo INAF \cite{inaf2024};
+    
+    \item \textbf{Consolidação Multi-Fonte}: ao integrar dados de três órgãos distintos em uma única consulta, a plataforma elimina a necessidade de o cidadão navegar por sistemas heterogêneos com formatos e interfaces incompatíveis.
+\end{enumerate}
+
+Em síntese, o \textit{Tô De Olho} atua como um ``auditor digital'', automatizando cruzamentos de dados que, manualmente, seriam inviáveis para o eleitor comum. O objetivo não é substituir a análise crítica do cidadão, mas fornecer-lhe ferramentas para exercê-la de forma qualificada.
 
 \subsection{Tecnologias adotadas}
 
