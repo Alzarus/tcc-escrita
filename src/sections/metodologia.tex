@@ -63,7 +63,7 @@ A escolha das tecnologias foi orientada por critérios de desempenho, manutenibi
 
 \textbf{Banco de Dados}: PostgreSQL armazena os dados de forma estruturada, com índices otimizados para as consultas mais frequentes (agregações por senador, período e tipo de despesa). Redis atua como cache para rankings pré-computados e resultados de consultas complexas.
 
-\textbf{Scraping}: Go-Colly é empregado para captura de dados não disponíveis via API, como informações de remuneração de gabinete que são publicadas apenas em páginas HTML dinâmicas.
+% Scraping removido: decisão arquitetural de usar exclusivamente APIs oficiais
 
 \subsection{Infraestrutura e Implantação}
 
@@ -74,7 +74,7 @@ O \textit{pipeline} de CI/CD, implementado com GitHub Actions, automatiza as eta
     \item \textbf{Build}: Compilação dos binários Go e verificação de erros de sintaxe;
     \item \textbf{Test}: Execução de testes unitários e de integração, utilizando \textit{testcontainers} para instâncias efêmeras de PostgreSQL e Redis;
     \item \textbf{Publish}: Construção da imagem Docker e envio para o Google Container Registry;
-    \item \textbf{Deploy}: Aplicação dos manifestos Kubernetes para atualização dos serviços em produção.
+    \item \textbf{Deploy}: Atualização automática do serviço no Google Cloud Run.
 \end{enumerate}
 
 \subsection{Algoritmo de Ranking}

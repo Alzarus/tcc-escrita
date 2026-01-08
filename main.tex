@@ -83,68 +83,80 @@ Em síntese, o \textit{Tô De Olho} atua como um ``auditor digital'', automatiza
 
 \subsection{Tecnologias adotadas}
 
-A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \textbf{monolito modular}, escolhido por sua simplicidade de desenvolvimento e deploy, mantendo a organização interna em módulos bem definidos para garantir manutenibilidade. As principais tecnologias adotadas são:
+A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \textbf{monolito modular} \cite{dragoni2017microservices}, escolhido por sua simplicidade de desenvolvimento e deploy, mantendo a organização interna em módulos bem definidos para garantir manutenibilidade. A seguir, justificamos cada escolha tecnológica.
 
-\textbf{Backend:}
-\begin{itemize}
-    \item \textbf{Golang}: linguagem escolhida para os serviços de ingestão e API, ideal para processamento concorrente de grandes volumes de dados (ETL dos CSVs de despesas);
-    \item \textbf{PostgreSQL}: banco de dados relacional para persistência estruturada (Senadores, Votações, Despesas);
-    \item \textbf{Redis}: cache para rankings e totalizadores de gastos;
-    \item \textbf{Go-Colly}: framework de \textit{web scraping} para captura de dados não estruturados (ex: sites de detalhes de emendas quanto necessário).
-\end{itemize}
+\textbf{Backend --- Golang:}
 
-\textbf{Frontend:}
-\begin{itemize}
-    \item \textbf{Next.js 15}: (App Router) para renderização eficiente e SEO;
-    \item \textbf{Recharts}: biblioteca para visualização de dados (gráficos de evolução de gastos);
-    \item \textbf{Tailwind CSS}: estilização responsiva.
-\end{itemize}
+A linguagem Go foi selecionada para o \textit{backend} ap\'os avalia\c{c}\~ao de alternativas como Node.js e Python. O fator decisivo foi o modelo de \textbf{concorr\^encia nativo}: as \textit{goroutines} permitem processar milhares de conex\~oes simult\^aneas com baixo consumo de mem\'oria, caracter\'istica essencial para a ingest\~ao paralela de dados de tr\^es APIs distintas \cite{nanz2015comparative}. Adicionalmente, a tipagem est\'atica e a compila\c{c}\~ao para bin\'ario \'unico simplificam o \textit{deploy} em cont\^eineres.
+
+O framework \textbf{Gin} foi escolhido por seu roteamento HTTP de alto desempenho \cite{alfian2024gin}, enquanto \textbf{GORM} oferece mapeamento objeto-relacional com suporte a migracoes, reduzindo a complexidade de gerenciamento do esquema de banco.
+
+\textbf{Banco de Dados --- PostgreSQL e Redis:}
+
+\textbf{PostgreSQL} foi selecionado como banco relacional por sua robustez em consultas anal\'iticas e suporte a \'indices compostos \cite{postgresql2024}, essenciais para agrega\c{c}\~oes por senador, per\'iodo e tipo de despesa. A conformidade ACID garante integridade nas opera\c{c}\~oes de ingest\~ao.
+
+\textbf{Redis} atua como camada de cache para rankings pr\'e-computados e totalizadores de gastos \cite{redis2024}. Com tempos de resposta em microssegundos, elimina a necessidade de recalcular m\'etricas a cada requisi\c{c}\~ao, atendendo ao requisito de lat\^encia inferior a 2 segundos (RNF01).
+
+\textbf{Frontend --- Next.js 15:}
+
+A escolha de \textbf{Next.js} sobre React ``puro'' justifica-se pela necessidade de \textbf{SEO} e performance inicial \cite{salim2024nextjs}. Aplica\c{c}\~oes React tradicionais utilizam renderiza\c{c}\~ao no cliente (CSR), onde motores de busca recebem uma p\'agina HTML vazia que depende de JavaScript para exibir conte\'udo --- prejudicando a indexa\c{c}\~ao. Next.js resolve esse problema com \textit{Server-Side Rendering} (SSR) e \textit{Static Site Generation} (SSG), entregando HTML pr\'e-renderizado aos \textit{crawlers}.
+
+A biblioteca \textbf{Recharts} foi selecionada para visualiza\c{c}\~ao de dados por sua integra\c{c}\~ao nativa com React e suporte a gr\'aficos responsivos \cite{recharts2024}. \textbf{Tailwind CSS} permite estiliza\c{c}\~ao eficiente com classes utilit\'arias, reduzindo o tamanho do CSS final atrav\'es de \textit{tree-shaking} \cite{tailwindcss2024}.
 
 \textbf{Infraestrutura e DevOps:}
-\begin{itemize}
-    \item \textbf{Docker}: containerização;
-    \item \textbf{Google Cloud Run}: deploy serverless (escala a zero quando inativo);
-    \item \textbf{GitHub Actions}: CI/CD automatizado.
-\end{itemize}
+
+O sistema é containerizado com \textbf{Docker} e implantado no \textbf{Google Cloud Run}, plataforma serverless que oferece escala automática (inclusive a zero, eliminando custos quando inativo). A escolha por Cloud Run ao invés de Kubernetes foi motivada pela simplicidade operacional: um único Dockerfile para toda a aplicação, sem necessidade de gerenciar clusters ou manifestos complexos.
+
+O pipeline de \textbf{CI/CD} com GitHub Actions automatiza \textit{build}, testes e \textit{deploy}, garantindo que cada \textit{commit} na branch principal passe por validação antes de chegar à produção.
 
 \textbf{Fontes de Dados:}
+
+O sistema integra três fontes oficiais com características distintas:
 \begin{itemize}
-    \item \textbf{API do Senado Federal}: dados legislativos (votações, matérias);
-    \item \textbf{Portal Administrativo do Senado}: fontes de arquivos CSV para a CEAPS;
-    \item \textbf{API do Portal da Transparência (CGU)}: dados de emendas parlamentares e transferências da união.
+    \item \textbf{API Legislativa do Senado}: dados de votações, matérias e comissões em formato JSON, com paginação para grandes volumes;
+    \item \textbf{API Administrativa do Senado}: despesas CEAPS disponíveis via endpoint REST, com opção de download em CSV para carga histórica;
+    \item \textbf{API do Portal da Transparência (CGU)}: dados de emendas parlamentares, requerendo autenticação via chave de API.
 \end{itemize}
 
 \subsection{Trabalhos Relacionados}
 
-Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. À luz da Escada de Participação de Arnstein \cite{arnstein1969ladder}, podemos classificar essas ferramentas conforme o grau de poder que conferem ao cidadão:
+Diversas iniciativas no Brasil e no mundo buscam promover a transparencia politica por meio da tecnologia. A luz da Escada de Participacao de Arnstein \cite{arnstein1969ladder}, podemos classificar essas ferramentas conforme o grau de poder que conferem ao cidadao.
 
-\textbf{Nível Informação:}
+\subsubsection{Portais Oficiais (Nivel Informacao)}
 
-\textbf{Portal da Transparência (CGU):} Principal ferramenta oficial do governo federal para acesso a dados de gastos públicos, servidores e transferências. Embora abrangente, sua interface é voltada para consultas técnicas, exigindo conhecimento prévio sobre a estrutura orçamentária para navegação efetiva. O cidadão tem acesso aos dados, mas sem ferramentas de análise comparativa.
+\textbf{Portal da Transparencia (CGU):} Principal ferramenta oficial do governo federal para acesso a dados de gastos publicos, servidores e transferencias. Embora abrangente, sua interface e voltada para consultas tecnicas, exigindo conhecimento previo sobre a estrutura orcamentaria. O cidadao tem acesso aos dados brutos, mas sem ferramentas de analise comparativa ou visualizacoes contextualizadas.
 
-\textbf{Portal de Dados Abertos da Câmara e Senado:} Fontes oficiais que disponibilizam APIs e arquivos para download. Seguem os princípios de \textit{Open Government Data}, porém exigem conhecimento técnico para consumo. Situam-se no degrau mais básico da informação --- dados brutos sem interpretação.
+\textbf{Portais de Dados Abertos (Camara e Senado):} Disponibilizam APIs e arquivos para download seguindo principios de \textit{Open Government Data}. Essenciais para desenvolvedores e pesquisadores, porem inacessiveis ao cidadao comum por exigirem conhecimento tecnico. Situam-se no degrau mais basico da informacao --- dados brutos sem interpretacao.
 
-\textbf{Nível Consulta:}
+\subsubsection{Ferramentas de Fiscalizacao da Camara dos Deputados}
 
-\textbf{Ranking dos Políticos:} Iniciativa da sociedade civil que avalia parlamentares com base em critérios predefinidos de votação. Diferencia-se por adotar uma abordagem de \textit{ranking} com critérios fixos focados em posicionamento ideológico. Avança em relação aos portais oficiais ao oferecer interpretação, porém a metodologia fechada limita a autonomia do cidadão.
+O ecossistema de transparencia para a Camara dos Deputados e mais desenvolvido que para o Senado, contando com diversas iniciativas:
 
-\textbf{Nível Fiscalização Qualificada:}
+\textbf{Operacao Serenata de Amor:} Projeto de codigo aberto que utiliza inteligencia artificial para detectar irregularidades em gastos parlamentares \cite{albuquerque2018serenata}. Composto pela \textit{Rosie} (algoritmo de \textit{machine learning} que analisa notas fiscais) e pelo \textit{Jarbas} (interface web para consulta de suspeitas). Entre 2016 e 2018, analisou mais de 3 milhoes de reembolsos e gerou milhares de denuncias formais ao Congresso.
 
-\textbf{Operação Serenata de Amor:} Projeto de código aberto que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares da Câmara dos Deputados. Albuquerque, Almeida e Costa \cite{albuquerque2018serenata} analisaram o projeto sob a ótica de \textbf{valor público}, demonstrando como tecnologias desenvolvidas com dados governamentais abertos podem potencializar o controle social.
+\textbf{De Olho no Congresso:} Plataforma \textit{web} moderna focada em gastos de Deputados Federais \cite{deolhonocongresso2024}. Oferece interface acessivel com: (1) rankings comparativos de gastos por deputado e partido; (2) graficos de evolucao mensal de despesas; (3) \textbf{painel de alertas} que sinaliza automaticamente gastos suspeitos --- valores acima da media, despesas repetidas, pagamentos em fins de semana; e (4) visualizacao de emendas parlamentares por area. Com mais de 94 mil consultas realizadas, demonstra alta aceitacao entre usuarios. Limita-se, porem, a Camara dos Deputados e nao oferece metricas de desempenho legislativo.
 
-O projeto é composto por dois componentes principais: a \textit{Rosie}, algoritmo de \textit{machine learning} que analisa notas fiscais em busca de padrões anômalos; e o \textit{Jarbas}, interface web que permite ao cidadão consultar as suspeitas identificadas. O estudo aponta que, entre 2016 e 2018, a Rosie analisou mais de 3 milhões de reembolsos e gerou milhares de denúncias formais ao Congresso.
+\textbf{Base dos Dados --- De Olho na Camara:} Plataforma que disponibiliza dados legislativos em \textit{datalake} publico \cite{basedosdados2024}. Publica analises sobre producao legislativa e despesas parlamentares, voltada para analistas e jornalistas de dados. Diferente do \textit{De Olho no Congresso}, seu foco e fornecer dados estruturados para reuso, nao visualizacoes para o cidadao comum.
 
-\textbf{De Olho em Você:} Plataforma \textit{web} de código aberto focada na Câmara dos Deputados, que oferece rankings de gastos, visualização de Emendas PIX em mapas geoespaciais e ferramentas de engajamento social. O projeto inspirou a concepção inicial do \textit{Tô De Olho}, porém identificou-se uma lacuna: a ausência de ferramenta equivalente para o \textbf{Senado Federal}. Adicionalmente, o \textit{De Olho em Você} não explicita a metodologia de seus rankings, enquanto o \textit{Tô De Olho} adota abordagem baseada no \textit{Legislative Effectiveness Score} \cite{volden2018legislative}, com critérios e pesos publicados.
+\textbf{De Olho em Voce:} Plataforma de codigo aberto que oferece rankings de gastos e visualizacao de emendas PIX em mapas geoespaciais. Inspirou a concepcao inicial do \textit{To De Olho}, porem nao explicita a metodologia de seus rankings.
 
-\textbf{Diferencial do Tô De Olho:}
+\subsubsection{Experiencias Internacionais}
 
-O \textit{Tô De Olho} posiciona-se como evolução dessas iniciativas, com foco específico no \textbf{Senado Federal} --- casa legislativa menos coberta por ferramentas de fiscalização. A proposta diferencia-se por:
+\textbf{TheyWorkForYou (Reino Unido):} Desenvolvida pela organizacao mySociety \cite{mysociety2024}, monitora os parlamentos britanicos desde 2004 \cite{theyworkforyou2024}. Permite aos cidadaos identificar representantes locais, acompanhar votacoes e receber alertas sobre temas especificos. Referencia em \textit{civic tech} parlamentar.
+
+\textbf{OpenSecrets (Estados Unidos):} Organizacao nao-partidaria que rastreia financiamento de campanhas e gastos de lobbying desde 1983 \cite{opensecrets2024}. Foco na influencia do dinheiro na politica, consolidou-se como referencia para jornalistas investigativos.
+
+\subsubsection{Lacuna Identificada e Diferencial do To De Olho}
+
+A analise dos trabalhos relacionados revela uma \textbf{lacuna significativa}: enquanto a Camara dos Deputados conta com multiplas ferramentas de fiscalizacao (De Olho no Congresso, Serenata de Amor, De Olho em Voce), o \textbf{Senado Federal} carece de solucao equivalente. Essa assimetria e agravada pelo fato de cada senador representar maior custo per capita e mandato mais longo (8 anos vs. 4 anos).
+
+O \textit{To De Olho} posiciona-se para preencher essa lacuna, diferenciando-se por:
 
 \begin{enumerate}
-    \item \textbf{Consolidação Multi-Fonte}: Integra três APIs distintas (Legislativa, Administrativa e Portal da Transparência) em interface única, superando a fragmentação dos portais oficiais;
-    \item \textbf{Metodologia Transparente}: Inspirado no \textit{Legislative Effectiveness Score} de Volden e Wiseman \cite{volden2018legislative}, o algoritmo de ranking expõe claramente critérios e pesos, permitindo que o cidadão compreenda --- e questione --- a avaliação;
-    \item \textbf{Design Orientado à Ação}: Seguindo princípios de visualização retórica \cite{hullman2011visualization}, a plataforma contextualiza dados absolutos com médias e comparativos, reduzindo a manipulação e estimulando conclusões informadas;
-    \item \textbf{Foco em Emendas PIX}: Rastreia transferências especiais (modalidade criada em 2020), preenchendo lacuna de transparência não coberta por ferramentas anteriores.
+    \item \textbf{Foco no Senado Federal}: Casa legislativa menos coberta por ferramentas de fiscalizacao;
+    \item \textbf{Consolidacao Multi-Fonte}: Integra tres APIs distintas (Legislativa, Administrativa e Portal da Transparencia) em interface unica;
+    \item \textbf{Metodologia Transparente}: Inspirado no \textit{Legislative Effectiveness Score} de Volden e Wiseman \cite{volden2018legislative}, expoe claramente criterios e pesos do ranking;
+    \item \textbf{Rastreamento de Emendas PIX}: Monitora transferencias especiais, modalidade criada em 2020 com baixa prestacao de contas \cite{alencar2024emendaspix}.
 \end{enumerate}
 
 % Fundamentação Teórica - Conceitos base do projeto
@@ -343,11 +355,6 @@ A plataforma é pública e não requer cadastro para consulta, maximizando a tra
 Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e apoio durante o desenvolvimento deste trabalho. Aos colegas de curso que contribuíram com discussões e sugestões. À minha família pelo apoio incondicional. Por fim, às comunidades de código aberto que mantiveram as ferramentas e documentações utilizadas neste projeto.
 
 \bibliography{referencias}
-\textcolor{blue}{
-    [Forneça uma lista completa de todos os documentos mencionados ou que foram utilizados como referência na elaboração deste documento. Todos os documentos devem ser identificados por título, data, nome e organização responsável por sua publicação. Especifique as fontes dessas referências. Utilize o padrão ABNT para o formato das referências.]
-} \\
-\textcolor{red}{[Obrigatório]} \\
-\textbf{[Dica: insira suas referências no arquivo ``referencias.bib'' e utilize o comando ``cite'']}
 
 \newpage
 \section*{Apêndices}
