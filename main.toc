@@ -14,7 +14,7 @@
 \contentsline {section}{\numberline {2}Fundamentação Teórica}{6}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Transparência Pública e Dados Abertos}{6}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Democracia Digital e Participação Cidadã}{7}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Métricas de Efetividade Legislativa}{7}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.3}Métricas de Efetividade Legislativa}{8}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}Visualização de Dados e Retórica Visual}{8}{subsection.2.4}%
 \contentsline {subsection}{\numberline {2.5}Arquitetura de Software: Monolito Modular}{8}{subsection.2.5}%
 \contentsline {subsection}{\numberline {2.6}Engenharia de Dados: APIs e Processos ETL}{9}{subsection.2.6}%

@@ -79,20 +79,20 @@ O \textit{pipeline} de CI/CD, implementado com GitHub Actions, automatiza as eta
 
 \subsection{Algoritmo de Ranking}
 
-O cálculo do \textit{score} de cada senador baseia-se em cinco critérios objetivos, ponderados conforme sua relevância para a fiscalização cidadã:
+O cálculo do \textit{score} de cada senador é inspirado no \textit{State Legislative Effectiveness Score} (SLES) de Volden e Wiseman \cite{volden2018legislative}, adaptado para o contexto brasileiro. Baseia-se em quatro critérios objetivos, ponderados conforme sua relevância para a fiscalização cidadã:
 
 \begin{itemize}
-    \item \textbf{Presença em Votações (25\%)}: Percentual de participação nas votações nominais em plenário;
-    \item \textbf{Produtividade Legislativa (25\%)}: Quantidade de proposições de autoria e relatorias assumidas;
+    \item \textbf{Produtividade Legislativa (35\%)}: Capacidade de avançar proposições através do processo legislativo, considerando estágio de tramitação (apresentação, comissão, plenário, sanção) e tipo de proposição (PEC, PLP, PL), com multiplicadores para projetos de maior complexidade;
+    \item \textbf{Presença em Votações (25\%)}: Percentual de participação nas votações nominais em plenário, excluindo períodos de licença oficial;
     \item \textbf{Economia na Cota (20\%)}: Relação entre o valor utilizado e o teto disponível da CEAPS;
-    \item \textbf{Participação em Comissões (15\%)}: Envolvimento efetivo nas comissões permanentes e temporárias;
-    \item \textbf{Transparência (15\%)}: Disponibilidade de informações públicas sobre o mandato.
+    \item \textbf{Participação em Comissões (20\%)}: Envolvimento efetivo nas comissões permanentes e temporárias, com bonificação para cargos de presidência e vice-presidência.
 \end{itemize}
 
 Cada métrica é normalizada em uma escala de 0 a 100 antes do cálculo final, permitindo comparabilidade entre critérios de natureza distinta. A fórmula resultante é:
 
 \[
-Score = (\text{Presença} \times 0.25) + (\text{Produtividade} \times 0.25) + (\text{Economia} \times 0.20) + (\text{Comissões} \times 0.15) + (\text{Transparência} \times 0.15)
+Score = (\text{Produtividade} \times 0.35) + (\text{Presença} \times 0.25) + (\text{Economia} \times 0.20) + (\text{Comissões} \times 0.20)
 \]
 
 Os rankings são recalculados diariamente após a conclusão das tarefas de ingestão e armazenados em cache Redis, garantindo resposta imediata às consultas do \textit{frontend}.
+

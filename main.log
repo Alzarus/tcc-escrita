@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  8 JAN 2026 01:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  9 JAN 2026 02:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -563,13 +563,7 @@ Overfull \hbox (25.47597pt too wide) in paragraph at lines 66--67
 a-lha-das da Cota Par-la-men-tar (CE-APS), com identifica[][]ao
  []
 
-[2]
-Overfull \hbox (4.3923pt too wide) in paragraph at lines 73--74
-\OT1/phv/m/n/10.95 (25%), pro-du-ti-vi-dade le-gis-la-tiva (25%), eco-no-mia na
- cota par-la-men-tar (20%), participa[][]ao
- []
-
-[3]
+[2] [3]
 Overfull \hbox (11.48688pt too wide) in paragraph at lines 96--97
 []\OT1/phv/b/n/10.95 PostgreSQL \OT1/phv/m/n/10.95 foi se-le-ci-o-nado como ban
 co re-la-ci-o-nal por sua ro-bus-tez em con-sul-tas anal[]^^Pticas
@@ -612,30 +606,19 @@ s e de integra[][]ao, uti-li-zando \OT1/phv/m/sl/10.95 testcon-tai-ners \OT1/ph
 v/m/n/10.95 para inst[]ancias
  []
 
-
-Overfull \hbox (90.52132pt too wide) detected at line 96
-\OML/cmm/m/it/10.95 Score \OT1/cmr/m/n/10.95 = ([] \OMS/cmsy/m/n/10.95 ^^B \OT1
-/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 25) + ([] \OMS/cmsy/m/n
-/10.95 ^^B \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 25) + ([
-] \OMS/cmsy/m/n/10.95 ^^B \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n
-/10.95 20) + ([] \OMS/cmsy/m/n/10.95 ^^B \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.9
-5 :\OT1/cmr/m/n/10.95 15) + ([] \OMS/cmsy/m/n/10.95 ^^B \OT1/cmr/m/n/10.95 0\OM
-L/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 15)
- []
-
-) [12]
+[12])
 Overfull \hbox (16.19044pt too wide) in paragraph at lines 189--190
 []\OT1/phv/b/n/10.95 [RF08] \OT1/phv/m/n/10.95 O sis-tema deve des-ta-car va-lo
 -res des-ti-na-dos via "Trans-fer[]encias Es-pe-ci-ais"(emendas
  []
 
 [13] [14]
-<docs/diagrama_classes.png, id=393, 246.6816pt x 246.6816pt>
+<docs/diagrama_classes.png, id=396, 246.6816pt x 246.6816pt>
 File: docs/diagrama_classes.png Graphic file (type png)
 <use docs/diagrama_classes.png>
 Package pdftex.def Info: docs/diagrama_classes.png  used on input line 250.
 (pdftex.def)             Requested size: 362.37598pt x 362.41055pt.
-<docs/diagrama_implantacao.png, id=394, 246.6816pt x 246.6816pt>
+<docs/diagrama_implantacao.png, id=397, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
 Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 261.
@@ -688,10 +671,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 54CC88AC072A3732A853009E9A4C9A7B;8698.
  ) 
 Here is how much of TeX's memory you used:
- 12832 strings out of 467871
- 205555 string characters out of 5418376
- 651656 words of memory out of 5000000
- 41347 multiletter control sequences out of 15000+600000
+ 12838 strings out of 467871
+ 205703 string characters out of 5418376
+ 652838 words of memory out of 5000000
+ 41351 multiletter control sequences out of 15000+600000
  651863 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,7n,93p,1195b,661s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -703,9 +686,9 @@ blic/amsfonts/cm/cmsy10.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts
 TeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppData/Local/Programs/
 MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro/AppData/Local/Progra
 ms/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (26 pages, 1281340 bytes).
+Output written on main.pdf (26 pages, 1283376 bytes).
 PDF statistics:
- 548 PDF objects out of 1000 (max. 8388607)
- 151 named destinations out of 1000 (max. 500000)
+ 551 PDF objects out of 1000 (max. 8388607)
+ 153 named destinations out of 1000 (max. 500000)
  384 words of extra memory for PDF output out of 10000 (max. 10000000)
 

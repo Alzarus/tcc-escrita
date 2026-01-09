@@ -70,7 +70,7 @@ O sistema organiza os dados em três dimensões complementares do mandato parlam
 O diferencial da plataforma reside em quatro pilares:
 
 \begin{enumerate}
-    \item \textbf{Ranking Metodologicamente Fundamentado}: inspirado no \textit{Legislative Effectiveness Score} de Volden e Wiseman \cite{volden2018legislative}, o algoritmo de avaliação pondera presença em votações (25\%), produtividade legislativa (25\%), economia na cota parlamentar (20\%), participação em comissões (15\%) e transparência de dados (15\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
+    \item \textbf{Ranking Metodologicamente Fundamentado}: inspirado no \textit{State Legislative Effectiveness Score} (SLES) de Volden e Wiseman \cite{volden2018legislative}, o algoritmo de avaliação pondera produtividade legislativa (35\%), presença em votações (25\%), economia na cota parlamentar (20\%) e participação em comissões (20\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
     
     \item \textbf{Visualização Orientada à Ação}: seguindo os princípios de retórica visual de Hullman \cite{hullman2011visualization}, cada dado absoluto é contextualizado com médias comparativas, reduzindo a possibilidade de interpretações manipuladas e estimulando conclusões informadas;
     
@@ -83,25 +83,25 @@ Em síntese, o \textit{Tô De Olho} atua como um ``auditor digital'', automatiza
 
 \subsection{Tecnologias adotadas}
 
-A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \textbf{monolito modular} \cite{dragoni2017microservices}, escolhido por sua simplicidade de desenvolvimento e deploy, mantendo a organização interna em módulos bem definidos para garantir manutenibilidade. A seguir, justificamos cada escolha tecnológica.
+A arquitetura do \textit{Tô De Olho} foi projetada seguindo o padrão de \textbf{monolito modular} \cite{dragoni2017microservices}, escolhido por sua simplicidade de desenvolvimento e deploy, mantendo a organização interna em módulos bem definidos para garantir manutenibilidade. A seguir, justificamos cada escolha tecnológica com base em benchmarks e literatura técnica.
 
 \textbf{Backend --- Golang:}
 
-A linguagem Go foi selecionada para o \textit{backend} ap\'os avalia\c{c}\~ao de alternativas como Node.js e Python. O fator decisivo foi o modelo de \textbf{concorr\^encia nativo}: as \textit{goroutines} permitem processar milhares de conex\~oes simult\^aneas com baixo consumo de mem\'oria, caracter\'istica essencial para a ingest\~ao paralela de dados de tr\^es APIs distintas \cite{nanz2015comparative}. Adicionalmente, a tipagem est\'atica e a compila\c{c}\~ao para bin\'ario \'unico simplificam o \textit{deploy} em cont\^eineres.
+A linguagem Go foi selecionada para o \textit{backend} após avaliação de alternativas como Node.js e Python. O fator decisivo foi o modelo de \textbf{concorrência nativo}: as \textit{goroutines} são threads leves gerenciadas pelo runtime Go, consumindo aproximadamente 2KB de memória inicial --- em contraste com threads do sistema operacional que utilizam cerca de 1MB cada \cite{nanz2015comparative}. Essa eficiência permite processar centenas de milhares de conexões simultâneas, característica essencial para a ingestão paralela de dados de três APIs distintas. Adicionalmente, a tipagem estática e a compilação para binário único simplificam o \textit{deploy} em contêineres.
 
-O framework \textbf{Gin} foi escolhido por seu roteamento HTTP de alto desempenho \cite{alfian2024gin}, enquanto \textbf{GORM} oferece mapeamento objeto-relacional com suporte a migracoes, reduzindo a complexidade de gerenciamento do esquema de banco.
+O framework \textbf{Gin} foi escolhido por seu roteamento HTTP baseado em \textit{radix tree}, reportando desempenho até 40 vezes superior a frameworks anteriores como Martini \cite{alfian2024gin}. \textbf{GORM} oferece mapeamento objeto-relacional com suporte a migrações, reduzindo a complexidade de gerenciamento do esquema de banco.
 
 \textbf{Banco de Dados --- PostgreSQL e Redis:}
 
-\textbf{PostgreSQL} foi selecionado como banco relacional por sua robustez em consultas anal\'iticas e suporte a \'indices compostos \cite{postgresql2024}, essenciais para agrega\c{c}\~oes por senador, per\'iodo e tipo de despesa. A conformidade ACID garante integridade nas opera\c{c}\~oes de ingest\~ao.
+\textbf{PostgreSQL} foi selecionado como banco relacional por sua robustez em consultas analíticas e suporte a índices compostos, essenciais para agregações por senador, período e tipo de despesa. O sistema originou-se em 1986 na Universidade da Califórnia, Berkeley, liderado pelo Professor Michael Stonebraker como sucessor do projeto Ingres \cite{stonebraker1986postgres}. A conformidade ACID garante integridade nas operações de ingestão, enquanto sua adoção pela comunidade \textit{open source} é respaldada por décadas de evolução acadêmica e industrial.
 
-\textbf{Redis} atua como camada de cache para rankings pr\'e-computados e totalizadores de gastos \cite{redis2024}. Com tempos de resposta em microssegundos, elimina a necessidade de recalcular m\'etricas a cada requisi\c{c}\~ao, atendendo ao requisito de lat\^encia inferior a 2 segundos (RNF01).
+\textbf{Redis} atua como camada de cache para rankings pré-computados e totalizadores de gastos. Por armazenar dados inteiramente em memória RAM, Redis alcança latências típicas entre 100 e 500 microssegundos --- aproximadamente 1.250 vezes mais rápido que SSDs \cite{redis2024}. Essa característica elimina a necessidade de recalcular métricas a cada requisição, atendendo ao requisito de latência inferior a 2 segundos (RNF01).
 
 \textbf{Frontend --- Next.js 15:}
 
-A escolha de \textbf{Next.js} sobre React ``puro'' justifica-se pela necessidade de \textbf{SEO} e performance inicial \cite{salim2024nextjs}. Aplica\c{c}\~oes React tradicionais utilizam renderiza\c{c}\~ao no cliente (CSR), onde motores de busca recebem uma p\'agina HTML vazia que depende de JavaScript para exibir conte\'udo --- prejudicando a indexa\c{c}\~ao. Next.js resolve esse problema com \textit{Server-Side Rendering} (SSR) e \textit{Static Site Generation} (SSG), entregando HTML pr\'e-renderizado aos \textit{crawlers}.
+A escolha de \textbf{Next.js} sobre React ``puro'' justifica-se pela necessidade de \textbf{SEO} e performance inicial \cite{salim2024nextjs}. Aplicações React tradicionais utilizam renderização no cliente (CSR), onde motores de busca recebem uma página HTML vazia que depende de JavaScript para exibir conteúdo --- prejudicando a indexação. Next.js resolve esse problema com \textit{Server-Side Rendering} (SSR) e \textit{Static Site Generation} (SSG), entregando HTML pré-renderizado aos \textit{crawlers}. Estudos indicam melhorias significativas em métricas de Core Web Vitals como First Contentful Paint (FCP) e Largest Contentful Paint (LCP) \cite{nextjsseo2024}.
 
-A biblioteca \textbf{Recharts} foi selecionada para visualiza\c{c}\~ao de dados por sua integra\c{c}\~ao nativa com React e suporte a gr\'aficos responsivos \cite{recharts2024}. \textbf{Tailwind CSS} permite estiliza\c{c}\~ao eficiente com classes utilit\'arias, reduzindo o tamanho do CSS final atrav\'es de \textit{tree-shaking} \cite{tailwindcss2024}.
+A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por sua integração nativa com React e suporte a gráficos responsivos \cite{recharts2024}. \textbf{Tailwind CSS} permite estilização eficiente com classes utilitárias; a partir da versão 4, o modo \textit{Just-In-Time} (JIT) gera apenas o CSS utilizado em cada página, resultando em bundles frequentemente inferiores a 10KB \cite{tailwindcss2024}.
 
 \textbf{Infraestrutura e DevOps:}
 
