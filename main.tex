@@ -130,33 +130,97 @@ Diversas iniciativas no Brasil e no mundo buscam promover a transparencia politi
 
 \subsubsection{Ferramentas de Fiscalizacao da Camara dos Deputados}
 
-O ecossistema de transparencia para a Camara dos Deputados e mais desenvolvido que para o Senado, contando com diversas iniciativas:
+O ecossistema de transparencia para a Camara dos Deputados e mais desenvolvido que para o Senado, contando com diversas iniciativas consolidadas:
 
-\textbf{Operacao Serenata de Amor:} Projeto de codigo aberto que utiliza inteligencia artificial para detectar irregularidades em gastos parlamentares \cite{albuquerque2018serenata}. Composto pela \textit{Rosie} (algoritmo de \textit{machine learning} que analisa notas fiscais) e pelo \textit{Jarbas} (interface web para consulta de suspeitas). Entre 2016 e 2018, analisou mais de 3 milhoes de reembolsos e gerou milhares de denuncias formais ao Congresso.
+\textbf{Operacao Serenata de Amor:} Projeto pioneiro de codigo aberto, lancado em 2016 via financiamento coletivo, que utiliza inteligencia artificial para detectar irregularidades em gastos parlamentares \cite{albuquerque2018serenata}. Desenvolvido pela Open Knowledge Brasil, e composto por dois sistemas complementares:
 
-\textbf{De Olho no Congresso:} Plataforma \textit{web} moderna focada em gastos de Deputados Federais \cite{deolhonocongresso2024}. Oferece interface acessivel com: (1) rankings comparativos de gastos por deputado e partido; (2) graficos de evolucao mensal de despesas; (3) \textbf{painel de alertas} que sinaliza automaticamente gastos suspeitos --- valores acima da media, despesas repetidas, pagamentos em fins de semana; e (4) visualizacao de emendas parlamentares por area. Com mais de 94 mil consultas realizadas, demonstra alta aceitacao entre usuarios. Limita-se, porem, a Camara dos Deputados e nao oferece metricas de desempenho legislativo.
+\begin{itemize}
+    \item \textbf{Rosie:} Algoritmo de \textit{machine learning} desenvolvido em Python que audita a Cota para Exercicio da Atividade Parlamentar (CEAP). Opera atraves de cinco classificadores principais: (1) \textit{meal price outlier} --- identifica refeicoes com valores acima da media para o local; (2) \textit{irregular companies} --- detecta gastos em empresas com situacao cadastral irregular na Receita Federal; (3) \textit{traveled speeds} --- cruza gastos para identificar deslocamentos fisicamente impossiveis; (4) \textit{monthly subquota limit} --- verifica excesso nos limites mensais por categoria; e (5) \textit{election expenses} --- identifica uso indevido da cota para financiar campanhas.
+    \item \textbf{Jarbas:} Interface \textit{web} desenvolvida em Django que permite aos cidadaos navegar pelos casos suspeitos identificados pela Rosie, visualizar notas fiscais digitalizadas e formalizar denuncias.
+\end{itemize}
 
-\textbf{Base dos Dados --- De Olho na Camara:} Plataforma que disponibiliza dados legislativos em \textit{datalake} publico \cite{basedosdados2024}. Publica analises sobre producao legislativa e despesas parlamentares, voltada para analistas e jornalistas de dados. Diferente do \textit{De Olho no Congresso}, seu foco e fornecer dados estruturados para reuso, nao visualizacoes para o cidadao comum.
+Ate 2018, o projeto identificou \textbf{8.276 reembolsos suspeitos} envolvendo 735 deputados, totalizando aproximadamente \textbf{R\$ 3,6 milhoes} em potenciais irregularidades. Um mutirao inicial resultou em 629 denuncias formais ao Congresso. Atualmente, a equipe principal migrou o foco para o projeto ``Querido Diario'', que aplica tecnicas similares a diarios oficiais municipais.
 
-\textbf{De Olho em Voce:} Plataforma de codigo aberto que oferece rankings de gastos e visualizacao de emendas PIX em mapas geoespaciais. Inspirou a concepcao inicial do \textit{To De Olho}, porem nao explicita a metodologia de seus rankings.
+\textbf{De Olho no Congresso:} Plataforma \textit{web} moderna focada em gastos de Deputados Federais \cite{deolhonocongresso2024}. Com mais de \textbf{55 mil visitantes} e \textbf{95 mil consultas} realizadas, a ferramenta oferece interface acessivel que inclui:
+
+\begin{itemize}
+    \item \textbf{Rankings Multiplos:} Top 50 deputados com maiores gastos, ranking de partidos por consumo da cota e ranking de empresas fornecedoras --- incluindo filtro especifico para ``empresas com sancoes'' administrativas;
+    \item \textbf{Painel de Alertas:} Sistema de deteccao automatica de despesas atipicas, incluindo: valores significativamente acima da media geral, pagamentos identicos repetidos ao mesmo fornecedor, notas fiscais emitidas em finais de semana, e intervalos menores que 3 dias entre pagamentos;
+    \item \textbf{Historico Completo:} Gastos anuais e mensais com filtros por fornecedor, categoria e periodo, alem de detalhamento de beneficios (auxilio-moradia, imovel funcional) e equipe de gabinete.
+\end{itemize}
+
+A plataforma ressalta que os alertas sao ``indicativos que merecem investigacao'', servindo como guia para auditoria cidada. Limita-se, porem, a Camara dos Deputados e nao oferece metricas de desempenho legislativo.
+
+\textbf{De Olho em Voce:} Plataforma \textit{web} com foco em ``transparencia que da para entender'', abrangendo aproximadamente 549 parlamentares da Camara dos Deputados \cite{deolhoemvoce2024}. A plataforma integra dados da API da Camara e do Portal da Transparencia, destacando-se pela cobertura das \textbf{Emendas PIX} (Transferencias Especiais). Entre suas funcionalidades principais:
+
+\begin{itemize}
+    \item \textbf{Mapas de Distribuicao:} Cada perfil de deputado apresenta visualizacao geoespacial do destino de suas emendas parlamentares, permitindo identificar concentracao de recursos por municipio;
+    \item \textbf{Ranking de Cidades:} Classificacao por faixa populacional das cidades que mais receberam Transferencias Especiais (ex: municipios de ate 20 mil habitantes);
+    \item \textbf{Comparador de Parlamentares:} Ferramenta que permite selecionar de 2 a 5 deputados para comparacao lado a lado de gastos de cota, equipe de gabinete, emendas enviadas e fornecedores em comum;
+    \item \textbf{Painel de Fornecedores:} Ranking das empresas que mais recebem recursos, identificando padroes de concentracao de gastos.
+\end{itemize}
+
+Entretanto, os rankings do ``De Olho em Voce'' baseiam-se em metricas agregadas diretas (quem mais gastou, quem mais enviou emendas), \textbf{sem metodologia explicita de efetividade legislativa}. Alem disso, a plataforma nao contempla o Senado Federal.
 
 \subsubsection{Experiencias Internacionais}
 
-\textbf{TheyWorkForYou (Reino Unido):} Desenvolvida pela organizacao mySociety \cite{mysociety2024}, monitora os parlamentos britanicos desde 2004 \cite{theyworkforyou2024}. Permite aos cidadaos identificar representantes locais, acompanhar votacoes e receber alertas sobre temas especificos. Referencia em \textit{civic tech} parlamentar.
+\textbf{TheyWorkForYou (Reino Unido):} Lancada em 2004 e operada pela organizacao sem fins lucrativos mySociety \cite{mysociety2024}, a plataforma monitora cinco parlamentos britanicos: Camara dos Comuns, Camara dos Lordes, Parlamento Escoces, Senedd (Pais de Gales) e Assembleia da Irlanda do Norte \cite{theyworkforyou2024}. Em 2023/24, registrou mais de \textbf{4,8 milhoes de visitas}. Entre suas funcionalidades:
 
-\textbf{OpenSecrets (Estados Unidos):} Organizacao nao-partidaria que rastreia financiamento de campanhas e gastos de lobbying desde 1983 \cite{opensecrets2024}. Foco na influencia do dinheiro na politica, consolidou-se como referencia para jornalistas investigativos.
+\begin{itemize}
+    \item \textbf{Hansard Pesquisavel:} Arquivo completo de todos os discursos e debates parlamentares;
+    \item \textbf{Alertas por E-mail:} Notificacoes automaticas quando um parlamentar especifico discursa ou quando uma palavra-chave e mencionada;
+    \item \textbf{Busca por Codigo Postal:} Identificacao imediata do representante local.
+\end{itemize}
+
+A plataforma consolidou-se como referencia mundial em \textit{civic tech} parlamentar, inspirando iniciativas em diversos paises --- incluindo o brasileiro \textit{Congresso Aberto}.
+
+\textbf{OpenSecrets (Estados Unidos):} Principal organizacao de pesquisa sobre dinheiro na politica americana, resultante da fusao em 2021 entre o \textit{Center for Responsive Politics} (fundado em 1983 por dois ex-senadores) e o \textit{National Institute on Money in State Politics} \cite{opensecrets2024}. Vencedora de multiplos \textit{Webby Awards}, a plataforma rastreia:
+
+\begin{itemize}
+    \item \textbf{Financiamento de Campanhas:} Contribuicoes individuais, PACs e Super PACs;
+    \item \textbf{Lobbying:} Gastos de empresas e grupos de interesse para influenciar legislacao;
+    \item \textbf{Revolving Door:} Monitoramento de ex-congressistas que se tornaram lobistas;
+    \item \textbf{Dark Money:} Analise de fundos de origem nao divulgada que influenciam eleicoes.
+\end{itemize}
+
+E fonte primaria para veiculos como \textit{The New York Times} e \textit{The Washington Post}, oferecendo APIs e exportacoes de dados para pesquisadores academicos.
 
 \subsubsection{Lacuna Identificada e Diferencial do To De Olho}
 
-A analise dos trabalhos relacionados revela uma \textbf{lacuna significativa}: enquanto a Camara dos Deputados conta com multiplas ferramentas de fiscalizacao (De Olho no Congresso, Serenata de Amor, De Olho em Voce), o \textbf{Senado Federal} carece de solucao equivalente. Essa assimetria e agravada pelo fato de cada senador representar maior custo per capita e mandato mais longo (8 anos vs. 4 anos).
+A analise sistematica dos trabalhos relacionados evidencia um cenario paradoxal: enquanto a Camara dos Deputados --- com 513 parlamentares --- dispoe de ao menos tres plataformas consolidadas de fiscalizacao cidada, o Senado Federal permanece como uma ``caixa preta'' digital. Essa lacuna nao e trivial. Os 81 senadores exercem mandatos de oito anos, atuam como camara revisora de toda legislacao federal e detem competencias exclusivas de alto impacto: confirmacao de ministros do STF, julgamento de presidentes da Republica e aprovacao de dívidas externas. A ausencia de ferramentas de monitoramento especificas representa, portanto, uma falha sistemica no ecossistema de \textit{accountability} brasileiro.
 
-O \textit{To De Olho} posiciona-se para preencher essa lacuna, diferenciando-se por:
+Mais do que apenas replicar solucoes existentes para o ambito senatorial, o \textit{To De Olho} propoe-se a \textbf{sintetizar o melhor de cada iniciativa} analisada, superando limitacoes identificadas:
+
+\begin{itemize}
+    \item \textbf{Do ``De Olho em Voce''}, incorporamos a \textbf{visualizacao geoespacial de Emendas PIX} --- permitindo que o cidadao identifique, em mapas interativos, quais municipios receberam recursos de cada senador --- e o \textbf{comparador de parlamentares}, que possibilita analise lado a lado de ate cinco senadores em multiplas dimensoes;
+    
+    \item \textbf{Do ``De Olho no Congresso''}, adotamos o \textbf{painel de alertas automaticos} para despesas atipicas --- notas fiscais em finais de semana, valores acima da media, pagamentos repetidos em intervalos curtos --- e o \textbf{ranking de fornecedores}, incluindo cruzamento com empresas sob sancao administrativa;
+    
+    \item \textbf{Do ``Serenata de Amor''}, inspiramo-nos na abordagem de \textbf{codigo aberto} e \textbf{documentacao transparente}, permitindo que pesquisadores e jornalistas repliquem e validem os resultados.
+\end{itemize}
+
+O diferencial central do \textit{To De Olho}, entretanto, reside em uma contribuicao original: a implementacao de um \textbf{Indice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- metrica que penaliza a parcimonia --- ou \textit{quantidade de proposicoes} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional inspirado no \textit{State Legislative Effectiveness Score} (SLES) de Volden e Wiseman \cite{volden2018legislative}.
+
+Nosso indice pondera quatro dimensoes objetivas, com pesos publicos e metodologia reprodutivel:
 
 \begin{enumerate}
-    \item \textbf{Foco no Senado Federal}: Casa legislativa menos coberta por ferramentas de fiscalizacao;
-    \item \textbf{Consolidacao Multi-Fonte}: Integra tres APIs distintas (Legislativa, Administrativa e Portal da Transparencia) em interface unica;
-    \item \textbf{Metodologia Transparente}: Inspirado no \textit{Legislative Effectiveness Score} de Volden e Wiseman \cite{volden2018legislative}, expoe claramente criterios e pesos do ranking;
-    \item \textbf{Rastreamento de Emendas PIX}: Monitora transferencias especiais, modalidade criada em 2020 com baixa prestacao de contas \cite{alencar2024emendaspix}.
+    \item \textbf{Produtividade Legislativa (35\%)}: Avalia a capacidade de transformar proposicoes em leis, com multiplicadores por tipo (PEC: 3x, PLP: 2x) e estagio de tramitacao alcancado;
+    
+    \item \textbf{Presenca em Votacoes (25\%)}: Mensura o comparecimento efetivo as sessoes deliberativas, descontando ausencias justificadas por licenca medica ou missao oficial;
+    
+    \item \textbf{Economia na Cota Parlamentar (20\%)}: Compara o uso individual da CEAPS com a mediana do Senado, premiando a eficiencia no uso de recursos publicos;
+    
+    \item \textbf{Participacao em Comissoes (20\%)}: Pondera o engajamento em comissoes permanentes e especiais, com bonus para cargos de lideranca (presidente, relator).
+\end{enumerate}
+
+A exposicao publica de criterios e pesos nao e mera formalidade: representa um compromisso etico com a \textbf{transparencia metodologica}. Diferente de rankings opacos, o cidadao podera compreender --- e questionar --- os fundamentos da classificacao, evitando que a plataforma seja percebida como veiculo de viés politico.
+
+Em sintese, o \textit{To De Olho} posiciona-se como a \textbf{primeira plataforma integrada} de fiscalizacao cidada voltada ao Senado Federal, combinando tres vertentes complementares:
+
+\begin{enumerate}
+    \item \textbf{Consolidacao Multi-Fonte}: Integra dados de tres APIs oficiais (Legislativa, Administrativa e Portal da Transparencia) em interface unica;
+    \item \textbf{Inteligencia de Dados}: Oferece alertas automaticos, rankings comparativos e visualizacoes geoespaciais que transformam dados brutos em informacao acionavel;
+    \item \textbf{Rigor Metodologico}: Fundamenta-se em literatura academica sobre efetividade legislativa, com metodologia aberta a auditoria publica.
 \end{enumerate}
 
 % Fundamentação Teórica - Conceitos base do projeto
