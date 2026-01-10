@@ -7,10 +7,10 @@
 \contentsline {subsection}{\numberline {1.3}Proposta de Solução de Software}{2}{subsection.1.3}%
 \contentsline {subsection}{\numberline {1.4}Tecnologias adotadas}{3}{subsection.1.4}%
 \contentsline {subsection}{\numberline {1.5}Trabalhos Relacionados}{5}{subsection.1.5}%
-\contentsline {subsubsection}{\numberline {1.5.1}Portais Oficiais (N\'ivel Informa\c {c}\~ao)}{5}{subsubsection.1.5.1}%
-\contentsline {subsubsection}{\numberline {1.5.2}Ferramentas de Fiscalizacao da Camara dos Deputados}{6}{subsubsection.1.5.2}%
-\contentsline {subsubsection}{\numberline {1.5.3}Experiencias Internacionais}{7}{subsubsection.1.5.3}%
-\contentsline {subsubsection}{\numberline {1.5.4}Lacuna Identificada e Diferencial do To De Olho}{8}{subsubsection.1.5.4}%
+\contentsline {subsubsection}{\numberline {1.5.1}Portais Oficiais (Nível Informação)}{5}{subsubsection.1.5.1}%
+\contentsline {subsubsection}{\numberline {1.5.2}Ferramentas de Fiscalização da Câmara dos Deputados}{6}{subsubsection.1.5.2}%
+\contentsline {subsubsection}{\numberline {1.5.3}Experiências Internacionais}{7}{subsubsection.1.5.3}%
+\contentsline {subsubsection}{\numberline {1.5.4}Lacuna Identificada e Diferencial do Tô De Olho}{8}{subsubsection.1.5.4}%
 \contentsline {section}{\numberline {2}Fundamentação Teórica}{9}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Transparência Pública e Dados Abertos}{10}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Democracia Digital e Participação Cidadã}{10}{subsection.2.2}%
