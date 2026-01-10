@@ -1,10 +1,16 @@
 \section{Metodologia}
 
-Esta seção descreve a metodologia adotada para o desenvolvimento do \textit{Tô De Olho}, detalhando a abordagem de desenvolvimento, as fontes de dados utilizadas, a arquitetura do sistema, a estratégia de ingestão, o algoritmo de ranking e a infraestrutura de implantação.
+O desenvolvimento do \textit{Tô De Olho} enquadra-se no paradigma da \textit{Design Science Research} (DSR), abordagem metodológica adequada para pesquisas que visam a construção e avaliação de artefatos tecnológicos destinados a resolver problemas organizacionais identificados \cite{hevner2004design}. O problema abordado --- a fragmentação de dados públicos sobre a atuação de senadores federais em múltiplas APIs governamentais não integradas --- demanda a construção de um artefato de software capaz de consolidar, processar e apresentar essas informações de forma acessível ao cidadão.
+
+Esta seção detalha a abordagem de desenvolvimento iterativo adotada, as fontes de dados governamentais integradas, a arquitetura do sistema, a estratégia de ingestão via ETL, o algoritmo de ranking inspirado no \textit{Legislative Effectiveness Score} e a infraestrutura de implantação.
 
 \subsection{Abordagem de Desenvolvimento}
 
-O desenvolvimento do projeto seguiu uma abordagem iterativa e incremental, inspirada em práticas ágeis. O trabalho foi organizado em ciclos de desenvolvimento focados em entregas funcionais, permitindo validação contínua das funcionalidades implementadas.
+A natureza do projeto --- integração de múltiplas APIs governamentais com estruturas de dados heterogêneas e documentação variável --- demandou uma abordagem de desenvolvimento capaz de acomodar descobertas incrementais e ajustes frequentes de escopo. Metodologias tradicionais de desenvolvimento em cascata, que pressupõem requisitos estáveis e bem definidos desde o início, mostraram-se inadequadas para este contexto de exploração de APIs públicas com comportamentos nem sempre previsíveis.
+
+Optou-se, portanto, por uma abordagem \textbf{iterativa e incremental}, na qual o trabalho foi organizado em ciclos de desenvolvimento focados em entregas funcionais. Cada ciclo produzia um incremento utilizável do sistema, permitindo validação contínua das funcionalidades implementadas e ajustes baseados nos aprendizados obtidos durante a integração com cada API.
+
+O desenvolvimento contou com apoio de ferramentas de inteligência artificial generativa como assistentes de codificação, seguindo a tendência contemporânea de \textit{AI-assisted software development} \cite{peng2023impact}. Tais ferramentas, baseadas em modelos de linguagem de grande escala (LLMs), foram empregadas para aceleração de tarefas como geração de código \textit{boilerplate}, refatoração e \textit{debugging}. A engenharia de contexto --- técnica de estruturação de informações para maximizar a qualidade das respostas do modelo --- foi aplicada através de arquivos de configuração que definem padrões de codificação, stack tecnológico e regras de negócio do projeto. A autoria e responsabilidade pelas decisões de arquitetura, design de algoritmos e validação de resultados permaneceram integralmente com o desenvolvedor.
 
 A divisão do trabalho ocorreu em cinco fases principais:
 \begin{enumerate}
