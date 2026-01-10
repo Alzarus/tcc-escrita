@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  10 JAN 2026 02:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  10 JAN 2026 04:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -523,7 +523,7 @@ Package hyperref Info: Link coloring OFF on input line 6.
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-<src/images/logo-ads-nova.jpg, id=195, 540.51938pt x 382.42876pt>
+<src/images/logo-ads-nova.jpg, id=203, 540.51938pt x 382.42876pt>
 File: src/images/logo-ads-nova.jpg Graphic file (type jpg)
 <use src/images/logo-ads-nova.jpg>
 Package pdftex.def Info: src/images/logo-ads-nova.jpg  used on input line 35.
@@ -564,160 +564,205 @@ a-lha-das da Cota Par-la-men-tar (CE-APS), com identifica[][]ao
  []
 
 [2] [3]
-Overfull \hbox (11.48688pt too wide) in paragraph at lines 96--97
-[]\OT1/phv/b/n/10.95 PostgreSQL \OT1/phv/m/n/10.95 foi se-le-ci-o-nado como ban
-co re-la-ci-o-nal por sua ro-bus-tez em con-sul-tas anal[]^^Pticas
- []
-
-[4] [5]
-Overfull \hbox (5.91623pt too wide) in paragraph at lines 135--136
+Overfull \hbox (5.91623pt too wide) in paragraph at lines 100--101
 []\OT1/phv/m/n/10.95 Embora es-ses por-tais re-pre-sen-tem avan[]os sig-ni-fi-c
 a-ti-vos na trans-par[]encia pas-siva, situam-
  []
 
-[6] [7] [8]
-Overfull \hbox (17.6168pt too wide) in paragraph at lines 205--206
+[4] [5] [6]
+Overfull \hbox (17.6168pt too wide) in paragraph at lines 170--171
 []\OT1/phv/b/n/10.95 Do ``Se-re-nata de Amor''\OT1/phv/m/n/10.95 , inspiramo-no
 s na abor-da-gem de \OT1/phv/b/n/10.95 c[]odigo aberto \OT1/phv/m/n/10.95 e \OT
 1/phv/b/n/10.95 documenta[][]ao
  []
 
-
-Overfull \hbox (19.60342pt too wide) in paragraph at lines 224--225
+[7]
+Overfull \hbox (19.60342pt too wide) in paragraph at lines 189--190
 []\OT1/phv/m/n/10.95 Em s[]^^Pntese, o \OT1/phv/m/sl/10.95 T[]o De Olho \OT1/ph
 v/m/n/10.95 posiciona-se como a \OT1/phv/b/n/10.95 pri-meira pla-ta-forma in-te
 -grada \OT1/phv/m/n/10.95 de fiscaliza[][]ao
  []
 
 
-Overfull \hbox (17.07965pt too wide) in paragraph at lines 228--229
+Overfull \hbox (17.07965pt too wide) in paragraph at lines 193--194
 []\OT1/phv/b/n/10.95 Intelig[]encia de Da-dos\OT1/phv/m/n/10.95 : Ofe-rece aler
 -tas au-tom[]aticos, ran-kings com-pa-ra-ti-vos e visualiza[][]oes
  []
 
-(src/sections/fundamentacao.tex [9]
-Overfull \hbox (9.93042pt too wide) in paragraph at lines 9--10
+(src/sections/fundamentacao.tex
+Overfull \hbox (3.58047pt too wide) in paragraph at lines 3--4
+[]\OT1/phv/m/n/10.95 O de-sen-vol-vi-mento de uma pla-ta-forma de trans-par[]en
+cia par-la-men-tar situa-se na interse[][]ao
+ []
+
+
+Overfull \hbox (5.68213pt too wide) in paragraph at lines 3--4
+\OT1/phv/m/n/10.95 de m[]ultiplos cam-pos do co-nhe-ci-mento: di-reito []a info
+rma[][]ao, ci[]encia pol[]^^Ptica, te-o-ria de-mocr[]atica,
+ []
+
+[8]
+Overfull \hbox (9.93042pt too wide) in paragraph at lines 19--20
 []\OT1/phv/m/n/10.95 A li-te-ra-tura dis-tin-gue duas mo-da-li-da-des com-ple-m
 en-ta-res de trans-par[]encia. A \OT1/phv/b/n/10.95 trans-par[]encia
  []
 
+[9]
+Overfull \hbox (23.59953pt too wide) in paragraph at lines 51--52
+[]\OT1/phv/m/n/10.95 Este eixo in-ves-tiga as ba-ses te[]oricas que fun-da-men-
+tam a rela[][]ao en-tre tec-no-lo-gia, participa[][]ao
+ []
+
 [10] [11]
-Overfull \hbox (4.81607pt too wide) in paragraph at lines 54--55
+Overfull \hbox (4.81607pt too wide) in paragraph at lines 82--83
 \OT1/phv/m/n/10.95 suem com-pet[]encia t[]ecnica e acesso pri-vi-le-gi-ado a in
 forma[][]oes, mas en-fren-tam limita[][]oes
  []
 
 
-Overfull \hbox (5.64583pt too wide) in paragraph at lines 59--60
+Overfull \hbox (5.64583pt too wide) in paragraph at lines 87--88
 \OT1/phv/m/n/10.95 Pes-qui-sas de-mons-tram que para a divulga[][]ao de informa
 [][]oes traduzir-se em responsabiliza[][]ao
  []
 
-[12] [13]
-Overfull \hbox (14.36436pt too wide) in paragraph at lines 101--102
+[12]
+Overfull \hbox (16.31593pt too wide) in paragraph at lines 117--118
+[]\OT1/phv/m/n/10.95 Este eixo apre-senta os fun-da-men-tos t[]ecnicos e me-to-
+dol[]ogicos que ori-en-tam a implementa[][]ao
+ []
+
+[13] [14]
+Overfull \hbox (14.36436pt too wide) in paragraph at lines 157--158
 \OT1/phv/m/n/10.95 las in-con-sis-ten-tes, trun-ca-mento de ei-xos ou es-co-lha
 s de co-res po-dem dis-tor-cer percep[][]oes.
  []
 
-[14] [15]
-Overfull \hbox (36.86357pt too wide) in paragraph at lines 146--146
-|[]\OT1/phv/b/n/17 Emendas PIX e De-sa-fios de Trans-par[]encia Or[]ament[]aria
-| 
+[15]
+Overfull \hbox (6.03304pt too wide) in paragraph at lines 186--187
+[]\OT1/phv/m/n/10.95 A li-te-ra-tura re-cente so-bre mo-no-lito mo-du-lar des-t
+aca a im-port[]ancia de princ[]^^Ppios do \OT1/phv/b/n/10.95 Domain-
  []
 
-[16]) (src/sections/metodologia.tex [17]
+[16]
+Overfull \hbox (14.21661pt too wide) in paragraph at lines 194--195
+[]\OT1/phv/m/n/10.95 O padr[]ao ETL (\OT1/phv/m/sl/10.95 Ex-tract, Trans-form, 
+Load\OT1/phv/m/n/10.95 ) cons-ti-tui a es-pi-nha dor-sal de sis-te-mas de integ
+ra[][]ao
+ []
+
+[17]) (src/sections/metodologia.tex [18]
 Overfull \hbox (0.22737pt too wide) in paragraph at lines 32--33
 \OT1/phv/m/n/10.95 de emen-das par-la-men-ta-res e trans-fer[]encias da Uni[]ao
 . Para acesso, []e ne-cess[]aria autentica[][]ao
  []
 
-[18]
+[19]
 Overfull \hbox (7.74777pt too wide) in paragraph at lines 49--50
 []\OT1/cmtt/m/n/10.95 internal/emenda\OT1/phv/m/n/10.95 : In-te-gra da-dos de e
 men-das e trans-fer[]encias do Por-tal da Trans-par[]encia; 
  []
 
-[19]
-Overfull \hbox (13.75032pt too wide) in paragraph at lines 75--76
+
+Overfull \hbox (11.48688pt too wide) in paragraph at lines 68--69
+[]\OT1/phv/b/n/10.95 PostgreSQL \OT1/phv/m/n/10.95 foi se-le-ci-o-nado como ban
+co re-la-ci-o-nal por sua ro-bus-tez em con-sul-tas anal[]^^Pticas
+ []
+
+[20]
+Overfull \hbox (13.75032pt too wide) in paragraph at lines 87--88
 []\OT1/phv/b/n/10.95 Test\OT1/phv/m/n/10.95 : Execu[][]ao de tes-tes unit[]ario
 s e de integra[][]ao, uti-li-zando \OT1/phv/m/sl/10.95 testcon-tai-ners \OT1/ph
 v/m/n/10.95 para inst[]ancias
  []
 
-) [20]
-Overfull \hbox (4.50691pt too wide) in paragraph at lines 259--260
+[21])
+Overfull \hbox (4.50691pt too wide) in paragraph at lines 224--225
 []\OT1/phv/b/n/10.95 [RF08] \OT1/phv/m/n/10.95 O sis-tema deve des-ta-car va-lo
 -res des-ti-na-dos via ``Trans-fer[]encias Es-pe-ci-ais'' (emen-
  []
 
-[21]
-<docs/diagrama_classes.png, id=478, 246.6816pt x 246.6816pt>
+[22] [23]
+<docs/diagrama_classes.png, id=514, 246.6816pt x 246.6816pt>
 File: docs/diagrama_classes.png Graphic file (type png)
 <use docs/diagrama_classes.png>
-Package pdftex.def Info: docs/diagrama_classes.png  used on input line 320.
+Package pdftex.def Info: docs/diagrama_classes.png  used on input line 285.
 (pdftex.def)             Requested size: 362.37598pt x 362.41055pt.
- [22]
-<docs/diagrama_implantacao.png, id=483, 246.6816pt x 246.6816pt>
+ [24]
+<docs/diagrama_implantacao.png, id=519, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
-Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 331.
+Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 296.
 
 (pdftex.def)             Requested size: 362.37598pt x 362.41055pt.
- [23
+ [25
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.334 
-       <./docs/diagrama_classes.png>] [24
+l.299 
+       <./docs/diagrama_classes.png>] [26
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.350     \item \texttt
+l.315     \item \texttt
                        {internal/emenda}: Integração com Portal da Transpa...
  <./docs/diagrama_implantacao.png>]
-Overfull \hbox (9.6092pt too wide) in paragraph at lines 377--378
+Overfull \hbox (9.6092pt too wide) in paragraph at lines 342--343
 []\OT1/phv/b/n/10.95 TB[]DESPESAS[]CEAPS\OT1/phv/m/n/10.95 : Ar-ma-zena cada no
 ta fis-cal re-em-bol-sada. FK para \OT1/cmtt/m/n/10.95 TB[]SENADORES\OT1/phv/m/
 n/10.95 .
  []
 
-[25] [26] (src/sections/conclusao.tex) (main.bbl [27] [28] [29]) [30]
-Overfull \hbox (10.75354pt too wide) in paragraph at lines 435--436
+[27] [28] (src/sections/conclusao.tex) (main.bbl [29] [30] [31]) [32]
+Overfull \hbox (10.14041pt too wide) in paragraph at lines 402--403
 []\OT1/phv/m/sl/10.95 Application Pro-gram-ming In-ter-face \OT1/phv/m/n/10.95 
---- In-ter-face de programa[][]ao que per-mite a comunica[][]ao
+--- in-ter-face de programa[][]ao que per-mite a comunica[][]ao
  []
 
 
-Overfull \hbox (7.20003pt too wide) in paragraph at lines 437--438
+Overfull \hbox (7.20003pt too wide) in paragraph at lines 406--407
 []\OT1/phv/m/sl/10.95 Continuous In-te-gra-tion / Con-ti-nu-ous De-ploy-ment \O
 T1/phv/m/n/10.95 --- pr[]aticas de integra[][]ao e implanta[][]ao
  []
 
 
-Overfull \hbox (5.44817pt too wide) in paragraph at lines 443--444
+Overfull \hbox (15.17207pt too wide) in paragraph at lines 413--414
+[]\OT1/phv/m/n/10.95 Indicador de Al-fa-be-tismo Fun-ci-o-nal --- pes-quisa bra
+-si-leira que ava-lia n[]^^Pveis de alfabetiza[][]ao
+ []
+
+[33]
+Overfull \hbox (5.44817pt too wide) in paragraph at lines 422--423
 []\OT1/phv/m/sl/10.95 Object-Relational Map-ping \OT1/phv/m/n/10.95 --- t[]ecni
 ca de ma-pe-a-mento objeto-relacional para per-sist[]encia
  []
 
-[31] (main.aux)
+
+Overfull \hbox (13.27754pt too wide) in paragraph at lines 424--425
+[]\OT1/phv/m/n/10.95 Proposta de Emenda []a Constitui[][]ao --- proposi[][]ao l
+e-gis-la-tiva que visa al-te-rar a Constitui[][]ao
+ []
+
+
+Overfull \hbox (7.48564pt too wide) in paragraph at lines 427--428
+[]\OT1/phv/m/sl/10.95 Resource Des-crip-tion Fra-mework \OT1/phv/m/n/10.95 --- 
+mo-delo de da-dos para representa[][]ao de informa[][]oes
+ []
+
+[34] [35] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C227650770F40633AE7D14DCA43F58E8;9273.
+(rerunfilecheck)             Checksum: 57319CF8E7E24939DCC6AE276CA227C6;9794.
  ) 
 Here is how much of TeX's memory you used:
- 12915 strings out of 467871
- 206983 string characters out of 5418376
- 654811 words of memory out of 5000000
- 41379 multiletter control sequences out of 15000+600000
+ 12968 strings out of 467871
+ 208038 string characters out of 5418376
+ 656058 words of memory out of 5000000
+ 41409 multiletter control sequences out of 15000+600000
  652175 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,7n,93p,1195b,661s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -729,9 +774,9 @@ blic/amsfonts/cm/cmsy10.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts
 TeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppData/Local/Programs/
 MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro/AppData/Local/Progra
 ms/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (35 pages, 1331059 bytes).
+Output written on main.pdf (39 pages, 1350693 bytes).
 PDF statistics:
- 669 PDF objects out of 1000 (max. 8388607)
- 201 named destinations out of 1000 (max. 500000)
- 400 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 732 PDF objects out of 1000 (max. 8388607)
+ 224 named destinations out of 1000 (max. 500000)
+ 416 words of extra memory for PDF output out of 10000 (max. 10000000)
 

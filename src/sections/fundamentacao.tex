@@ -1,8 +1,18 @@
 \section{Fundamentação Teórica}
 
-Esta seção apresenta os conceitos fundamentais que embasam o desenvolvimento do \textit{Tô De Olho}, abrangendo transparência pública, democracia digital, teoria de accountability e arquitetura de software.
+O desenvolvimento de uma plataforma de transparência parlamentar situa-se na interseção de múltiplos campos do conhecimento: direito à informação, ciência política, teoria democrática, design de interação e engenharia de software. Compreender essas bases teóricas é essencial não apenas para fundamentar as decisões de projeto, mas também para posicionar a ferramenta no debate mais amplo sobre controle social e qualidade da democracia.
 
-\subsection{Transparência Pública e Dados Abertos}
+Esta seção organiza-se em três eixos complementares. O primeiro eixo --- \textbf{normativo-institucional} --- examina os marcos legais e conceituais que sustentam a transparência governamental no Brasil, desde a Lei de Acesso à Informação até os compromissos internacionais de governo aberto. O segundo eixo --- \textbf{político-participativo} --- aborda as teorias de democracia digital e accountability, investigando como tecnologias podem (ou não) fortalecer a participação cidadã e a responsabilização de agentes públicos. O terceiro eixo --- \textbf{técnico-metodológico} --- apresenta os fundamentos de mensuração de efetividade legislativa, visualização de dados e arquitetura de sistemas que orientam a implementação do \textit{Tô De Olho}.
+
+%% ========================================
+%% EIXO 1: NORMATIVO-INSTITUCIONAL
+%% ========================================
+
+\subsection{Eixo Normativo-Institucional}
+
+Este eixo examina os fundamentos jurídicos e conceituais que regulamentam o acesso à informação pública no Brasil, bem como os desafios de transparência em modalidades orçamentárias específicas.
+
+\subsubsection{Transparência Pública e Dados Abertos}
 
 A transparência governamental constitui pilar fundamental do Estado Democrático de Direito. No Brasil, a Lei de Acesso à Informação (LAI --- Lei nº 12.527/2011) estabelece que o acesso é a regra e o sigilo, a exceção, garantindo aos cidadãos o direito de solicitar e receber informações públicas sem necessidade de justificativa \cite{lai2011}. A LAI impõe aos órgãos públicos o dever de divulgação proativa de informações de interesse coletivo, incluindo dados sobre despesas, contratos e remunerações de servidores.
 
@@ -22,7 +32,25 @@ Os portais brasileiros de dados abertos situam-se predominantemente entre duas e
 
 O Brasil integra a \textit{Open Government Partnership} (OGP) desde 2011, tendo desenvolvido seis planos de ação nacionais com participação da sociedade civil. Essas iniciativas resultaram em 130 reformas voltadas à melhoria da governança e ao fortalecimento da Lei de Acesso à Informação \cite{ogp2024brazil}. Contudo, como demonstram as pesquisas sobre dados abertos, a mera disponibilização de informações não garante transparência efetiva: é necessário que os dados alcancem o público, que este tenha capacidade de processá-los, e que existam mecanismos institucionais para responsabilização dos agentes públicos.
 
-\subsection{Democracia Digital e Participação Cidadã}
+\subsubsection{Emendas PIX e Desafios de Transparência Orçamentária}
+
+As Transferências Especiais, popularmente conhecidas como ``emendas PIX'', constituem modalidade de repasse de recursos federais a estados e municípios criada pela Emenda Constitucional nº 105/2019. Diferentemente de convênios tradicionais, que exigem plano de trabalho prévio e prestação de contas detalhada, as emendas PIX transferem recursos diretamente às contas dos entes federativos com discricionariedade ampla sobre sua aplicação.
+
+A pesquisa de Alencar \cite{alencar2024emendaspix} revela deficiências graves de transparência fiscal nesta modalidade. Do total de R\$ 20,5 bilhões transferidos via emendas PIX até 2023, apenas R\$ 933 milhões --- menos de 5\% --- tiveram prestação de contas adequada. A evolução do instrumento é expressiva: em 2020, primeiro ano de vigência, as transferências especiais representavam 6,4\% das emendas individuais; em 2023, esse percentual saltou para 32,4\%.
+
+A distribuição territorial revela disparidades extremas: no mesmo estado, alguns municípios receberam mais de R\$ 4.500 \textit{per capita} via emendas PIX, enquanto outros receberam menos de R\$ 1 --- sem qualquer justificativa pública dos parlamentares sobre os critérios de alocação. Esta opacidade compromete as três vertentes de \textit{accountability} discutidas posteriormente nesta seção: a \textbf{vertical} (eleitores não conseguem avaliar escolhas de seus representantes), a \textbf{horizontal} (tribunais de contas enfrentam dificuldades de fiscalização) e a \textbf{social} (jornalistas e pesquisadores encontram dados fragmentados e incompletos).
+
+O \textit{Tô De Olho} aborda esta lacuna ao integrar dados de emendas do Portal da Transparência com informações legislativas do Senado, permitindo que o cidadão visualize, para cada senador: o total de recursos destinados via transferências especiais, os municípios beneficiados e a evolução temporal dos repasses. Ao consolidar informações dispersas em interface única, a plataforma contribui para reduzir a opacidade que caracteriza esta modalidade orçamentária.
+
+%% ========================================
+%% EIXO 2: POLÍTICO-PARTICIPATIVO
+%% ========================================
+
+\subsection{Eixo Político-Participativo}
+
+Este eixo investiga as bases teóricas que fundamentam a relação entre tecnologia, participação cidadã e responsabilização de agentes públicos, examinando como ferramentas digitais podem fortalecer --- ou apenas simular --- o controle social.
+
+\subsubsection{Democracia Digital e Participação Cidadã}
 
 O conceito de democracia digital refere-se ao emprego de tecnologias de informação e comunicação (TICs) para produzir ``mais democracia e melhores democracias'' \cite{Gomes2010}. Wilson Gomes identifica três fases históricas neste campo: a \textbf{teledemocracia} (anos 1970-90), marcada por experimentos com televisão interativa e enquetes eletrônicas; a \textbf{fase da internet} (1995-2005), caracterizada pelo debate sobre potenciais e limites da rede para a participação política; e a \textbf{autonomização contemporânea}, onde subtemas como governo aberto, \textit{smart cities} e parlamento digital desenvolvem-se de forma independente, com metodologias e agendas próprias \cite{gomes2019}.
 
@@ -40,7 +68,7 @@ Ferramentas de transparência como o \textit{Tô De Olho} situam-se primariament
 
 No contexto brasileiro, a brecha digital representa obstáculo adicional à democracia digital. Segundo o INAF, 29\% da população entre 15 e 64 anos é funcionalmente analfabeta \cite{inaf2024}, limitando severamente a capacidade de interpretar planilhas, gráficos e relatórios técnicos. Avelino et al. mapeiam iniciativas de governo aberto no âmbito federal, identificando avanços significativos na disponibilização de dados, porém alertando que tecnologias precisam ser mediadas por visualizações claras e linguagem acessível para efetivação do controle social \cite{avelino2021democracia}.
 
-\subsection{Teoria Principal-Agente e Accountability}
+\subsubsection{Teoria Principal-Agente e Accountability}
 
 A relação entre cidadãos e representantes eleitos pode ser analisada através da lente da \textbf{teoria econômica de agência}, originalmente desenvolvida para compreender relações contratuais em organizações. Neste modelo, os cidadãos (eleitores) atuam como \textbf{principais} que delegam autoridade a \textbf{agentes} (parlamentares e burocratas) para tomar decisões em seu nome. O problema fundamental surge da \textbf{assimetria informacional}: os agentes possuem mais informação sobre suas próprias ações, esforços e competências do que os principais que os monitoram \cite{moe1984new}.
 
@@ -60,7 +88,35 @@ A transparência é condição necessária --- mas não suficiente --- para a ac
 
 O \textit{Tô De Olho} posiciona-se como ferramenta de \textbf{accountability social}, reduzindo a assimetria informacional entre eleitores e senadores. Ao consolidar dados fragmentados, contextualizar valores com médias comparativas e oferecer rankings metodologicamente fundamentados, a plataforma amplia a capacidade do cidadão de monitorar seus representantes --- condição prévia para o exercício tanto da accountability vertical (voto informado) quanto da pressão por accountability horizontal (denúncias fundamentadas a órgãos de controle).
 
-\subsection{Métricas de Efetividade Legislativa}
+\subsubsection{Civic Tech e Sociedade Civil}
+
+O termo \textbf{civic tech} (tecnologia cívica) refere-se ao uso de tecnologias digitais para fortalecer a participação cidadã, a transparência governamental e a colaboração entre sociedade e Estado. Diferencia-se de \textit{GovTech} (tecnologia para eficiência governamental interna) por seu foco na interface com o cidadão e no empoderamento da sociedade civil.
+
+No Brasil, o ecossistema de civic tech consolidou-se a partir de 2010, impulsionado pela Lei de Acesso à Informação (2011) e pelo crescimento de organizações especializadas. Entre as iniciativas mais relevantes:
+
+\begin{itemize}
+    \item \textbf{Transparência Brasil}: Fundada em 2000, é uma das principais organizações dedicadas à promoção da integridade e supervisão cívica no setor público. Desenvolve pesquisas, relatórios e ferramentas para monitoramento de políticas públicas \cite{transparenciabrasil2024}.
+    
+    \item \textbf{Open Knowledge Brasil}: Responsável pela Operação Serenata de Amor e pelo projeto ``Querido Diário'', que aplica técnicas de inteligência artificial para auditar diários oficiais municipais.
+    
+    \item \textbf{Fiquem Sabendo}: Organização sem fins lucrativos que utiliza civic tech de código aberto para expor gastos governamentais não divulgados, tendo revelado mais de 500 bilhões de reais em despesas não reportadas ao longo de 27 anos.
+    
+    \item \textbf{Associação Brasileira de Jornalismo Investigativo (Abraji)}: Emprega jornalismo de dados e ferramentas tecnológicas para investigar corrupção e má gestão de recursos públicos.
+\end{itemize}
+
+Apesar dos avanços, o ecossistema enfrenta desafios significativos. A \textbf{sustentabilidade financeira} é precária: muitas iniciativas dependem de financiamento coletivo, bolsas internacionais ou trabalho voluntário, limitando sua capacidade de operação contínua. A \textbf{brecha digital} restringe o alcance a populações com menor acesso à internet ou habilidades tecnológicas limitadas. E a \textbf{fragmentação de esforços} --- múltiplas ferramentas com escopos parcialmente sobrepostos --- dispersa recursos e dificulta o engajamento do cidadão comum.
+
+O \textit{Tô De Olho} posiciona-se neste ecossistema com um diferencial claro: o foco exclusivo no \textbf{Senado Federal}, câmara legislativa até então carente de ferramentas específicas de fiscalização cidadã. Enquanto a Câmara dos Deputados conta com ao menos três plataformas consolidadas (Serenata de Amor, De Olho no Congresso, De Olho em Você), os 81 senadores --- que exercem mandatos de oito anos e detêm competências exclusivas de alto impacto --- permanecem em relativa ``sombra'' digital.
+
+%% ========================================
+%% EIXO 3: TÉCNICO-METODOLÓGICO
+%% ========================================
+
+\subsection{Eixo Técnico-Metodológico}
+
+Este eixo apresenta os fundamentos técnicos e metodológicos que orientam a implementação do \textit{Tô De Olho}, incluindo métricas de avaliação parlamentar, princípios de visualização de dados e decisões arquiteturais.
+
+\subsubsection{Métricas de Efetividade Legislativa}
 
 A avaliação quantitativa do desempenho parlamentar constitui tema relevante na ciência política contemporânea. Craig Volden e Alan E. Wiseman, co-diretores do \textit{Center for Effective Lawmaking}, desenvolveram o \textit{Legislative Effectiveness Score} (LES), uma métrica que mensura a capacidade de parlamentares em conduzir suas proposições através do processo legislativo \cite{volden2014lawmakers, volden2018legislative}.
 
@@ -89,7 +145,7 @@ Embora desenvolvida para o contexto norte-americano, a metodologia oferece um \t
 
 A transparência metodológica --- expor publicamente os critérios e pesos utilizados --- é fundamental para que o \textit{ranking} seja percebido como ferramenta de informação, não de manipulação política. Diferente de classificações opacas, o cidadão poderá compreender --- e questionar --- os fundamentos da avaliação.
 
-\subsection{Visualização de Dados e Retórica Visual}
+\subsubsection{Visualização de Dados e Retórica Visual}
 
 A apresentação de dados ao cidadão não é neutra: escolhas de \textit{design} influenciam profundamente a interpretação das informações. Jessica Hullman e Nicholas Diakopoulos investigaram os ``efeitos de enquadramento'' (\textit{framing effects}) em visualizações narrativas, demonstrando que técnicas retóricas como seleção, omissão, ênfase e sequenciamento podem direcionar a leitura do público de forma consciente ou inconsciente \cite{hullman2011visualization}.
 
@@ -109,46 +165,53 @@ A \textbf{literacia em visualização de dados} (\textit{Data Visualization Lite
 
 Para o \textit{Tô De Olho}, esses princípios orientam decisões de \textit{design}: priorizar visualizações simples e intuitivas; oferecer múltiplas formas de apresentação (gráficos, tabelas, textos explicativos); e testar a compreensibilidade com usuários de diferentes perfis. O objetivo é maximizar a transparência metodológica, evitando que a plataforma seja percebida como veículo de viés político.
 
-\subsection{Civic Tech e Sociedade Civil}
+\subsubsection{Arquitetura de Software: Monolito Modular}
 
-O termo \textbf{civic tech} (tecnologia cívica) refere-se ao uso de tecnologias digitais para fortalecer a participação cidadã, a transparência governamental e a colaboração entre sociedade e Estado. Diferencia-se de \textit{GovTech} (tecnologia para eficiência governamental interna) por seu foco na interface com o cidadão e no empoderamento da sociedade civil.
+A escolha arquitetural de um sistema de software envolve \textit{trade-offs} fundamentais entre complexidade operacional, velocidade de desenvolvimento e capacidade de evolução. A literatura distingue três abordagens principais: o \textbf{monolito tradicional}, onde todos os componentes residem em uma única base de código sem separação clara; os \textbf{microsserviços}, que fragmentam a aplicação em serviços independentes comunicando-se via rede; e o \textbf{monolito modular}, que combina a simplicidade operacional do primeiro com a organização interna do segundo \cite{dragoni2017microservices, laigner2024modular}.
 
-No Brasil, o ecossistema de civic tech consolidou-se a partir de 2010, impulsionado pela Lei de Acesso à Informação (2011) e pelo crescimento de organizações especializadas. Entre as iniciativas mais relevantes:
+O monolito modular organiza o código em módulos discretos, fracamente acoplados e orientados a domínio, porém dentro de uma única unidade de \textit{deploy}. Diferente do monolito tradicional, que tende a se tornar uma ``bola de lama'' (\textit{big ball of mud}) com o crescimento, o monolito modular impõe fronteiras lógicas explícitas entre componentes, facilitando a manutenção e permitindo que equipes trabalhem de forma relativamente independente em diferentes partes do sistema \cite{laigner2024modular}.
+
+A escolha por monolito modular no \textit{Tô De Olho} fundamenta-se em critérios técnicos e contextuais:
 
 \begin{itemize}
-    \item \textbf{Transparência Brasil}: Fundada em 2000, é uma das principais organizações dedicadas à promoção da integridade e supervisão cívica no setor público. Desenvolve pesquisas, relatórios e ferramentas para monitoramento de políticas públicas \cite{transparenciabrasil2024}.
+    \item \textbf{Simplicidade de Deploy}: Um único contêiner Docker simplifica a infraestrutura e reduz custos operacionais. Plataformas \textit{serverless} como Google Cloud Run beneficiam-se particularmente desta característica, oferecendo escala automática (inclusive a zero) sem a complexidade de orquestração de múltiplos serviços;
     
-    \item \textbf{Open Knowledge Brasil}: Responsável pela Operação Serenata de Amor e pelo projeto ``Querido Diário'', que aplica técnicas de inteligência artificial para auditar diários oficiais municipais.
+    \item \textbf{Ausência de Latência de Rede}: A comunicação entre módulos ocorre via chamadas de função em memória, eliminando a latência e os riscos de falha associados a chamadas de rede. Em microsserviços, cada interação entre componentes adiciona overhead de serialização, transmissão e desserialização;
     
-    \item \textbf{Fiquem Sabendo}: Organização sem fins lucrativos que utiliza civic tech de código aberto para expor gastos governamentais não divulgados, tendo revelado mais de 500 bilhões de reais em despesas não reportadas ao longo de 27 anos.
+    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos podem compartilhar uma única transação de banco de dados, garantindo atomicidade. Em arquiteturas distribuídas, esse padrão requereria implementação de \textit{sagas} ou \textit{two-phase commit}, aumentando significativamente a complexidade;
     
-    \item \textbf{Associação Brasileira de Jornalismo Investigativo (Abraji)}: Emprega jornalismo de dados e ferramentas tecnológicas para investigar corrupção e má gestão de recursos públicos.
+    \item \textbf{Adequação ao Contexto}: Para equipes pequenas e projetos acadêmicos, a complexidade operacional de microsserviços --- monitoramento distribuído, orquestração de contêineres, \textit{service discovery}, gerenciamento de configurações --- frequentemente supera os benefícios de escalabilidade granular.
 \end{itemize}
 
-Apesar dos avanços, o ecossistema enfrenta desafios significativos. A \textbf{sustentabilidade financeira} é precária: muitas iniciativas dependem de financiamento coletivo, bolsas internacionais ou trabalho voluntário, limitando sua capacidade de operação contínua. A \textbf{brecha digital} restringe o alcance a populações com menor acesso à internet ou habilidades tecnológicas limitadas. E a \textbf{fragmentação de esforços} --- múltiplas ferramentas com escopos parcialmente sobrepostos --- dispersa recursos e dificulta o engajamento do cidadão comum.
+A literatura recente sobre monolito modular destaca a importância de princípios do \textbf{Domain-Driven Design} (DDD) na definição de fronteiras entre módulos. Eric Evans, criador do DDD, propõe o conceito de \textit{Bounded Contexts} --- regiões do sistema onde um modelo de domínio específico se aplica, com interfaces bem definidas para comunicação com outros contextos \cite{evans2003ddd}. No \textit{Tô De Olho}, cada módulo interno (\texttt{senador}, \texttt{ceaps}, \texttt{votacao}, \texttt{emenda}, \texttt{ranking}) representa um \textit{bounded context} com responsabilidades claras.
 
-O \textit{Tô De Olho} posiciona-se neste ecossistema com um diferencial claro: o foco exclusivo no \textbf{Senado Federal}, câmara legislativa até então carente de ferramentas específicas de fiscalização cidadã. Enquanto a Câmara dos Deputados conta com ao menos três plataformas consolidadas (Serenata de Amor, De Olho no Congresso, De Olho em Você), os 81 senadores --- que exercem mandatos de oito anos e detêm competências exclusivas de alto impacto --- permanecem em relativa ``sombra'' digital.
+Frameworks modernos têm formalizado o padrão de monolito modular. O Google Service Weaver permite escrever aplicações como monolitos modulares que podem ser implantados como processos únicos ou microsserviços distribuídos, sem alteração de código \cite{serviceweaver2024}. O Spring Modulith oferece suporte similar no ecossistema Java, com verificação automatizada de fronteiras entre módulos \cite{springmodulith2024}. Embora o \textit{Tô De Olho} não utilize esses frameworks específicos (dado o backend em Go), a arquitetura interna segue os mesmos princípios: módulos com interfaces explícitas, dependências unidirecionais e comunicação via contratos bem definidos.
 
-\subsection{Arquitetura de Software: Monolito Modular}
+Esta escolha não descarta a possibilidade de evolução futura. Caso o sistema alcance escala que justifique escalabilidade granular de componentes específicos, a estrutura modular facilitará a extração de microsserviços independentes --- uma estratégia de ``decomposição incremental'' recomendada pela literatura como alternativa ao risco de migração completa \cite{dragoni2017microservices}.
 
-A arquitetura de \textbf{monolito modular} representa uma abordagem intermediária entre o monolito tradicional e os microsserviços \cite{dragoni2017microservices}. Enquanto o monolito tradicional tende a se tornar uma ``bola de lama'' (\textit{big ball of mud}) com o crescimento, e microsserviços introduzem complexidade operacional significativa (orquestração, rede, consistência eventual), o monolito modular organiza a aplicação em módulos bem definidos dentro de um único artefato de \textit{deploy}.
+\subsubsection{Engenharia de Dados: APIs e Processos ETL}
 
-Esta escolha é particularmente adequada para equipes pequenas e projetos acadêmicos, oferecendo benefícios de organização e manutenibilidade sem a complexidade operacional de sistemas distribuídos. Os principais benefícios incluem: simplicidade de \textit{deploy} com um único contêiner em ambiente \textit{serverless} (Cloud Run); baixa latência entre módulos, já que a comunicação ocorre via chamadas de função em memória; e facilidade de evolução futura, permitindo eventual migração para microsserviços se a escala justificar.
+O padrão ETL (\textit{Extract, Transform, Load}) constitui a espinha dorsal de sistemas de integração de dados desde os primórdios da computação analítica. Ralph Kimball, pioneiro em \textit{data warehousing}, define ETL como o processo responsável por ``extrair dados de sistemas fonte, aplicar transformações de qualidade e conformidade, e entregar os dados em formato dimensional'' \cite{kimball2004etl}. Vassiliadis, em revisão abrangente da literatura, estima que processos ETL consomem entre 60\% e 80\% do esforço de desenvolvimento de projetos de integração de dados \cite{vassiliadis2009survey}.
 
-\subsection{Engenharia de Dados: APIs e Processos ETL}
+A estratégia de ingestão do \textit{Tô De Olho} segue as três fases clássicas do ETL:
 
-A estratégia de ingestão de dados do \textit{Tô De Olho} fundamenta-se no padrão ETL (\textit{Extract, Transform, Load}): extração dos dados brutos das fontes oficiais, transformação para normalização e enriquecimento, e carga no banco de dados da aplicação.
+\begin{enumerate}
+    \item \textbf{Extração (Extract)}: Coleta de dados brutos das fontes oficiais via APIs RESTful. O sistema consome três APIs distintas: a API Legislativa do Senado (matérias, votações nominais, comissões), a API Administrativa do Senado (CEAPS, remunerações de gabinete) e a API do Portal da Transparência (emendas parlamentares). Cada fonte possui características próprias de paginação, limites de requisição e formatos de resposta, exigindo adaptadores específicos;
+    
+    \item \textbf{Transformação (Transform)}: Normalização, limpeza e enriquecimento dos dados extraídos. Esta fase inclui: padronização de nomes de senadores (tratamento de variações como ``José da Silva'' vs ``JOSE DA SILVA''), conversão de formatos de data, cálculo de métricas derivadas (como percentuais de presença) e detecção de anomalias (valores negativos, datas futuras, registros duplicados);
+    
+    \item \textbf{Carga (Load)}: Persistência dos dados transformados no banco PostgreSQL, com estratégias de upsert para evitar duplicação e manutenção de histórico de alterações.
+\end{enumerate}
 
-A abordagem adotada consome exclusivamente APIs RESTful oficiais: a API Legislativa do Senado (matérias, votações, comissões), a API Administrativa (CEAPS, remunerações de servidores) e a API do Portal da Transparência (emendas parlamentares). O processo combina duas estratégias complementares: \textbf{backfill} para carga histórica inicial abrangendo dados desde 2019, e \textbf{sincronização incremental} diária via tarefas agendadas (\textit{CronJobs}) que capturam atualizações recentes.
+O processo combina duas estratégias complementares de carga:
 
-A escolha por APIs oficiais --- em detrimento de técnicas de \textit{web scraping} --- fundamenta-se em critérios de confiabilidade e manutenibilidade: APIs possuem contratos mais estáveis, formatos estruturados (JSON/XML) e documentação oficial, reduzindo a fragilidade do sistema a mudanças de layout em páginas web.
+\begin{itemize}
+    \item \textbf{Backfill (Carga Histórica)}: Execução única para ingestão do histórico completo desde um ano configurável (padrão: 2019). Esta flexibilidade, implementada via variável de ambiente, permite ajustar o escopo temporal conforme necessidades específicas --- por exemplo, restringir a dados de 2023 em ambiente de desenvolvimento para acelerar testes, ou expandir para 2015 para análises de longo prazo;
+    
+    \item \textbf{Sincronização Incremental}: Tarefas agendadas (\textit{CronJobs}) executadas diariamente às 03:00 BRT, capturando apenas atualizações desde a última sincronização. Esta abordagem otimiza o consumo de recursos e respeita os limites de requisição das APIs oficiais.
+\end{itemize}
 
-\subsection{Emendas PIX e Desafios de Transparência Orçamentária}
+A escolha por APIs oficiais --- em detrimento de técnicas de \textit{web scraping} --- fundamenta-se em critérios de confiabilidade e manutenibilidade. APIs possuem contratos documentados, formatos estruturados (JSON/XML) e versionamento explícito, enquanto o \textit{scraping} de páginas HTML é intrinsecamente frágil a mudanças de layout. Kimball adverte que ``a qualidade dos dados de entrada determina o teto de qualidade do sistema final'' \cite{kimball2013toolkit} --- premissa que reforça a preferência por fontes oficiais com garantias de integridade.
 
-As Transferências Especiais, popularmente conhecidas como ``emendas PIX'', constituem modalidade de repasse de recursos federais a estados e municípios criada pela Emenda Constitucional nº 105/2019. Diferentemente de convênios tradicionais, que exigem plano de trabalho prévio e prestação de contas detalhada, as emendas PIX transferem recursos diretamente às contas dos entes federativos com discricionariedade ampla sobre sua aplicação.
+Adicionalmente, as APIs oficiais brasileiras oferecem vantagens práticas: o Portal da Transparência disponibiliza dados de emendas com granularidade diária; a API Legislativa do Senado permite consultas por período específico; e a API Administrativa provê arquivos CSV consolidados para carga em massa. Essas características distintas exigem que o módulo ETL do \textit{Tô De Olho} implemente adaptadores especializados para cada fonte, unificando os dados em um modelo dimensional coerente antes da carga.
 
-A pesquisa de Alencar \cite{alencar2024emendaspix} revela deficiências graves de transparência fiscal nesta modalidade. Do total de R\$ 20,5 bilhões transferidos via emendas PIX até 2023, apenas R\$ 933 milhões --- menos de 5\% --- tiveram prestação de contas adequada. A evolução do instrumento é expressiva: em 2020, primeiro ano de vigência, as transferências especiais representavam 6,4\% das emendas individuais; em 2023, esse percentual saltou para 32,4\%.
-
-A distribuição territorial revela disparidades extremas: no mesmo estado, alguns municípios receberam mais de R\$ 4.500 \textit{per capita} via emendas PIX, enquanto outros receberam menos de R\$ 1 --- sem qualquer justificativa pública dos parlamentares sobre os critérios de alocação. Esta opacidade compromete as três vertentes de \textit{accountability} discutidas anteriormente: a \textbf{vertical} (eleitores não conseguem avaliar escolhas de seus representantes), a \textbf{horizontal} (tribunais de contas enfrentam dificuldades de fiscalização) e a \textbf{social} (jornalistas e pesquisadores encontram dados fragmentados e incompletos).
-
-O \textit{Tô De Olho} aborda esta lacuna ao integrar dados de emendas do Portal da Transparência com informações legislativas do Senado, permitindo que o cidadão visualize, para cada senador: o total de recursos destinados via transferências especiais, os municípios beneficiados e a evolução temporal dos repasses. Ao consolidar informações dispersas em interface única, a plataforma contribui para reduzir a opacidade que caracteriza esta modalidade orçamentária.
