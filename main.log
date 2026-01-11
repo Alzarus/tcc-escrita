@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  11 JAN 2026 14:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  11 JAN 2026 14:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -664,10 +664,10 @@ L), autentica[][]ao
  []
 
 
-Overfull \hbox (45.32655pt too wide) in paragraph at lines 32--33
-\OT1/phv/m/n/10.95 do pro-cesso le-gis-la-tivo. A URL base para requisi[][]oes 
-[]e \OT1/cmtt/m/n/10.95 https://legis.senado.leg.br/dadosabertos\OT1/phv/m/n/10
-.95 .
+Overfull \hbox (3.39638pt too wide) in paragraph at lines 32--33
+\OT1/phv/m/n/10.95 pro-cesso le-gis-la-tivo. A URL base para requisi[][]oes []e
+ []$\OMS/cmsy/m/n/10.95 h\OT1/phv/m/n/10.95 https : / / legis . senado . leg . 
+br / dadosabertos[]$[].
  []
 
 
@@ -698,19 +698,6 @@ Overfull \hbox (1.06868pt too wide) in paragraph at lines 52--53
 []\OT1/cmtt/m/n/10.95 /dadosabertos/processo/relatoria?codigoParlamentar=\OMS/c
 mtt/m/n/10.95 f\OT1/cmtt/m/n/10.95 codigo\OMS/cmtt/m/n/10.95 g\OT1/phv/m/n/10.9
 5 : Re-la-to-rias de-sig-
- []
-
-
-Overfull \hbox (3.89027pt too wide) in paragraph at lines 59--60
-[]\OT1/phv/m/n/10.95 Documentada em \OT1/cmtt/m/n/10.95 adm.senado.gov.br/adm-d
-adosabertos/swagger-ui\OT1/phv/m/n/10.95 , esta in-ter-face dis-
- []
-
-
-Overfull \hbox (164.4722pt too wide) in paragraph at lines 59--60
-\OT1/phv/m/n/10.95 po-ni-bi-liza da-dos fi-nan-cei-ros e ad-mi-nis-tra-ti-vos. 
-A URL base para requisi[][]oes []e \OT1/cmtt/m/n/10.95 https://adm.senado.gov.b
-r/adm-dadosabertos\OT1/phv/m/n/10.95 . 
  []
 
 [20] [21]
@@ -796,13 +783,13 @@ Overfull \hbox (4.50691pt too wide) in paragraph at lines 224--225
  []
 
 [31]
-<docs/diagrama_classes.png, id=653, 246.6816pt x 246.6816pt>
+<docs/diagrama_classes.png, id=659, 246.6816pt x 246.6816pt>
 File: docs/diagrama_classes.png Graphic file (type png)
 <use docs/diagrama_classes.png>
 Package pdftex.def Info: docs/diagrama_classes.png  used on input line 285.
 (pdftex.def)             Requested size: 362.37598pt x 362.41055pt.
  [32]
-<docs/diagrama_implantacao.png, id=658, 246.6816pt x 246.6816pt>
+<docs/diagrama_implantacao.png, id=664, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
 Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 296.
@@ -895,9 +882,9 @@ Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro
 /AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pe
 dro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users
 /pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (48 pages, 1430297 bytes).
+Output written on main.pdf (48 pages, 1431345 bytes).
 PDF statistics:
- 906 PDF objects out of 1000 (max. 8388607)
+ 912 PDF objects out of 1000 (max. 8388607)
  270 named destinations out of 1000 (max. 500000)
  536 words of extra memory for PDF output out of 10000 (max. 10000000)
 
