@@ -23,7 +23,9 @@ A divisão do trabalho ocorreu em cinco fases principais:
 
 \subsection{Fontes de Dados}
 
-O sistema integra três fontes de dados governamentais oficiais, cada uma com características, formatos e \textit{endpoints} distintos. A seguir, detalhamos os recursos consumidos de cada API.
+O sistema integra três fontes de dados governamentais oficiais, fundamentadas no arcabouço legal brasileiro de transparência pública. A Lei de Acesso à Informação (Lei n. 12.527/2011) estabelece como diretriz a ``disponibilização de informações em formatos abertos, estruturados e legíveis por máquina'' \cite{lai2011}, princípio que as APIs governamentais operacionalizam. Conforme demonstrado pela Operação Serenata de Amor, tecnologias desenvolvidas sobre esses dados abertos podem gerar valor público ao facilitar o controle social do gasto parlamentar \cite{albuquerque2018serenata}.
+
+A seleção dos \textit{endpoints} e campos consumidos seguiu três critérios: (i) \textbf{relevância para fiscalização cidadã} --- priorizando dados de gastos, votações e atuação legislativa; (ii) \textbf{disponibilidade e confiabilidade} --- selecionando fontes com documentação oficial e atualização regular; e (iii) \textbf{viabilidade técnica} --- considerando formatos estruturados (JSON/XML), autenticação simples e limites de requisição adequados.
 
 \subsubsection{API Legislativa do Senado}
 
@@ -84,6 +86,18 @@ A API do Portal da Transparência (\texttt{api.portaldatransparencia.gov.br}) fo
 \end{itemize}
 
 O filtro \texttt{tipoEmenda=Transferência Especial} permite identificar as chamadas ``emendas PIX'', modalidade de repasse que dispensa convênio. Os campos retornados incluem código da emenda, autor, localidade do gasto, função, subfunção e valores (empenhado, liquidado e pago).
+
+\subsubsection{Limitações e Cobertura Temporal}
+
+Cada fonte de dados apresenta limitações que impactam o escopo e a profundidade das análises possíveis:
+
+\begin{itemize}
+    \item \textbf{API Legislativa}: Votações nominais disponíveis apenas a partir de 2019 (legislatura 56); dados anteriores requerem consulta a arquivos históricos em formato XML. Limite de 10 requisições por segundo;
+    \item \textbf{API Administrativa}: Despesas CEAPS disponíveis desde 2008 em CSV; API REST cobre apenas o ano corrente. Não há \textit{endpoint} para vincular servidores diretamente ao gabinete do senador --- essa associação requer cruzamento com a tabela de lotações;
+    \item \textbf{Portal da Transparência}: Emendas disponíveis a partir de 2015. Busca por autor utiliza correspondência textual (nome), não código parlamentar, exigindo normalização de grafia. Limite de 300 requisições por minuto com autenticação via chave de API.
+\end{itemize}
+
+Essas restrições foram consideradas no desenho do sistema: dados históricos são carregados via arquivos CSV (backfill), enquanto a sincronização contínua utiliza as APIs REST com tratamento adequado de limites de requisição.
 
 \subsection{Estratégia de Ingestão de Dados}
 

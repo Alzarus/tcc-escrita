@@ -29,25 +29,26 @@
 \contentsline {subsubsection}{\numberline {3.2.1}API Legislativa do Senado}{19}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}API Administrativa do Senado}{20}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Portal da Transparência (CGU)}{21}{subsubsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.3}Estratégia de Ingestão de Dados}{21}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Backfill (Carga Histórica)}{21}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.2.4}Limitações e Cobertura Temporal}{21}{subsubsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.3}Estratégia de Ingestão de Dados}{22}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Backfill (Carga Histórica)}{22}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Sincronização Contínua}{22}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Tratamento de Erros e Resiliência}{22}{subsubsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.4}Arquitetura do Sistema}{22}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.3}Tratamento de Erros e Resiliência}{23}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Arquitetura do Sistema}{23}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Stack Tecnológico}{23}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}Modelo de Dados}{24}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}Algoritmo de Ranking}{24}{subsection.3.7}%
-\contentsline {subsubsection}{\numberline {3.7.1}Fundamentação Teórica}{24}{subsubsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7}Algoritmo de Ranking}{25}{subsection.3.7}%
+\contentsline {subsubsection}{\numberline {3.7.1}Fundamentação Teórica}{25}{subsubsection.3.7.1}%
 \contentsline {subsubsection}{\numberline {3.7.2}Critérios e Pesos}{25}{subsubsection.3.7.2}%
 \contentsline {subsubsection}{\numberline {3.7.3}Produtividade Legislativa}{25}{subsubsection.3.7.3}%
-\contentsline {subsubsection}{\numberline {3.7.4}Presença em Votações}{25}{subsubsection.3.7.4}%
+\contentsline {subsubsection}{\numberline {3.7.4}Presença em Votações}{26}{subsubsection.3.7.4}%
 \contentsline {subsubsection}{\numberline {3.7.5}Economia na Cota Parlamentar}{26}{subsubsection.3.7.5}%
 \contentsline {subsubsection}{\numberline {3.7.6}Participação em Comissões}{26}{subsubsection.3.7.6}%
-\contentsline {subsubsection}{\numberline {3.7.7}Fórmula Final}{26}{subsubsection.3.7.7}%
-\contentsline {subsubsection}{\numberline {3.7.8}Tratamento de Casos Especiais}{26}{subsubsection.3.7.8}%
+\contentsline {subsubsection}{\numberline {3.7.7}Fórmula Final}{27}{subsubsection.3.7.7}%
+\contentsline {subsubsection}{\numberline {3.7.8}Tratamento de Casos Especiais}{27}{subsubsection.3.7.8}%
 \contentsline {subsection}{\numberline {3.8}Infraestrutura e Implantação}{27}{subsection.3.8}%
-\contentsline {section}{\numberline {4}Requisitos}{27}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{27}{subsection.4.1}%
+\contentsline {section}{\numberline {4}Requisitos}{28}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{28}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{28}{subsection.4.2}%
 \contentsline {section}{\numberline {5}Design}{29}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Projeto UML}{29}{subsection.5.1}%
