@@ -312,37 +312,14 @@ A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por 
 
 \subsection{Modelo de Dados}
 
-O modelo relacional foi projetado para garantir integridade referencial e eficiência em consultas analíticas. A Figura~\ref{fig:er-diagram} apresenta o diagrama entidade-relacionamento simplificado do sistema.
+O modelo relacional foi projetado para garantir integridade referencial e eficiência em consultas analíticas. A Figura~\ref{fig:er-diagram} apresenta o diagrama entidade-relacionamento do sistema, incluindo as sete entidades principais e seus relacionamentos.
 
 \begin{figure}[H]
 \centering
-\begin{verbatim}
-+-------------+       +-------------+       +-------------+
-|   Senador   |1     N|   Mandato   |       |   Votacao   |
-+-------------+-------+-------------+       +-------------+
-| PK id       |       | PK id       |       | PK id       |
-| UK cod_parl |       | FK senador  |       | FK senador  |
-| nome        |       | legislatura |       | FK sessao   |
-| partido     |       | tipo        |       | voto        |
-| uf          |       | inicio/fim  |       | orientacao  |
-+------+------+       +-------------+       +-------------+
-       |1
-       +------------------+------------------+
-       |N                 |N                 |N
-+------+------+    +------+------+    +------+------+
-| DespesaCEAPS|    |   Emenda    |    |  Servidor   |
-+-------------+    +-------------+    +-------------+
-| PK id       |    | PK id       |    | PK id       |
-| FK senador  |    | FK senador  |    | FK senador  |
-| ano/mes     |    | ano         |    | nome        |
-| tipo_desp   |    | tipo        |    | cargo       |
-| fornecedor  |    | localidade  |    | vinculo     |
-| cpf_cnpj    |    | vlr_empenh  |    | remuneracao |
-| valor       |    | vlr_pago    |    |             |
-+-------------+    +-------------+    +-------------+
-\end{verbatim}
-\caption{Diagrama entidade-relacionamento simplificado do sistema}
+\includegraphics[width=0.95\textwidth]{docs/diagrama_er_modelo.png}
+\caption{Diagrama entidade-relacionamento do sistema Tô De Olho}
 \label{fig:er-diagram}
+\par\small{Fonte: Autoria Própria}
 \end{figure}
 
 As entidades principais e seus relacionamentos são:
@@ -353,17 +330,19 @@ As entidades principais e seus relacionamentos são:
     \item \textbf{Votação}: Implementado como tabela associativa entre Senador e Sessão, armazenando voto individual (Sim, Não, Abstenção, Obstrução) e orientação partidária. A combinação \texttt{(sessao\_id, senador\_id)} forma chave única;
     \item \textbf{Despesa CEAPS}: Relacionamento 1:N com Senador, contendo ano, mês, tipo de despesa, fornecedor, CPF/CNPJ e valor. A chave composta \texttt{(senador\_id, fornecedor\_cnpj, data\_emissao, valor\_centavos)} garante idempotência na ingestão;
     \item \textbf{Servidor de Gabinete}: Relacionamento 1:N com Senador, registrando nome, cargo, vínculo funcional e remuneração bruta/líquida;
-    \item \textbf{Emenda}: Relacionamento 1:N com Senador, contendo ano, tipo (Individual, Bancada, Transferência Especial), localidade do gasto e valores (empenhado, liquidado e pago).
+    \item \textbf{Emenda}: Relacionamento 1:N com Senador, contendo ano, tipo (Individual, Bancada, Transferência Especial), localidade do gasto e valores (empenhado, liquidado e pago);
+    \item \textbf{Comissão Membro}: Relacionamento 1:N com Senador, registrando participação em comissões permanentes e temporárias. Armazena sigla e nome da comissão, cargo exercido (Titular, Suplente, Presidente, Vice-Presidente) e período de atuação. Esta entidade é essencial para o cálculo do critério ``Participação em Comissões'' (20\%) do algoritmo de ranking.
 \end{itemize}
 
 \textbf{Estratégia de Indexação:} Índices compostos foram criados nas colunas de consulta frequente para otimizar operações de agregação:
 \begin{itemize}
     \item \texttt{idx\_despesa\_senador\_ano}: \texttt{(senador\_id, ano)} para totalização de gastos por período;
     \item \texttt{idx\_votacao\_sessao\_senador}: \texttt{(sessao\_id, senador\_id)} para consultas de presença;
-    \item \texttt{idx\_emenda\_senador\_tipo}: \texttt{(senador\_id, tipo, ano)} para filtros por modalidade de emenda.
+    \item \texttt{idx\_emenda\_senador\_tipo}: \texttt{(senador\_id, tipo, ano)} para filtros por modalidade de emenda;
+    \item \texttt{idx\_comissao\_senador}: \texttt{(senador\_id, comissao\_sigla)} para consultas de participação em comissões.
 \end{itemize}
 
-Esta modelagem permite consultas analíticas eficientes, como ranking de senadores por economia na cota ou distribuição geográfica de emendas, sem necessidade de joins custosos em tempo de execução.
+Esta modelagem permite consultas analíticas eficientes, como ranking de senadores por economia na cota, distribuição geográfica de emendas ou pontuação por participação em comissões estratégicas, sem necessidade de joins custosos em tempo de execução.
 
 \subsection{Algoritmo de Ranking}
 

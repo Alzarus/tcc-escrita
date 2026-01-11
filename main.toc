@@ -17,54 +17,54 @@
 \contentsline {subsection}{\numberline {2.2}Eixo Político-Participativo}{10}{subsection.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.1}Democracia Digital e Participação Cidadã}{10}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}Teoria Principal-Agente e Accountability}{11}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Civic Tech e Sociedade Civil}{12}{subsubsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.3}Eixo Técnico-Metodológico}{13}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Métricas de Efetividade Legislativa}{13}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.2.3}Civic Tech e Sociedade Civil}{13}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Eixo Técnico-Metodológico}{14}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Métricas de Efetividade Legislativa}{14}{subsubsection.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.3.2}Visualização de Dados e Retórica Visual}{15}{subsubsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3}Arquitetura de Software: Monolito Modular}{15}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.3}Arquitetura de Software: Monolito Modular}{16}{subsubsection.2.3.3}%
 \contentsline {subsubsection}{\numberline {2.3.4}Engenharia de Dados: APIs e Processos ETL}{17}{subsubsection.2.3.4}%
 \contentsline {section}{\numberline {3}Metodologia}{18}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Abordagem de Desenvolvimento}{18}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Fontes de Dados}{19}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.2}Fontes de Dados}{20}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}API Legislativa do Senado}{20}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}API Administrativa do Senado}{21}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Portal da Transparência (CGU)}{21}{subsubsection.3.2.3}%
-\contentsline {subsubsection}{\numberline {3.2.4}Limitações e Cobertura Temporal}{21}{subsubsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.4}Limitações e Cobertura Temporal}{22}{subsubsection.3.2.4}%
 \contentsline {subsection}{\numberline {3.3}Estratégia de Ingestão de Dados}{22}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Backfill (Carga Histórica)}{22}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.1}Backfill (Carga Histórica)}{23}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Sincronização Contínua (Change Data Capture)}{23}{subsubsection.3.3.2}%
 \contentsline {subsubsection}{\numberline {3.3.3}Idempotência e Consistência Eventual}{24}{subsubsection.3.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.4}Resiliência e Tratamento de Erros}{25}{subsubsection.3.3.4}%
-\contentsline {subsubsection}{\numberline {3.3.5}Logs e Monitoramento}{25}{subsubsection.3.3.5}%
+\contentsline {subsubsection}{\numberline {3.3.5}Logs e Monitoramento}{26}{subsubsection.3.3.5}%
 \contentsline {subsection}{\numberline {3.4}Arquitetura do Sistema}{26}{subsection.3.4}%
 \contentsline {subsubsection}{\numberline {3.4.1}Justificativa Arquitetural}{26}{subsubsection.3.4.1}%
 \contentsline {subsubsection}{\numberline {3.4.2}Organização em Módulos}{27}{subsubsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {3.4.3}Padrões de Comunicação}{27}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.3}Padrões de Comunicação}{28}{subsubsection.3.4.3}%
 \contentsline {subsubsection}{\numberline {3.4.4}Fluxo de Dados}{28}{subsubsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.5}Stack Tecnológico}{28}{subsection.3.5}%
-\contentsline {subsubsection}{\numberline {3.5.1}Backend --- Golang}{28}{subsubsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5}Stack Tecnológico}{29}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Backend --- Golang}{29}{subsubsection.3.5.1}%
 \contentsline {subsubsection}{\numberline {3.5.2}Banco de Dados --- PostgreSQL e Redis}{29}{subsubsection.3.5.2}%
 \contentsline {subsubsection}{\numberline {3.5.3}Frontend --- Next.js 15}{30}{subsubsection.3.5.3}%
-\contentsline {subsection}{\numberline {3.6}Modelo de Dados}{30}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.6}Modelo de Dados}{31}{subsection.3.6}%
 \contentsline {subsection}{\numberline {3.7}Algoritmo de Ranking}{32}{subsection.3.7}%
 \contentsline {subsubsection}{\numberline {3.7.1}Fundamentação Teórica}{32}{subsubsection.3.7.1}%
-\contentsline {subsubsection}{\numberline {3.7.2}Critérios e Pesos}{32}{subsubsection.3.7.2}%
+\contentsline {subsubsection}{\numberline {3.7.2}Critérios e Pesos}{33}{subsubsection.3.7.2}%
 \contentsline {subsubsection}{\numberline {3.7.3}Produtividade Legislativa}{33}{subsubsection.3.7.3}%
 \contentsline {subsubsection}{\numberline {3.7.4}Presença em Votações}{33}{subsubsection.3.7.4}%
-\contentsline {subsubsection}{\numberline {3.7.5}Economia na Cota Parlamentar}{33}{subsubsection.3.7.5}%
+\contentsline {subsubsection}{\numberline {3.7.5}Economia na Cota Parlamentar}{34}{subsubsection.3.7.5}%
 \contentsline {subsubsection}{\numberline {3.7.6}Participação em Comissões}{34}{subsubsection.3.7.6}%
 \contentsline {subsubsection}{\numberline {3.7.7}Fórmula Final}{34}{subsubsection.3.7.7}%
-\contentsline {subsubsection}{\numberline {3.7.8}Tratamento de Casos Especiais}{34}{subsubsection.3.7.8}%
-\contentsline {subsection}{\numberline {3.8}Infraestrutura e Implantação}{34}{subsection.3.8}%
-\contentsline {subsubsection}{\numberline {3.8.1}Containerização e CI/CD}{34}{subsubsection.3.8.1}%
+\contentsline {subsubsection}{\numberline {3.7.8}Tratamento de Casos Especiais}{35}{subsubsection.3.7.8}%
+\contentsline {subsection}{\numberline {3.8}Infraestrutura e Implantação}{35}{subsection.3.8}%
+\contentsline {subsubsection}{\numberline {3.8.1}Containerização e CI/CD}{35}{subsubsection.3.8.1}%
 \contentsline {subsubsection}{\numberline {3.8.2}Graceful Shutdown}{35}{subsubsection.3.8.2}%
 \contentsline {subsubsection}{\numberline {3.8.3}Otimização de Cold Start}{35}{subsubsection.3.8.3}%
-\contentsline {section}{\numberline {4}Requisitos}{35}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{35}{subsection.4.1}%
+\contentsline {section}{\numberline {4}Requisitos}{36}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{36}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{36}{subsection.4.2}%
 \contentsline {section}{\numberline {5}Design}{37}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Projeto UML}{37}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Diagrama de Classes}{37}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Diagrama de Classes}{38}{subsubsection.5.1.1}%
 \contentsline {subsubsection}{\numberline {5.1.2}Diagrama de Implantação}{38}{subsubsection.5.1.2}%
 \contentsline {subsection}{\numberline {5.2}Visão arquitetural}{39}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Modelo de Banco de Dados}{40}{subsection.5.3}%
