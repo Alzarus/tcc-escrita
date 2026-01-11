@@ -101,7 +101,7 @@ Essas restrições foram consideradas no desenho do sistema: dados históricos s
 
 \subsection{Estratégia de Ingestão de Dados}
 
-A ingestão de dados segue uma estratégia híbrida de \textit{Extract, Transform, Load} (ETL) que combina carga inicial massiva com atualização incremental contínua, conforme ilustrado na Tabela~\ref{tab:ingestao}.
+A ingestão de dados segue uma estratégia híbrida de \textit{Extract, Transform, Load} (ETL) que combina carga inicial massiva com atualização incremental contínua. A fundamentação teórica do padrão ETL, incluindo as definições de Kimball e o esforço estimado por Vassiliadis (60--80\% do desenvolvimento), encontra-se na Seção~\ref{sec:etl-fundamentacao}. A presente seção detalha a implementação específica adotada no \textit{Tô De Olho}, conforme ilustrado na Tabela~\ref{tab:ingestao}.
 
 \begin{table}[H]
 \centering
@@ -138,34 +138,47 @@ Para a população inicial do banco de dados, utilizam-se fontes otimizadas para
 
 \subsubsection{Sincronização Contínua}
 
-Tarefas agendadas (\textit{cron jobs}) executam diariamente no horário de menor tráfego das APIs (madrugada, horário de Brasília), conforme a Tabela~\ref{tab:jobs}.
+Tarefas agendadas (\textit{cron jobs}) executam automaticamente no horário de menor tráfego das APIs (madrugada, horário de Brasília). A frequência de cada tarefa foi definida conforme a volatilidade dos dados:
 
-\begin{table}[H]
-\centering
-\caption{Agendamento de tarefas de sincronização}
-\label{tab:jobs}
-\begin{tabular}{|l|l|l|l|}
-\hline
-\textbf{Job} & \textbf{Horário} & \textbf{Frequência} & \textbf{Descrição} \\
-\hline
-sync-senadores & 03:00 & Diário & Atualiza lista de senadores em exercício \\
-sync-ceaps & 03:15 & Diário & Busca despesas do mês corrente \\
-sync-votacoes & 03:30 & Diário & Busca votações dos últimos 7 dias \\
-sync-servidores & 04:00 & Semanal & Atualiza remunerações de gabinete \\
-sync-emendas & 04:00 & Mensal & Atualiza emendas via API \\
-calc-ranking & 05:00 & Diário & Recalcula scores e atualiza cache \\
-\hline
-\end{tabular}
-\end{table}
+\begin{itemize}
+    \item \textbf{Diário}: Senadores em exercício, despesas CEAPS do mês corrente, votações dos últimos 7 dias e recálculo de rankings;
+    \item \textbf{Semanal}: Remunerações de servidores de gabinete (dados atualizados mensalmente na fonte, mas verificados semanalmente);
+    \item \textbf{Mensal}: Emendas parlamentares (consolidação ocorre no início de cada mês no Portal da Transparência).
+\end{itemize}
+
+A ordem de execução respeita dependências: a lista de senadores é sincronizada primeiro, pois os demais jobs dependem dos identificadores parlamentares atualizados. O recálculo de rankings executa por último, após a consolidação de todos os dados.
+
+\subsubsection{Idempotência e Deduplicação}
+
+Para garantir consistência em reprocessamentos e sincronizações incrementais, todas as operações de carga utilizam \textbf{upserts} (\textit{insert or update}). A estratégia baseia-se em chaves naturais únicas:
+
+\begin{itemize}
+    \item \textbf{Despesas CEAPS}: Chave composta \texttt{(senador\_id, ano, mês, fornecedor\_cnpj, valor)} --- identifica unicamente cada reembolso;
+    \item \textbf{Votações}: Chave composta \texttt{(sessao\_id, senador\_id)} --- registra o voto de cada senador em cada sessão;
+    \item \textbf{Emendas}: Código único da emenda no Portal da Transparência.
+\end{itemize}
+
+Essa abordagem permite reexecutar jobs de sincronização sem risco de duplicação de dados, simplificando a recuperação de falhas e facilitando o \textit{backfill} parcial quando necessário.
 
 \subsubsection{Tratamento de Erros e Resiliência}
 
-Para garantir robustez na ingestão, o sistema implementa:
+Para garantir robustez na ingestão, o sistema implementa mecanismos de resiliência em múltiplas camadas:
 
 \begin{itemize}
-    \item \textbf{Retry com Backoff Exponencial}: Em caso de falha de requisição, o sistema aguarda 2, 4, 8 e 16 segundos entre tentativas, até um máximo de 5 retentativas;
-    \item \textbf{Rate Limiting}: Controle de requisições para respeitar limites das APIs externas (aproximadamente 100 requisições por minuto para APIs do Senado);
-    \item \textbf{Logging Estruturado}: Registros detalhados de cada operação para auditoria e diagnóstico.
+    \item \textbf{Retry com Backoff Exponencial}: Em caso de falha de requisição (timeout, erro 5xx ou rate limit), o sistema aguarda 2, 4, 8 e 16 segundos entre tentativas, até um máximo de 5 retentativas;
+    \item \textbf{Rate Limiting por Fonte}: Controle diferenciado de requisições conforme limites de cada API: 10 requisições por segundo para a API Legislativa, 5 requisições por segundo para a API Administrativa, e 5 requisições por segundo para o Portal da Transparência (300/minuto com margem de segurança);
+    \item \textbf{Circuit Breaker}: Após 3 falhas consecutivas em uma fonte, o sistema suspende requisições por 5 minutos, evitando sobrecarga de APIs temporariamente indisponíveis;
+    \item \textbf{Logging Estruturado}: Registros em formato JSON com campos padronizados (timestamp, operação, duração, status, erro) para integração com ferramentas de observabilidade.
+\end{itemize}
+
+\subsubsection{Monitoramento e Alertas}
+
+A operação contínua do sistema requer visibilidade sobre a saúde dos processos de ingestão:
+
+\begin{itemize}
+    \item \textbf{Métricas de Execução}: Cada job registra duração, quantidade de registros processados e taxa de erro;
+    \item \textbf{Alertas de Falha}: Notificações são disparadas quando um job falha após esgotar retentativas ou quando a defasagem de dados ultrapassa 48 horas;
+    \item \textbf{Dashboard de Status}: Painel exibindo última sincronização bem-sucedida de cada fonte, permitindo identificação rápida de problemas.
 \end{itemize}
 
 \subsection{Arquitetura do Sistema}
@@ -278,7 +291,7 @@ Transformado em Lei & 16 & $\times$3.0 & $\times$2.0 \\
 \end{tabular}
 \end{table}
 
-Os multiplicadores refletem a maior complexidade de Propostas de Emenda Constitucional (PEC), que exigem quórum qualificado de 3/5 em duas votações, e Projetos de Lei Complementar (PLP), que requerem maioria absoluta. Projetos de Lei Ordinária (PL) utilizam o multiplicador base ($\times$1.0).
+Os multiplicadores refletem a maior complexidade de Propostas de Emenda Constitucional (PEC), que exigem quórum qualificado de 3/5 em duas votações, e Projetos de Lei Complementar (PLP), que requerem maioria absoluta. Projetos de Lei Ordinária (PL) utilizam o multiplicador base ($\times$1.0). Requerimentos e moções, por seu menor impacto legislativo, recebem multiplicador reduzido ($\times$0.5).
 
 \textbf{Bônus de Relatoria}: Senadores que atuam como relatores recebem pontuação adicional: +4 pontos para relatoria de PEC, +2 pontos para PLP ou PL, e +1 ponto para relatoria em comissão permanente.
 
