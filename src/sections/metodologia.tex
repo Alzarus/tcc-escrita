@@ -10,7 +10,9 @@ A natureza do projeto --- integração de múltiplas APIs governamentais com est
 
 Optou-se, portanto, por uma abordagem \textbf{iterativa e incremental}, na qual o trabalho foi organizado em ciclos de desenvolvimento focados em entregas funcionais. Cada ciclo produzia um incremento utilizável do sistema, permitindo validação contínua das funcionalidades implementadas e ajustes baseados nos aprendizados obtidos durante a integração com cada API.
 
-O desenvolvimento contou com apoio de ferramentas de inteligência artificial generativa como assistentes de codificação, seguindo a tendência contemporânea de \textit{AI-assisted software development} \cite{peng2023impact}. Tais ferramentas, baseadas em modelos de linguagem de grande escala (LLMs), foram empregadas para aceleração de tarefas como geração de código \textit{boilerplate}, refatoração e \textit{debugging}. A engenharia de contexto --- técnica de estruturação de informações para maximizar a qualidade das respostas do modelo --- foi aplicada através de arquivos de configuração que definem padrões de codificação, stack tecnológico e regras de negócio do projeto. A autoria e responsabilidade pelas decisões de arquitetura, design de algoritmos e validação de resultados permaneceram integralmente com o desenvolvedor.
+O desenvolvimento contou com apoio de ferramentas de inteligência artificial generativa como assistentes de codificação, seguindo a tendência contemporânea de \textit{AI-assisted software development} \cite{peng2023impact}. Tais ferramentas, baseadas em modelos de linguagem de grande escala (LLMs), foram empregadas para aceleração de tarefas operacionais como geração de código \textit{boilerplate}, refatoração e \textit{debugging}. O uso de assistentes de IA em desenvolvimento de software representa uma evolução natural das ferramentas de produtividade, análoga à adoção de IDEs com \textit{autocomplete} e analisadores estáticos de código.
+
+É fundamental distinguir entre \textbf{assistência operacional} e \textbf{autoria intelectual}. As decisões estruturantes do projeto --- arquitetura do sistema, design do algoritmo de ranking, seleção de fontes de dados, modelagem do domínio e interpretação de resultados --- foram integralmente concebidas, avaliadas e validadas pelo desenvolvedor. A ferramenta de IA atuou como acelerador de implementação, não como substituto do julgamento técnico. A engenharia de contexto --- técnica de estruturação de informações em arquivos de configuração que definem padrões de codificação, stack tecnológico e regras de negócio --- foi aplicada para maximizar a aderência das sugestões aos padrões do projeto, mantendo consistência arquitetural ao longo do desenvolvimento.
 
 A divisão do trabalho ocorreu em cinco fases principais:
 \begin{enumerate}
@@ -262,42 +264,106 @@ Esta separação em estágios facilita a depuração (cada estágio pode ser tes
 
 \subsection{Stack Tecnológico}
 
-A escolha das tecnologias foi orientada por critérios de desempenho, manutenibilidade e adequação ao domínio do problema. A seguir, justificamos cada escolha com base em literatura técnica.
+A escolha das tecnologias foi orientada por critérios de desempenho, manutenibilidade e adequação ao domínio do problema. Para cada camada do sistema, foram avaliadas alternativas antes da decisão final, conforme detalhado a seguir.
 
-\textbf{Backend --- Golang:}
+\subsubsection{Backend --- Golang}
 
-A linguagem Go foi selecionada para o \textit{backend} após avaliação de alternativas como Node.js e Python. O fator decisivo foi o modelo de \textbf{concorrência nativo}: as \textit{goroutines} são threads leves gerenciadas pelo runtime Go, consumindo aproximadamente 2KB de memória inicial --- em contraste com threads do sistema operacional que utilizam cerca de 1MB cada \cite{nanz2015comparative}. Essa eficiência permite processar centenas de milhares de conexões simultâneas, característica essencial para a ingestão paralela de dados de três APIs distintas.
+A linguagem Go foi selecionada para o \textit{backend} após avaliação comparativa de três alternativas:
 
-O framework \textbf{Gin} foi escolhido por seu roteamento HTTP baseado em \textit{radix tree}, reportando desempenho até 40 vezes superior a frameworks anteriores \cite{alfian2024gin}. \textbf{GORM} oferece mapeamento objeto-relacional com suporte a migrações automáticas e operações de \textit{upsert} para garantia de idempotência.
+\begin{itemize}
+    \item \textbf{Node.js}: Embora ofereça vasto ecossistema e familiaridade com JavaScript, o modelo de concorrência baseado em \textit{event loop} único apresenta limitações para operações CPU-bound. Além disso, a gestão de dependências via npm frequentemente resulta em árvores de módulos complexas;
+    \item \textbf{Python (FastAPI/Django)}: Excelente para prototipagem rápida e possui bibliotecas maduras para análise de dados. Entretanto, o \textit{Global Interpreter Lock} (GIL) limita o paralelismo real, e o desempenho em operações I/O-bound é inferior ao de linguagens compiladas;
+    \item \textbf{Go}: Binários compilados estaticamente, modelo de concorrência nativo e tipagem estática. O fator decisivo foi o modelo de \textbf{goroutines}: threads leves gerenciadas pelo runtime Go, consumindo aproximadamente 2KB de memória inicial --- em contraste com threads do sistema operacional que utilizam cerca de 1MB cada \cite{nanz2015comparative}.
+\end{itemize}
+
+Essa eficiência permite processar centenas de milhares de conexões simultâneas, característica essencial para a ingestão paralela de dados de três APIs distintas com limites de requisição distintos.
+
+O framework \textbf{Gin} foi escolhido por seu roteamento HTTP baseado em \textit{radix tree}, reportando desempenho até 40 vezes superior a frameworks anteriores \cite{alfian2024gin}. Alternativas como \textit{Echo} e \textit{Fiber} foram consideradas, mas Gin apresenta comunidade mais ativa e documentação mais abrangente. O ORM \textbf{GORM} oferece mapeamento objeto-relacional com suporte a migrações automáticas e operações de \textit{upsert} para garantia de idempotência.
 
 Para ambientes de produção, o sistema implementa \textbf{connection pooling} --- técnica que mantém um cache de conexões reutilizáveis, evitando o custo de estabelecer novas conexões a cada requisição. Estudos demonstram que esta abordagem pode reduzir a utilização de CPU do banco de dados em até 30\% e aumentar significativamente o \textit{throughput} em cenários de alta concorrência. A configuração define limites para conexões ociosas (\texttt{MaxIdleConns}), conexões abertas (\texttt{MaxOpenConns}) e tempo máximo de vida (\texttt{ConnMaxLifetime}), prevenindo acúmulo de conexões obsoletas. Adicionalmente, a opção \texttt{PrepareStmt} habilita cache de \textit{prepared statements}, otimizando queries repetidas ao reutilizar planos de execução.
 
-\textbf{Banco de Dados --- PostgreSQL e Redis:}
+\subsubsection{Banco de Dados --- PostgreSQL e Redis}
 
-\textbf{PostgreSQL} foi selecionado como banco relacional por sua robustez em consultas analíticas e suporte a índices compostos, essenciais para agregações por senador, período e tipo de despesa. Originado em 1986 na Universidade da Califórnia, Berkeley \cite{stonebraker1986postgres}, sua conformidade ACID garante integridade nas operações de ingestão.
+Para a camada de persistência, foram avaliadas três opções:
 
-\textbf{Redis} atua como camada de cache para rankings pré-computados e totalizadores de gastos. Por armazenar dados inteiramente em memória RAM, Redis alcança latências típicas entre 100 e 500 microssegundos \cite{redis2024}, eliminando a necessidade de recalcular métricas a cada requisição.
+\begin{itemize}
+    \item \textbf{MySQL}: Popular e bem documentado, mas com suporte limitado a tipos de dados avançados e funcionalidades analíticas;
+    \item \textbf{MongoDB}: Modelo de documentos oferece flexibilidade de schema, porém a natureza relacional dos dados parlamentares (senador $\rightarrow$ mandatos $\rightarrow$ votações) favorece bancos relacionais;
+    \item \textbf{PostgreSQL}: Robustez em consultas analíticas, suporte a índices compostos e CTEs (\textit{Common Table Expressions}), essenciais para agregações por senador, período e tipo de despesa.
+\end{itemize}
 
-\textbf{Frontend --- Next.js 15:}
+\textbf{PostgreSQL} foi selecionado. Originado em 1986 na Universidade da Califórnia, Berkeley \cite{stonebraker1986postgres}, sua conformidade ACID garante integridade nas operações de ingestão. Funcionalidades como \texttt{JSONB} permitem armazenar respostas brutas das APIs para auditoria, combinando benefícios de bancos relacionais e documentais.
 
-A escolha de \textbf{Next.js} sobre React ``puro'' justifica-se pela necessidade de \textbf{SEO} e performance inicial \cite{salim2024nextjs}. Next.js resolve o problema de indexação com \textit{Server-Side Rendering} (SSR) e \textit{Static Site Generation} (SSG), entregando HTML pré-renderizado aos \textit{crawlers}.
+\textbf{Redis} atua como camada de cache para rankings pré-computados e totalizadores de gastos. Por armazenar dados inteiramente em memória RAM, Redis alcança latências típicas entre 100 e 500 microssegundos \cite{redis2024}, eliminando a necessidade de recalcular métricas a cada requisição. Alternativas como Memcached foram descartadas pela ausência de estruturas de dados avançadas (sorted sets, hashes) que Redis oferece nativamente.
 
-A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por sua integração nativa com React \cite{recharts2024}. \textbf{Tailwind CSS} permite estilização eficiente com classes utilitárias; a partir da versão 4, o modo \textit{Just-In-Time} (JIT) gera apenas o CSS utilizado \cite{tailwindcss2024}.
+\subsubsection{Frontend --- Next.js 15}
+
+Para a interface web, foram consideradas:
+
+\begin{itemize}
+    \item \textbf{React puro (SPA)}: Flexibilidade máxima, porém com SEO comprometido e necessidade de configuração manual de roteamento, SSR e otimizações;
+    \item \textbf{Vue.js/Nuxt}: Curva de aprendizado suave, mas ecossistema menor para visualização de dados;
+    \item \textbf{Next.js}: Framework React com SSR/SSG nativos, roteamento baseado em sistema de arquivos e otimizações automáticas de imagem e fonte.
+\end{itemize}
+
+A escolha de \textbf{Next.js} justifica-se pela necessidade de \textbf{SEO} e performance inicial \cite{salim2024nextjs}. Plataformas de fiscalização cidadã dependem de indexação por mecanismos de busca para alcançar seu público-alvo. Next.js resolve o problema de indexação com \textit{Server-Side Rendering} (SSR) e \textit{Static Site Generation} (SSG), entregando HTML pré-renderizado aos \textit{crawlers}.
+
+A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por sua integração nativa com React \cite{recharts2024}. Alternativas como D3.js oferecem maior controle, mas exigem implementação manual de componentes; Chart.js tem API imperativa menos compatível com o paradigma declarativo do React. \textbf{Tailwind CSS} permite estilização eficiente com classes utilitárias; a partir da versão 4, o modo \textit{Just-In-Time} (JIT) gera apenas o CSS utilizado \cite{tailwindcss2024}.
 
 \subsection{Modelo de Dados}
 
-O modelo relacional foi projetado para garantir integridade referencial e eficiência em consultas analíticas. As entidades principais e seus relacionamentos são:
+O modelo relacional foi projetado para garantir integridade referencial e eficiência em consultas analíticas. A Figura~\ref{fig:er-diagram} apresenta o diagrama entidade-relacionamento simplificado do sistema.
+
+\begin{figure}[H]
+\centering
+\begin{verbatim}
++-------------+       +-------------+       +-------------+
+|   Senador   |1     N|   Mandato   |       |   Votacao   |
++-------------+-------+-------------+       +-------------+
+| PK id       |       | PK id       |       | PK id       |
+| UK cod_parl |       | FK senador  |       | FK senador  |
+| nome        |       | legislatura |       | FK sessao   |
+| partido     |       | tipo        |       | voto        |
+| uf          |       | inicio/fim  |       | orientacao  |
++------+------+       +-------------+       +-------------+
+       |1
+       +------------------+------------------+
+       |N                 |N                 |N
++------+------+    +------+------+    +------+------+
+| DespesaCEAPS|    |   Emenda    |    |  Servidor   |
++-------------+    +-------------+    +-------------+
+| PK id       |    | PK id       |    | PK id       |
+| FK senador  |    | FK senador  |    | FK senador  |
+| ano/mes     |    | ano         |    | nome        |
+| tipo_desp   |    | tipo        |    | cargo       |
+| fornecedor  |    | localidade  |    | vinculo     |
+| cpf_cnpj    |    | vlr_empenh  |    | remuneracao |
+| valor       |    | vlr_pago    |    |             |
++-------------+    +-------------+    +-------------+
+\end{verbatim}
+\caption{Diagrama entidade-relacionamento simplificado do sistema}
+\label{fig:er-diagram}
+\end{figure}
+
+As entidades principais e seus relacionamentos são:
 
 \begin{itemize}
-    \item \textbf{Senador}: Entidade central com código parlamentar único, nome, partido, UF e URL da foto;
-    \item \textbf{Mandato}: Relacionamento 1:N com Senador, registrando legislatura, tipo e período;
-    \item \textbf{Votação}: Relacionamento N:M entre Senador e Sessão, armazenando voto individual e orientação partidária;
-    \item \textbf{Despesa CEAPS}: Relacionamento 1:N com Senador, contendo ano, mês, tipo de despesa, fornecedor, CPF/CNPJ e valor;
-    \item \textbf{Servidor de Gabinete}: Relacionamento 1:N com Senador, registrando nome, cargo, vínculo e remuneração;
-    \item \textbf{Emenda}: Relacionamento 1:N com Senador, contendo ano, tipo, localidade e valores (empenhado e pago).
+    \item \textbf{Senador}: Entidade central com código parlamentar único (\texttt{codigo\_parlamentar}), nome, partido, UF e URL da foto. O código parlamentar, fornecido pela API Legislativa, atua como chave natural para integração entre sistemas;
+    \item \textbf{Mandato}: Relacionamento 1:N com Senador, registrando legislatura, tipo (titular/suplente) e período. Um senador pode ter múltiplos mandatos em diferentes legislaturas;
+    \item \textbf{Votação}: Implementado como tabela associativa entre Senador e Sessão, armazenando voto individual (Sim, Não, Abstenção, Obstrução) e orientação partidária. A combinação \texttt{(sessao\_id, senador\_id)} forma chave única;
+    \item \textbf{Despesa CEAPS}: Relacionamento 1:N com Senador, contendo ano, mês, tipo de despesa, fornecedor, CPF/CNPJ e valor. A chave composta \texttt{(senador\_id, fornecedor\_cnpj, data\_emissao, valor\_centavos)} garante idempotência na ingestão;
+    \item \textbf{Servidor de Gabinete}: Relacionamento 1:N com Senador, registrando nome, cargo, vínculo funcional e remuneração bruta/líquida;
+    \item \textbf{Emenda}: Relacionamento 1:N com Senador, contendo ano, tipo (Individual, Bancada, Transferência Especial), localidade do gasto e valores (empenhado, liquidado e pago).
 \end{itemize}
 
-Índices compostos foram criados nas colunas de consulta frequente: \texttt{(senador\_id, ano)} para despesas e emendas, e \texttt{(sessao\_id, senador\_id)} para votações.
+\textbf{Estratégia de Indexação:} Índices compostos foram criados nas colunas de consulta frequente para otimizar operações de agregação:
+\begin{itemize}
+    \item \texttt{idx\_despesa\_senador\_ano}: \texttt{(senador\_id, ano)} para totalização de gastos por período;
+    \item \texttt{idx\_votacao\_sessao\_senador}: \texttt{(sessao\_id, senador\_id)} para consultas de presença;
+    \item \texttt{idx\_emenda\_senador\_tipo}: \texttt{(senador\_id, tipo, ano)} para filtros por modalidade de emenda.
+\end{itemize}
+
+Esta modelagem permite consultas analíticas eficientes, como ranking de senadores por economia na cota ou distribuição geográfica de emendas, sem necessidade de joins custosos em tempo de execução.
 
 \subsection{Algoritmo de Ranking}
 
