@@ -200,26 +200,65 @@ Para evolução futura, a literatura recomenda a adoção dos três pilares da o
 
 \subsection{Arquitetura do Sistema}
 
+A definição da arquitetura de software constitui uma das decisões mais consequentes no ciclo de desenvolvimento. Uma escolha inadequada impõe custos que se acumulam ao longo do tempo: dívida técnica, dificuldade de evolução e, em casos extremos, a necessidade de reescrever sistemas inteiros. Conforme fundamentado teoricamente na Seção~2.3.3, o padrão de \textbf{monolito modular} emergiu na última década como alternativa pragmática que busca equilibrar a simplicidade operacional dos monolitos tradicionais com a organização interna característica de microsserviços \cite{laigner2024modular}.
 
-O \textit{Tô De Olho} adota uma arquitetura de \textbf{monolito modular}, na qual os componentes são organizados internamente em módulos bem definidos, mas compartilham um único processo de \textit{deploy}. A escolha foi motivada por:
+O \textit{Tô De Olho} adota esta arquitetura não por inércia, mas por escolha deliberada após avaliação de alternativas. As subseções seguintes detalham a estrutura organizacional, os padrões de comunicação e o fluxo de dados que materializam essa decisão.
+
+\subsubsection{Justificativa Arquitetural}
+
+A decisão pelo monolito modular considerou quatro critérios interrelacionados:
 
 \begin{itemize}
-    \item \textbf{Simplicidade Operacional}: Um único contêiner simplifica a infraestrutura de implantação e monitoramento;
-    \item \textbf{Compartilhamento de Recursos}: Conexão única com banco de dados, eliminando latência de rede entre serviços e reduzindo o consumo de memória;
-    \item \textbf{Definição de Fronteiras do Domínio}: Conforme argumentado por Martin Fowler em sua defesa da estratégia \textit{MonolithFirst} \cite{fowler2015monolith}, iniciar com um monolito permite compreender melhor os limites naturais do domínio antes de incorrer no custo de complexidade de sistemas distribuídos;
-    \item \textbf{Modularidade e Evolução}: A arquitetura segue o padrão de Monolito Modular, recentemente formalizado na literatura como uma alternativa viável que combina a simplicidade do monolito com a manutenibilidade dos microsserviços \cite{su2024modular}. A estrutura interna desacoplada facilita uma eventual migração futura para serviços independentes apenas onde for estritamente necessário.
+    \item \textbf{Simplicidade Operacional}: Um único contêiner Docker simplifica a infraestrutura de implantação. Em plataformas \textit{serverless} como Google Cloud Run, essa característica traduz-se em escala automática (inclusive a zero) sem a complexidade de orquestração de múltiplos serviços --- vantagem particularmente relevante para projetos com orçamento limitado e equipe reduzida;
+    
+    \item \textbf{Latência Previsível}: A comunicação entre módulos ocorre via chamadas de função em memória, eliminando a variabilidade de latência inerente a chamadas de rede. Em microsserviços, cada interação adiciona \textit{overhead} de serialização, transmissão e desserialização --- custos que, embora individualmente pequenos, acumulam-se em operações que atravessam múltiplos serviços;
+    
+    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem a complexidade de \textit{sagas} ou \textit{two-phase commit}. Por exemplo, a atualização do ranking de um senador após nova ingestão de votações executa atomicamente: ou todos os dados são persistidos, ou nenhum;
+    
+    \item \textbf{Estratégia MonolithFirst}: Martin Fowler argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto'' \cite{fowler2015monolith}. Iniciar com fronteiras modulares bem definidas permite compreender os limites naturais do domínio antes de incorrer na complexidade operacional de sistemas distribuídos. A estrutura atual facilita extração futura de microsserviços apenas onde houver necessidade comprovada (por exemplo, se o módulo de ranking exigir escalabilidade independente).
 \end{itemize}
 
-\textbf{Módulos Internos:}
+\subsubsection{Organização em Módulos}
+
+A estrutura interna segue os princípios de \textit{Bounded Contexts} do Domain-Driven Design \cite{evans2003ddd}, onde cada módulo representa um contexto de domínio com responsabilidades claramente delimitadas. O diretório \texttt{internal/} do backend Go organiza-se em cinco módulos principais:
+
 \begin{itemize}
-    \item \texttt{internal/senador}: Gerencia dados cadastrais dos parlamentares e mandatos;
-    \item \texttt{internal/ceaps}: Processa e totaliza despesas da Cota Parlamentar;
-    \item \texttt{internal/emenda}: Integra dados de emendas e transferências do Portal da Transparência;
-    \item \texttt{internal/votacao}: Coleta e armazena votações nominais;
-    \item \texttt{internal/ranking}: Orquestra o cálculo de scores e agregações.
+    \item \texttt{internal/senador}: Gerencia o ciclo de vida de dados cadastrais dos parlamentares --- nome, partido, UF, foto, biografia --- e seus mandatos históricos. Este módulo atua como ``fonte de verdade'' para identificação de senadores, fornecendo identificadores únicos que os demais módulos referenciam;
+    
+    \item \texttt{internal/ceaps}: Processa e totaliza despesas da Cota para o Exercício da Atividade Parlamentar dos Senadores. Responsável pela ingestão de arquivos CSV históricos e sincronização incremental via API Administrativa, este módulo implementa detecção de anomalias (valores negativos, datas futuras) e agregações por categoria de despesa;
+    
+    \item \texttt{internal/votacao}: Coleta e armazena votações nominais do plenário e comissões. Calcula métricas derivadas como percentual de presença (ajustado por licenças oficiais), fidelidade partidária e padrões de votação;
+    
+    \item \texttt{internal/emenda}: Integra dados de emendas parlamentares do Portal da Transparência, com tratamento especial para Transferências Especiais (``emendas PIX''). Normaliza a correspondência textual de autores --- desafio não trivial dado que o Portal usa nomes, não códigos parlamentares;
+    
+    \item \texttt{internal/ranking}: Orquestra o cálculo de \textit{scores} compostos conforme metodologia detalhada na Seção~3.6. Opera como consumidor dos demais módulos, agregando métricas de produtividade, presença, economia e participação em comissões.
 \end{itemize}
 
-Os módulos comunicam-se através de chamadas de função diretas, simplificando o fluxo de dados. Para operações de ingestão, utilizam-se \textit{goroutines} para processamento concorrente.
+Adicionalmente, módulos transversais fornecem funcionalidades compartilhadas: \texttt{internal/api} expõe \textit{endpoints} REST consumidos pelo \textit{frontend}; \texttt{internal/scheduler} gerencia tarefas agendadas de sincronização; e \texttt{internal/cache} abstrai operações de leitura e escrita no Redis.
+
+\subsubsection{Padrões de Comunicação}
+
+Os módulos comunicam-se exclusivamente através de \textbf{interfaces Go} (contratos), nunca acessando estruturas internas de outros módulos diretamente. Esta restrição, inspirada no princípio de inversão de dependência, permite substituir implementações sem afetar consumidores --- por exemplo, trocar o adaptador de cache de Redis para memória local em testes unitários.
+
+Para operações de ingestão que envolvem centenas de requisições HTTP, o sistema emprega \textbf{pools de workers} com \textit{goroutines}. O modelo de concorrência de Go, baseado em CSP (\textit{Communicating Sequential Processes}), permite processamento paralelo com footprint de memória reduzido: cada \textit{goroutine} consome aproximadamente 2KB iniciais \cite{nanz2015comparative}, viabilizando milhares de operações simultâneas em hardware modesto.
+
+O padrão adotado segue a estrutura de ``fan-out/fan-in'': uma \textit{goroutine} coordenadora distribui tarefas para \textit{N} workers (fan-out), que processam independentemente e enviam resultados para um canal agregador (fan-in). Esta abordagem maximiza utilização de CPU em operações \textit{I/O-bound} como chamadas HTTP, mantendo o código legível e testável.
+
+\subsubsection{Fluxo de Dados}
+
+O ciclo completo de dados no sistema segue quatro estágios bem definidos:
+
+\begin{enumerate}
+    \item \textbf{Ingestão}: Os módulos de domínio (\texttt{senador}, \texttt{ceaps}, \texttt{votacao}, \texttt{emenda}) extraem dados das APIs governamentais conforme estratégia detalhada na Seção~3.3. Cada módulo implementa seu próprio adaptador HTTP, respeitando as idiossincrasias de cada fonte (paginação, limites de requisição, formatos de resposta);
+    
+    \item \textbf{Transformação}: Dados brutos são normalizados, validados e enriquecidos antes da persistência. Esta fase inclui padronização de nomes (tratamento de acentos, maiúsculas/minúsculas), conversão de formatos de data e cálculo de métricas derivadas. O GORM, ORM utilizado, abstrai as operações de \textit{upsert} que garantem idempotência;
+    
+    \item \textbf{Agregação}: O módulo de \texttt{ranking} consulta os demais módulos para computar \textit{scores} compostos. Resultados são materializados no Redis como estruturas pré-computadas, evitando recálculos a cada requisição. A invalidação de cache ocorre após cada sincronização bem-sucedida;
+    
+    \item \textbf{Apresentação}: A API REST expõe os dados agregados ao \textit{frontend} Next.js. Endpoints seguem convenções RESTful, com respostas paginadas e suporte a filtros por partido, UF e período temporal.
+\end{enumerate}
+
+Esta separação em estágios facilita a depuração (cada estágio pode ser testado isoladamente), a evolução (novos módulos integram-se sem alterar existentes) e a observabilidade (logs estruturados identificam claramente em qual estágio ocorreu uma falha).
 
 \subsection{Stack Tecnológico}
 
@@ -229,7 +268,9 @@ A escolha das tecnologias foi orientada por critérios de desempenho, manutenibi
 
 A linguagem Go foi selecionada para o \textit{backend} após avaliação de alternativas como Node.js e Python. O fator decisivo foi o modelo de \textbf{concorrência nativo}: as \textit{goroutines} são threads leves gerenciadas pelo runtime Go, consumindo aproximadamente 2KB de memória inicial --- em contraste com threads do sistema operacional que utilizam cerca de 1MB cada \cite{nanz2015comparative}. Essa eficiência permite processar centenas de milhares de conexões simultâneas, característica essencial para a ingestão paralela de dados de três APIs distintas.
 
-O framework \textbf{Gin} foi escolhido por seu roteamento HTTP baseado em \textit{radix tree}, reportando desempenho até 40 vezes superior a frameworks anteriores \cite{alfian2024gin}. \textbf{GORM} oferece mapeamento objeto-relacional com suporte a migrações automáticas.
+O framework \textbf{Gin} foi escolhido por seu roteamento HTTP baseado em \textit{radix tree}, reportando desempenho até 40 vezes superior a frameworks anteriores \cite{alfian2024gin}. \textbf{GORM} oferece mapeamento objeto-relacional com suporte a migrações automáticas e operações de \textit{upsert} para garantia de idempotência.
+
+Para ambientes de produção, o sistema implementa \textbf{connection pooling} --- técnica que mantém um cache de conexões reutilizáveis, evitando o custo de estabelecer novas conexões a cada requisição. Estudos demonstram que esta abordagem pode reduzir a utilização de CPU do banco de dados em até 30\% e aumentar significativamente o \textit{throughput} em cenários de alta concorrência. A configuração define limites para conexões ociosas (\texttt{MaxIdleConns}), conexões abertas (\texttt{MaxOpenConns}) e tempo máximo de vida (\texttt{ConnMaxLifetime}), prevenindo acúmulo de conexões obsoletas. Adicionalmente, a opção \texttt{PrepareStmt} habilita cache de \textit{prepared statements}, otimizando queries repetidas ao reutilizar planos de execução.
 
 \textbf{Banco de Dados --- PostgreSQL e Redis:}
 
@@ -368,6 +409,8 @@ Score = (\text{Produtividade} \times 0.35) + (\text{Presença} \times 0.25) + (\
 
 Todos os componentes são containerizados com Docker, utilizando \textit{multi-stage builds} para otimização das imagens. A implantação ocorre via Google Cloud Run, que oferece escala automática (inclusive a zero) e \textit{deploy} simplificado.
 
+\subsubsection{Containerização e CI/CD}
+
 O \textit{pipeline} de CI/CD, implementado com GitHub Actions, automatiza as etapas:
 \begin{enumerate}
     \item \textbf{Build}: Compilação dos binários Go e verificação de erros;
@@ -375,4 +418,14 @@ O \textit{pipeline} de CI/CD, implementado com GitHub Actions, automatiza as eta
     \item \textbf{Publish}: Construção da imagem Docker e envio para o Google Container Registry;
     \item \textbf{Deploy}: Atualização automática do serviço no Cloud Run.
 \end{enumerate}
+
+\subsubsection{Graceful Shutdown}
+
+Em ambientes containerizados, o Cloud Run envia o sinal \texttt{SIGTERM} antes de encerrar um container --- seja por escalonamento, atualização de versão ou inatividade. Falhar em tratar esse sinal adequadamente pode causar perda de requisições em andamento, corrupção de dados parcialmente escritos e experiência degradada para o usuário final.
+
+O sistema implementa o padrão de \textbf{graceful shutdown}: ao receber \texttt{SIGTERM}, a aplicação para de aceitar novas requisições, aguarda a conclusão das requisições em andamento (com timeout configurável de 30 segundos), fecha conexões com banco de dados e Redis de forma ordenada, e só então encerra o processo. Esta abordagem garante que nenhuma operação de ingestão ou consulta seja interrompida abruptamente.
+
+\subsubsection{Otimização de Cold Start}
+
+Plataformas \textit{serverless} como Cloud Run podem escalar a zero instâncias quando não há tráfego, economizando custos. Entretanto, a primeira requisição após um período de inatividade incorre em latência adicional conhecida como \textit{cold start}. Para mitigar este efeito, o sistema adota \textbf{inicialização preguiçosa} (\textit{lazy initialization}): conexões com banco de dados e Redis são estabelecidas apenas no primeiro uso, não durante a inicialização do container. Esta técnica reduz o tempo de \textit{cold start} ao adiar operações custosas até que sejam efetivamente necessárias.
 
