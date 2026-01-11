@@ -101,7 +101,9 @@ Essas restrições foram consideradas no desenho do sistema: dados históricos s
 
 \subsection{Estratégia de Ingestão de Dados}
 
-A ingestão de dados segue uma estratégia híbrida de \textit{Extract, Transform, Load} (ETL) que combina carga inicial massiva com atualização incremental contínua. A fundamentação teórica do padrão ETL, incluindo as definições de Kimball e o esforço estimado por Vassiliadis (60--80\% do desenvolvimento), encontra-se na Seção~\ref{sec:etl-fundamentacao}. A presente seção detalha a implementação específica adotada no \textit{Tô De Olho}, conforme ilustrado na Tabela~\ref{tab:ingestao}.
+A ingestão de dados representa um dos maiores desafios técnicos do projeto: consolidar informações dispersas em três APIs governamentais distintas, cada uma com suas idiossincrasias, limites de requisição e formatos de resposta. A estratégia adotada segue o paradigma \textit{Extract, Transform, Load} (ETL) em uma abordagem híbrida que combina carga inicial massiva (\textit{backfill}) com atualização incremental contínua.
+
+Conforme fundamentado teoricamente na Seção~\ref{sec:etl-fundamentacao}, o processo ETL tipicamente consome entre 60\% e 80\% do esforço de desenvolvimento em projetos de \textit{data warehousing} \cite{vassiliadis2009survey}. Essa proporção reflete a complexidade inerente à extração de dados de fontes heterogêneas e à necessidade de transformações para garantir consistência e qualidade. A presente seção detalha a implementação específica adotada no \textit{Tô De Olho}, conforme ilustrado na Tabela~\ref{tab:ingestao}.
 
 \begin{table}[H]
 \centering
@@ -128,72 +130,76 @@ A ingestão de dados segue uma estratégia híbrida de \textit{Extract, Transfor
 
 \subsubsection{Backfill (Carga Histórica)}
 
-A carga inicial (\textit{Backfill}) distingue-se fundamentalmente da sincronização diária pelo volume e pela estratégia de escrita. Conforme preceituado por Kimball e Ross \cite{kimball2013data}, operações de carga histórica devem privilegiar o \textit{throughput} (vazão) em detrimento da latência individual.
+A carga inicial (\textit{Backfill}) distingue-se fundamentalmente da sincronização diária pelo volume e pela estratégia de escrita. Conforme preceituado por Kimball e Ross \cite{kimball2013data}, operações de carga histórica devem privilegiar o \textit{throughput} (vazão) em detrimento da latência individual. Esta recomendação reflete décadas de experiência prática: tentar carregar milhões de registros através de inserções unitárias resulta em tempos de execução proibitivos e pressão desnecessária sobre as APIs de origem.
 
-Para este projeto, optou-se pela estratégia de \textbf{Backfill em Lote Isolado}. Ao invés de reutilizar os \textit{endpoints} REST --- projetados para transações unitárias e limitados por \textit{rate limiting} rigoroso --- o sistema consome arquivos CSV consolidados disponibilizados pelas fontes primárias. Esta abordagem reduz o \textit{overhead} de rede e permite o uso de \texttt{COPY} ou \textit{bulk inserts} no banco de dados, ordens de magnitude mais eficientes que inserções linha a linha.
+Para este projeto, optou-se pela estratégia de \textbf{Backfill em Lote Isolado}. Ao invés de reutilizar os \textit{endpoints} REST --- projetados para transações unitárias e limitados por \textit{rate limiting} rigoroso --- o sistema consome arquivos CSV consolidados disponibilizados pelas fontes primárias. Esta abordagem reduz o \textit{overhead} de rede e permite o uso de \texttt{COPY} ou \textit{bulk inserts} no banco de dados, operações que alcançam taxas de inserção na ordem de dezenas de milhares de registros por segundo, ordens de magnitude superiores a inserções linha a linha.
 
-As fontes incluem:
+A distinção entre carga inicial e sincronização contínua não é meramente operacional, mas também arquitetural. O processo de \textit{backfill} executa em ambiente isolado, podendo utilizar conexões de banco com configurações agressivas (\textit{batch size} elevado, desativação temporária de índices não-essenciais) sem impactar a disponibilidade do sistema em produção. As fontes de dados para carga inicial incluem:
 \begin{itemize}
-    \item \textbf{CEAPS}: Arquivos CSV anuais (2008--2025) via \textit{endpoint} de dados abertos estáticos;
-    \item \textbf{Votações}: Iteração controlada na API Legislativa por ano/legislatura (2019--Presente);
-    \item \textbf{Emendas}: \textit{Dunp} consolidado do Portal da Transparência.
+    \item \textbf{CEAPS}: Arquivos CSV anuais (2008--2025) disponíveis via \textit{endpoint} de dados abertos estáticos do Senado, totalizando aproximadamente 500 mil registros de despesas;
+    \item \textbf{Votações}: Iteração controlada na API Legislativa por ano/legislatura (2019--Presente), respeitando limites de 10 requisições por segundo;
+    \item \textbf{Emendas}: \textit{Dump} consolidado do Portal da Transparência, com dados desde 2015.
 \end{itemize}
 
 \subsubsection{Sincronização Contínua (Change Data Capture)}
 
-Dada a inexistência de mecanismos de \textit{Webhooks} ou fluxos de eventos (\textit{Streaming}) nas APIs governamentais, adotou-se o padrão de \textbf{Polling Periódico Inteligente}. O sistema atua como um agente ativo que consulta periodicamente as fontes em busca de alterações (\textit{Pull Model}).
+Uma vez que os dados históricos foram carregados, o desafio seguinte consiste em mantê-los atualizados de forma eficiente. Idealmente, as APIs governamentais ofereceriam mecanismos de \textit{push} --- como \textit{Webhooks} ou fluxos de eventos (\textit{Streaming}) --- permitindo que o sistema fosse notificado proativamente sobre mudanças. Entretanto, nenhuma das três fontes de dados integradas disponibiliza tais recursos, uma limitação comum em APIs governamentais brasileiras.
 
-A periodicidade dos \textit{cron jobs} foi calibrada com base na \textbf{Janela de Consistência} aceitável para cada domínio de dado:
+Diante dessa restrição, adotou-se o padrão de \textbf{Polling Periódico Inteligente}, no qual o sistema atua como agente ativo que consulta periodicamente as fontes em busca de alterações (\textit{Pull Model}). Embora menos eficiente que abordagens baseadas em eventos, o \textit{polling} oferece vantagens significativas para integração com sistemas legados: simplicidade de implementação, ausência de dependências de infraestrutura complexa (como \textit{message brokers}) e compatibilidade garantida com qualquer API que suporte requisições HTTP.
+
+A periodicidade dos \textit{cron jobs} foi calibrada com base na \textbf{Janela de Consistência Eventual} aceitável para cada domínio de dado. O conceito de consistência eventual, originário de bancos de dados distribuídos, reconhece que em sistemas descentralizados, os dados podem estar temporariamente desatualizados desde que eventualmente convirjam para o estado correto. Para um portal de fiscalização cidadã, a precisão ao segundo não é necessária; o que importa é que os dados reflitam a realidade em um horizonte razoável:
 
 \begin{itemize}
-    \item \textbf{Alta Volatilidade (Diário)}: Status de senadores, Presença e Votações. Execução às 03:00 (BRT) para capturar o fechamento do dia legislativo anterior;
-    \item \textbf{Média Volatilidade (Semanal)}: Remuneração de servidores e lotações. Execução aos domingos;
-    \item \textbf{Baixa Volatilidade (Mensal)}: Consolidação de Emendas Parlamentares. Execução no dia 05 de cada mês (após fechamento contábil público).
+    \item \textbf{Alta Volatilidade (Diário)}: Status de senadores, presença e votações do dia anterior. A execução ocorre às 03:00 (horário de Brasília), período de baixa atividade nos servidores governamentais, capturando o fechamento completo do dia legislativo;
+    \item \textbf{Média Volatilidade (Semanal)}: Remuneração de servidores e mapeamento de lotações. A folha de pagamento do Senado é atualizada mensalmente, mas a execução semanal (domingos às 04:00) garante margem de segurança para capturar eventuais correções;
+    \item \textbf{Baixa Volatilidade (Mensal)}: Consolidação de emendas parlamentares. Os dados de execução orçamentária do Portal da Transparência são consolidados mensalmente, justificando a execução no dia 05 de cada mês, após o fechamento contábil público.
 \end{itemize}
 
-Esta estratégia de \textit{polling} respeita os princípios de ``Cidadania de API'', concentrando requisições em horários de baixo tráfego dos servidores governamentais.
+Esta estratégia de \textit{polling} respeita os princípios de ``Cidadania de API'' (\textit{API Good Citizenship}), concentrando requisições em horários de baixo tráfego para minimizar impacto nos servidores governamentais e maximizar a taxa de sucesso das chamadas.
 
 \subsubsection{Idempotência e Consistência Eventual}
 
-Em sistemas distribuídos sujeitos a falhas de rede, a garantia de entrega \textit{exactly-once} é virtualmente impossível. Portanto, o sistema foi projetado para operar sob o modelo \textit{at-least-once}, apoiado pela propriedade de \textbf{Idempotência}.
+Em sistemas distribuídos sujeitos a falhas de rede, a garantia de entrega \textit{exactly-once} é virtualmente impossível de alcançar na prática \cite{hummer2013modeldriven}. Qualquer comunicação entre componentes pode falhar após o processamento mas antes da confirmação, deixando o cliente em estado de incerteza. Portanto, o sistema foi projetado para operar sob o modelo \textit{at-least-once}, no qual operações podem ser repetidas sem efeitos colaterais indesejados, apoiado pela propriedade de \textbf{Idempotência}.
 
-Matematicamente, uma operação de ingestão $f(x)$ é idempotente se $f(f(x)) = f(x)$. Na prática, isso significa que reprocessar o mesmo arquivo ou requisição API múltiplas vezes não gera duplicidade nem inconsistência no banco de dados.
+Matematicamente, uma operação de ingestão $f(x)$ é idempotente se $f(f(x)) = f(x)$. Ou seja, aplicar a função múltiplas vezes produz o mesmo resultado que aplicá-la uma única vez. Esta propriedade, originária da álgebra abstrata, encontra aplicação direta em operações de banco de dados: uma inserção \texttt{INSERT OR UPDATE} (\textit{upsert}) com chave primária definida é idempotente, pois tentativas subsequentes simplesmente sobrescrevem o registro existente com valores idênticos.
 
-Implementamos isso através de chaves naturais compostas (\textit{Composite Keys}) e operações de \textit{Upsert} (\textit{Update or Insert}):
+A implementação de idempotência no \textit{Tô De Olho} utiliza chaves naturais compostas (\textit{Composite Natural Keys}) em vez de identificadores gerados. Esta escolha reflete uma decisão arquitetural deliberada: os sistemas de origem (APIs do Senado e Portal da Transparência) são a fonte de verdade para identificação de entidades. As operações de \textit{upsert} garantem:
 \begin{itemize}
-    \item \textbf{Despesas}: Unicidade garantida pela tupla \texttt{(senador\_id, fornecedor\_cnpj, data\_emissao, valor\_centavos)};
-    \item \textbf{Votos}: Unicidade via \texttt{(id\_sessao, id\_parlamentar)}.
+    \item \textbf{Despesas CEAPS}: Unicidade garantida pela tupla \texttt{(senador\_id, fornecedor\_cnpj, data\_emissao, valor\_centavos)}. Esta combinação identifica univocamente cada reembolso, considerando que o mesmo senador não pode receber dois reembolsos idênticos do mesmo fornecedor no mesmo dia;
+    \item \textbf{Votações}: Unicidade via \texttt{(id\_sessao, id\_parlamentar)}. Cada senador registra no máximo um voto por sessão de votação;
+    \item \textbf{Emendas}: Unicidade via \texttt{(codigo\_emenda, autor, ano)}. O código de emenda é único por autor e ano fiscal.
 \end{itemize}
 
-Essa abordagem elimina a necessidade de gerenciamento de estado complexo no \textit{pipeline} de ingestão: em caso de dúvida ou falha, o sistema simplesmente reprocessa o lote inteiro, garantindo convergência para o estado correto.
+Essa abordagem elimina a necessidade de gerenciamento de estado complexo no \textit{pipeline} de ingestão: em caso de dúvida, falha de rede ou interrupção inesperada, o sistema pode simplesmente reprocessar o lote inteiro, garantindo convergência para o estado correto sem risco de duplicação de dados.
 
-\subsubsection{Resiliência e Estabilidade}
+\subsubsection{Resiliência e Tratamento de Erros}
 
-A integração com serviços externos governamentais exige mecanismos robustos de proteção contra falhas transientes e indisponibilidades prolongadas. Baseando-se nos padrões catalogados por Nygard \cite{nygard2018release}, implementou-se:
+A integração com APIs governamentais apresenta desafios de estabilidade: diferentemente de serviços comerciais com \textit{SLAs} bem definidos, as APIs públicas brasileiras operam sem garantias formais de disponibilidade. Para lidar com falhas transientes, o sistema implementa mecanismos simples e eficazes:
 
 \begin{itemize}
-    \item \textbf{Circuit Breaker (Disjuntor)}:
-        Este padrão previne que falhas repetidas em um serviço externo (ex: API Legis fora do ar) consumam recursos locais ou causem travamentos em cascata. O disjuntor opera em três estados: \textit{Closed} (operação normal), \textit{Open} (bloqueio imediato após falhas consecutivas) e \textit{Half-Open} (tentativa de recuperação). No projeto, o limiar de disparo é de 5 erros consecutivos ou latência superior a 2 segundos;
-
-    \item \textbf{Retry com Backoff Exponencial e Jitter}:
-        Para falhas transientes (ex: \textit{timeouts} de rede), o sistema não re-tenta imediatamente. Aplica-se um tempo de espera calculado pela fórmula:
-        \begin{equation}
-            t_{wait} = \min(CAP, base \times 2^{tentativa}) + jitter
-        \end{equation}
-        O componente aleatório \textit{jitter} desincroniza as retentativas, evitando que múltiplos processos golpeiem a API simultaneamente ao voltar (\textit{thundering herd problem}).
+    \item \textbf{Retry com Backoff Exponencial}: Para erros de rede ou respostas 5xx, o sistema aguarda progressivamente mais tempo entre tentativas. A fórmula segue o padrão recomendado pela AWS \cite{aws2015backoff}: $t_{wait} = base \times 2^{tentativa}$, com $base = 1s$ e máximo de 3 tentativas. Esta abordagem evita sobrecarregar APIs temporariamente indisponíveis;
+    
+    \item \textbf{Timeout Configurável}: Cada requisição possui timeout de 30 segundos, evitando que conexões travadas bloqueiem o processo de ingestão;
+    
+    \item \textbf{Falha Graciosa}: Quando uma fonte de dados está indisponível, o job registra o erro e prossegue com as demais fontes. Jobs que falham são marcados para reexecução manual.
 \end{itemize}
 
-\subsubsection{Observabilidade e Monitoramento}
+Para cenários de produção com maior volume de requisições, padrões como \textit{Circuit Breaker} \cite{nygard2018release} poderiam ser adicionados para isolar falhas em cascata. Entretanto, dado o escopo do MVP --- com execuções diárias em horário de baixo tráfego --- a estratégia de retry simples atende adequadamente às necessidades.
 
-Para garantir a confiabilidade do \textit{pipeline} de dados (Data Reliability), a estratégia de monitoramento transcende a simples verificação de ``up/down'', adotando os três pilares da observabilidade moderna:
+\subsubsection{Logs e Monitoramento}
 
-\begin{enumerate}
-    \item \textbf{Logs Estruturados}: Todos os eventos de ingestão são emitidos em formato JSON (\textit{Log-as-Data}), contendo contexto rico (ID do job, fonte, duração, quantidade de registros, erros). Isso permite agregação e busca eficiente em ferramentas como Grafana/Loki;
-    \item \textbf{Métricas (Timeseries)}: Exposição de contadores ( \texttt{jobs\_failed\_total}) e histogramas (\texttt{job\_duration\_seconds}) via formato Prometheus. Alertas são configurados para disparar quando a taxa de erro excede 1\% ou quando um job crítico não executa há mais de 26 horas;
-    \item \textbf{Rastreabilidade (Tracing)}: Cada execução de job recebe um \textit{Correlation ID} único, permitindo rastrear o ciclo de vida completo de um lote de dados, desde a extração na API externa até a persistência no PostgreSQL.
-\end{enumerate}
+O monitoramento do \textit{pipeline} de ingestão adota uma abordagem pragmática, adequada ao escopo do projeto:
+
+\begin{itemize}
+    \item \textbf{Logs Estruturados}: Todos os eventos de ingestão são emitidos em formato JSON, contendo: identificador do job, fonte de dados, duração, quantidade de registros processados e eventual mensagem de erro. Esta estruturação facilita a análise posterior e permite identificar rapidamente a causa de falhas;
+    
+    \item \textbf{Endpoint de Health}: O sistema expõe um \textit{endpoint} \texttt{/health} que retorna o status da última sincronização de cada fonte, permitindo verificar se os dados estão atualizados.
+\end{itemize}
+
+Para evolução futura, a literatura recomenda a adoção dos três pilares da observabilidade --- logs, métricas e traces \cite{sridharan2018observability}. Ferramentas como Prometheus (métricas) e Jaeger (tracing distribuído) poderiam ser integradas conforme a complexidade operacional aumentar.
 
 \subsection{Arquitetura do Sistema}
+
 
 O \textit{Tô De Olho} adota uma arquitetura de \textbf{monolito modular}, na qual os componentes são organizados internamente em módulos bem definidos, mas compartilham um único processo de \textit{deploy}. A escolha foi motivada por:
 
