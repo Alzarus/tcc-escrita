@@ -128,68 +128,80 @@ A ingestão de dados segue uma estratégia híbrida de \textit{Extract, Transfor
 
 \subsubsection{Backfill (Carga Histórica)}
 
-Para a população inicial do banco de dados, utilizam-se fontes otimizadas para grandes volumes:
+A carga inicial (\textit{Backfill}) distingue-se fundamentalmente da sincronização diária pelo volume e pela estratégia de escrita. Conforme preceituado por Kimball e Ross \cite{kimball2013data}, operações de carga histórica devem privilegiar o \textit{throughput} (vazão) em detrimento da latência individual.
 
+Para este projeto, optou-se pela estratégia de \textbf{Backfill em Lote Isolado}. Ao invés de reutilizar os \textit{endpoints} REST --- projetados para transações unitárias e limitados por \textit{rate limiting} rigoroso --- o sistema consome arquivos CSV consolidados disponibilizados pelas fontes primárias. Esta abordagem reduz o \textit{overhead} de rede e permite o uso de \texttt{COPY} ou \textit{bulk inserts} no banco de dados, ordens de magnitude mais eficientes que inserções linha a linha.
+
+As fontes incluem:
 \begin{itemize}
-    \item \textbf{CEAPS}: Arquivos CSV disponíveis desde 2008, via \textit{endpoint} de download;
-    \item \textbf{Votações}: API Legislativa com filtros por legislatura, cobrindo dados desde 2019;
-    \item \textbf{Emendas}: Arquivo consolidado disponível no Portal da Transparência (download em massa).
+    \item \textbf{CEAPS}: Arquivos CSV anuais (2008--2025) via \textit{endpoint} de dados abertos estáticos;
+    \item \textbf{Votações}: Iteração controlada na API Legislativa por ano/legislatura (2019--Presente);
+    \item \textbf{Emendas}: \textit{Dunp} consolidado do Portal da Transparência.
 \end{itemize}
 
-\subsubsection{Sincronização Contínua}
+\subsubsection{Sincronização Contínua (Change Data Capture)}
 
-Tarefas agendadas (\textit{cron jobs}) executam automaticamente no horário de menor tráfego das APIs (madrugada, horário de Brasília). A frequência de cada tarefa foi definida conforme a volatilidade dos dados:
+Dada a inexistência de mecanismos de \textit{Webhooks} ou fluxos de eventos (\textit{Streaming}) nas APIs governamentais, adotou-se o padrão de \textbf{Polling Periódico Inteligente}. O sistema atua como um agente ativo que consulta periodicamente as fontes em busca de alterações (\textit{Pull Model}).
 
-\begin{itemize}
-    \item \textbf{Diário}: Senadores em exercício, despesas CEAPS do mês corrente, votações dos últimos 7 dias e recálculo de rankings;
-    \item \textbf{Semanal}: Remunerações de servidores de gabinete (dados atualizados mensalmente na fonte, mas verificados semanalmente);
-    \item \textbf{Mensal}: Emendas parlamentares (consolidação ocorre no início de cada mês no Portal da Transparência).
-\end{itemize}
-
-A ordem de execução respeita dependências: a lista de senadores é sincronizada primeiro, pois os demais jobs dependem dos identificadores parlamentares atualizados. O recálculo de rankings executa por último, após a consolidação de todos os dados.
-
-\subsubsection{Idempotência e Deduplicação}
-
-Para garantir consistência em reprocessamentos e sincronizações incrementais, todas as operações de carga utilizam \textbf{upserts} (\textit{insert or update}). A estratégia baseia-se em chaves naturais únicas:
+A periodicidade dos \textit{cron jobs} foi calibrada com base na \textbf{Janela de Consistência} aceitável para cada domínio de dado:
 
 \begin{itemize}
-    \item \textbf{Despesas CEAPS}: Chave composta \texttt{(senador\_id, ano, mês, fornecedor\_cnpj, valor)} --- identifica unicamente cada reembolso;
-    \item \textbf{Votações}: Chave composta \texttt{(sessao\_id, senador\_id)} --- registra o voto de cada senador em cada sessão;
-    \item \textbf{Emendas}: Código único da emenda no Portal da Transparência.
+    \item \textbf{Alta Volatilidade (Diário)}: Status de senadores, Presença e Votações. Execução às 03:00 (BRT) para capturar o fechamento do dia legislativo anterior;
+    \item \textbf{Média Volatilidade (Semanal)}: Remuneração de servidores e lotações. Execução aos domingos;
+    \item \textbf{Baixa Volatilidade (Mensal)}: Consolidação de Emendas Parlamentares. Execução no dia 05 de cada mês (após fechamento contábil público).
 \end{itemize}
 
-Essa abordagem permite reexecutar jobs de sincronização sem risco de duplicação de dados, simplificando a recuperação de falhas e facilitando o \textit{backfill} parcial quando necessário.
+Esta estratégia de \textit{polling} respeita os princípios de ``Cidadania de API'', concentrando requisições em horários de baixo tráfego dos servidores governamentais.
 
-\subsubsection{Tratamento de Erros e Resiliência}
+\subsubsection{Idempotência e Consistência Eventual}
 
-Para garantir robustez na ingestão, o sistema implementa mecanismos de resiliência em múltiplas camadas:
+Em sistemas distribuídos sujeitos a falhas de rede, a garantia de entrega \textit{exactly-once} é virtualmente impossível. Portanto, o sistema foi projetado para operar sob o modelo \textit{at-least-once}, apoiado pela propriedade de \textbf{Idempotência}.
+
+Matematicamente, uma operação de ingestão $f(x)$ é idempotente se $f(f(x)) = f(x)$. Na prática, isso significa que reprocessar o mesmo arquivo ou requisição API múltiplas vezes não gera duplicidade nem inconsistência no banco de dados.
+
+Implementamos isso através de chaves naturais compostas (\textit{Composite Keys}) e operações de \textit{Upsert} (\textit{Update or Insert}):
+\begin{itemize}
+    \item \textbf{Despesas}: Unicidade garantida pela tupla \texttt{(senador\_id, fornecedor\_cnpj, data\_emissao, valor\_centavos)};
+    \item \textbf{Votos}: Unicidade via \texttt{(id\_sessao, id\_parlamentar)}.
+\end{itemize}
+
+Essa abordagem elimina a necessidade de gerenciamento de estado complexo no \textit{pipeline} de ingestão: em caso de dúvida ou falha, o sistema simplesmente reprocessa o lote inteiro, garantindo convergência para o estado correto.
+
+\subsubsection{Resiliência e Estabilidade}
+
+A integração com serviços externos governamentais exige mecanismos robustos de proteção contra falhas transientes e indisponibilidades prolongadas. Baseando-se nos padrões catalogados por Nygard \cite{nygard2018release}, implementou-se:
 
 \begin{itemize}
-    \item \textbf{Retry com Backoff Exponencial}: Em caso de falha de requisição (timeout, erro 5xx ou rate limit), o sistema aguarda 2, 4, 8 e 16 segundos entre tentativas, até um máximo de 5 retentativas;
-    \item \textbf{Rate Limiting por Fonte}: Controle diferenciado de requisições conforme limites de cada API: 10 requisições por segundo para a API Legislativa, 5 requisições por segundo para a API Administrativa, e 5 requisições por segundo para o Portal da Transparência (300/minuto com margem de segurança);
-    \item \textbf{Circuit Breaker}: Após 3 falhas consecutivas em uma fonte, o sistema suspende requisições por 5 minutos, evitando sobrecarga de APIs temporariamente indisponíveis;
-    \item \textbf{Logging Estruturado}: Registros em formato JSON com campos padronizados (timestamp, operação, duração, status, erro) para integração com ferramentas de observabilidade.
+    \item \textbf{Circuit Breaker (Disjuntor)}:
+        Este padrão previne que falhas repetidas em um serviço externo (ex: API Legis fora do ar) consumam recursos locais ou causem travamentos em cascata. O disjuntor opera em três estados: \textit{Closed} (operação normal), \textit{Open} (bloqueio imediato após falhas consecutivas) e \textit{Half-Open} (tentativa de recuperação). No projeto, o limiar de disparo é de 5 erros consecutivos ou latência superior a 2 segundos;
+
+    \item \textbf{Retry com Backoff Exponencial e Jitter}:
+        Para falhas transientes (ex: \textit{timeouts} de rede), o sistema não re-tenta imediatamente. Aplica-se um tempo de espera calculado pela fórmula:
+        \begin{equation}
+            t_{wait} = \min(CAP, base \times 2^{tentativa}) + jitter
+        \end{equation}
+        O componente aleatório \textit{jitter} desincroniza as retentativas, evitando que múltiplos processos golpeiem a API simultaneamente ao voltar (\textit{thundering herd problem}).
 \end{itemize}
 
-\subsubsection{Monitoramento e Alertas}
+\subsubsection{Observabilidade e Monitoramento}
 
-A operação contínua do sistema requer visibilidade sobre a saúde dos processos de ingestão:
+Para garantir a confiabilidade do \textit{pipeline} de dados (Data Reliability), a estratégia de monitoramento transcende a simples verificação de ``up/down'', adotando os três pilares da observabilidade moderna:
 
-\begin{itemize}
-    \item \textbf{Métricas de Execução}: Cada job registra duração, quantidade de registros processados e taxa de erro;
-    \item \textbf{Alertas de Falha}: Notificações são disparadas quando um job falha após esgotar retentativas ou quando a defasagem de dados ultrapassa 48 horas;
-    \item \textbf{Dashboard de Status}: Painel exibindo última sincronização bem-sucedida de cada fonte, permitindo identificação rápida de problemas.
-\end{itemize}
+\begin{enumerate}
+    \item \textbf{Logs Estruturados}: Todos os eventos de ingestão são emitidos em formato JSON (\textit{Log-as-Data}), contendo contexto rico (ID do job, fonte, duração, quantidade de registros, erros). Isso permite agregação e busca eficiente em ferramentas como Grafana/Loki;
+    \item \textbf{Métricas (Timeseries)}: Exposição de contadores ( \texttt{jobs\_failed\_total}) e histogramas (\texttt{job\_duration\_seconds}) via formato Prometheus. Alertas são configurados para disparar quando a taxa de erro excede 1\% ou quando um job crítico não executa há mais de 26 horas;
+    \item \textbf{Rastreabilidade (Tracing)}: Cada execução de job recebe um \textit{Correlation ID} único, permitindo rastrear o ciclo de vida completo de um lote de dados, desde a extração na API externa até a persistência no PostgreSQL.
+\end{enumerate}
 
 \subsection{Arquitetura do Sistema}
 
 O \textit{Tô De Olho} adota uma arquitetura de \textbf{monolito modular}, na qual os componentes são organizados internamente em módulos bem definidos, mas compartilham um único processo de \textit{deploy}. A escolha foi motivada por:
 
 \begin{itemize}
-    \item \textbf{Simplicidade Operacional}: Um único contêiner simplifica a infraestrutura;
-    \item \textbf{Compartilhamento de Recursos}: Conexão única com banco de dados, eliminando latência de rede entre serviços;
-    \item \textbf{Facilidade de Depuração}: Rastreamento de erros em processo único;
-    \item \textbf{Evolução Futura}: A estrutura modular permite migração gradual para microsserviços, se necessário.
+    \item \textbf{Simplicidade Operacional}: Um único contêiner simplifica a infraestrutura de implantação e monitoramento;
+    \item \textbf{Compartilhamento de Recursos}: Conexão única com banco de dados, eliminando latência de rede entre serviços e reduzindo o consumo de memória;
+    \item \textbf{Definição de Fronteiras do Domínio}: Conforme argumentado por Martin Fowler em sua defesa da estratégia \textit{MonolithFirst} \cite{fowler2015monolith}, iniciar com um monolito permite compreender melhor os limites naturais do domínio antes de incorrer no custo de complexidade de sistemas distribuídos;
+    \item \textbf{Modularidade e Evolução}: A arquitetura segue o padrão de Monolito Modular, recentemente formalizado na literatura como uma alternativa viável que combina a simplicidade do monolito com a manutenibilidade dos microsserviços \cite{su2024modular}. A estrutura interna desacoplada facilita uma eventual migração futura para serviços independentes apenas onde for estritamente necessário.
 \end{itemize}
 
 \textbf{Módulos Internos:}
