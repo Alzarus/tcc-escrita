@@ -4,6 +4,7 @@
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{xurl} % Permite quebra automatica de URLs longas
+\usepackage{microtype} % Melhora a tipografia e reduz overflows
 \begin{document}
 
 % Aluno/autor do documento (obrigatório)
@@ -42,7 +43,7 @@
 
 O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência parlamentar focada no Senado Federal. Sua proposta é aproximar cidadãos dos dados legislativos oficiais, convertendo informação dispersa em conhecimento fiscalizável e de fácil compreensão. O projeto vai além dos dados abertos básicos, integrando fontes complexas como a Cota para o Exercício da Atividade Parlamentar dos Senadores (CEAPS) e as ``emendas PIX''. Ao combinar uma arquitetura de \textbf{monolito modular} em Go, ingestão via APIs oficiais (Senado e Portal da Transparência) e um \textit{front-end} em Next.js, a plataforma busca reduzir a assimetria de informação sobre os 81 senadores da República \cite{Gomes2010}.
 
-A literatura de democracia digital evidencia que TICs ampliam possibilidades de participação, mas só geram valor quando articuladas a contextos de uso e inclusão. Avelino et al. mapeiam iniciativas de dados abertos, reforçando que tecnologias precisam ser mediadas por visualizações claras para efetivação do controle social \cite{avelino2021democracia}. Com um corpo legislativo menor e mais ``caro'' \textit{per capita} que a Câmara, o Senado carece de ferramentas focadas que cruzem votações nominais com a execução orçamentária de emendas. À luz desses estudos, o \textit{Tô De Olho} procura transformar a transparência passiva em \textit{accountability} ativa, oferecendo rankings e métricas objetivas de desempenho parlamentar \cite{pateman1970, gomes2019}.
+A literatura evidencia que TICs ampliam possibilidades de participação, mas só geram valor quando articuladas a contextos de uso. Avelino et al. mapeiam iniciativas, reforçando que tecnologias exigem visualizações para o controle social \cite{avelino2021democracia}. Com um corpo legislativo menor e mais ``caro'' \textit{per capita} que a Câmara, o Senado carece de ferramentas que cruzem votações com a execução orçamentária. À luz desses estudos, o \textit{Tô De Olho} procura transformar transparência passiva em \textit{accountability} ativa \cite{pateman1970, gomes2019}.
 
 % Recomendo manter cada seção ou subseção de texto em um arquivo separado e depois utilizados com o comando include, conforme o exemplo a seguir. Porém, se preferir, também pode deixar seu texto neste arquivo
 \input{src/sections/objetivos}
@@ -64,7 +65,7 @@ O sistema organiza os dados em três dimensões complementares do mandato parlam
 
 \begin{itemize}
     \item \textbf{Atividade Legislativa}: votações nominais, participação em comissões, proposições de autoria e relatorias;
-    \item \textbf{Gestão de Recursos}: despesas detalhadas da Cota Parlamentar (CEAPS), com identificação de fornecedores e categorias de gasto;
+    \item \textbf{Gestão de Recursos}: despesas detalhadas da Cota Parlamentar (CEAPS), incluindo identificação de fornecedores e categorias de gasto;
     \item \textbf{Articulação Orçamentária}: emendas parlamentares com destaque para Transferências Especiais (``emendas PIX''), permitindo rastrear o destino dos recursos.
 \end{itemize}
 
@@ -168,7 +169,7 @@ Mais do que apenas replicar soluções existentes para o âmbito senatorial, o \
     
     \item \textbf{Do ``De Olho no Congresso''}, adotamos o \textbf{painel de alertas automáticos} para despesas atípicas --- notas fiscais em finais de semana, valores acima da média, pagamentos repetidos em intervalos curtos --- e o \textbf{ranking de fornecedores}, incluindo cruzamento com empresas sob sanção administrativa;
     
-    \item \textbf{Do ``Serenata de Amor''}, inspiramo-nos na abordagem de \textbf{código aberto} e \textbf{documentação transparente}, permitindo que pesquisadores e jornalistas repliquem e validem os resultados.
+    \item \textbf{Do ``Serenata de Amor''}, adotamos a filosofia de \textbf{código aberto} e documentação transparente.
 \end{itemize}
 
 O diferencial central do \textit{Tô De Olho}, entretanto, reside em uma contribuição original: a implementação de um \textbf{Índice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- métrica que penaliza a parcimônia --- ou \textit{quantidade de proposições} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional inspirado no \textit{State Legislative Effectiveness Score} (SLES) de Volden e Wiseman \cite{volden2018legislative}.
@@ -187,11 +188,11 @@ Nosso índice pondera quatro dimensões objetivas, com pesos públicos e metodol
 
 A exposição pública de critérios e pesos não é mera formalidade: representa um compromisso ético com a \textbf{transparência metodológica}. Diferente de rankings opacos, o cidadão poderá compreender --- e questionar --- os fundamentos da classificação, evitando que a plataforma seja percebida como veículo de viés político.
 
-Em síntese, o \textit{Tô De Olho} posiciona-se como a \textbf{primeira plataforma integrada} de fiscalização cidadã voltada ao Senado Federal, combinando três vertentes complementares:
+Em síntese, o \textit{Tô De Olho} posiciona-se como a \textbf{primeira plataforma integrada} de fiscalização cidadã voltada ao Senado Federal, combinando três vertentes:
 
 \begin{enumerate}
     \item \textbf{Consolidação Multi-Fonte}: Integra dados de três APIs oficiais (Legislativa, Administrativa e Portal da Transparência) em interface única;
-    \item \textbf{Inteligência de Dados}: Oferece alertas automáticos, rankings comparativos e visualizações geoespaciais que transformam dados brutos em informação acionável;
+    \item \textbf{Inteligência de Dados}: Oferece alertas automáticos, rankings e visualizações que convertem dados brutos em informação acionável;
     \item \textbf{Rigor Metodológico}: Fundamenta-se em literatura acadêmica sobre efetividade legislativa, com metodologia aberta a auditoria pública.
 \end{enumerate}
 
@@ -326,7 +327,7 @@ A estrutura interna segue os princípios de \textit{Bounded Contexts} do Domain-
 \begin{itemize}
     \item \texttt{internal/senador}: Gerencia dados cadastrais e mandatos históricos, atuando como ``fonte de verdade'' para identificação de parlamentares;
     \item \texttt{internal/ceaps}: Processa despesas da Cota Parlamentar, implementando detecção de anomalias e agregações por categoria;
-    \item \texttt{internal/votacao}: Coleta votações nominais e calcula métricas derivadas como presença e fidelidade partidária;
+    \item \texttt{internal/votacao}: Coleta votações nominais e calcula métricas como presença e fidelidade partidária;
     \item \texttt{internal/emenda}: Integra dados do Portal da Transparência, com tratamento especial para ``emendas PIX'';
     \item \texttt{internal/ranking}: Orquestra o cálculo de scores conforme metodologia definida na Seção~3.3.
 \end{itemize}
@@ -434,7 +435,7 @@ O pipeline foi implementado com \textbf{GitHub Actions}. Estudos empíricos demo
 
 \subsection{Plataforma Google Cloud Run}
 
-A implantação ocorre via \textbf{Google Cloud Run} \cite{cloudrun2024}, plataforma serverless para containers. Características que justificaram a escolha: escala automática (de zero a centenas de containers), deploy simplificado (único comando \\texttt{gcloud run deploy}) e integração nativa com Cloud SQL e Memorystore.
+A implantação ocorre via \textbf{Google Cloud Run} \cite{cloudrun2024}, plataforma serverless para containers. Características que justificaram a escolha: escala automática (de zero a centenas de containers), deploy simplificado (único comando \texttt{gcloud run deploy}) e integração nativa com Cloud SQL e Memorystore.
 
 \subsection{Graceful Shutdown}
 
@@ -469,7 +470,7 @@ Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e 
 \begin{description}
     \item[ACID] \textit{Atomicity, Consistency, Isolation, Durability} --- propriedades que garantem integridade em transações de banco de dados.
     \item[ADPF] Arguição de Descumprimento de Preceito Fundamental --- ação judicial perante o STF para questionar violações à Constituição.
-    \item[API] \textit{Application Programming Interface} --- interface de programação que permite a comunicação entre sistemas de software.
+    \item[API] \textit{Application Programming Interface} --- interface que permite comunicação entre sistemas.
     \item[CEAP] Cota para o Exercício da Atividade Parlamentar --- verba destinada aos Deputados Federais (equivalente à CEAPS para senadores).
     \item[CEAPS] Cota para o Exercício da Atividade Parlamentar dos Senadores --- verba destinada ao custeio de despesas relacionadas ao exercício do mandato parlamentar.
     \item[CGU] Controladoria-Geral da União --- órgão responsável pelo controle interno do Poder Executivo Federal e pela transparência pública.
@@ -480,7 +481,7 @@ Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e 
     \item[ETL] \textit{Extract, Transform, Load} --- processo de extração, transformação e carga de dados.
     \item[FCP] \textit{First Contentful Paint} --- métrica de performance web que mede o tempo até o primeiro conteúdo visível.
     \item[GCP] \textit{Google Cloud Platform} --- plataforma de serviços em nuvem do Google.
-    \item[INAF] Indicador de Alfabetismo Funcional --- pesquisa brasileira que avalia níveis de alfabetização da população.
+    \item[INAF] Indicador de Alfabetismo Funcional --- pesquisa que avalia níveis de alfabetização no Brasil.
     \item[JIT] \textit{Just-In-Time} --- compilação sob demanda; no contexto de CSS, geração de estilos apenas quando utilizados.
     \item[JSON] \textit{JavaScript Object Notation} --- formato leve de intercâmbio de dados.
     \item[LAI] Lei de Acesso à Informação (Lei nº 12.527/2011) --- legislação que garante o direito de acesso a informações públicas.
@@ -491,7 +492,7 @@ Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e 
     \item[OGP] \textit{Open Government Partnership} --- Parceria para Governo Aberto; iniciativa multilateral para promoção da transparência.
     \item[ORM] \textit{Object-Relational Mapping} --- técnica de mapeamento objeto-relacional para persistência de dados.
     \item[PAC] \textit{Political Action Committee} --- comitê de ação política nos EUA para arrecadação de fundos eleitorais.
-    \item[PEC] Proposta de Emenda à Constituição --- proposição legislativa que visa alterar a Constituição Federal; exige quórum qualificado de 3/5 em duas votações.
+    \item[PEC] Proposta de Emenda à Constituição --- visa alterar a Constituição; exige quórum de 3/5 em duas votações.
     \item[PIX] Sistema de pagamentos instantâneos do Banco Central; no contexto parlamentar, refere-se às ``Emendas PIX'' (Transferências Especiais) --- modalidade de repasse que dispensa convênio.
     \item[PLP] Projeto de Lei Complementar --- proposição que regulamenta matérias específicas previstas na Constituição; exige maioria absoluta para aprovação.
     \item[RDF] \textit{Resource Description Framework} --- modelo de dados para representação de informações na web semântica.

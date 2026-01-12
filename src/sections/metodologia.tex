@@ -25,9 +25,9 @@ A divisão do trabalho ocorreu em cinco fases principais:
 
 \subsection{Fontes de Dados}
 
-O sistema integra três fontes de dados governamentais oficiais, fundamentadas no arcabouço legal brasileiro de transparência pública. A Lei de Acesso à Informação (Lei n. 12.527/2011) estabelece como diretriz a ``disponibilização de informações em formatos abertos, estruturados e legíveis por máquina'' \cite{lai2011}, princípio que as APIs governamentais operacionalizam. Conforme demonstrado pela Operação Serenata de Amor, tecnologias desenvolvidas sobre esses dados abertos podem gerar valor público ao facilitar o controle social do gasto parlamentar \cite{albuquerque2018serenata}.
+O sistema integra três fontes de dados oficiais, fundamentadas no arcabouço legal brasileiro de transparência pública. A Lei de Acesso à Informação (Lei n. 12.527/2011) estabelece como diretriz a ``disponibilização de informações em formatos abertos, estruturados e legíveis por máquina'' \cite{lai2011}, princípio que as APIs governamentais operacionalizam. Conforme demonstrado pela Operação Serenata de Amor, tecnologias desenvolvidas sobre esses dados abertos podem gerar valor público ao facilitar o controle social do gasto parlamentar \cite{albuquerque2018serenata}.
 
-A seleção dos \textit{endpoints} e campos consumidos seguiu três critérios: (i) \textbf{relevância para fiscalização cidadã} --- priorizando dados de gastos, votações e atuação legislativa; (ii) \textbf{disponibilidade e confiabilidade} --- selecionando fontes com documentação oficial e atualização regular; e (iii) \textbf{viabilidade técnica} --- considerando formatos estruturados (JSON/XML), autenticação simples e limites de requisição adequados.
+A seleção dos \textit{endpoints} seguiu três critérios: (i) \textbf{relevância} --- priorizando dados de gastos, votações e atuação legislativa; (ii) \textbf{confiabilidade} --- selecionando fontes com documentação oficial; e (iii) \textbf{viabilidade técnica} --- considerando formatos estruturados (JSON/XML) e limites de requisição adequados.
 
 \subsubsection{API Legislativa do Senado}
 
@@ -53,7 +53,7 @@ Cada fonte de dados apresenta limitações que impactam o escopo das análises:
 
 \subsection{Metodologia de Avaliação de Desempenho}
 
-A avaliação objetiva do desempenho parlamentar constitui elemento central para a participação cidadã informada. Conforme a escada de participação de Arnstein \cite{arnstein1969ladder}, o acesso a informações claras e comparáveis é pré-requisito para que cidadãos avancem de níveis meramente consultivos para formas efetivas de controle social. Entretanto, a construção de rankings requer transparência metodológica: critérios e pesos devem ser explícitos para que o público possa avaliar criticamente os resultados apresentados \cite{hullman2011visualization}.
+A avaliação objetiva do desempenho parlamentar é elemento central para a participação cidadã. Conforme a escada de participação de Arnstein \cite{arnstein1969ladder}, o acesso a informações claras é pré-requisito para que cidadãos avancem de níveis consultivos para controle social efetivo. A construção de rankings requer transparência metodológica \cite{hullman2011visualization}.
 
 O cálculo do \textit{score} de cada senador é inspirado no \textit{Legislative Effectiveness Score} (LES), metodologia desenvolvida por Volden e Wiseman para avaliar a efetividade legislativa de parlamentares americanos \cite{volden2018legislative}. O LES define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei'' \cite{volden2014lawmakers}.
 
