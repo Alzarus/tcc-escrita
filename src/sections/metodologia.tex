@@ -2,7 +2,7 @@
 
 O desenvolvimento do \textit{Tô De Olho} enquadra-se no paradigma da \textit{Design Science Research} (DSR), abordagem metodológica adequada para pesquisas que visam a construção e avaliação de artefatos tecnológicos destinados a resolver problemas organizacionais identificados \cite{hevner2004design}. O problema abordado --- a fragmentação de dados públicos sobre a atuação de senadores federais em múltiplas APIs governamentais não integradas --- demanda a construção de um artefato de software capaz de consolidar, processar e apresentar essas informações de forma acessível ao cidadão.
 
-Esta seção detalha a abordagem de desenvolvimento iterativo adotada, as fontes de dados governamentais integradas, a arquitetura do sistema, a estratégia de ingestão via ETL, o algoritmo de ranking inspirado no \textit{Legislative Effectiveness Score} e a infraestrutura de implantação.
+Esta seção detalha a abordagem de desenvolvimento iterativo adotada, as fontes de dados governamentais integradas e a metodologia de avaliação de desempenho parlamentar inspirada no \textit{Legislative Effectiveness Score}.
 
 \subsection{Abordagem de Desenvolvimento}
 
@@ -12,7 +12,7 @@ Optou-se, portanto, por uma abordagem \textbf{iterativa e incremental}, na qual 
 
 O desenvolvimento contou com apoio de ferramentas de inteligência artificial generativa como assistentes de codificação, seguindo a tendência contemporânea de \textit{AI-assisted software development} \cite{peng2023impact}. Tais ferramentas, baseadas em modelos de linguagem de grande escala (LLMs), foram empregadas para aceleração de tarefas operacionais como geração de código \textit{boilerplate}, refatoração e \textit{debugging}. O uso de assistentes de IA em desenvolvimento de software representa uma evolução natural das ferramentas de produtividade, análoga à adoção de IDEs com \textit{autocomplete} e analisadores estáticos de código.
 
-É fundamental distinguir entre \textbf{assistência operacional} e \textbf{autoria intelectual}. As decisões estruturantes do projeto --- arquitetura do sistema, design do algoritmo de ranking, seleção de fontes de dados, modelagem do domínio e interpretação de resultados --- foram integralmente concebidas, avaliadas e validadas pelo desenvolvedor. A ferramenta de IA atuou como acelerador de implementação, não como substituto do julgamento técnico. A engenharia de contexto --- técnica de estruturação de informações em arquivos de configuração que definem padrões de codificação, stack tecnológico e regras de negócio --- foi aplicada para maximizar a aderência das sugestões aos padrões do projeto, mantendo consistência arquitetural ao longo do desenvolvimento.
+É fundamental distinguir entre \textbf{assistência operacional} e \textbf{autoria intelectual}. As decisões estruturantes do projeto --- arquitetura do sistema, design do algoritmo de ranking, seleção de fontes de dados, modelagem do domínio e interpretação de resultados --- foram integralmente concebidas, avaliadas e validadas pelo desenvolvedor. A ferramenta de IA atuou como acelerador de implementação, não como substituto do julgamento técnico.
 
 A divisão do trabalho ocorreu em cinco fases principais:
 \begin{enumerate}
@@ -31,330 +31,33 @@ A seleção dos \textit{endpoints} e campos consumidos seguiu três critérios: 
 
 \subsubsection{API Legislativa do Senado}
 
-Documentada em \url{legis.senado.leg.br/dadosabertos}, esta API RESTful fornece dados do processo legislativo. A URL base para requisições é \url{https://legis.senado.leg.br/dadosabertos}. Os dados são retornados em formato JSON, com suporte a paginação e limite de 10 requisições por segundo.
-
-\textbf{Endpoints de Senadores e Mandatos:}
-\begin{itemize}
-    \item \texttt{/dadosabertos/senador/lista/atual}: Lista de senadores em exercício, retornando código parlamentar, nome, foto, partido e UF;
-    \item \texttt{/dadosabertos/senador/\{codigo\}}: Detalhes completos do senador, incluindo biografia, e-mail e telefone;
-    \item \texttt{/dadosabertos/senador/\{codigo\}/mandatos}: Histórico de mandatos com legislatura, tipo e datas;
-    \item \texttt{/dadosabertos/senador/\{codigo\}/licencas}: Licenças oficiais com motivo e período --- essencial para ajuste dos cálculos de presença.
-\end{itemize}
-
-\textbf{Endpoints de Votações:}
-\begin{itemize}
-    \item \texttt{/dadosabertos/votacao}: Votações nominais filtráveis por código do parlamentar, data e orientação de voto;
-    \item \texttt{/dadosabertos/votacaoComissao/parlamentar/\{codigo\}}: Votações em comissões específicas;
-    \item \texttt{/dadosabertos/plenario/votacao/orientacaoBancada/\{data\}}: Orientação partidária para cálculo de fidelidade.
-\end{itemize}
-
-\textbf{Endpoints de Atuação Legislativa:}
-\begin{itemize}
-    \item \texttt{/dadosabertos/processo?codigoParlamentarAutor=\{codigo\}}: Proposições de autoria do senador;
-    \item \texttt{/dadosabertos/processo/relatoria?codigoParlamentar=\{codigo\}}: Relatorias designadas;
-    \item \texttt{/dadosabertos/senador/\{codigo\}/comissoes}: Participação em comissões;
-    \item \texttt{/dadosabertos/senador/\{codigo\}/discursos}: Discursos proferidos.
-\end{itemize}
+Documentada em \url{legis.senado.leg.br/dadosabertos}, esta API RESTful fornece dados do processo legislativo. A URL base para requisições é \url{https://legis.senado.leg.br/dadosabertos}. Os dados são retornados em formato JSON, com suporte a paginação e limite de 10 requisições por segundo. Os principais recursos utilizados incluem: lista de senadores em exercício, detalhes biográficos, histórico de mandatos e licenças, votações nominais em plenário e comissões, orientação partidária, proposições de autoria, relatorias, participação em comissões e discursos.
 
 \subsubsection{API Administrativa do Senado}
 
-Documentada em \url{adm.senado.gov.br/adm-dadosabertos/swagger-ui}, esta interface disponibiliza dados financeiros e administrativos. A URL base para requisições é \url{https://adm.senado.gov.br/adm-dadosabertos}.
-
-\textbf{Cota Parlamentar (CEAPS):}
-\begin{itemize}
-    \item \texttt{/api/v1/senadores/despesas\_ceaps/\{ano\}}: Despesas da Cota para o Exercício da Atividade Parlamentar dos Senadores, retornando código do senador, tipo de despesa, fornecedor, CPF/CNPJ, valor reembolsado e mês.
-\end{itemize}
-
-\textbf{Estrutura e Benefícios:}
-\begin{itemize}
-    \item \texttt{/api/v1/senadores/auxilio-moradia}: Opção por auxílio-moradia;
-    \item \texttt{/api/v1/senadores/escritorios}: Escritórios de apoio parlamentar.
-\end{itemize}
-
-\textbf{Servidores de Gabinete:}
-\begin{itemize}
-    \item \texttt{/api/v1/servidores/servidores}: Lista de servidores com filtros por lotação;
-    \item \texttt{/api/v1/servidores/remuneracoes/\{ano\}/\{mes\}}: Folha de pagamento mensal, retornando remuneração básica e líquida;
-    \item \texttt{/api/v1/servidores/lotacoes}: Mapeamento entre senador e gabinete.
-\end{itemize}
+Documentada em \url{adm.senado.gov.br/adm-dadosabertos/swagger-ui}, esta interface disponibiliza dados financeiros e administrativos. Os recursos utilizados incluem: despesas da Cota Parlamentar (CEAPS) com detalhamento por fornecedor e tipo, opção por auxílio-moradia, escritórios de apoio, lista de servidores de gabinete, remunerações mensais e mapeamento de lotações.
 
 \subsubsection{Portal da Transparência (CGU)}
 
-A API do Portal da Transparência (\url{api.portaldatransparencia.gov.br}) fornece dados de emendas parlamentares e transferências federais. O acesso requer autenticação via chave de API no \textit{header} \texttt{chave-api-dados}.
-
-\textbf{Endpoint Principal:}
-\begin{itemize}
-    \item \texttt{/api-de-dados/emendas}: Lista de emendas parlamentares com parâmetros de filtro: \texttt{ano} (ano fiscal), \texttt{nomeAutor} (nome do parlamentar), \texttt{tipoEmenda} (Individual, Bancada, Comissão, Relator ou \textbf{Transferência Especial}).
-\end{itemize}
-
-O filtro \texttt{tipoEmenda=Transferência Especial} permite identificar as chamadas ``emendas PIX'', modalidade de repasse que dispensa convênio. Os campos retornados incluem código da emenda, autor, localidade do gasto, função, subfunção e valores (empenhado, liquidado e pago).
+A API do Portal da Transparência (\url{api.portaldatransparencia.gov.br}) fornece dados de emendas parlamentares e transferências federais. O acesso requer autenticação via chave de API no \textit{header} \texttt{chave-api-dados}. O filtro \texttt{tipoEmenda=Transferência Especial} permite identificar as ``emendas PIX'', modalidade de repasse que dispensa convênio.
 
 \subsubsection{Limitações e Cobertura Temporal}
 
-Cada fonte de dados apresenta limitações que impactam o escopo e a profundidade das análises possíveis:
+Cada fonte de dados apresenta limitações que impactam o escopo das análises:
 
 \begin{itemize}
-    \item \textbf{API Legislativa}: Votações nominais disponíveis apenas a partir de 2019 (legislatura 56); dados anteriores requerem consulta a arquivos históricos em formato XML. Limite de 10 requisições por segundo;
-    \item \textbf{API Administrativa}: Despesas CEAPS disponíveis desde 2008 em CSV; API REST cobre apenas o ano corrente. Não há \textit{endpoint} para vincular servidores diretamente ao gabinete do senador --- essa associação requer cruzamento com a tabela de lotações;
-    \item \textbf{Portal da Transparência}: Emendas disponíveis a partir de 2015. Busca por autor utiliza correspondência textual (nome), não código parlamentar, exigindo normalização de grafia. Limite de 300 requisições por minuto com autenticação via chave de API.
+    \item \textbf{API Legislativa}: Votações nominais disponíveis apenas a partir de 2019 (legislatura 56). Limite de 10 requisições por segundo;
+    \item \textbf{API Administrativa}: Despesas CEAPS disponíveis desde 2008 em CSV; API REST cobre apenas o ano corrente. Não há \textit{endpoint} para vincular servidores diretamente ao gabinete;
+    \item \textbf{Portal da Transparência}: Emendas disponíveis a partir de 2015. Busca por autor utiliza nome textual, exigindo normalização de grafia. Limite de 300 requisições por minuto.
 \end{itemize}
 
-Essas restrições foram consideradas no desenho do sistema: dados históricos são carregados via arquivos CSV (backfill), enquanto a sincronização contínua utiliza as APIs REST com tratamento adequado de limites de requisição.
-
-\subsection{Estratégia de Ingestão de Dados}
-
-A ingestão de dados representa um dos maiores desafios técnicos do projeto: consolidar informações dispersas em três APIs governamentais distintas, cada uma com suas idiossincrasias, limites de requisição e formatos de resposta. A estratégia adotada segue o paradigma \textit{Extract, Transform, Load} (ETL) em uma abordagem híbrida que combina carga inicial massiva (\textit{backfill}) com atualização incremental contínua.
-
-Conforme fundamentado teoricamente na Seção~\ref{sec:etl-fundamentacao}, o processo ETL tipicamente consome entre 60\% e 80\% do esforço de desenvolvimento em projetos de \textit{data warehousing} \cite{vassiliadis2009survey}. Essa proporção reflete a complexidade inerente à extração de dados de fontes heterogêneas e à necessidade de transformações para garantir consistência e qualidade. A presente seção detalha a implementação específica adotada no \textit{Tô De Olho}, conforme ilustrado na Tabela~\ref{tab:ingestao}.
-
-\begin{table}[H]
-\centering
-\caption{Estratégias de ingestão de dados: Backfill vs. Sincronização Contínua}
-\label{tab:ingestao}
-\begin{tabular}{|l|p{5.5cm}|p{5.5cm}|}
-\hline
-\textbf{Característica} & \textbf{Backfill (Carga Inicial)} & \textbf{Sincronização Contínua} \\
-\hline
-\textbf{Objetivo} & Popular o banco com dados históricos & Manter dados atualizados \\
-\hline
-\textbf{Execução} & Uma única vez, no setup do sistema & Diariamente, via cron jobs \\
-\hline
-\textbf{Volume de dados} & Grande (anos de histórico) & Pequeno (delta diário) \\
-\hline
-\textbf{Tempo de execução} & Horas (processamento em lote) & Minutos (\textless 5 min) \\
-\hline
-\textbf{Fonte preferencial} & CSVs para download em massa & APIs REST incrementais \\
-\hline
-\textbf{Exemplo} & CEAPS 2019--2025 via CSV & Votações dos últimos 7 dias \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsubsection{Backfill (Carga Histórica)}
-
-A carga inicial (\textit{Backfill}) distingue-se fundamentalmente da sincronização diária pelo volume e pela estratégia de escrita. Conforme preceituado por Kimball e Ross \cite{kimball2013data}, operações de carga histórica devem privilegiar o \textit{throughput} (vazão) em detrimento da latência individual. Esta recomendação reflete décadas de experiência prática: tentar carregar milhões de registros através de inserções unitárias resulta em tempos de execução proibitivos e pressão desnecessária sobre as APIs de origem.
-
-Para este projeto, optou-se pela estratégia de \textbf{Backfill em Lote Isolado}. Ao invés de reutilizar os \textit{endpoints} REST --- projetados para transações unitárias e limitados por \textit{rate limiting} rigoroso --- o sistema consome arquivos CSV consolidados disponibilizados pelas fontes primárias. Esta abordagem reduz o \textit{overhead} de rede e permite o uso de \texttt{COPY} ou \textit{bulk inserts} no banco de dados, operações que alcançam taxas de inserção na ordem de dezenas de milhares de registros por segundo, ordens de magnitude superiores a inserções linha a linha.
-
-A distinção entre carga inicial e sincronização contínua não é meramente operacional, mas também arquitetural. O processo de \textit{backfill} executa em ambiente isolado, podendo utilizar conexões de banco com configurações agressivas (\textit{batch size} elevado, desativação temporária de índices não-essenciais) sem impactar a disponibilidade do sistema em produção. As fontes de dados para carga inicial incluem:
-\begin{itemize}
-    \item \textbf{CEAPS}: Arquivos CSV anuais (2008--2025) disponíveis via \textit{endpoint} de dados abertos estáticos do Senado, totalizando aproximadamente 500 mil registros de despesas;
-    \item \textbf{Votações}: Iteração controlada na API Legislativa por ano/legislatura (2019--Presente), respeitando limites de 10 requisições por segundo;
-    \item \textbf{Emendas}: \textit{Dump} consolidado do Portal da Transparência, com dados desde 2015.
-\end{itemize}
-
-\subsubsection{Sincronização Contínua (Change Data Capture)}
-
-Uma vez que os dados históricos foram carregados, o desafio seguinte consiste em mantê-los atualizados de forma eficiente. Idealmente, as APIs governamentais ofereceriam mecanismos de \textit{push} --- como \textit{Webhooks} ou fluxos de eventos (\textit{Streaming}) --- permitindo que o sistema fosse notificado proativamente sobre mudanças. Entretanto, nenhuma das três fontes de dados integradas disponibiliza tais recursos, uma limitação comum em APIs governamentais brasileiras.
-
-Diante dessa restrição, adotou-se o padrão de \textbf{Polling Periódico Inteligente}, no qual o sistema atua como agente ativo que consulta periodicamente as fontes em busca de alterações (\textit{Pull Model}). Embora menos eficiente que abordagens baseadas em eventos, o \textit{polling} oferece vantagens significativas para integração com sistemas legados: simplicidade de implementação, ausência de dependências de infraestrutura complexa (como \textit{message brokers}) e compatibilidade garantida com qualquer API que suporte requisições HTTP.
-
-A periodicidade dos \textit{cron jobs} foi calibrada com base na \textbf{Janela de Consistência Eventual} aceitável para cada domínio de dado. O conceito de consistência eventual, originário de bancos de dados distribuídos, reconhece que em sistemas descentralizados, os dados podem estar temporariamente desatualizados desde que eventualmente convirjam para o estado correto. Para um portal de fiscalização cidadã, a precisão ao segundo não é necessária; o que importa é que os dados reflitam a realidade em um horizonte razoável:
-
-\begin{itemize}
-    \item \textbf{Alta Volatilidade (Diário)}: Status de senadores, presença e votações do dia anterior. A execução ocorre às 03:00 (horário de Brasília), período de baixa atividade nos servidores governamentais, capturando o fechamento completo do dia legislativo;
-    \item \textbf{Média Volatilidade (Semanal)}: Remuneração de servidores e mapeamento de lotações. A folha de pagamento do Senado é atualizada mensalmente, mas a execução semanal (domingos às 04:00) garante margem de segurança para capturar eventuais correções;
-    \item \textbf{Baixa Volatilidade (Mensal)}: Consolidação de emendas parlamentares. Os dados de execução orçamentária do Portal da Transparência são consolidados mensalmente, justificando a execução no dia 05 de cada mês, após o fechamento contábil público.
-\end{itemize}
-
-Esta estratégia de \textit{polling} respeita os princípios de ``Cidadania de API'' (\textit{API Good Citizenship}), concentrando requisições em horários de baixo tráfego para minimizar impacto nos servidores governamentais e maximizar a taxa de sucesso das chamadas.
-
-\subsubsection{Idempotência e Consistência Eventual}
-
-Em sistemas distribuídos sujeitos a falhas de rede, a garantia de entrega \textit{exactly-once} é virtualmente impossível de alcançar na prática \cite{hummer2013modeldriven}. Qualquer comunicação entre componentes pode falhar após o processamento mas antes da confirmação, deixando o cliente em estado de incerteza. Portanto, o sistema foi projetado para operar sob o modelo \textit{at-least-once}, no qual operações podem ser repetidas sem efeitos colaterais indesejados, apoiado pela propriedade de \textbf{Idempotência}.
-
-Matematicamente, uma operação de ingestão $f(x)$ é idempotente se $f(f(x)) = f(x)$. Ou seja, aplicar a função múltiplas vezes produz o mesmo resultado que aplicá-la uma única vez. Esta propriedade, originária da álgebra abstrata, encontra aplicação direta em operações de banco de dados: uma inserção \texttt{INSERT OR UPDATE} (\textit{upsert}) com chave primária definida é idempotente, pois tentativas subsequentes simplesmente sobrescrevem o registro existente com valores idênticos.
-
-A implementação de idempotência no \textit{Tô De Olho} utiliza chaves naturais compostas (\textit{Composite Natural Keys}) em vez de identificadores gerados. Esta escolha reflete uma decisão arquitetural deliberada: os sistemas de origem (APIs do Senado e Portal da Transparência) são a fonte de verdade para identificação de entidades. As operações de \textit{upsert} garantem:
-\begin{itemize}
-    \item \textbf{Despesas CEAPS}: Unicidade garantida pela tupla \texttt{(senador\_id, fornecedor\_cnpj, data\_emissao, valor\_centavos)}. Esta combinação identifica univocamente cada reembolso, considerando que o mesmo senador não pode receber dois reembolsos idênticos do mesmo fornecedor no mesmo dia;
-    \item \textbf{Votações}: Unicidade via \texttt{(id\_sessao, id\_parlamentar)}. Cada senador registra no máximo um voto por sessão de votação;
-    \item \textbf{Emendas}: Unicidade via \texttt{(codigo\_emenda, autor, ano)}. O código de emenda é único por autor e ano fiscal.
-\end{itemize}
-
-Essa abordagem elimina a necessidade de gerenciamento de estado complexo no \textit{pipeline} de ingestão: em caso de dúvida, falha de rede ou interrupção inesperada, o sistema pode simplesmente reprocessar o lote inteiro, garantindo convergência para o estado correto sem risco de duplicação de dados.
-
-\subsubsection{Resiliência e Tratamento de Erros}
-
-A integração com APIs governamentais apresenta desafios de estabilidade: diferentemente de serviços comerciais com \textit{SLAs} bem definidos, as APIs públicas brasileiras operam sem garantias formais de disponibilidade. Para lidar com falhas transientes, o sistema implementa mecanismos simples e eficazes:
-
-\begin{itemize}
-    \item \textbf{Retry com Backoff Exponencial}: Para erros de rede ou respostas 5xx, o sistema aguarda progressivamente mais tempo entre tentativas. A fórmula segue o padrão recomendado pela AWS \cite{aws2015backoff}: $t_{wait} = base \times 2^{tentativa}$, com $base = 1s$ e máximo de 3 tentativas. Esta abordagem evita sobrecarregar APIs temporariamente indisponíveis;
-    
-    \item \textbf{Timeout Configurável}: Cada requisição possui timeout de 30 segundos, evitando que conexões travadas bloqueiem o processo de ingestão;
-    
-    \item \textbf{Falha Graciosa}: Quando uma fonte de dados está indisponível, o job registra o erro e prossegue com as demais fontes. Jobs que falham são marcados para reexecução manual.
-\end{itemize}
-
-Para cenários de produção com maior volume de requisições, padrões como \textit{Circuit Breaker} \cite{nygard2018release} poderiam ser adicionados para isolar falhas em cascata. Entretanto, dado o escopo do MVP --- com execuções diárias em horário de baixo tráfego --- a estratégia de retry simples atende adequadamente às necessidades.
-
-\subsubsection{Logs e Monitoramento}
-
-O monitoramento do \textit{pipeline} de ingestão adota uma abordagem pragmática, adequada ao escopo do projeto:
-
-\begin{itemize}
-    \item \textbf{Logs Estruturados}: Todos os eventos de ingestão são emitidos em formato JSON, contendo: identificador do job, fonte de dados, duração, quantidade de registros processados e eventual mensagem de erro. Esta estruturação facilita a análise posterior e permite identificar rapidamente a causa de falhas;
-    
-    \item \textbf{Endpoint de Health}: O sistema expõe um \textit{endpoint} \texttt{/health} que retorna o status da última sincronização de cada fonte, permitindo verificar se os dados estão atualizados.
-\end{itemize}
-
-Para evolução futura, a literatura recomenda a adoção dos três pilares da observabilidade --- logs, métricas e traces \cite{sridharan2018observability}. Ferramentas como Prometheus (métricas) e Jaeger (tracing distribuído) poderiam ser integradas conforme a complexidade operacional aumentar.
-
-\subsection{Arquitetura do Sistema}
-
-A definição da arquitetura de software constitui uma das decisões mais consequentes no ciclo de desenvolvimento. Uma escolha inadequada impõe custos que se acumulam ao longo do tempo: dívida técnica, dificuldade de evolução e, em casos extremos, a necessidade de reescrever sistemas inteiros. Conforme fundamentado teoricamente na Seção~2.3.3, o padrão de \textbf{monolito modular} emergiu na última década como alternativa pragmática que busca equilibrar a simplicidade operacional dos monolitos tradicionais com a organização interna característica de microsserviços \cite{laigner2024modular}.
-
-O \textit{Tô De Olho} adota esta arquitetura não por inércia, mas por escolha deliberada após avaliação de alternativas. As subseções seguintes detalham a estrutura organizacional, os padrões de comunicação e o fluxo de dados que materializam essa decisão.
-
-\subsubsection{Justificativa Arquitetural}
-
-A decisão pelo monolito modular considerou quatro critérios interrelacionados:
-
-\begin{itemize}
-    \item \textbf{Simplicidade Operacional}: Um único contêiner Docker simplifica a infraestrutura de implantação. Em plataformas \textit{serverless} como Google Cloud Run, essa característica traduz-se em escala automática (inclusive a zero) sem a complexidade de orquestração de múltiplos serviços --- vantagem particularmente relevante para projetos com orçamento limitado e equipe reduzida;
-    
-    \item \textbf{Latência Previsível}: A comunicação entre módulos ocorre via chamadas de função em memória, eliminando a variabilidade de latência inerente a chamadas de rede. Em microsserviços, cada interação adiciona \textit{overhead} de serialização, transmissão e desserialização --- custos que, embora individualmente pequenos, acumulam-se em operações que atravessam múltiplos serviços;
-    
-    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem a complexidade de \textit{sagas} ou \textit{two-phase commit}. Por exemplo, a atualização do ranking de um senador após nova ingestão de votações executa atomicamente: ou todos os dados são persistidos, ou nenhum;
-    
-    \item \textbf{Estratégia MonolithFirst}: Martin Fowler argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto'' \cite{fowler2015monolith}. Iniciar com fronteiras modulares bem definidas permite compreender os limites naturais do domínio antes de incorrer na complexidade operacional de sistemas distribuídos. A estrutura atual facilita extração futura de microsserviços apenas onde houver necessidade comprovada (por exemplo, se o módulo de ranking exigir escalabilidade independente).
-\end{itemize}
-
-\subsubsection{Organização em Módulos}
-
-A estrutura interna segue os princípios de \textit{Bounded Contexts} do Domain-Driven Design \cite{evans2003ddd}, onde cada módulo representa um contexto de domínio com responsabilidades claramente delimitadas. O diretório \texttt{internal/} do backend Go organiza-se em cinco módulos principais:
-
-\begin{itemize}
-    \item \texttt{internal/senador}: Gerencia o ciclo de vida de dados cadastrais dos parlamentares --- nome, partido, UF, foto, biografia --- e seus mandatos históricos. Este módulo atua como ``fonte de verdade'' para identificação de senadores, fornecendo identificadores únicos que os demais módulos referenciam;
-    
-    \item \texttt{internal/ceaps}: Processa e totaliza despesas da Cota para o Exercício da Atividade Parlamentar dos Senadores. Responsável pela ingestão de arquivos CSV históricos e sincronização incremental via API Administrativa, este módulo implementa detecção de anomalias (valores negativos, datas futuras) e agregações por categoria de despesa;
-    
-    \item \texttt{internal/votacao}: Coleta e armazena votações nominais do plenário e comissões. Calcula métricas derivadas como percentual de presença (ajustado por licenças oficiais), fidelidade partidária e padrões de votação;
-    
-    \item \texttt{internal/emenda}: Integra dados de emendas parlamentares do Portal da Transparência, com tratamento especial para Transferências Especiais (``emendas PIX''). Normaliza a correspondência textual de autores --- desafio não trivial dado que o Portal usa nomes, não códigos parlamentares;
-    
-    \item \texttt{internal/ranking}: Orquestra o cálculo de \textit{scores} compostos conforme metodologia detalhada na Seção~3.6. Opera como consumidor dos demais módulos, agregando métricas de produtividade, presença, economia e participação em comissões.
-\end{itemize}
-
-Adicionalmente, módulos transversais fornecem funcionalidades compartilhadas: \texttt{internal/api} expõe \textit{endpoints} REST consumidos pelo \textit{frontend}; \texttt{internal/scheduler} gerencia tarefas agendadas de sincronização; e \texttt{internal/cache} abstrai operações de leitura e escrita no Redis.
-
-\subsubsection{Padrões de Comunicação}
-
-Os módulos comunicam-se exclusivamente através de \textbf{interfaces Go} (contratos), nunca acessando estruturas internas de outros módulos diretamente. Esta restrição, inspirada no princípio de inversão de dependência, permite substituir implementações sem afetar consumidores --- por exemplo, trocar o adaptador de cache de Redis para memória local em testes unitários.
-
-Para operações de ingestão que envolvem centenas de requisições HTTP, o sistema emprega \textbf{pools de workers} com \textit{goroutines}. O modelo de concorrência de Go, baseado em CSP (\textit{Communicating Sequential Processes}), permite processamento paralelo com footprint de memória reduzido: cada \textit{goroutine} consome aproximadamente 2KB iniciais \cite{nanz2015comparative}, viabilizando milhares de operações simultâneas em hardware modesto.
-
-O padrão adotado segue a estrutura de ``fan-out/fan-in'': uma \textit{goroutine} coordenadora distribui tarefas para \textit{N} workers (fan-out), que processam independentemente e enviam resultados para um canal agregador (fan-in). Esta abordagem maximiza utilização de CPU em operações \textit{I/O-bound} como chamadas HTTP, mantendo o código legível e testável.
-
-\subsubsection{Fluxo de Dados}
-
-O ciclo completo de dados no sistema segue quatro estágios bem definidos:
-
-\begin{enumerate}
-    \item \textbf{Ingestão}: Os módulos de domínio (\texttt{senador}, \texttt{ceaps}, \texttt{votacao}, \texttt{emenda}) extraem dados das APIs governamentais conforme estratégia detalhada na Seção~3.3. Cada módulo implementa seu próprio adaptador HTTP, respeitando as idiossincrasias de cada fonte (paginação, limites de requisição, formatos de resposta);
-    
-    \item \textbf{Transformação}: Dados brutos são normalizados, validados e enriquecidos antes da persistência. Esta fase inclui padronização de nomes (tratamento de acentos, maiúsculas/minúsculas), conversão de formatos de data e cálculo de métricas derivadas. O GORM, ORM utilizado, abstrai as operações de \textit{upsert} que garantem idempotência;
-    
-    \item \textbf{Agregação}: O módulo de \texttt{ranking} consulta os demais módulos para computar \textit{scores} compostos. Resultados são materializados no Redis como estruturas pré-computadas, evitando recálculos a cada requisição. A invalidação de cache ocorre após cada sincronização bem-sucedida;
-    
-    \item \textbf{Apresentação}: A API REST expõe os dados agregados ao \textit{frontend} Next.js. Endpoints seguem convenções RESTful, com respostas paginadas e suporte a filtros por partido, UF e período temporal.
-\end{enumerate}
-
-Esta separação em estágios facilita a depuração (cada estágio pode ser testado isoladamente), a evolução (novos módulos integram-se sem alterar existentes) e a observabilidade (logs estruturados identificam claramente em qual estágio ocorreu uma falha).
-
-\subsection{Stack Tecnológico}
-
-A escolha das tecnologias foi orientada por critérios de desempenho, manutenibilidade e adequação ao domínio do problema. Para cada camada do sistema, foram avaliadas alternativas antes da decisão final, conforme detalhado a seguir.
-
-\subsubsection{Backend --- Golang}
-
-A linguagem Go foi selecionada para o \textit{backend} após avaliação comparativa de três alternativas:
-
-\begin{itemize}
-    \item \textbf{Node.js}: Embora ofereça vasto ecossistema e familiaridade com JavaScript, o modelo de concorrência baseado em \textit{event loop} único apresenta limitações para operações CPU-bound. Além disso, a gestão de dependências via npm frequentemente resulta em árvores de módulos complexas;
-    \item \textbf{Python (FastAPI/Django)}: Excelente para prototipagem rápida e possui bibliotecas maduras para análise de dados. Entretanto, o \textit{Global Interpreter Lock} (GIL) limita o paralelismo real, e o desempenho em operações I/O-bound é inferior ao de linguagens compiladas;
-    \item \textbf{Go}: Binários compilados estaticamente, modelo de concorrência nativo e tipagem estática. O fator decisivo foi o modelo de \textbf{goroutines}: threads leves gerenciadas pelo runtime Go, consumindo aproximadamente 2KB de memória inicial --- em contraste com threads do sistema operacional que utilizam cerca de 1MB cada \cite{nanz2015comparative}.
-\end{itemize}
-
-Essa eficiência permite processar centenas de milhares de conexões simultâneas, característica essencial para a ingestão paralela de dados de três APIs distintas com limites de requisição distintos.
-
-O framework \textbf{Gin} foi escolhido por seu roteamento HTTP baseado em \textit{radix tree}, reportando desempenho até 40 vezes superior a frameworks anteriores \cite{alfian2024gin}. Alternativas como \textit{Echo} e \textit{Fiber} foram consideradas, mas Gin apresenta comunidade mais ativa e documentação mais abrangente. O ORM \textbf{GORM} oferece mapeamento objeto-relacional com suporte a migrações automáticas e operações de \textit{upsert} para garantia de idempotência.
-
-Para ambientes de produção, o sistema implementa \textbf{connection pooling} --- técnica que mantém um cache de conexões reutilizáveis, evitando o custo de estabelecer novas conexões a cada requisição. Estudos demonstram que esta abordagem pode reduzir a utilização de CPU do banco de dados em até 30\% e aumentar significativamente o \textit{throughput} em cenários de alta concorrência. A configuração define limites para conexões ociosas (\texttt{MaxIdleConns}), conexões abertas (\texttt{MaxOpenConns}) e tempo máximo de vida (\texttt{ConnMaxLifetime}), prevenindo acúmulo de conexões obsoletas. Adicionalmente, a opção \texttt{PrepareStmt} habilita cache de \textit{prepared statements}, otimizando queries repetidas ao reutilizar planos de execução.
-
-\subsubsection{Banco de Dados --- PostgreSQL e Redis}
-
-Para a camada de persistência, foram avaliadas três opções:
-
-\begin{itemize}
-    \item \textbf{MySQL}: Popular e bem documentado, mas com suporte limitado a tipos de dados avançados e funcionalidades analíticas;
-    \item \textbf{MongoDB}: Modelo de documentos oferece flexibilidade de schema, porém a natureza relacional dos dados parlamentares (senador $\rightarrow$ mandatos $\rightarrow$ votações) favorece bancos relacionais;
-    \item \textbf{PostgreSQL}: Robustez em consultas analíticas, suporte a índices compostos e CTEs (\textit{Common Table Expressions}), essenciais para agregações por senador, período e tipo de despesa.
-\end{itemize}
-
-\textbf{PostgreSQL} foi selecionado. Originado em 1986 na Universidade da Califórnia, Berkeley \cite{stonebraker1986postgres}, sua conformidade ACID garante integridade nas operações de ingestão. Funcionalidades como \texttt{JSONB} permitem armazenar respostas brutas das APIs para auditoria, combinando benefícios de bancos relacionais e documentais.
-
-\textbf{Redis} atua como camada de cache para rankings pré-computados e totalizadores de gastos. Por armazenar dados inteiramente em memória RAM, Redis alcança latências típicas entre 100 e 500 microssegundos \cite{redis2024}, eliminando a necessidade de recalcular métricas a cada requisição. Alternativas como Memcached foram descartadas pela ausência de estruturas de dados avançadas (sorted sets, hashes) que Redis oferece nativamente.
-
-\subsubsection{Frontend --- Next.js 15}
-
-Para a interface web, foram consideradas:
-
-\begin{itemize}
-    \item \textbf{React puro (SPA)}: Flexibilidade máxima, porém com SEO comprometido e necessidade de configuração manual de roteamento, SSR e otimizações;
-    \item \textbf{Vue.js/Nuxt}: Curva de aprendizado suave, mas ecossistema menor para visualização de dados;
-    \item \textbf{Next.js}: Framework React com SSR/SSG nativos, roteamento baseado em sistema de arquivos e otimizações automáticas de imagem e fonte.
-\end{itemize}
-
-A escolha de \textbf{Next.js} justifica-se pela necessidade de \textbf{SEO} e performance inicial \cite{salim2024nextjs}. Plataformas de fiscalização cidadã dependem de indexação por mecanismos de busca para alcançar seu público-alvo. Next.js resolve o problema de indexação com \textit{Server-Side Rendering} (SSR) e \textit{Static Site Generation} (SSG), entregando HTML pré-renderizado aos \textit{crawlers}.
-
-A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por sua integração nativa com React \cite{recharts2024}. Alternativas como D3.js oferecem maior controle, mas exigem implementação manual de componentes; Chart.js tem API imperativa menos compatível com o paradigma declarativo do React. \textbf{Tailwind CSS} permite estilização eficiente com classes utilitárias; a partir da versão 4, o modo \textit{Just-In-Time} (JIT) gera apenas o CSS utilizado \cite{tailwindcss2024}.
-
-\subsection{Modelo de Dados}
-
-O modelo relacional foi projetado para garantir integridade referencial e eficiência em consultas analíticas. A Figura~\ref{fig:er-diagram} apresenta o diagrama entidade-relacionamento do sistema, incluindo as sete entidades principais e seus relacionamentos.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{docs/diagrama_er_modelo.png}
-\caption{Diagrama entidade-relacionamento do sistema Tô De Olho}
-\label{fig:er-diagram}
-\par\small{Fonte: Autoria Própria}
-\end{figure}
-
-As entidades principais e seus relacionamentos são:
-
-\begin{itemize}
-    \item \textbf{Senador}: Entidade central com código parlamentar único (\texttt{codigo\_parlamentar}), nome, partido, UF e URL da foto. O código parlamentar, fornecido pela API Legislativa, atua como chave natural para integração entre sistemas;
-    \item \textbf{Mandato}: Relacionamento 1:N com Senador, registrando legislatura, tipo (titular/suplente) e período. Um senador pode ter múltiplos mandatos em diferentes legislaturas;
-    \item \textbf{Votação}: Implementado como tabela associativa entre Senador e Sessão, armazenando voto individual (Sim, Não, Abstenção, Obstrução) e orientação partidária. A combinação \texttt{(sessao\_id, senador\_id)} forma chave única;
-    \item \textbf{Despesa CEAPS}: Relacionamento 1:N com Senador, contendo ano, mês, tipo de despesa, fornecedor, CPF/CNPJ e valor. A chave composta \texttt{(senador\_id, fornecedor\_cnpj, data\_emissao, valor\_centavos)} garante idempotência na ingestão;
-    \item \textbf{Servidor de Gabinete}: Relacionamento 1:N com Senador, registrando nome, cargo, vínculo funcional e remuneração bruta/líquida;
-    \item \textbf{Emenda}: Relacionamento 1:N com Senador, contendo ano, tipo (Individual, Bancada, Transferência Especial), localidade do gasto e valores (empenhado, liquidado e pago);
-    \item \textbf{Comissão Membro}: Relacionamento 1:N com Senador, registrando participação em comissões permanentes e temporárias. Armazena sigla e nome da comissão, cargo exercido (Titular, Suplente, Presidente, Vice-Presidente) e período de atuação. Esta entidade é essencial para o cálculo do critério ``Participação em Comissões'' (20\%) do algoritmo de ranking.
-\end{itemize}
-
-\textbf{Estratégia de Indexação:} Índices compostos foram criados nas colunas de consulta frequente para otimizar operações de agregação:
-\begin{itemize}
-    \item \texttt{idx\_despesa\_senador\_ano}: \texttt{(senador\_id, ano)} para totalização de gastos por período;
-    \item \texttt{idx\_votacao\_sessao\_senador}: \texttt{(sessao\_id, senador\_id)} para consultas de presença;
-    \item \texttt{idx\_emenda\_senador\_tipo}: \texttt{(senador\_id, tipo, ano)} para filtros por modalidade de emenda;
-    \item \texttt{idx\_comissao\_senador}: \texttt{(senador\_id, comissao\_sigla)} para consultas de participação em comissões.
-\end{itemize}
-
-Esta modelagem permite consultas analíticas eficientes, como ranking de senadores por economia na cota, distribuição geográfica de emendas ou pontuação por participação em comissões estratégicas, sem necessidade de joins custosos em tempo de execução.
-
-\subsection{Algoritmo de Ranking}
+\subsection{Metodologia de Avaliação de Desempenho}
 
 A avaliação objetiva do desempenho parlamentar constitui elemento central para a participação cidadã informada. Conforme a escada de participação de Arnstein \cite{arnstein1969ladder}, o acesso a informações claras e comparáveis é pré-requisito para que cidadãos avancem de níveis meramente consultivos para formas efetivas de controle social. Entretanto, a construção de rankings requer transparência metodológica: critérios e pesos devem ser explícitos para que o público possa avaliar criticamente os resultados apresentados \cite{hullman2011visualization}.
 
-O cálculo do \textit{score} de cada senador é inspirado no \textit{Legislative Effectiveness Score} (LES), metodologia desenvolvida por Volden e Wiseman para avaliar a efetividade legislativa de parlamentares americanos \cite{volden2018legislative}. O LES define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei'' \cite{volden2014lawmakers}. A metodologia original utiliza uma matriz de 5 estágios de tramitação por 3 tipos de proposição, resultando em 15 indicadores ponderados.
+O cálculo do \textit{score} de cada senador é inspirado no \textit{Legislative Effectiveness Score} (LES), metodologia desenvolvida por Volden e Wiseman para avaliar a efetividade legislativa de parlamentares americanos \cite{volden2018legislative}. O LES define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei'' \cite{volden2014lawmakers}.
 
-Para a adaptação brasileira, manteve-se a filosofia de valorizar o avanço de proposições através do processo legislativo, incorporando critérios adicionais relevantes ao contexto de fiscalização cidadã. O índice proposto compõe-se de quatro dimensões objetivamente mensuráveis: \textbf{produtividade legislativa} (capacidade de aprovar proposições), \textbf{presença em votações} (compromisso com o mandato), \textbf{economia na cota parlamentar} (responsabilidade fiscal) e \textbf{participação em comissões} (trabalho técnico especializado). A adaptação considerou as especificidades do Senado Federal e a disponibilidade de dados via API.
-
-\subsubsection{Critérios e Pesos}
-
-O índice compõe-se de quatro critérios objetivos, cujos pesos refletem sua importância relativa para a avaliação de desempenho parlamentar:
+Para a adaptação brasileira, manteve-se a filosofia de valorizar o avanço de proposições através do processo legislativo, incorporando critérios adicionais relevantes ao contexto de fiscalização cidadã. O índice proposto compõe-se de quatro dimensões objetivamente mensuráveis:
 
 \begin{table}[H]
 \centering
@@ -374,28 +77,7 @@ Participação em Comissões & 20\% & Trabalho técnico especializado \\
 
 \subsubsection{Produtividade Legislativa}
 
-Este critério avalia o avanço de proposições de autoria do senador através do processo legislativo, atribuindo pontuação crescente por estágio alcançado:
-
-\begin{table}[H]
-\centering
-\caption{Pontuação por estágio de tramitação}
-\label{tab:estagios}
-\begin{tabular}{|l|c|c|c|}
-\hline
-\textbf{Estágio} & \textbf{Pontos} & \textbf{Mult. PEC} & \textbf{Mult. PLP} \\
-\hline
-Apresentado & 1 & $\times$3.0 & $\times$2.0 \\
-Em Comissão & 2 & $\times$3.0 & $\times$2.0 \\
-Aprovado em Comissão & 4 & $\times$3.0 & $\times$2.0 \\
-Aprovado em Plenário & 8 & $\times$3.0 & $\times$2.0 \\
-Transformado em Lei & 16 & $\times$3.0 & $\times$2.0 \\
-\hline
-\end{tabular}
-\end{table}
-
-Os multiplicadores refletem a maior complexidade de Propostas de Emenda Constitucional (PEC), que exigem quórum qualificado de 3/5 em duas votações, e Projetos de Lei Complementar (PLP), que requerem maioria absoluta. Projetos de Lei Ordinária (PL) utilizam o multiplicador base ($\times$1.0). Requerimentos e moções, por seu menor impacto legislativo, recebem multiplicador reduzido ($\times$0.5).
-
-\textbf{Bônus de Relatoria}: Senadores que atuam como relatores recebem pontuação adicional: +4 pontos para relatoria de PEC, +2 pontos para PLP ou PL, e +1 ponto para relatoria em comissão permanente.
+Este critério avalia o avanço de proposições de autoria do senador através do processo legislativo, atribuindo pontuação crescente por estágio alcançado (Apresentado: 1 ponto, Em Comissão: 2, Aprovado em Comissão: 4, Aprovado em Plenário: 8, Transformado em Lei: 16). Os multiplicadores refletem a maior complexidade de Propostas de Emenda Constitucional (PEC: $\times$3.0) e Projetos de Lei Complementar (PLP: $\times$2.0). Senadores que atuam como relatores recebem pontuação adicional.
 
 \subsubsection{Presença em Votações}
 
@@ -419,132 +101,14 @@ O teto da CEAPS varia por UF (R\$ 26.000 para DF até R\$ 44.000+ para estados d
 
 \subsubsection{Participação em Comissões}
 
-Pontuação atribuída conforme o nível de engajamento:
+Pontuação atribuída conforme o nível de engajamento: membro titular (+2 pontos), suplente (+1), vice-presidente (+3), presidente (+5). Comissões estratégicas (CAE, CCJ) recebem multiplicador de $\times$1.5.
 
-\begin{itemize}
-    \item Membro titular de comissão permanente: +2 pontos por comissão;
-    \item Membro suplente: +1 ponto por comissão;
-    \item Vice-presidente de comissão: +3 pontos;
-    \item Presidente de comissão: +5 pontos;
-    \item Membro de comissão temporária ou CPI: +1 ponto.
-\end{itemize}
+\subsubsection{Fórmula Final e Tratamento de Casos Especiais}
 
-Comissões estratégicas recebem multiplicador adicional: CAE (Assuntos Econômicos) e CCJ (Constituição e Justiça) aplicam $\times$1.5, enquanto CAS (Assuntos Sociais) e CI (Infraestrutura) aplicam $\times$1.2.
-
-\subsubsection{Fórmula Final}
-
-Cada métrica é normalizada de 0 a 100 antes da ponderação. O \textit{score} final é calculado por:
+Cada métrica é normalizada de 0 a 100 antes da ponderação:
 
 \begin{equation}
 Score = (\text{Produtividade} \times 0.35) + (\text{Presença} \times 0.25) + (\text{Economia} \times 0.20) + (\text{Comissões} \times 0.20)
 \end{equation}
 
-\subsubsection{Tratamento de Casos Especiais}
-
-\begin{itemize}
-    \item \textbf{Senadores novos (suplentes)}: Período mínimo de 30 dias para entrar no ranking, com \textit{badge} ``Novo'' por 6 meses;
-    \item \textbf{Licença curta (\textless 30 dias)}: Mantido no ranking com ajuste nos denominadores;
-    \item \textbf{Licença longa (\textgreater 30 dias)}: Exibido com \textit{badge} ``Licenciado'' e \textit{score} congelado;
-    \item \textbf{Dados indisponíveis}: Critério afetado recebe peso zero; demais critérios são reponderados proporcionalmente.
-\end{itemize}
-
-\subsection{Infraestrutura e Implantação}
-
-A infraestrutura do \textit{Tô De Olho} foi projetada seguindo os princípios da metodologia \textit{Twelve-Factor App} \cite{wiggins2017twelvefactor}, conjunto de boas práticas para construção de aplicações cloud-native que priorizam portabilidade, escalabilidade e manutenibilidade. A adoção de containers como unidade de implantação representa uma evolução natural desses princípios, encapsulando a aplicação e suas dependências em artefatos imutáveis e reproduzíveis.
-
-Esta seção detalha as decisões de containerização, o pipeline de integração e entrega contínuas, e os padrões operacionais que garantem resiliência em ambientes serverless.
-
-\subsubsection{Containerização com Docker}
-
-Todos os componentes do sistema são containerizados com Docker, utilizando \textbf{\textit{multi-stage builds}} para otimização das imagens finais. Esta técnica, recomendada pelas melhores práticas de containerização do Google Cloud \cite{googlecontainers2024}, separa o ambiente de compilação do ambiente de execução, resultando em imagens significativamente menores e mais seguras.
-
-O processo de build ocorre em dois estágios distintos:
-
-\begin{enumerate}
-    \item \textbf{Estágio de Compilação}: Utiliza a imagem oficial \texttt{golang:1.21-alpine} contendo todas as ferramentas de desenvolvimento (compilador, gerenciador de dependências, ferramentas de análise). Neste estágio, o código-fonte é compilado em um binário estático;
-    
-    \item \textbf{Estágio de Execução}: Parte da imagem mínima \texttt{gcr.io/distroless/static-debian12}, que contém apenas o runtime essencial. O binário compilado é copiado do estágio anterior, descartando todas as ferramentas de build.
-\end{enumerate}
-
-Esta abordagem oferece benefícios significativos:
-
-\begin{itemize}
-    \item \textbf{Redução de Tamanho}: A imagem final contém apenas o binário Go e bibliotecas de sistema essenciais, resultando em tamanhos típicos de 15--25MB (versus centenas de MB em imagens não otimizadas). Estudos demonstram reduções de até 97\% no tamanho de imagens com esta técnica \cite{googlecontainers2024};
-    
-    \item \textbf{Superfície de Ataque Reduzida}: Ao eliminar ferramentas de desenvolvimento, shells interativos e pacotes desnecessários, a imagem distroless minimiza vetores de vulnerabilidade --- característica crítica para aplicações que processam dados sensíveis;
-    
-    \item \textbf{Tempo de Deploy Acelerado}: Imagens menores são transferidas mais rapidamente entre registries e nós de execução, reduzindo o tempo total de implantação.
-\end{itemize}
-
-\subsubsection{Pipeline de CI/CD}
-
-O pipeline de Integração Contínua e Entrega Contínua (CI/CD) foi implementado com \textbf{GitHub Actions}, plataforma que permite definição de workflows como código diretamente no repositório. Estudos empíricos analisando mais de 10.000 repositórios demonstram que a adoção de GitHub Actions para automação de workflows reduz significativamente o tempo de feedback e aumenta a frequência de deploys \cite{kinsman2021software}.
-
-O pipeline automatiza quatro etapas sequenciais, cada uma condicionada ao sucesso da anterior:
-
-\begin{enumerate}
-    \item \textbf{Build}: Compilação dos binários Go com flags de otimização (\texttt{-ldflags="-w -s"} para redução de tamanho) e verificação estática de erros via \texttt{go vet}. Esta etapa falha imediatamente se houver erros de compilação, provendo feedback rápido ao desenvolvedor;
-    
-    \item \textbf{Test}: Execução de testes unitários e de integração. Testes de integração utilizam \textit{testcontainers} para provisionar instâncias efêmeras de PostgreSQL e Redis, garantindo reprodutibilidade sem dependência de serviços externos. A cobertura mínima de 80\% é verificada automaticamente;
-    
-    \item \textbf{Publish}: Construção da imagem Docker multi-stage e envio para o Google Container Registry (GCR). A imagem é tagged tanto com o SHA do commit quanto com a tag \texttt{latest}, permitindo rollback preciso e deploy de versão mais recente;
-    
-    \item \textbf{Deploy}: Atualização automática do serviço no Cloud Run via comando \texttt{gcloud run deploy}. O deploy utiliza estratégia de \textit{rolling update}, onde novas instâncias são provisionadas e verificadas antes de receber tráfego.
-\end{enumerate}
-
-Para segurança, credenciais sensíveis (chaves de API, tokens de acesso) são armazenadas como \textbf{GitHub Secrets} e injetadas como variáveis de ambiente apenas durante a execução do workflow, nunca aparecendo em logs ou artefatos.
-
-\subsubsection{Plataforma de Implantação --- Google Cloud Run}
-
-A implantação ocorre via \textbf{Google Cloud Run} \cite{cloudrun2024}, plataforma serverless para containers que oferece escala automática (inclusive a zero) e modelo de cobrança por uso. Diferentemente de plataformas Function-as-a-Service (FaaS) que impõem restrições de runtime, Cloud Run executa containers Docker padrão, oferecendo flexibilidade para aplicações que não se adequam ao modelo de funções efêmeras.
-
-As características que justificaram a escolha incluem:
-
-\begin{itemize}
-    \item \textbf{Escala Automática}: O número de instâncias ajusta-se dinamicamente baseado na demanda, de zero a centenas de containers. Para um projeto acadêmico com tráfego irregular, esta característica traduz-se em custo operacional próximo de zero em períodos de baixa atividade;
-    
-    \item \textbf{Deploy Simplificado}: A implantação resume-se a um único comando (\texttt{gcloud run deploy}), abstraindo complexidades de infraestrutura como balanceamento de carga, certificados TLS e health checks;
-    
-    \item \textbf{Integração Nativa}: Cloud Run integra-se nativamente com Cloud SQL (PostgreSQL gerenciado), Memorystore (Redis gerenciado) e Cloud Logging, reduzindo a necessidade de configuração manual de conectividade.
-\end{itemize}
-
-\subsubsection{Graceful Shutdown}
-
-Em ambientes containerizados, o Cloud Run envia o sinal \texttt{SIGTERM} antes de encerrar um container --- seja por escalonamento, atualização de versão ou inatividade. O tratamento adequado deste sinal é fundamental para garantir \textit{zero-downtime deployments} e preservar a integridade de operações em andamento.
-
-Falhar em tratar \texttt{SIGTERM} adequadamente pode causar consequências graves: perda de requisições parcialmente processadas, corrupção de transações de banco de dados interrompidas, e experiência degradada para usuários cujas requisições são abruptamente encerradas. A literatura sobre resiliência de sistemas distribuídos enfatiza que o encerramento ordenado é tão importante quanto a inicialização correta \cite{nygard2018release}.
-
-O \textit{Tô De Olho} implementa o padrão de \textbf{graceful shutdown} através de uma sequência ordenada de ações ao receber \texttt{SIGTERM}:
-
-\begin{enumerate}
-    \item \textbf{Parada de Aceitação}: O servidor HTTP para de aceitar novas conexões, retornando código 503 (Service Unavailable) para requisições subsequentes. Esta sinalização permite que balanceadores de carga redirecionem tráfego para instâncias saudáveis;
-    
-    \item \textbf{Drenagem de Requisições}: O sistema aguarda a conclusão de requisições em andamento, com timeout configurável de 30 segundos. Este período deve ser calibrado baseado na latência máxima esperada das operações;
-    
-    \item \textbf{Fechamento de Conexões}: Conexões com PostgreSQL e Redis são fechadas de forma ordenada, garantindo que transações pendentes sejam commitadas ou rolled back apropriadamente;
-    
-    \item \textbf{Encerramento do Processo}: Apenas após a conclusão das etapas anteriores, o processo encerra com código de saída zero, sinalizando término bem-sucedido ao orquestrador.
-\end{enumerate}
-
-Esta abordagem garante que nenhuma operação de ingestão ou consulta seja interrompida abruptamente, preservando a consistência dos dados e a experiência do usuário.
-
-\subsubsection{Mitigação de Cold Start}
-
-Plataformas serverless como Cloud Run podem escalar a zero instâncias quando não há tráfego, eliminando custos durante períodos de inatividade. Entretanto, a primeira requisição após um período ocioso incorre em latência adicional conhecida como \textbf{\textit{cold start}} --- o tempo necessário para provisionar uma nova instância, carregar o container e inicializar a aplicação.
-
-Pesquisas sistemáticas sobre desafios de computação serverless identificam o cold start como um dos principais fatores que afetam a experiência do usuário, com latências que podem variar de centenas de milissegundos a vários segundos dependendo do tamanho da imagem, linguagem de programação e complexidade de inicialização \cite{silva2020serverless}.
-
-Para mitigar este efeito, o sistema adota múltiplas estratégias complementares:
-
-\begin{itemize}
-    \item \textbf{Imagens Mínimas}: Conforme descrito anteriormente, o uso de imagens distroless reduz drasticamente o tempo de download e extração do container. Imagens menores significam cold starts mais rápidos;
-    
-    \item \textbf{Inicialização Preguiçosa}: Conexões com banco de dados e Redis são estabelecidas apenas no primeiro uso (\textit{lazy initialization}), não durante a inicialização do container. Esta técnica adia operações custosas (handshake TCP, autenticação, pool warmup) até que sejam efetivamente necessárias, reduzindo o tempo até a primeira resposta;
-    
-    \item \textbf{Binários Estáticos}: A compilação Go com ligação estática elimina dependências de bibliotecas dinâmicas, acelerando o carregamento do executável. O runtime Go, por ser compilado, já oferece vantagem significativa sobre linguagens interpretadas (Python, Node.js) em cenários de cold start;
-    
-    \item \textbf{Health Checks Leves}: O endpoint \texttt{/health} retorna imediatamente sem verificar dependências externas, permitindo que o Cloud Run marque a instância como saudável rapidamente. Verificações mais profundas ocorrem em endpoints separados (\texttt{/ready}).
-\end{itemize}
-
-Para cenários de produção com requisitos de latência mais rigorosos, Cloud Run oferece a configuração \texttt{--min-instances} que mantém um número mínimo de instâncias sempre aquecidas, eliminando completamente o cold start às custas de custo fixo. Esta opção não foi habilitada no escopo do MVP, mas representa uma evolução natural conforme o tráfego justifique o investimento.
-
+Casos especiais são tratados da seguinte forma: senadores novos (suplentes) requerem período mínimo de 30 dias para entrar no ranking; licenças curtas mantêm o senador no ranking com ajuste nos denominadores; licenças longas (>30 dias) congelam o score; dados indisponíveis causam reponderação proporcional dos demais critérios.

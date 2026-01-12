@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 00:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 01:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -416,7 +416,10 @@ LaTeX Info: Redefining \Relbar on input line 970.
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
 )
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 6
+(C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/xurl\xurl.sty
+Package: xurl 2022/01/09 v 0.10 modify URL breaks
+)
+LaTeX Font Info:    Trying to load font information for OT1+phv on input line 7
 .
 
 (C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1phv.fd
@@ -432,24 +435,24 @@ Package babel Info: 'brazilian' activates 'portuges' shorthands.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
 
 (C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -469,16 +472,8 @@ ii
 (C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-
-(C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/grfext\grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
 fg
@@ -518,15 +513,15 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 6.
+Package hyperref Info: Link coloring OFF on input line 7.
 (main.out) (main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-<src/images/logo-ads-nova.jpg, id=307, 540.51938pt x 382.42876pt>
+<src/images/logo-ads-nova.jpg, id=243, 540.51938pt x 382.42876pt>
 File: src/images/logo-ads-nova.jpg Graphic file (type jpg)
 <use src/images/logo-ads-nova.jpg>
-Package pdftex.def Info: src/images/logo-ads-nova.jpg  used on input line 35.
+Package pdftex.def Info: src/images/logo-ads-nova.jpg  used on input line 36.
 (pdftex.def)             Requested size: 226.48413pt x 160.23967pt.
  [1
 
@@ -538,9 +533,9 @@ o/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <./src/images/logo
 
  [4]
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 42.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 43.
 
-Overfull \hbox (11.19089pt too wide) in paragraph at lines 44--45
+Overfull \hbox (11.19089pt too wide) in paragraph at lines 45--46
 []\OT1/phv/m/n/10.95 A li-te-ra-tura de de-mo-cra-cia di-gi-tal evi-den-cia que
  TICs am-pliam pos-si-bi-li-da-des de participa[][]ao,
  []
@@ -558,33 +553,33 @@ hv/m/n/10.95 para ava-liar se-na-do-res com base em presen[]a em vota[][]oes,
  []
 
 ) [1]
-Overfull \hbox (25.47597pt too wide) in paragraph at lines 66--67
+Overfull \hbox (25.47597pt too wide) in paragraph at lines 67--68
 []\OT1/phv/b/n/10.95 Gest[]ao de Re-cur-sos\OT1/phv/m/n/10.95 : des-pe-sas de-t
 a-lha-das da Cota Par-la-men-tar (CE-APS), com identifica[][]ao
  []
 
 [2] [3]
-Overfull \hbox (5.91623pt too wide) in paragraph at lines 100--101
+Overfull \hbox (5.91623pt too wide) in paragraph at lines 101--102
 []\OT1/phv/m/n/10.95 Embora es-ses por-tais re-pre-sen-tem avan[]os sig-ni-fi-c
 a-ti-vos na trans-par[]encia pas-siva, situam-
  []
 
 [4] [5] [6]
-Overfull \hbox (17.6168pt too wide) in paragraph at lines 170--171
+Overfull \hbox (17.6168pt too wide) in paragraph at lines 171--172
 []\OT1/phv/b/n/10.95 Do ``Se-re-nata de Amor''\OT1/phv/m/n/10.95 , inspiramo-no
 s na abor-da-gem de \OT1/phv/b/n/10.95 c[]odigo aberto \OT1/phv/m/n/10.95 e \OT
 1/phv/b/n/10.95 documenta[][]ao
  []
 
 [7]
-Overfull \hbox (19.60342pt too wide) in paragraph at lines 189--190
+Overfull \hbox (19.60342pt too wide) in paragraph at lines 190--191
 []\OT1/phv/m/n/10.95 Em s[]^^Pntese, o \OT1/phv/m/sl/10.95 T[]o De Olho \OT1/ph
 v/m/n/10.95 posiciona-se como a \OT1/phv/b/n/10.95 pri-meira pla-ta-forma in-te
 -grada \OT1/phv/m/n/10.95 de fiscaliza[][]ao
  []
 
 
-Overfull \hbox (17.07965pt too wide) in paragraph at lines 193--194
+Overfull \hbox (17.07965pt too wide) in paragraph at lines 194--195
 []\OT1/phv/b/n/10.95 Intelig[]encia de Da-dos\OT1/phv/m/n/10.95 : Ofe-rece aler
 -tas au-tom[]aticos, ran-kings com-pa-ra-ti-vos e visualiza[][]oes
  []
@@ -663,319 +658,125 @@ ica \OT1/phv/m/n/10.95 --- con-si-de-rando for-ma-tos es-tru-tu-ra-dos (JSON/XM
 L), autentica[][]ao
  []
 
-
-Overfull \hbox (3.39638pt too wide) in paragraph at lines 34--35
-\OT1/phv/m/n/10.95 pro-cesso le-gis-la-tivo. A URL base para requisi[][]oes []e
- []$\OMS/cmsy/m/n/10.95 h\OT1/phv/m/n/10.95 https : / / legis . senado . leg . 
-br / dadosabertos[]$[].
- []
-
-
-Overfull \hbox (6.07253pt too wide) in paragraph at lines 34--35
-\OT1/phv/m/n/10.95 Os da-dos s[]ao re-tor-na-dos em for-mato JSON, com su-porte
- a pagina[][]ao e li-mite de 10 requisi[][]oes
- []
-
-LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
-39.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 39.
-
-LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 39.
-
-
-Overfull \hbox (1.6167pt too wide) in paragraph at lines 47--48
-[]\OT1/cmtt/m/n/10.95 /dadosabertos/votacaoComissao/parlamentar/\OMS/cmtt/m/n/1
-0.95 f\OT1/cmtt/m/n/10.95 codigo\OMS/cmtt/m/n/10.95 g\OT1/phv/m/n/10.95 : Vota[
-][]oes em co-miss[]oes es-
- []
-
 [20]
-Overfull \hbox (1.06868pt too wide) in paragraph at lines 54--55
-[]\OT1/cmtt/m/n/10.95 /dadosabertos/processo/relatoria?codigoParlamentar=\OMS/c
-mtt/m/n/10.95 f\OT1/cmtt/m/n/10.95 codigo\OMS/cmtt/m/n/10.95 g\OT1/phv/m/n/10.9
-5 : Re-la-to-rias de-sig-
- []
-
-[21]
-Underfull \hbox (badness 2302) in paragraph at lines 118--118
-[]\OT1/phv/m/n/10.95 Popular o banco com da-dos
- []
-
-LaTeX Font Info:    Trying to load font information for OML+phv on input line 1
-24.
-(C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlphv.fd
-File: omlphv.fd 
-)
-LaTeX Font Info:    Font shape `OML/phv/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 124.
-
-[22] [23
-pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.149 
-      ]
-Overfull \hbox (1.25447pt too wide) in paragraph at lines 150--151
-\OT1/phv/m/n/10.95 sis-tema atua como agente ativo que con-sulta pe-ri-o-di-ca-
-mente as fon-tes em busca de altera[][]oes
- []
-
-
-Overfull \hbox (31.90344pt too wide) in paragraph at lines 150--151
-\OT1/phv/m/n/10.95 rece van-ta-gens sig-ni-fi-ca-ti-vas para integra[][]ao com 
-sis-te-mas le-ga-dos: sim-pli-ci-dade de implementa[][]ao,
- []
-
-
-Overfull \hbox (0.64151pt too wide) in paragraph at lines 156--157
-[]\OT1/phv/b/n/10.95 M[]edia Vo-la-ti-li-dade (Se-ma-nal)\OT1/phv/m/n/10.95 : R
-emunera[][]ao de ser-vi-do-res e ma-pe-a-mento de lota[][]oes.
- []
-
-[24]
-Overfull \hbox (9.11948pt too wide) in paragraph at lines 170--171
-\OT1/phv/m/n/10.95 em-bolso, con-si-de-rando que o mesmo se-na-dor n[]ao pode r
-e-ce-ber dois re-em-bol-sos id[]enticos
- []
-
-[25]
-Overfull \hbox (5.99617pt too wide) in paragraph at lines 214--215
-\OT1/phv/m/n/10.95 de m[]ultiplos servi[]os --- van-ta-gem par-ti-cu-lar-mente 
-re-le-vante para pro-je-tos com or[]amento
- []
-
-
-Overfull \hbox (40.26309pt too wide) in paragraph at lines 216--217
-\OT1/phv/m/n/10.95 microsservi[]os, cada intera[][]ao adi-ci-ona \OT1/phv/m/sl/
-10.95 overhead \OT1/phv/m/n/10.95 de serializa[][]ao, trans-miss[]ao e desseria
-liza[][]ao
- []
-
-[26]
-Overfull \hbox (1.15576pt too wide) in paragraph at lines 234--235
-[]\OT1/cmtt/m/n/10.95 internal/emenda\OT1/phv/m/n/10.95 : In-te-gra da-dos de e
-men-das par-la-men-ta-res do Por-tal da Trans-par[]encia,
- []
-
-
-Overfull \hbox (28.30823pt too wide) in paragraph at lines 239--240
-[]\OT1/phv/m/n/10.95 Adicionalmente, m[]odulos trans-ver-sais for-ne-cem fun-ci
--o-na-li-da-des com-par-ti-lha-das: \OT1/cmtt/m/n/10.95 internal/api
- []
-
-
-Overfull \hbox (4.659pt too wide) in paragraph at lines 239--240
-\OT1/phv/m/n/10.95 exp[]oe \OT1/phv/m/sl/10.95 end-po-ints \OT1/phv/m/n/10.95 R
-EST con-su-mi-dos pelo \OT1/phv/m/sl/10.95 fron-tend\OT1/phv/m/n/10.95 ; \OT1/c
-mtt/m/n/10.95 internal/scheduler \OT1/phv/m/n/10.95 ge-ren-cia ta-re-fas agen-
- []
-
-[27]
-Overfull \hbox (66.95624pt too wide) in paragraph at lines 256--257
-\OT1/phv/m/n/10.95 per-sist[]encia. Esta fase in-clui padroniza[][]ao de no-mes
- (tra-ta-mento de acen-tos, mai[]usculas/min[]usculas),
- []
-
-
-Overfull \hbox (24.5669pt too wide) in paragraph at lines 258--259
-\OT1/phv/m/n/10.95 evi-tando rec[]alculos a cada requisi[][]ao. A invalida[][]a
-o de ca-che ocorre ap[]os cada sincroniza[][]ao
- []
-
-[28]
-Overfull \hbox (8.74637pt too wide) in paragraph at lines 276--277
-[]\OT1/phv/b/n/10.95 Go\OT1/phv/m/n/10.95 : Bin[]arios com-pi-la-dos es-ta-ti-c
-a-mente, mo-delo de con-corr[]encia na-tivo e ti-pa-gem est[]atica.
- []
-
-
-Overfull \hbox (17.61143pt too wide) in paragraph at lines 281--282
-\OT1/phv/m/n/10.95 mais abran-gente. O ORM \OT1/phv/b/n/10.95 GORM \OT1/phv/m/n
-/10.95 ofe-rece ma-pe-a-mento objeto-relacional com su-porte a migra[][]oes
- []
-
-[29]
-Overfull \hbox (16.9151pt too wide) in paragraph at lines 311--312
-\OT1/phv/m/n/10.95 tiva com Re-act [[]]. Al-ter-na-ti-vas como D3.js ofe-re-cem
- maior con-trole, mas exi-gem implementa[][]ao
- []
-
-[30]
-<docs/diagrama_er_modelo.png, id=709, 246.6816pt x 246.6816pt>
-File: docs/diagrama_er_modelo.png Graphic file (type png)
-<use docs/diagrama_er_modelo.png>
-Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 319.
-(pdftex.def)             Requested size: 430.31847pt x 430.35924pt.
-
-Overfull \hbox (6.7765pt too wide) in paragraph at lines 329--330
-[]\OT1/phv/b/n/10.95 Mandato\OT1/phv/m/n/10.95 : Re-la-ci-o-na-mento 1:N com Se
--na-dor, re-gis-trando le-gis-la-tura, tipo (ti-tu-lar/suplente)
- []
-
-[31
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.331     \item \textbf
-                       {Despesa CEAPS}: Relacionamento 1:N com Senador, cont...
- <./docs/diagrama_er_modelo.png>]
-Overfull \hbox (8.5943pt too wide) in paragraph at lines 331--332
-\OT1/phv/m/n/10.95 pesa, for-ne-ce-dor, CPF/CNPJ e va-lor. A chave com-posta \O
-T1/cmtt/m/n/10.95 (senador[]id, fornecedor[]cnpj,
- []
-
-
-Overfull \hbox (22.4578pt too wide) in paragraph at lines 349--350
+Overfull \hbox (22.4578pt too wide) in paragraph at lines 56--57
 []\OT1/phv/m/n/10.95 A avalia[][]ao ob-je-tiva do de-sem-pe-nho par-la-men-tar 
 cons-ti-tui ele-mento cen-tral para a participa[][]ao
  []
 
-[32]
-Overfull \hbox (22.8718pt too wide) in paragraph at lines 353--354
-\OT1/phv/m/n/10.95 sur[]aveis: \OT1/phv/b/n/10.95 pro-du-ti-vi-dade le-gis-la-t
-iva \OT1/phv/m/n/10.95 (ca-pa-ci-dade de apro-var proposi[][]oes), \OT1/phv/b/n
-/10.95 presen[]a em vota[][]oes
- []
-
-[33
-pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
+[21
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.400 \subsubsection{Presença em Votações}
-                                             
-pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.400 \subsubsection{Presença em Votações}
-                                             ] [34]
-LaTeX Font Info:    Font shape `OML/phv/b/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/b/it' tried instead on input line 446.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 459.
-
-Overfull \hbox (4.05803pt too wide) in paragraph at lines 466--467
-[]\OT1/phv/b/n/10.95 Est[]agio de Execu[][]ao\OT1/phv/m/n/10.95 : Parte da ima-
-gem m[]^^Pnima \OT1/cmtt/m/n/10.95 gcr.io/distroless/static-debian12\OT1/phv/m/
-n/10.95 ,
- []
-
-[35] [36] [37]) [38]
-Overfull \hbox (4.50691pt too wide) in paragraph at lines 231--232
+l.91 
+     ]) [22]
+Overfull \hbox (4.50691pt too wide) in paragraph at lines 232--233
 []\OT1/phv/b/n/10.95 [RF09] \OT1/phv/m/n/10.95 O sis-tema deve des-ta-car va-lo
 -res des-ti-na-dos via ``Trans-fer[]encias Es-pe-ci-ais'' (emen-
  []
 
-[39] [40] [41]
-<docs/diagrama_classes.png, id=795, 246.6816pt x 246.6816pt>
-File: docs/diagrama_classes.png Graphic file (type png)
-<use docs/diagrama_classes.png>
-Package pdftex.def Info: docs/diagrama_classes.png  used on input line 317.
-(pdftex.def)             Requested size: 362.37598pt x 362.41055pt.
- [42]
-<docs/diagrama_implantacao.png, id=800, 246.6816pt x 246.6816pt>
+[23] [24] [25]
+Overfull \hbox (11.27405pt too wide) in paragraph at lines 329--330
+[]\OT1/cmtt/m/n/10.95 internal/votacao\OT1/phv/m/n/10.95 : Co-leta vota[][]oes 
+no-mi-nais e cal-cula m[]etricas de-ri-va-das como presen[]a
+ []
+
+[26]
+<docs/diagrama_implantacao.png, id=592, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
-Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 328.
+Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 342.
 
-(pdftex.def)             Requested size: 362.37598pt x 362.41055pt.
- [43
+(pdftex.def)             Requested size: 317.0764pt x 317.10641pt.
+ [27
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.351 
+       <./docs/diagrama_implantacao.png>] [28]
+<docs/diagrama_er_modelo.png, id=620, 246.6816pt x 246.6816pt>
+File: docs/diagrama_er_modelo.png Graphic file (type png)
+<use docs/diagrama_er_modelo.png>
+Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 388.
+(pdftex.def)             Requested size: 317.0764pt x 317.10641pt.
+ [29]
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <10.95> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 422.
+ [30
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.331 
-       <./docs/diagrama_classes.png>] [44
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.347     \item \texttt
-                       {internal/emenda}: Integração com Portal da Transpa...
- <./docs/diagrama_implantacao.png>]
-Overfull \hbox (9.6092pt too wide) in paragraph at lines 374--375
-[]\OT1/phv/b/n/10.95 TB[]DESPESAS[]CEAPS\OT1/phv/m/n/10.95 : Ar-ma-zena cada no
-ta fis-cal re-em-bol-sada. FK para \OT1/cmtt/m/n/10.95 TB[]SENADORES\OT1/phv/m/
-n/10.95 .
- []
-
-[45] [46] (src/sections/conclusao.tex) (main.bbl [47] [48] [49] [50] [51])
-[52]
-Overfull \hbox (10.14041pt too wide) in paragraph at lines 434--435
+l.423 
+       <./docs/diagrama_er_modelo.png>] [31] (src/sections/conclusao.tex)
+(main.bbl [32] [33] [34] [35] [36]) [37]
+Overfull \hbox (10.14041pt too wide) in paragraph at lines 472--473
 []\OT1/phv/m/sl/10.95 Application Pro-gram-ming In-ter-face \OT1/phv/m/n/10.95 
 --- in-ter-face de programa[][]ao que per-mite a comunica[][]ao
  []
 
 
-Overfull \hbox (7.20003pt too wide) in paragraph at lines 438--439
+Overfull \hbox (7.20003pt too wide) in paragraph at lines 476--477
 []\OT1/phv/m/sl/10.95 Continuous In-te-gra-tion / Con-ti-nu-ous De-ploy-ment \O
 T1/phv/m/n/10.95 --- pr[]aticas de integra[][]ao e implanta[][]ao
  []
 
 
-Overfull \hbox (15.17207pt too wide) in paragraph at lines 445--446
+Overfull \hbox (15.17207pt too wide) in paragraph at lines 483--484
 []\OT1/phv/m/n/10.95 Indicador de Al-fa-be-tismo Fun-ci-o-nal --- pes-quisa bra
 -si-leira que ava-lia n[]^^Pveis de alfabetiza[][]ao
  []
 
-[53]
-Overfull \hbox (5.44817pt too wide) in paragraph at lines 454--455
+[38]
+Overfull \hbox (5.44817pt too wide) in paragraph at lines 492--493
 []\OT1/phv/m/sl/10.95 Object-Relational Map-ping \OT1/phv/m/n/10.95 --- t[]ecni
 ca de ma-pe-a-mento objeto-relacional para per-sist[]encia
  []
 
 
-Overfull \hbox (13.27754pt too wide) in paragraph at lines 456--457
+Overfull \hbox (13.27754pt too wide) in paragraph at lines 494--495
 []\OT1/phv/m/n/10.95 Proposta de Emenda []a Constitui[][]ao --- proposi[][]ao l
 e-gis-la-tiva que visa al-te-rar a Constitui[][]ao
  []
 
 
-Overfull \hbox (7.48564pt too wide) in paragraph at lines 459--460
+Overfull \hbox (7.48564pt too wide) in paragraph at lines 497--498
 []\OT1/phv/m/sl/10.95 Resource Des-crip-tion Fra-mework \OT1/phv/m/n/10.95 --- 
 mo-delo de da-dos para representa[][]ao de informa[][]oes
  []
 
-[54] [55] (main.aux)
+[39] [40] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
  ***********
-
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 36C06C5D501AE8491EF77B546D0231E6;15137.
+(rerunfilecheck)             Checksum: 54E0E81D14123E886A9D6912543B3E3F;11984.
  ) 
 Here is how much of TeX's memory you used:
- 13219 strings out of 467871
- 212610 string characters out of 5418376
- 660545 words of memory out of 5000000
- 41557 multiletter control sequences out of 15000+600000
- 654292 words of font info for 83 fonts, out of 8000000 for 9000
+ 13086 strings out of 467871
+ 210303 string characters out of 5418376
+ 660605 words of memory out of 5000000
+ 41482 multiletter control sequences out of 15000+600000
+ 653934 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,14n,93p,1195b,661s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,12n,93p,1195b,661s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmex10.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmmi10.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/amsfonts/cm/cmmi8.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/pedro/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/pedro/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/pedro/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro
-/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pe
-dro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/User
-s/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/U
-sers/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (59 pages, 2007328 bytes).
+/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/pedro/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/pedro/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/Users/pedro/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro
+/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on main.pdf (44 pages, 1461639 bytes).
 PDF statistics:
- 1083 PDF objects out of 1200 (max. 8388607)
- 321 named destinations out of 1000 (max. 500000)
- 629 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 896 PDF objects out of 1000 (max. 8388607)
+ 267 named destinations out of 1000 (max. 500000)
+ 496 words of extra memory for PDF output out of 10000 (max. 10000000)
 

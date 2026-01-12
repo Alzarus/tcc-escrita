@@ -3,6 +3,7 @@
 \documentclass[11pt]{relatorio_tcc_ads_ifba}
 \usepackage{float}
 \usepackage{amsmath}
+\usepackage{xurl} % Permite quebra automatica de URLs longas
 \begin{document}
 
 % Aluno/autor do documento (obrigatório)
@@ -297,119 +298,158 @@ Conforme destacado na análise de trabalhos relacionados (Seção 1.6), o \texti
 \end{itemize}
 
 \section{Design}
-\subsection{Projeto UML}
-O projeto utiliza a Unified Modeling Language (UML) para documentar visualmente a estrutura e o comportamento do sistema. Abaixo são apresentados os diagramas essenciais para o entendimento da arquitetura proposta.
 
-\subsubsection{Diagrama de Classes}
-O Diagrama de Classes modela a estrutura estática do domínio. As principais entidades identificadas são:
+O design de sistemas de informação voltados à fiscalização cidadã deve conciliar requisitos aparentemente conflitantes: robustez suficiente para processar grandes volumes de dados governamentais, simplicidade operacional compatível com equipes reduzidas, e acessibilidade que permita ao cidadão comum compreender informações complexas. Conforme o paradigma de Design Science Research adotado neste trabalho \cite{hevner2004design}, as decisões de design devem ser orientadas tanto pela utilidade prática do artefato quanto pelo rigor teórico que fundamenta cada escolha.
+
+Esta seção organiza as decisões técnicas em quatro dimensões interdependentes: a arquitetura de software que estrutura o sistema, o stack tecnológico que a implementa, a estratégia de ingestão que alimenta a base de dados, e o modelo relacional que organiza as informações. Cada decisão é apresentada com suas alternativas consideradas e a justificativa para a escolha final, seguindo a tradição de documentação arquitetural proposta por Dragoni et al. \cite{dragoni2017microservices}.
+
+\subsection{Arquitetura do Sistema}
+
+A escolha arquitetural representa uma das decisões mais consequentes em projetos de software, com implicações que se estendem por todo o ciclo de vida do sistema. Em aplicações que integram múltiplas APIs externas --- como é o caso do \textit{Tô De Olho}, que consome dados de três órgãos governamentais distintos --- a arquitetura deve equilibrar a flexibilidade para evolução futura com a simplicidade operacional exigida pelo contexto acadêmico.
+
+Após análise de alternativas, optou-se pelo padrão de \textbf{monolito modular}. Esta abordagem, sistematizada em revisão de literatura recente \cite{laigner2024modular}, combina a organização interna característica de microsserviços --- com fronteiras claras entre domínios de negócio --- com a simplicidade de implantação dos monolitos tradicionais. A decisão fundamentou-se em quatro critérios:
 
 \begin{itemize}
-    \item \textbf{Senador}: Representa o parlamentar, contendo atributos como Identificador, Nome, Partido e Estado.
-    \item \textbf{Despesa}: Representa um lançamento na CEAPS, associada a um Senador e um Fornecedor.
-    \item \textbf{Votacao}: Representa uma sessão deliberativa no Plenário, composta por múltiplos Votos.
-    \item \textbf{Emenda}: Representa verba orçamentária destinada pelo senador, contendo Valor, Ano e Beneficiário.
+    \item \textbf{Simplicidade Operacional}: Um único contêiner Docker elimina a complexidade de orquestração distribuída. Em plataformas serverless como Google Cloud Run, essa característica traduz-se em escala automática (inclusive a zero) e custos proporcionais ao uso efetivo;
+    
+    \item \textbf{Latência Previsível}: A comunicação entre módulos ocorre via chamadas de função em memória, eliminando a variabilidade de latência inerente a redes --- fator crítico para operações que agregam dados de múltiplos domínios;
+    
+    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem os patterns complexos (sagas, two-phase commit) exigidos por sistemas distribuídos;
+    
+    \item \textbf{Estratégia MonolithFirst}: Martin Fowler argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto'' \cite{fowler2015monolith}. A estrutura modular atual permite extração futura de serviços independentes apenas onde houver necessidade comprovada.
 \end{itemize}
 
-\begin{figure}[H]
+\subsubsection{Organização em Módulos}
+
+A estrutura interna segue os princípios de \textit{Bounded Contexts} do Domain-Driven Design \cite{evans2003ddd}, onde cada módulo representa um contexto de domínio com responsabilidades claramente delimitadas. O diretório \texttt{internal/} organiza-se em cinco módulos principais, cada um encapsulando um aspecto da fiscalização parlamentar:
+
+\begin{itemize}
+    \item \texttt{internal/senador}: Gerencia dados cadastrais e mandatos históricos, atuando como ``fonte de verdade'' para identificação de parlamentares;
+    \item \texttt{internal/ceaps}: Processa despesas da Cota Parlamentar, implementando detecção de anomalias e agregações por categoria;
+    \item \texttt{internal/votacao}: Coleta votações nominais e calcula métricas derivadas como presença e fidelidade partidária;
+    \item \texttt{internal/emenda}: Integra dados do Portal da Transparência, com tratamento especial para ``emendas PIX'';
+    \item \texttt{internal/ranking}: Orquestra o cálculo de scores conforme metodologia definida na Seção~3.3.
+\end{itemize}
+
+Módulos transversais complementam a estrutura: \texttt{internal/api} expõe endpoints REST, \texttt{internal/scheduler} gerencia tarefas agendadas, e \texttt{internal/cache} abstrai operações no Redis. Os módulos comunicam-se exclusivamente através de interfaces Go, respeitando o princípio de inversão de dependência.
+
+\subsubsection{Visão de Implantação}
+
+A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do sistema, ilustrando o fluxo de dados desde as fontes governamentais até o usuário final. O backend executa no Google Cloud Run, consumindo dados armazenados em PostgreSQL (Cloud SQL) e Redis (Memorystore). O frontend, desenvolvido em Next.js, é hospedado na Vercel para otimização de distribuição global.
+
+\begin{figure}[!htb]
     \centering
-    \caption{Diagrama de Classes Simplificado (Conceitual)}
-    % Placeholder para imagem
-    \includegraphics[width=0.8\textwidth]{docs/diagrama_classes.png} 
+    \includegraphics[width=0.7\textwidth]{docs/diagrama_implantacao.png}
+    \caption{Arquitetura de implantação do sistema Tô De Olho}
+    \label{fig:implantacao}
     \par\small{Fonte: Autoria Própria}
 \end{figure}
 
-\subsubsection{Diagrama de Implantação}
-O sistema é implantado em nuvem (GCP), utilizando orquestração de containers.
+\subsection{Stack Tecnológico}
 
-\begin{figure}[H]
-    \centering
-    \caption{Diagrama de Implantação e Infraestrutura}
-    % Placeholder para imagem
-    \includegraphics[width=0.8\textwidth]{docs/diagrama_implantacao.png}
-    \par\small{Fonte: Autoria Própria}
+A seleção de tecnologias foi orientada por três critérios: desempenho em cenários de alta concorrência (característicos de pipelines de ingestão), manutenibilidade a longo prazo (considerando a natureza open-source do projeto), e adequação ao domínio (priorizando ferramentas com suporte robusto a operações analíticas).
+
+\subsubsection{Backend em Go}
+
+A linguagem Go foi selecionada após avaliação comparativa com Node.js e Python. O fator decisivo foi o modelo de \textbf{goroutines}: threads leves gerenciadas pelo runtime, consumindo aproximadamente 2KB de memória inicial --- em contraste com cerca de 1MB por thread de sistema operacional \cite{nanz2015comparative}. Essa eficiência viabiliza o processamento paralelo de centenas de requisições HTTP durante a ingestão.
+
+O framework \textbf{Gin} foi escolhido por seu roteamento baseado em radix tree, com desempenho até 40 vezes superior a alternativas \cite{alfian2024gin}. O ORM \textbf{GORM} oferece migrações automáticas e operações de upsert essenciais para garantia de idempotência. Para ambientes de produção, o sistema implementa connection pooling com limites configuráveis de conexões ociosas e máximas.
+
+\subsubsection{Camada de Persistência}
+
+\textbf{PostgreSQL} foi selecionado por sua robustez em consultas analíticas e suporte a CTEs (\textit{Common Table Expressions}), essenciais para agregações complexas. Originado em 1986 na UC Berkeley \cite{stonebraker1986postgres}, o banco garante conformidade ACID crítica para operações de ingestão concorrente.
+
+\textbf{Redis} atua como cache para rankings pré-computados, alcançando latências de 100--500 microssegundos por operação \cite{redis2024}. Esta camada evita recálculos custosos a cada requisição, materializando resultados após cada ciclo de sincronização.
+
+\subsubsection{Frontend em Next.js}
+
+A escolha de \textbf{Next.js 15} justifica-se pela necessidade crítica de indexação por mecanismos de busca \cite{salim2024nextjs}. Diferentemente de SPAs que renderizam conteúdo apenas via JavaScript, Next.js oferece Server-Side Rendering (SSR) e Static Site Generation (SSG), entregando HTML pré-renderizado aos crawlers --- requisito fundamental para plataformas de fiscalização que dependem de descoberta orgânica.
+
+A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por sua integração declarativa com React. \textbf{Tailwind CSS 4} permite desenvolvimento ágil com classes utilitárias e geração otimizada de CSS em produção \cite{tailwindcss2024}.
+
+\subsection{Estratégia de Ingestão de Dados}
+
+A consolidação de dados dispersos em três APIs governamentais representa um dos maiores desafios técnicos do projeto. O processo segue o paradigma \textit{Extract, Transform, Load} (ETL), que conforme Vassiliadis \cite{vassiliadis2009survey} tipicamente consome entre 60\% e 80\% do esforço total em projetos de data warehousing.
+
+A estratégia adotada combina duas abordagens complementares: \textbf{backfill} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross \cite{kimball2013data}, operações de carga histórica devem privilegiar throughput sobre latência, utilizando arquivos CSV consolidados e bulk inserts. As fontes históricas incluem CEAPS (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
+
+A sincronização contínua opera via polling periódico, calibrado pela volatilidade de cada domínio: votações diárias às 03:00 BRT (baixo tráfego nas APIs), remunerações semanais aos domingos, e emendas mensalmente após fechamento contábil.
+
+Para garantir consistência, o sistema opera sob modelo \textit{at-least-once} com \textbf{idempotência} via chaves naturais compostas \cite{hummer2013modeldriven}. Falhas transientes são tratadas com retry exponencial ($t_{wait} = base \times 2^{tentativa}$) conforme recomendação AWS \cite{aws2015backoff}, timeout de 30 segundos e falha graciosa que permite continuidade da sincronização mesmo com fontes temporariamente indisponíveis.
+
+\subsection{Modelo de Dados}
+
+O modelo relacional constitui o alicerce sobre o qual todas as funcionalidades são construídas. O projeto priorizou dois objetivos: garantir integridade referencial durante ingestão concorrente, e otimizar consultas analíticas frequentes como agregações de gastos por senador, período e categoria.
+
+A Figura~\ref{fig:er-diagram} apresenta o diagrama entidade-relacionamento.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.7\textwidth]{docs/diagrama_er_modelo.png}
+\caption{Diagrama entidade-relacionamento do sistema Tô De Olho}
+\label{fig:er-diagram}
+\par\small{Fonte: Autoria Própria}
 \end{figure}
 
-\subsection{Visão arquitetural}
+As entidades organizam-se em torno de \textbf{Senador}, a entidade central identificada por código parlamentar único. Relacionamentos 1:N conectam o senador a: \textbf{Mandato} (legislatura, tipo, período), \textbf{Despesa CEAPS} (com chave composta para idempotência), \textbf{Votação} (tabela associativa com sessão), \textbf{Servidor de Gabinete} (nome, cargo, remuneração), \textbf{Emenda} (incluindo Transferências Especiais) e \textbf{Comissão Membro} (participação com cargo e período).
 
-O \textit{Tô De Olho} adota uma arquitetura de \textbf{monolito modular}, onde os componentes são organizados internamente em módulos bem definidos, mas compartilham um único processo de deploy. Essa escolha arquitetural foi motivada pelos seguintes fatores:
-
-\begin{itemize}
-    \item \textbf{Simplicidade de Deploy}: um único container simplifica a infraestrutura e reduz custos operacionais;
-    \item \textbf{Manutenibilidade}: a organização em módulos internos permite atualizações isoladas sem a complexidade de orquestração distribuída;
-    \item \textbf{Evolução Futura}: a estrutura modular permite migração gradual para microsserviços, se necessário.
-\end{itemize}
-
-\textbf{Módulos Internos:}
-\begin{itemize}
-    \item \texttt{internal/senador}: Gerencia dados cadastrais dos parlamentares e mandatos;
-    \item \texttt{internal/ceaps}: Processa e totaliza despesas da Cota Parlamentar;
-    \item \texttt{internal/votacao}: Armazena e consulta votações nominais em plenário;
-    \item \texttt{internal/emenda}: Integração com Portal da Transparência para emendas parlamentares;
-    \item \texttt{internal/ranking}: Cálculo e agregação de scores de desempenho.
-\end{itemize}
-
-\textbf{Estratégia de Ingestão de Dados:}
-
-A plataforma utiliza uma estratégia híbrida de ingestão:
-\begin{enumerate}
-    \item \textbf{Backfill}: carga inicial histórica através das APIs do Senado, processando dados desde 2019;
-    \item \textbf{Sincronização Contínua}: \textit{CronJobs} diários às 03:00 BRT que consomem as APIs oficiais para manter os dados atualizados.
-\end{enumerate}
-
-\textbf{Infraestrutura:}
-
-O sistema é containerizado com Docker e implantado no Google Cloud Run, que oferece:
-\begin{itemize}
-    \item \textbf{Escala a Zero}: sem custos quando não há tráfego;
-    \item \textbf{Deploy Simplificado}: um único Dockerfile para toda a aplicação;
-    \item \textbf{Escalabilidade Automática}: instâncias são criadas sob demanda durante picos de acesso.
-\end{itemize}
-
-\subsection{Modelo de Banco de Dados}
-O modelo de dados relacional foi projetado para garantir integridade e eficiência nas consultas analíticas. As tabelas principais são:
+Para otimizar consultas frequentes, foram criados os seguintes índices compostos:
 
 \begin{itemize}
-    \item \textbf{TB\_SENADORES}: Tabela mestre. PK: \texttt{codigo\_senado}. Colunas: nome, partido, uf, url\_foto.
-    \item \textbf{TB\_MANDATOS}: Histórico de legislaturas. FK para \texttt{TB\_SENADORES}.
-    \item \textbf{TB\_DESPESAS\_CEAPS}: Armazena cada nota fiscal reembolsada. FK para \texttt{TB\_SENADORES}. Colunas: valor, data, tipo\_despesa, cnpj\_fornecedor, url\_documento. Indexada por senador e ano para performance em buscas.
-    \item \textbf{TB\_VOTACOES}: Cabeçalho das votações. PK: \texttt{codigo\_sessao}.
-    \item \textbf{TB\_VOTOS}: Tabela de junção (\textit{many-to-many}) entre Senadores e Votações, registrando o voto individual (Sim/Não).
-    \item \textbf{TB\_EMENDAS}: Registra valores destinados. Colunas: valor\_empenhado, valor\_pago, beneficiario, modalidade (ex: Pix).
+    \item \texttt{idx\_despesa\_senador\_ano} --- totalização de gastos por período;
+    \item \texttt{idx\_votacao\_sessao\_senador} --- cálculo de presença em votações;
+    \item \texttt{idx\_emenda\_senador\_tipo} --- filtros por modalidade de emenda;
+    \item \texttt{idx\_comissao\_senador} --- agregação de participação em comissões.
 \end{itemize}
 
 \section{Testes de Software}
 
 \subsection{Projeto de Testes}
-A estratégia de qualidade do \textit{Tô De Olho} combina testes em diferentes níveis, aproveitando o ferramental nativo da linguagem Go:
+A estratégia de qualidade combina testes em diferentes níveis, aproveitando o ferramental nativo de Go:
 
 \begin{itemize}
-    \item \textbf{Testes Unitários}: Validam regras de negócio isoladas, como o cálculo do ``Score'' do senador e parsers de CSV. Implementados com o pacote padrão \texttt{testing} do Go, utilizando a técnica de \textit{Table-Driven Tests} para cobrir múltiplos cenários de borda.
-    \item \textbf{Testes de Integração}: Validam a comunicação entre os componentes e o banco de dados. Utiliza-se a biblioteca \texttt{testcontainers-go} para subir instâncias efêmeras do PostgreSQL e Redis durante a execução da pipeline, garantindo que as queries e a persistência funcionem como esperado num ambiente controlado.
-    \item \textbf{Testes de Contrato (API)}: Asseguram que as respostas dos serviços externos (Senado/Transparência) continuam respeitando os formatos esperados, alertando sobre ``Quebras de API'' em dependências externas.
+    \item \textbf{Testes Unitários}: Validam regras de negócio isoladas, como o cálculo do ``Score'' e parsers de CSV. Implementados com o pacote padrão \texttt{testing}, utilizando \textit{Table-Driven Tests} para cobrir múltiplos cenários.
+    \item \textbf{Testes de Integração}: Validam a comunicação entre componentes e banco de dados. Utiliza-se \texttt{testcontainers-go} para subir instâncias efêmeras do PostgreSQL e Redis.
+    \item \textbf{Testes de Contrato}: Asseguram que as respostas dos serviços externos continuam respeitando os formatos esperados.
 \end{itemize}
 
 \section{Implantação}
-\subsection{Projeto de Implantação}
-A implantação do sistema segue as práticas de \textit{GitOps} e Infraestrutura como Código.
 
-\textbf{Ambiente de Execução:}
-O sistema é empacotado em uma imagem Docker otimizada (\textit{multi-stage build}) e implantado no Google Cloud Run. Esta plataforma serverless oferece escala automática baseada na demanda, incluindo escala a zero quando não há tráfego, otimizando custos operacionais.
+A infraestrutura foi projetada seguindo os princípios da metodologia \textit{Twelve-Factor App} \cite{wiggins2017twelvefactor}, que prioriza portabilidade, escalabilidade e manutenibilidade.
 
-\textbf{Pipeline de CI/CD:}
-Utiliza-se GitHub Actions para automação. A cada \textit{push} na branch principal:
+\subsection{Containerização com Docker}
+
+Todos os componentes são containerizados utilizando \textbf{\textit{multi-stage builds}}, técnica recomendada pelas melhores práticas do Google Cloud \cite{googlecontainers2024}. O processo separa o ambiente de compilação (imagem \texttt{golang:1.21-alpine}) do ambiente de execução (imagem mínima \texttt{gcr.io/distroless/static-debian12}), resultando em imagens de 15--25MB com superfície de ataque reduzida.
+
+\subsection{Pipeline de CI/CD}
+
+O pipeline foi implementado com \textbf{GitHub Actions}. Estudos empíricos demonstram que a adoção de GitHub Actions reduz significativamente o tempo de feedback e aumenta a frequência de deploys \cite{kinsman2021software}. O pipeline automatiza quatro etapas:
+
 \begin{enumerate}
-    \item \textit{Build}: Compilação dos binários Go e checagem de erros;
-    \item \textit{Test}: Execução dos testes unitários e de integração;
-    \item \textit{Publish}: Criação da imagem Docker e envio para o Google Container Registry;
-    \item \textit{Deploy}: Atualização automática do serviço no Cloud Run.
+    \item \textbf{Build}: Compilação com flags de otimização (\texttt{-ldflags="-w -s"}) e verificação estática via \texttt{go vet};
+    \item \textbf{Test}: Testes unitários e de integração com cobertura mínima de 80\%;
+    \item \textbf{Publish}: Construção da imagem Docker e envio para o Google Container Registry;
+    \item \textbf{Deploy}: Atualização automática do serviço no Cloud Run via \textit{rolling update}.
 \end{enumerate}
+
+\subsection{Plataforma Google Cloud Run}
+
+A implantação ocorre via \textbf{Google Cloud Run} \cite{cloudrun2024}, plataforma serverless para containers. Características que justificaram a escolha: escala automática (de zero a centenas de containers), deploy simplificado (único comando \\texttt{gcloud run deploy}) e integração nativa com Cloud SQL e Memorystore.
+
+\subsection{Graceful Shutdown}
+
+O Cloud Run envia o sinal \texttt{SIGTERM} antes de encerrar um container. Falhar em tratar este sinal pode causar perda de requisições e corrupção de transações \cite{nygard2018release}. O sistema implementa uma sequência ordenada: (1) parada de aceitação de novas conexões, (2) drenagem de requisições em andamento com timeout de 30 segundos, (3) fechamento ordenado de conexões com PostgreSQL e Redis, (4) encerramento do processo.
+
+\subsection{Mitigação de Cold Start}
+
+Plataformas serverless podem escalar a zero, mas a primeira requisição após inatividade incorre em latência adicional (\textit{cold start}) \cite{silva2020serverless}. O sistema adota: imagens mínimas (distroless), inicialização preguiçosa de conexões (\textit{lazy initialization}), binários estáticos Go e health checks leves (\texttt{/health} retorna imediatamente).
 
 \section{Manual do Usuário Simplificado}
 
 A plataforma é pública e não requer cadastro para consulta, maximizando a transparência.
 
 \begin{enumerate}
-    \item \textbf{Acesso}: Navegue para \url{https://todeolho.org.br}.
+    \item \textbf{Acesso}: Navegue para \url{https://todeolho.org}.
     \item \textbf{Ranking}: Na página inicial, visualize os ``Top 3'' senadores em Economia e Presença.
     \item \textbf{Busca}: Utilize a barra superior para digitar o nome de um senador.
     \item \textbf{Detalhes}: Ao clicar em um senador, navegue pelas abas ``Gastos'' (para ver notas fiscais detalhadas) e ``Emendas'' (para ver destino das verbas).
@@ -424,9 +464,7 @@ Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e 
 \bibliography{referencias}
 
 \newpage
-\section*{Apêndices}
-
-\section*{Glossário, Siglas e Abreviações}
+\section*{Apêndice A --- Glossário, Siglas e Abreviações}
 
 \begin{description}
     \item[ACID] \textit{Atomicity, Consistency, Isolation, Durability} --- propriedades que garantem integridade em transações de banco de dados.
