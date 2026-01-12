@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 03:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 03:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,15 +643,16 @@ s been already used, duplicate ignored
 l.12 A
       dotou-se o padrão de \textit{Table-Driven Tests} (Testes Orientados a...
  <./docs/diagrama_er_modelo.png>]) (src/sections/implantacao.tex [31] [32])
-(src/sections/manual.tex [33]) (src/sections/conclusao.tex [34]) (main.bbl
-[35] [36] [37] [38] [39]) [40] (src/sections/glossario.tex
+(src/sections/manual.tex [33]) (src/sections/conclusao.tex [34])
+(src/sections/agradecimentos.tex) (main.bbl [35] [36] [37] [38] [39] [40])
+[41] (src/sections/glossario.tex
 Overfull \hbox (11.95119pt too wide) in paragraph at lines 13--14
 []\OT1/phv/m/sl/10.95 (-20) Cascading Style She-ets \OT1/phv/m/n/10.95 (-20) --
 - lin-gua-gem de fo-lhas de es-tilo uti-li-zada para de-fi-nir a apresenta[][]a
 o
  []
 
-[41] [42]) [43] (main.aux)
+[42] [43]) [44] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
@@ -664,10 +665,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: EC8DD075399549BFA2761A192B0731C9;13133.
  ) 
 Here is how much of TeX's memory you used:
- 15638 strings out of 467871
- 251985 string characters out of 5418376
- 729430 words of memory out of 5000000
- 43498 multiletter control sequences out of 15000+600000
+ 15647 strings out of 467871
+ 252325 string characters out of 5418376
+ 727430 words of memory out of 5000000
+ 43503 multiletter control sequences out of 15000+600000
  672394 words of font info for 378 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1195b,677s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -681,9 +682,9 @@ rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro/App
 Data/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (47 pages, 1510018 bytes).
+Output written on main.pdf (48 pages, 1513039 bytes).
 PDF statistics:
- 980 PDF objects out of 1000 (max. 8388607)
- 299 named destinations out of 1000 (max. 500000)
+ 984 PDF objects out of 1000 (max. 8388607)
+ 300 named destinations out of 1000 (max. 500000)
  62480 words of extra memory for PDF output out of 74296 (max. 10000000)
 
