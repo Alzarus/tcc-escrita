@@ -450,25 +450,101 @@ Score = (\text{Produtividade} \times 0.35) + (\text{Presença} \times 0.25) + (\
 
 \subsection{Infraestrutura e Implantação}
 
-Todos os componentes são containerizados com Docker, utilizando \textit{multi-stage builds} para otimização das imagens. A implantação ocorre via Google Cloud Run, que oferece escala automática (inclusive a zero) e \textit{deploy} simplificado.
+A infraestrutura do \textit{Tô De Olho} foi projetada seguindo os princípios da metodologia \textit{Twelve-Factor App} \cite{wiggins2017twelvefactor}, conjunto de boas práticas para construção de aplicações cloud-native que priorizam portabilidade, escalabilidade e manutenibilidade. A adoção de containers como unidade de implantação representa uma evolução natural desses princípios, encapsulando a aplicação e suas dependências em artefatos imutáveis e reproduzíveis.
 
-\subsubsection{Containerização e CI/CD}
+Esta seção detalha as decisões de containerização, o pipeline de integração e entrega contínuas, e os padrões operacionais que garantem resiliência em ambientes serverless.
 
-O \textit{pipeline} de CI/CD, implementado com GitHub Actions, automatiza as etapas:
+\subsubsection{Containerização com Docker}
+
+Todos os componentes do sistema são containerizados com Docker, utilizando \textbf{\textit{multi-stage builds}} para otimização das imagens finais. Esta técnica, recomendada pelas melhores práticas de containerização do Google Cloud \cite{googlecontainers2024}, separa o ambiente de compilação do ambiente de execução, resultando em imagens significativamente menores e mais seguras.
+
+O processo de build ocorre em dois estágios distintos:
+
 \begin{enumerate}
-    \item \textbf{Build}: Compilação dos binários Go e verificação de erros;
-    \item \textbf{Test}: Execução de testes unitários e de integração com \textit{testcontainers};
-    \item \textbf{Publish}: Construção da imagem Docker e envio para o Google Container Registry;
-    \item \textbf{Deploy}: Atualização automática do serviço no Cloud Run.
+    \item \textbf{Estágio de Compilação}: Utiliza a imagem oficial \texttt{golang:1.21-alpine} contendo todas as ferramentas de desenvolvimento (compilador, gerenciador de dependências, ferramentas de análise). Neste estágio, o código-fonte é compilado em um binário estático;
+    
+    \item \textbf{Estágio de Execução}: Parte da imagem mínima \texttt{gcr.io/distroless/static-debian12}, que contém apenas o runtime essencial. O binário compilado é copiado do estágio anterior, descartando todas as ferramentas de build.
 \end{enumerate}
+
+Esta abordagem oferece benefícios significativos:
+
+\begin{itemize}
+    \item \textbf{Redução de Tamanho}: A imagem final contém apenas o binário Go e bibliotecas de sistema essenciais, resultando em tamanhos típicos de 15--25MB (versus centenas de MB em imagens não otimizadas). Estudos demonstram reduções de até 97\% no tamanho de imagens com esta técnica \cite{googlecontainers2024};
+    
+    \item \textbf{Superfície de Ataque Reduzida}: Ao eliminar ferramentas de desenvolvimento, shells interativos e pacotes desnecessários, a imagem distroless minimiza vetores de vulnerabilidade --- característica crítica para aplicações que processam dados sensíveis;
+    
+    \item \textbf{Tempo de Deploy Acelerado}: Imagens menores são transferidas mais rapidamente entre registries e nós de execução, reduzindo o tempo total de implantação.
+\end{itemize}
+
+\subsubsection{Pipeline de CI/CD}
+
+O pipeline de Integração Contínua e Entrega Contínua (CI/CD) foi implementado com \textbf{GitHub Actions}, plataforma que permite definição de workflows como código diretamente no repositório. Estudos empíricos analisando mais de 10.000 repositórios demonstram que a adoção de GitHub Actions para automação de workflows reduz significativamente o tempo de feedback e aumenta a frequência de deploys \cite{kinsman2021software}.
+
+O pipeline automatiza quatro etapas sequenciais, cada uma condicionada ao sucesso da anterior:
+
+\begin{enumerate}
+    \item \textbf{Build}: Compilação dos binários Go com flags de otimização (\texttt{-ldflags="-w -s"} para redução de tamanho) e verificação estática de erros via \texttt{go vet}. Esta etapa falha imediatamente se houver erros de compilação, provendo feedback rápido ao desenvolvedor;
+    
+    \item \textbf{Test}: Execução de testes unitários e de integração. Testes de integração utilizam \textit{testcontainers} para provisionar instâncias efêmeras de PostgreSQL e Redis, garantindo reprodutibilidade sem dependência de serviços externos. A cobertura mínima de 80\% é verificada automaticamente;
+    
+    \item \textbf{Publish}: Construção da imagem Docker multi-stage e envio para o Google Container Registry (GCR). A imagem é tagged tanto com o SHA do commit quanto com a tag \texttt{latest}, permitindo rollback preciso e deploy de versão mais recente;
+    
+    \item \textbf{Deploy}: Atualização automática do serviço no Cloud Run via comando \texttt{gcloud run deploy}. O deploy utiliza estratégia de \textit{rolling update}, onde novas instâncias são provisionadas e verificadas antes de receber tráfego.
+\end{enumerate}
+
+Para segurança, credenciais sensíveis (chaves de API, tokens de acesso) são armazenadas como \textbf{GitHub Secrets} e injetadas como variáveis de ambiente apenas durante a execução do workflow, nunca aparecendo em logs ou artefatos.
+
+\subsubsection{Plataforma de Implantação --- Google Cloud Run}
+
+A implantação ocorre via \textbf{Google Cloud Run} \cite{cloudrun2024}, plataforma serverless para containers que oferece escala automática (inclusive a zero) e modelo de cobrança por uso. Diferentemente de plataformas Function-as-a-Service (FaaS) que impõem restrições de runtime, Cloud Run executa containers Docker padrão, oferecendo flexibilidade para aplicações que não se adequam ao modelo de funções efêmeras.
+
+As características que justificaram a escolha incluem:
+
+\begin{itemize}
+    \item \textbf{Escala Automática}: O número de instâncias ajusta-se dinamicamente baseado na demanda, de zero a centenas de containers. Para um projeto acadêmico com tráfego irregular, esta característica traduz-se em custo operacional próximo de zero em períodos de baixa atividade;
+    
+    \item \textbf{Deploy Simplificado}: A implantação resume-se a um único comando (\texttt{gcloud run deploy}), abstraindo complexidades de infraestrutura como balanceamento de carga, certificados TLS e health checks;
+    
+    \item \textbf{Integração Nativa}: Cloud Run integra-se nativamente com Cloud SQL (PostgreSQL gerenciado), Memorystore (Redis gerenciado) e Cloud Logging, reduzindo a necessidade de configuração manual de conectividade.
+\end{itemize}
 
 \subsubsection{Graceful Shutdown}
 
-Em ambientes containerizados, o Cloud Run envia o sinal \texttt{SIGTERM} antes de encerrar um container --- seja por escalonamento, atualização de versão ou inatividade. Falhar em tratar esse sinal adequadamente pode causar perda de requisições em andamento, corrupção de dados parcialmente escritos e experiência degradada para o usuário final.
+Em ambientes containerizados, o Cloud Run envia o sinal \texttt{SIGTERM} antes de encerrar um container --- seja por escalonamento, atualização de versão ou inatividade. O tratamento adequado deste sinal é fundamental para garantir \textit{zero-downtime deployments} e preservar a integridade de operações em andamento.
 
-O sistema implementa o padrão de \textbf{graceful shutdown}: ao receber \texttt{SIGTERM}, a aplicação para de aceitar novas requisições, aguarda a conclusão das requisições em andamento (com timeout configurável de 30 segundos), fecha conexões com banco de dados e Redis de forma ordenada, e só então encerra o processo. Esta abordagem garante que nenhuma operação de ingestão ou consulta seja interrompida abruptamente.
+Falhar em tratar \texttt{SIGTERM} adequadamente pode causar consequências graves: perda de requisições parcialmente processadas, corrupção de transações de banco de dados interrompidas, e experiência degradada para usuários cujas requisições são abruptamente encerradas. A literatura sobre resiliência de sistemas distribuídos enfatiza que o encerramento ordenado é tão importante quanto a inicialização correta \cite{nygard2018release}.
 
-\subsubsection{Otimização de Cold Start}
+O \textit{Tô De Olho} implementa o padrão de \textbf{graceful shutdown} através de uma sequência ordenada de ações ao receber \texttt{SIGTERM}:
 
-Plataformas \textit{serverless} como Cloud Run podem escalar a zero instâncias quando não há tráfego, economizando custos. Entretanto, a primeira requisição após um período de inatividade incorre em latência adicional conhecida como \textit{cold start}. Para mitigar este efeito, o sistema adota \textbf{inicialização preguiçosa} (\textit{lazy initialization}): conexões com banco de dados e Redis são estabelecidas apenas no primeiro uso, não durante a inicialização do container. Esta técnica reduz o tempo de \textit{cold start} ao adiar operações custosas até que sejam efetivamente necessárias.
+\begin{enumerate}
+    \item \textbf{Parada de Aceitação}: O servidor HTTP para de aceitar novas conexões, retornando código 503 (Service Unavailable) para requisições subsequentes. Esta sinalização permite que balanceadores de carga redirecionem tráfego para instâncias saudáveis;
+    
+    \item \textbf{Drenagem de Requisições}: O sistema aguarda a conclusão de requisições em andamento, com timeout configurável de 30 segundos. Este período deve ser calibrado baseado na latência máxima esperada das operações;
+    
+    \item \textbf{Fechamento de Conexões}: Conexões com PostgreSQL e Redis são fechadas de forma ordenada, garantindo que transações pendentes sejam commitadas ou rolled back apropriadamente;
+    
+    \item \textbf{Encerramento do Processo}: Apenas após a conclusão das etapas anteriores, o processo encerra com código de saída zero, sinalizando término bem-sucedido ao orquestrador.
+\end{enumerate}
+
+Esta abordagem garante que nenhuma operação de ingestão ou consulta seja interrompida abruptamente, preservando a consistência dos dados e a experiência do usuário.
+
+\subsubsection{Mitigação de Cold Start}
+
+Plataformas serverless como Cloud Run podem escalar a zero instâncias quando não há tráfego, eliminando custos durante períodos de inatividade. Entretanto, a primeira requisição após um período ocioso incorre em latência adicional conhecida como \textbf{\textit{cold start}} --- o tempo necessário para provisionar uma nova instância, carregar o container e inicializar a aplicação.
+
+Pesquisas sistemáticas sobre desafios de computação serverless identificam o cold start como um dos principais fatores que afetam a experiência do usuário, com latências que podem variar de centenas de milissegundos a vários segundos dependendo do tamanho da imagem, linguagem de programação e complexidade de inicialização \cite{silva2020serverless}.
+
+Para mitigar este efeito, o sistema adota múltiplas estratégias complementares:
+
+\begin{itemize}
+    \item \textbf{Imagens Mínimas}: Conforme descrito anteriormente, o uso de imagens distroless reduz drasticamente o tempo de download e extração do container. Imagens menores significam cold starts mais rápidos;
+    
+    \item \textbf{Inicialização Preguiçosa}: Conexões com banco de dados e Redis são estabelecidas apenas no primeiro uso (\textit{lazy initialization}), não durante a inicialização do container. Esta técnica adia operações custosas (handshake TCP, autenticação, pool warmup) até que sejam efetivamente necessárias, reduzindo o tempo até a primeira resposta;
+    
+    \item \textbf{Binários Estáticos}: A compilação Go com ligação estática elimina dependências de bibliotecas dinâmicas, acelerando o carregamento do executável. O runtime Go, por ser compilado, já oferece vantagem significativa sobre linguagens interpretadas (Python, Node.js) em cenários de cold start;
+    
+    \item \textbf{Health Checks Leves}: O endpoint \texttt{/health} retorna imediatamente sem verificar dependências externas, permitindo que o Cloud Run marque a instância como saudável rapidamente. Verificações mais profundas ocorrem em endpoints separados (\texttt{/ready}).
+\end{itemize}
+
+Para cenários de produção com requisitos de latência mais rigorosos, Cloud Run oferece a configuração \texttt{--min-instances} que mantém um número mínimo de instâncias sempre aquecidas, eliminando completamente o cold start às custas de custo fixo. Esta opção não foi habilitada no escopo do MVP, mas representa uma evolução natural conforme o tráfego justifique o investimento.
 

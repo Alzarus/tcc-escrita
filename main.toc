@@ -55,21 +55,23 @@
 \contentsline {subsubsection}{\numberline {3.7.6}Fórmula Final}{34}{subsubsection.3.7.6}%
 \contentsline {subsubsection}{\numberline {3.7.7}Tratamento de Casos Especiais}{35}{subsubsection.3.7.7}%
 \contentsline {subsection}{\numberline {3.8}Infraestrutura e Implantação}{35}{subsection.3.8}%
-\contentsline {subsubsection}{\numberline {3.8.1}Containerização e CI/CD}{35}{subsubsection.3.8.1}%
-\contentsline {subsubsection}{\numberline {3.8.2}Graceful Shutdown}{35}{subsubsection.3.8.2}%
-\contentsline {subsubsection}{\numberline {3.8.3}Otimização de Cold Start}{36}{subsubsection.3.8.3}%
-\contentsline {section}{\numberline {4}Requisitos}{36}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{36}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{37}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Design}{38}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Projeto UML}{38}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Diagrama de Classes}{38}{subsubsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.2}Diagrama de Implantação}{39}{subsubsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.2}Visão arquitetural}{40}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Modelo de Banco de Dados}{41}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Testes de Software}{42}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Projeto de Testes}{42}{subsection.6.1}%
-\contentsline {section}{\numberline {7}Implantação}{42}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Projeto de Implantação}{42}{subsection.7.1}%
-\contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{42}{section.8}%
-\contentsline {section}{\numberline {9}Considerações Finais}{43}{section.9}%
+\contentsline {subsubsection}{\numberline {3.8.1}Containerização com Docker}{35}{subsubsection.3.8.1}%
+\contentsline {subsubsection}{\numberline {3.8.2}Pipeline de CI/CD}{36}{subsubsection.3.8.2}%
+\contentsline {subsubsection}{\numberline {3.8.3}Plataforma de Implantação --- Google Cloud Run}{36}{subsubsection.3.8.3}%
+\contentsline {subsubsection}{\numberline {3.8.4}Graceful Shutdown}{37}{subsubsection.3.8.4}%
+\contentsline {subsubsection}{\numberline {3.8.5}Mitigação de Cold Start}{38}{subsubsection.3.8.5}%
+\contentsline {section}{\numberline {4}Requisitos}{38}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{38}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{39}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Design}{40}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Projeto UML}{40}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Diagrama de Classes}{40}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Diagrama de Implantação}{41}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Visão arquitetural}{42}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Modelo de Banco de Dados}{43}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Testes de Software}{44}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Projeto de Testes}{44}{subsection.6.1}%
+\contentsline {section}{\numberline {7}Implantação}{44}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Projeto de Implantação}{44}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{44}{section.8}%
+\contentsline {section}{\numberline {9}Considerações Finais}{45}{section.9}%
