@@ -346,13 +346,11 @@ Esta modelagem permite consultas analíticas eficientes, como ranking de senador
 
 \subsection{Algoritmo de Ranking}
 
-O cálculo do \textit{score} de cada senador é inspirado no \textit{Legislative Effectiveness Score} (LES), metodologia desenvolvida por Volden e Wiseman para avaliar a efetividade legislativa de parlamentares americanos \cite{volden2018legislative}. A adaptação para o contexto brasileiro considerou as especificidades do Senado Federal e a disponibilidade de dados via API.
+A avaliação objetiva do desempenho parlamentar constitui elemento central para a participação cidadã informada. Conforme a escada de participação de Arnstein \cite{arnstein1969ladder}, o acesso a informações claras e comparáveis é pré-requisito para que cidadãos avancem de níveis meramente consultivos para formas efetivas de controle social. Entretanto, a construção de rankings requer transparência metodológica: critérios e pesos devem ser explícitos para que o público possa avaliar criticamente os resultados apresentados \cite{hullman2011visualization}.
 
-\subsubsection{Fundamentação Teórica}
+O cálculo do \textit{score} de cada senador é inspirado no \textit{Legislative Effectiveness Score} (LES), metodologia desenvolvida por Volden e Wiseman para avaliar a efetividade legislativa de parlamentares americanos \cite{volden2018legislative}. O LES define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei'' \cite{volden2014lawmakers}. A metodologia original utiliza uma matriz de 5 estágios de tramitação por 3 tipos de proposição, resultando em 15 indicadores ponderados.
 
-O LES original define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei'' \cite{volden2014lawmakers}. A metodologia utiliza uma matriz de 5 estágios de tramitação por 3 tipos de proposição, resultando em 15 indicadores ponderados.
-
-Para a adaptação brasileira, manteve-se a filosofia de valorizar o avanço de proposições através do processo legislativo, incorporando critérios adicionais relevantes ao contexto de fiscalização cidadã: presença em votações, economia na cota parlamentar e participação em comissões.
+Para a adaptação brasileira, manteve-se a filosofia de valorizar o avanço de proposições através do processo legislativo, incorporando critérios adicionais relevantes ao contexto de fiscalização cidadã. O índice proposto compõe-se de quatro dimensões objetivamente mensuráveis: \textbf{produtividade legislativa} (capacidade de aprovar proposições), \textbf{presença em votações} (compromisso com o mandato), \textbf{economia na cota parlamentar} (responsabilidade fiscal) e \textbf{participação em comissões} (trabalho técnico especializado). A adaptação considerou as especificidades do Senado Federal e a disponibilidade de dados via API.
 
 \subsubsection{Critérios e Pesos}
 
