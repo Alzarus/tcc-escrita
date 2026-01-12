@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  11 JAN 2026 21:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 00:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -866,81 +866,82 @@ n/10.95 ,
  []
 
 [35] [36] [37]) [38]
-Overfull \hbox (4.50691pt too wide) in paragraph at lines 224--225
-[]\OT1/phv/b/n/10.95 [RF08] \OT1/phv/m/n/10.95 O sis-tema deve des-ta-car va-lo
+Overfull \hbox (4.50691pt too wide) in paragraph at lines 231--232
+[]\OT1/phv/b/n/10.95 [RF09] \OT1/phv/m/n/10.95 O sis-tema deve des-ta-car va-lo
 -res des-ti-na-dos via ``Trans-fer[]encias Es-pe-ci-ais'' (emen-
  []
 
-[39]
-<docs/diagrama_classes.png, id=783, 246.6816pt x 246.6816pt>
+[39] [40] [41]
+<docs/diagrama_classes.png, id=795, 246.6816pt x 246.6816pt>
 File: docs/diagrama_classes.png Graphic file (type png)
 <use docs/diagrama_classes.png>
-Package pdftex.def Info: docs/diagrama_classes.png  used on input line 285.
+Package pdftex.def Info: docs/diagrama_classes.png  used on input line 317.
 (pdftex.def)             Requested size: 362.37598pt x 362.41055pt.
- [40]
-<docs/diagrama_implantacao.png, id=788, 246.6816pt x 246.6816pt>
+ [42]
+<docs/diagrama_implantacao.png, id=800, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
-Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 296.
+Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 328.
 
 (pdftex.def)             Requested size: 362.37598pt x 362.41055pt.
- [41
+ [43
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.299 
-       <./docs/diagrama_classes.png>] [42
+l.331 
+       <./docs/diagrama_classes.png>] [44
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.315     \item \texttt
+l.347     \item \texttt
                        {internal/emenda}: Integração com Portal da Transpa...
  <./docs/diagrama_implantacao.png>]
-Overfull \hbox (9.6092pt too wide) in paragraph at lines 342--343
+Overfull \hbox (9.6092pt too wide) in paragraph at lines 374--375
 []\OT1/phv/b/n/10.95 TB[]DESPESAS[]CEAPS\OT1/phv/m/n/10.95 : Ar-ma-zena cada no
 ta fis-cal re-em-bol-sada. FK para \OT1/cmtt/m/n/10.95 TB[]SENADORES\OT1/phv/m/
 n/10.95 .
  []
 
-[43] [44] (src/sections/conclusao.tex) (main.bbl [45] [46] [47] [48]) [49]
-Overfull \hbox (10.14041pt too wide) in paragraph at lines 402--403
+[45] [46] (src/sections/conclusao.tex) (main.bbl [47] [48] [49] [50] [51])
+[52]
+Overfull \hbox (10.14041pt too wide) in paragraph at lines 434--435
 []\OT1/phv/m/sl/10.95 Application Pro-gram-ming In-ter-face \OT1/phv/m/n/10.95 
 --- in-ter-face de programa[][]ao que per-mite a comunica[][]ao
  []
 
 
-Overfull \hbox (7.20003pt too wide) in paragraph at lines 406--407
+Overfull \hbox (7.20003pt too wide) in paragraph at lines 438--439
 []\OT1/phv/m/sl/10.95 Continuous In-te-gra-tion / Con-ti-nu-ous De-ploy-ment \O
 T1/phv/m/n/10.95 --- pr[]aticas de integra[][]ao e implanta[][]ao
  []
 
 
-Overfull \hbox (15.17207pt too wide) in paragraph at lines 413--414
+Overfull \hbox (15.17207pt too wide) in paragraph at lines 445--446
 []\OT1/phv/m/n/10.95 Indicador de Al-fa-be-tismo Fun-ci-o-nal --- pes-quisa bra
 -si-leira que ava-lia n[]^^Pveis de alfabetiza[][]ao
  []
 
-[50]
-Overfull \hbox (5.44817pt too wide) in paragraph at lines 422--423
+[53]
+Overfull \hbox (5.44817pt too wide) in paragraph at lines 454--455
 []\OT1/phv/m/sl/10.95 Object-Relational Map-ping \OT1/phv/m/n/10.95 --- t[]ecni
 ca de ma-pe-a-mento objeto-relacional para per-sist[]encia
  []
 
 
-Overfull \hbox (13.27754pt too wide) in paragraph at lines 424--425
+Overfull \hbox (13.27754pt too wide) in paragraph at lines 456--457
 []\OT1/phv/m/n/10.95 Proposta de Emenda []a Constitui[][]ao --- proposi[][]ao l
 e-gis-la-tiva que visa al-te-rar a Constitui[][]ao
  []
 
 
-Overfull \hbox (7.48564pt too wide) in paragraph at lines 427--428
+Overfull \hbox (7.48564pt too wide) in paragraph at lines 459--460
 []\OT1/phv/m/sl/10.95 Resource Des-crip-tion Fra-mework \OT1/phv/m/n/10.95 --- 
 mo-delo de da-dos para representa[][]ao de informa[][]oes
  []
 
-[51] [52] (main.aux)
+[54] [55] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
@@ -953,10 +954,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 36C06C5D501AE8491EF77B546D0231E6;15137.
  ) 
 Here is how much of TeX's memory you used:
- 13204 strings out of 467871
- 212426 string characters out of 5418376
- 660257 words of memory out of 5000000
- 41549 multiletter control sequences out of 15000+600000
+ 13219 strings out of 467871
+ 212610 string characters out of 5418376
+ 660545 words of memory out of 5000000
+ 41557 multiletter control sequences out of 15000+600000
  654292 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,14n,93p,1195b,661s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -972,9 +973,9 @@ Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro
 dro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/User
 s/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/U
 sers/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (56 pages, 1999726 bytes).
+Output written on main.pdf (59 pages, 2007328 bytes).
 PDF statistics:
- 1061 PDF objects out of 1200 (max. 8388607)
- 314 named destinations out of 1000 (max. 500000)
+ 1083 PDF objects out of 1200 (max. 8388607)
+ 321 named destinations out of 1000 (max. 500000)
  629 words of extra memory for PDF output out of 10000 (max. 10000000)
 

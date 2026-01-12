@@ -61,17 +61,17 @@
 \contentsline {subsubsection}{\numberline {3.8.4}Graceful Shutdown}{37}{subsubsection.3.8.4}%
 \contentsline {subsubsection}{\numberline {3.8.5}Mitigação de Cold Start}{38}{subsubsection.3.8.5}%
 \contentsline {section}{\numberline {4}Requisitos}{38}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{38}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{39}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Design}{40}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Projeto UML}{40}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Diagrama de Classes}{40}{subsubsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.2}Diagrama de Implantação}{41}{subsubsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.2}Visão arquitetural}{42}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Modelo de Banco de Dados}{43}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Testes de Software}{44}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Projeto de Testes}{44}{subsection.6.1}%
-\contentsline {section}{\numberline {7}Implantação}{44}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Projeto de Implantação}{44}{subsection.7.1}%
-\contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{44}{section.8}%
-\contentsline {section}{\numberline {9}Considerações Finais}{45}{section.9}%
+\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{39}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{41}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Design}{42}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Projeto UML}{42}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Diagrama de Classes}{42}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Diagrama de Implantação}{43}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Visão arquitetural}{44}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Modelo de Banco de Dados}{45}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Testes de Software}{46}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Projeto de Testes}{46}{subsection.6.1}%
+\contentsline {section}{\numberline {7}Implantação}{46}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Projeto de Implantação}{46}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{46}{section.8}%
+\contentsline {section}{\numberline {9}Considerações Finais}{47}{section.9}%
