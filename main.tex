@@ -403,59 +403,11 @@ Para otimizar consultas frequentes, foram criados os seguintes índices composto
     \item \texttt{idx\_comissao\_senador} --- agregação de participação em comissões.
 \end{itemize}
 
-\section{Testes de Software}
+\input{src/sections/testes}
 
-\subsection{Projeto de Testes}
-A estratégia de qualidade combina testes em diferentes níveis, aproveitando o ferramental nativo de Go:
+\input{src/sections/implantacao}
 
-\begin{itemize}
-    \item \textbf{Testes Unitários}: Validam regras de negócio isoladas, como o cálculo do ``Score'' e parsers de CSV. Implementados com o pacote padrão \texttt{testing}, utilizando \textit{Table-Driven Tests} para cobrir múltiplos cenários.
-    \item \textbf{Testes de Integração}: Validam a comunicação entre componentes e banco de dados. Utiliza-se \texttt{testcontainers-go} para subir instâncias efêmeras do PostgreSQL e Redis.
-    \item \textbf{Testes de Contrato}: Asseguram que as respostas dos serviços externos continuam respeitando os formatos esperados.
-\end{itemize}
-
-\section{Implantação}
-
-A infraestrutura foi projetada seguindo os princípios da metodologia \textit{Twelve-Factor App} \cite{wiggins2017twelvefactor}, que prioriza portabilidade, escalabilidade e manutenibilidade.
-
-\subsection{Containerização com Docker}
-
-Todos os componentes são containerizados utilizando \textbf{\textit{multi-stage builds}}, técnica recomendada pelas melhores práticas do Google Cloud \cite{googlecontainers2024}. O processo separa o ambiente de compilação (imagem \texttt{golang:1.21-alpine}) do ambiente de execução (imagem mínima \texttt{gcr.io/distroless/static-debian12}), resultando em imagens de 15--25MB com superfície de ataque reduzida.
-
-\subsection{Pipeline de CI/CD}
-
-O pipeline foi implementado com \textbf{GitHub Actions}. Estudos empíricos demonstram que a adoção de GitHub Actions reduz significativamente o tempo de feedback e aumenta a frequência de deploys \cite{kinsman2021software}. O pipeline automatiza quatro etapas:
-
-\begin{enumerate}
-    \item \textbf{Build}: Compilação com flags de otimização (\texttt{-ldflags="-w -s"}) e verificação estática via \texttt{go vet};
-    \item \textbf{Test}: Testes unitários e de integração com cobertura mínima de 80\%;
-    \item \textbf{Publish}: Construção da imagem Docker e envio para o Google Container Registry;
-    \item \textbf{Deploy}: Atualização automática do serviço no Cloud Run via \textit{rolling update}.
-\end{enumerate}
-
-\subsection{Plataforma Google Cloud Run}
-
-A implantação ocorre via \textbf{Google Cloud Run} \cite{cloudrun2024}, plataforma serverless para containers. Características que justificaram a escolha: escala automática (de zero a centenas de containers), deploy simplificado (único comando \texttt{gcloud run deploy}) e integração nativa com Cloud SQL e Memorystore.
-
-\subsection{Graceful Shutdown}
-
-O Cloud Run envia o sinal \texttt{SIGTERM} antes de encerrar um container. Falhar em tratar este sinal pode causar perda de requisições e corrupção de transações \cite{nygard2018release}. O sistema implementa uma sequência ordenada: (1) parada de aceitação de novas conexões, (2) drenagem de requisições em andamento com timeout de 30 segundos, (3) fechamento ordenado de conexões com PostgreSQL e Redis, (4) encerramento do processo.
-
-\subsection{Mitigação de Cold Start}
-
-Plataformas serverless podem escalar a zero, mas a primeira requisição após inatividade incorre em latência adicional (\textit{cold start}) \cite{silva2020serverless}. O sistema adota: imagens mínimas (distroless), inicialização preguiçosa de conexões (\textit{lazy initialization}), binários estáticos Go e health checks leves (\texttt{/health} retorna imediatamente).
-
-\section{Manual do Usuário Simplificado}
-
-A plataforma é pública e não requer cadastro para consulta, maximizando a transparência.
-
-\begin{enumerate}
-    \item \textbf{Acesso}: Navegue para \url{https://todeolho.org}.
-    \item \textbf{Ranking}: Na página inicial, visualize os ``Top 3'' senadores em Economia e Presença.
-    \item \textbf{Busca}: Utilize a barra superior para digitar o nome de um senador.
-    \item \textbf{Detalhes}: Ao clicar em um senador, navegue pelas abas ``Gastos'' (para ver notas fiscais detalhadas) e ``Emendas'' (para ver destino das verbas).
-    \item \textbf{Fiscalização}: Use o botão ``Compartilhar'' para enviar ficha do senador nas redes sociais.
-\end{enumerate}
+\input{src/sections/manual}
 
 \input{src/sections/conclusao}
 
@@ -471,16 +423,23 @@ Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e 
     \item[ACID] \textit{Atomicity, Consistency, Isolation, Durability} --- propriedades que garantem integridade em transações de banco de dados.
     \item[ADPF] Arguição de Descumprimento de Preceito Fundamental --- ação judicial perante o STF para questionar violações à Constituição.
     \item[API] \textit{Application Programming Interface} --- interface que permite comunicação entre sistemas.
+    \item[CAE] Comissão de Assuntos Econômicos --- comissão permanente do Senado Federal.
+    \item[CCJ] Comissão de Constituição, Justiça e Cidadania --- comissão permanente do Senado Federal.
     \item[CEAP] Cota para o Exercício da Atividade Parlamentar --- verba destinada aos Deputados Federais (equivalente à CEAPS para senadores).
     \item[CEAPS] Cota para o Exercício da Atividade Parlamentar dos Senadores --- verba destinada ao custeio de despesas relacionadas ao exercício do mandato parlamentar.
     \item[CGU] Controladoria-Geral da União --- órgão responsável pelo controle interno do Poder Executivo Federal e pela transparência pública.
     \item[CI/CD] \textit{Continuous Integration / Continuous Deployment} --- práticas de integração e implantação contínuas de software.
+    \item[CSS] \textit{Cascading Style Sheets} --- linguagem de folhas de estilo utilizada para definir a apresentação de documentos \textit{web}.
     \item[CSR] \textit{Client-Side Rendering} --- renderização de páginas no navegador do usuário.
     \item[CSV] \textit{Comma-Separated Values} --- formato de arquivo de texto para dados tabulares.
+    \item[DSR] \textit{Design Science Research} --- abordagem metodológica de pesquisa focada na criação e avaliação de artefatos.
     \item[DVL] \textit{Data Visualization Literacy} --- literacia em visualização de dados; capacidade de interpretar representações visuais de informações.
     \item[ETL] \textit{Extract, Transform, Load} --- processo de extração, transformação e carga de dados.
     \item[FCP] \textit{First Contentful Paint} --- métrica de performance web que mede o tempo até o primeiro conteúdo visível.
     \item[GCP] \textit{Google Cloud Platform} --- plataforma de serviços em nuvem do Google.
+    \item[HTML] \textit{HyperText Markup Language} --- linguagem de marcação padrão para documentos desenhados para serem exibidos em um navegador.
+    \item[HTTPS] \textit{HyperText Transfer Protocol Secure} --- extensão segura do protocolo HTTP para comunicação em redes de computadores.
+    \item[IDE] \textit{Integrated Development Environment} --- ambiente de desenvolvimento integrado; software que auxilia programadores no desenvolvimento de software.
     \item[INAF] Indicador de Alfabetismo Funcional --- pesquisa que avalia níveis de alfabetização no Brasil.
     \item[JIT] \textit{Just-In-Time} --- compilação sob demanda; no contexto de CSS, geração de estilos apenas quando utilizados.
     \item[JSON] \textit{JavaScript Object Notation} --- formato leve de intercâmbio de dados.
@@ -488,18 +447,22 @@ Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e 
     \item[LCP] \textit{Largest Contentful Paint} --- métrica de performance web que mede o tempo até o maior elemento visível.
     \item[LES] \textit{Legislative Effectiveness Score} --- metodologia para avaliação de efetividade legislativa desenvolvida por Volden e Wiseman.
     \item[LGPD] Lei Geral de Proteção de Dados (Lei nº 13.709/2018) --- legislação brasileira sobre privacidade e proteção de dados pessoais.
+    \item[LLM] \textit{Large Language Model} --- modelo de linguagem grande; tipo de inteligência artificial treinado em vastas quantidades de texto.
     \item[MVP] \textit{Minimum Viable Product} --- produto mínimo viável, versão inicial com funcionalidades essenciais.
     \item[OGP] \textit{Open Government Partnership} --- Parceria para Governo Aberto; iniciativa multilateral para promoção da transparência.
     \item[ORM] \textit{Object-Relational Mapping} --- técnica de mapeamento objeto-relacional para persistência de dados.
     \item[PAC] \textit{Political Action Committee} --- comitê de ação política nos EUA para arrecadação de fundos eleitorais.
     \item[PEC] Proposta de Emenda à Constituição --- visa alterar a Constituição; exige quórum de 3/5 em duas votações.
-    \item[PIX] Sistema de pagamentos instantâneos do Banco Central; no contexto parlamentar, refere-se às ``Emendas PIX'' (Transferências Especiais) --- modalidade de repasse que dispensa convênio.
-    \item[PLP] Projeto de Lei Complementar --- proposição que regulamenta matérias específicas previstas na Constituição; exige maioria absoluta para aprovação.
+    \item[PIX] Sistema de pagamentos instantâneos do Banco Central; no contexto parlamentar, refere-se às ``Emendas PIX'' (Transferências Especiais).
+    \item[PL] Projeto de Lei --- proposição destinada a dispor sobre matéria de competência normativa do Poder Legislativo.
+    \item[PLP] Projeto de Lei Complementar --- proposição que regulamenta matérias específicas previstas na Constituição.
     \item[RDF] \textit{Resource Description Framework} --- modelo de dados para representação de informações na web semântica.
     \item[REST] \textit{Representational State Transfer} --- estilo arquitetural para APIs \textit{web}.
     \item[SEO] \textit{Search Engine Optimization} --- otimização para motores de busca.
+    \item[SHA] \textit{Secure Hash Algorithm} --- família de funções de hash criptográficas.
     \item[SIAFI] Sistema Integrado de Administração Financeira do Governo Federal --- sistema de contabilidade pública do governo brasileiro.
     \item[SLES] \textit{State Legislative Effectiveness Score} --- versão estadual do LES, adaptada para legislaturas subnacionais.
+    \item[SQL] \textit{Structured Query Language} --- linguagem de consulta estruturada; padrão para gerenciamento de bancos de dados relacionais.
     \item[SSG] \textit{Static Site Generation} --- geração estática de páginas web em tempo de build.
     \item[SSR] \textit{Server-Side Rendering} --- renderização de páginas no servidor.
     \item[STF] Supremo Tribunal Federal --- órgão máximo do Poder Judiciário brasileiro.
@@ -508,6 +471,7 @@ Agradeço ao meu orientador, Prof. Pablo Vieira Florentino, pela orientação e 
     \item[TTL] \textit{Time To Live} --- tempo de vida de dados em cache.
     \item[UF] Unidade Federativa --- estado brasileiro.
     \item[URI] \textit{Uniform Resource Identifier} --- identificador único de recursos na web.
+    \item[URL] \textit{Uniform Resource Locator} --- endereço de um recurso disponível em uma rede (como a Web).
     \item[W3C] \textit{World Wide Web Consortium} --- organização internacional que desenvolve padrões para a web.
     \item[WCAG] \textit{Web Content Accessibility Guidelines} --- diretrizes de acessibilidade para conteúdo \textit{web}.
     \item[XML] \textit{eXtensible Markup Language} --- linguagem de marcação para estruturação de dados.

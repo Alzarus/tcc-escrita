@@ -1,0 +1,37 @@
+\section{Implantação e Infraestrutura}
+\label{sec:implantacao}
+
+A arquitetura de implantação do \textit{Tô De Olho} foi projetada para garantir alta disponibilidade, escalabilidade elástica e baixo custo operacional, alinhando-se aos princípios da metodologia \textit{Twelve-Factor App} \cite{wiggins2017twelvefactor}. A infraestrutura baseia-se integralmente em serviços gerenciados na nuvem (\textit{Cloud Native}), eliminando a necessidade de provisionamento e manutenção de servidores físicos ou virtuais tradicionais.
+
+\subsection{Containerização}
+
+A portabilidade da aplicação é assegurada pelo uso de contêineres Docker. O processo de construção das imagens utiliza a técnica de \textit{Multi-Stage Builds}, recomendada pelas melhores práticas de segurança \cite{googlecontainers2024}. Esta abordagem divide o processo em dois estágios:
+
+\begin{enumerate}
+    \item \textbf{Estágio de Build}: Utiliza uma imagem base completa (\texttt{golang:1.21-alpine}) contendo compiladores e ferramentas de construção necessárias para gerar o binário estático da aplicação.
+    \item \textbf{Estágio de Runtime}: Copia apenas o binário compilado para uma imagem minimalista (\texttt{gcr.io/distroless/static}), isenta de gerenciadores de pacotes ou \textit{shell}.
+\end{enumerate}
+
+O resultado são imagens finais extremamente leves (aproximadamente 25MB) e com superfície de ataque reduzida, visto que não contêm ferramentas que poderiam ser exploradas por atacantes.
+
+\subsection{Pipeline de Integração e Entrega Contínua (CI/CD)}
+
+A automação do ciclo de vida do software é gerenciada via \textit{GitHub Actions}, configurada para executar pipelines distintos baseados em eventos do repositório. A adoção de CI/CD permite reduzir o tempo de \textit{feedback} e mitigar erros humanos em processos manuais de \textit{deploy} \cite{kinsman2021software}. O fluxo principal (\textit{pipeline} de produção) é composto pelas seguintes etapas:
+
+\begin{itemize}
+    \item \textbf{Verificação (Linting \& Vet)}: Análise estática do código para garantir conformidade com os padrões de estilo da linguagem Go e detecção prévia de construções suspeitas.
+    \item \textbf{Testes Automatizados}: Execução de todas as suítes de testes unitários e de integração. A falha em qualquer teste bloqueia imediatamente o processo de entrega.
+    \item \textbf{Build e Push}: Construção da imagem Docker e publicação no \textit{Google Artifact Registry}, versionada com o \textit{hash} do \textit{commit} (\textit{SHA}).
+    \item \textbf{Deploy}: Atualização do serviço no Google Cloud Run, utilizando a estratégia de \textit{rolling update} para garantir zero \textit{downtime} durante a transição de versões.
+\end{itemize}
+
+\subsection{Infraestrutura Serverless no Google Cloud}
+
+O ambiente de execução principal é o \textbf{Google Cloud Run}, uma plataforma de computação \textit{serverless} que abstrai a complexidade de gerenciamento de infraestrutura Kubernetes \cite{cloudrun2024}. Esta escolha arquitetural oferece vantagens estratégicas para o projeto:
+
+\begin{itemize}
+    \item \textbf{Escalabilidade Automática}: O serviço ajusta automaticamente o número de instâncias com base no tráfego de requisições, podendo escalar a zero (shutdown total) em momentos de inatividade, otimizando custos.
+    \item \textbf{Resiliência e Graceful Shutdown}: A aplicação implementa rotinas de desligamento gracioso para lidar com os sinais de interrupção (\texttt{SIGTERM}) da plataforma. Isso garante que requisições em andamento sejam finalizadas e conexões com o banco de dados sejam encerradas corretamente antes da destruição do contêiner \cite{nygard2018release}.
+\end{itemize}
+
+Para mitigar o problema de \textit{Cold Start} (latência inicial na subida de novas instâncias) \cite{silva2020serverless}, característico de arquiteturas \textit{serverless}, utilizam-se otimizações como a inicialização preguiçosa (\textit{lazy initialization}) de conexões pesadas e configurações de \textit{min-instances} em períodos críticos de tráfego eleitoral.

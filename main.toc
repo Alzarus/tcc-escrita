@@ -50,12 +50,15 @@
 \contentsline {subsection}{\numberline {5.3}Estratégia de Ingestão de Dados}{28}{subsection.5.3}%
 \contentsline {subsection}{\numberline {5.4}Modelo de Dados}{29}{subsection.5.4}%
 \contentsline {section}{\numberline {6}Testes de Software}{30}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Projeto de Testes}{30}{subsection.6.1}%
-\contentsline {section}{\numberline {7}Implantação}{30}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Containerização com Docker}{30}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Pipeline de CI/CD}{30}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Plataforma Google Cloud Run}{31}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Graceful Shutdown}{31}{subsection.7.4}%
-\contentsline {subsection}{\numberline {7.5}Mitigação de Cold Start}{31}{subsection.7.5}%
-\contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{31}{section.8}%
-\contentsline {section}{\numberline {9}Considerações Finais}{31}{section.9}%
+\contentsline {subsection}{\numberline {6.1}Testes Unitários}{30}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Testes de Integração}{30}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Testes de Contrato}{31}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Implantação e Infraestrutura}{31}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Containerização}{31}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Pipeline de Integração e Entrega Contínua (CI/CD)}{31}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Infraestrutura Serverless no Google Cloud}{32}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{32}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Acesso e Visão Geral}{32}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Análise do Perfil Parlamentar}{33}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Ferramentas de Compartilhamento}{33}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Considerações Finais}{33}{section.9}%
