@@ -1,0 +1,156 @@
+\section{Visão geral }
+
+O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência parlamentar focada no Senado Federal. Sua proposta é aproximar cidadãos dos dados legislativos oficiais, convertendo informação dispersa em conhecimento fiscalizável e de fácil compreensão. O projeto vai além dos dados abertos básicos, integrando fontes complexas como a Cota para o Exercício da Atividade Parlamentar dos Senadores (CEAPS) e as ``emendas PIX''. Ao combinar uma arquitetura de \textbf{monolito modular} em Go, ingestão via APIs oficiais (Senado e Portal da Transparência) e um \textit{front-end} em Next.js, a plataforma busca reduzir a assimetria de informação sobre os 81 senadores da República \cite{Gomes2010}.
+
+A literatura evidencia que TICs ampliam possibilidades de participação, mas só geram valor quando articuladas a contextos de uso. Avelino et al. mapeiam iniciativas, reforçando que tecnologias exigem visualizações para o controle social \cite{avelino2021democracia}. Com um corpo legislativo menor e mais ``caro'' \textit{per capita} que a Câmara, o Senado carece de ferramentas que cruzem votações com a execução orçamentária. À luz desses estudos, o \textit{Tô De Olho} procura transformar transparência passiva em \textit{accountability} ativa \cite{pateman1970, gomes2019}.
+
+% Recomendo manter cada seção ou subseção de texto em um arquivo separado e depois utilizados com o comando include, conforme o exemplo a seguir. Porém, se preferir, também pode deixar seu texto neste arquivo
+\input{src/sections/objetivos}
+%\input{src/sections/definicoes}
+
+\subsection{Declaração do Problema}
+
+O Senado Federal disponibiliza dados públicos por meio de APIs próprias, enquanto a Controladoria-Geral da União (CGU) mantém o Portal da Transparência com dados de emendas parlamentares. Contudo, essas fontes encontram-se fragmentadas em órgãos distintos: a API Legislativa do Senado concentra informações sobre matérias e votações; a API Administrativa do Senado reúne dados da CEAPS e remunerações de gabinete; e o Portal da Transparência da CGU hospeda os registros de emendas e transferências federais. Para construir uma visão completa de um único senador, o cidadão precisaria consultar três sistemas de dois órgãos diferentes, com interfaces, formatos e periodicidades de atualização distintos.
+
+Essa fragmentação adquire contornos mais graves quando analisamos as ``Transferências Especiais'' --- popularmente conhecidas como ``emendas PIX''. Criada em 2019, essa modalidade dispensa convênio e transfere recursos federais diretamente a estados e municípios. Alencar \cite{alencar2024emendaspix} demonstra que, do total de R\$ 20,5 bilhões transferidos por essa via, apenas R\$ 933 milhões tiveram prestação de contas adequada --- menos de 5\%. Em 2020, primeiro ano de vigência, as transferências especiais representavam 6,4\% das emendas individuais; em 2023, esse percentual saltou para 32,4\%. A distribuição é ainda mais desigual: no mesmo estado, alguns municípios receberam mais de R\$ 4.500 \textit{per capita}, enquanto outros receberam menos de R\$ 1 --- sem qualquer justificativa pública dos parlamentares.
+
+Além da barreira técnica imposta pela fragmentação dos dados, há uma barreira social igualmente relevante. Segundo o Indicador de Alfabetismo Funcional \cite{inaf2024}, 29\% da população brasileira entre 15 e 64 anos é funcionalmente analfabeta, o que limita severamente a capacidade de interpretar planilhas, gráficos e relatórios disponibilizados nos portais oficiais. Nesse contexto, a simples disponibilização de dados brutos não garante transparência efetiva: é necessária uma ferramenta que consolide as informações dispersas e as apresente de forma visual e acessível, permitindo ao cidadão comum avaliar qualitativamente seus representantes \cite{avelino2021democracia}.
+
+\subsection{Proposta de Solução de Software}
+
+Diante da fragmentação de dados descrita e da barreira de letramento que impede o cidadão comum de interpretar planilhas e relatórios oficiais, propõe-se o \textit{Tô De Olho}: uma plataforma \textit{web} de código aberto concebida para centralizar a fiscalização do Senado Federal. A solução integra três APIs oficiais distintas --- Legislativa do Senado, Administrativa do Senado e Portal da Transparência da CGU --- consolidando informações dispersas em uma interface única e acessível.
+
+O sistema organiza os dados em três dimensões complementares do mandato parlamentar:
+
+\begin{itemize}
+    \item \textbf{Atividade Legislativa}: votações nominais, participação em comissões, proposições de autoria e relatorias;
+    \item \textbf{Gestão de Recursos}: despesas detalhadas da Cota Parlamentar (CEAPS), incluindo identificação de fornecedores e categorias de gasto;
+    \item \textbf{Articulação Orçamentária}: emendas parlamentares com destaque para Transferências Especiais (``emendas PIX''), permitindo rastrear o destino dos recursos.
+\end{itemize}
+
+O diferencial da plataforma reside em quatro pilares:
+
+\begin{enumerate}
+    \item \textbf{Ranking Metodologicamente Fundamentado}: inspirado no \textit{State Legislative Effectiveness Score} (SLES) de Volden e Wiseman \cite{volden2018legislative}, o algoritmo de avaliação pondera produtividade legislativa (35\%), presença em votações (25\%), economia na cota parlamentar (20\%) e participação em comissões (20\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
+    
+    \item \textbf{Visualização Orientada à Ação}: seguindo os princípios de retórica visual de Hullman \cite{hullman2011visualization}, cada dado absoluto é contextualizado com médias comparativas, reduzindo a possibilidade de interpretações manipuladas e estimulando conclusões informadas;
+    
+    \item \textbf{Acessibilidade como Requisito}: a interface segue as diretrizes WCAG 2.1 nível AA, garantindo navegação por leitores de tela, contraste adequado e operação via teclado --- essencial para atingir os 29\% de brasileiros funcionalmente analfabetos identificados pelo INAF \cite{inaf2024};
+    
+    \item \textbf{Consolidação Multi-Fonte}: ao integrar dados de três órgãos distintos em uma única consulta, a plataforma elimina a necessidade de o cidadão navegar por sistemas heterogêneos com formatos e interfaces incompatíveis.
+\end{enumerate}
+
+Em síntese, o \textit{Tô De Olho} atua como um ``auditor digital'', automatizando cruzamentos de dados que, manualmente, seriam inviáveis para o eleitor comum. O objetivo não é substituir a análise crítica do cidadão, mas fornecer-lhe ferramentas para exercê-la de forma qualificada.
+
+
+
+\subsection{Trabalhos Relacionados}
+
+Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. À luz da Escada de Participação de Arnstein \cite{arnstein1969ladder}, podemos classificar essas ferramentas conforme o grau de poder que conferem ao cidadão.
+
+\subsubsection{Portais Oficiais (Nível Informação)}
+
+\textbf{Portal da Transparência (CGU):} Lançado em novembro de 2004 pela Controladoria-Geral da União, o Portal da Transparência consolidou-se como a principal ferramenta oficial do governo federal para acesso a dados de gastos públicos, servidores e transferências \cite{portaltransparencia2024}. Em 2018, o portal passou por reformulação completa para tornar a navegação mais intuitiva, e em 2024, ao completar 20 anos, recebeu novas atualizações que reafirmaram seu papel central no controle social. Os dados disponíveis abrangem execução orçamentária detalhada por órgão, remuneração individualizada de servidores, pagamentos de programas sociais (Bolsa Família, Auxílio Gás, Pé-de-Meia), licitações, contratos e --- particularmente relevante para este trabalho --- emendas parlamentares, incluindo registros relacionados à ADPF 854 sobre transparência orçamentária.
+
+O portal registra entre 1,3 e 1,5 milhão de usuários únicos mensais, com aproximadamente 14 a 19 milhões de visualizações de página, demonstrando alto engajamento da sociedade civil e órgãos de controle. Para desenvolvedores, oferece uma API REST com limites de 90 requisições por minuto em horário comercial e 300 requisições por minuto durante a madrugada. Contudo, algumas limitações persistem: a periodicidade de atualização varia significativamente entre conjuntos de dados --- enquanto despesas e emendas são atualizadas diariamente, dados de imóveis funcionais podem apresentar defasagem superior a seis meses. Além disso, a granularidade contábil (com termos técnicos do Siafi --- Sistema Integrado de Administração Financeira do Governo Federal) representa barreira para cidadãos sem conhecimento em contabilidade pública.
+
+\textbf{Portal de Dados Abertos do Senado Federal:} Lançado em 2012 em conformidade com a Lei de Acesso à Informação \cite{lai2011}, o portal foi institucionalizado pelo Ato da Comissão Diretora n. 14 de 2013, que estabeleceu a Política de Dados Abertos do Senado \cite{dadosabertossenado2024}. O ecossistema divide-se em duas APIs principais: a \textbf{API Legislativa}, que oferece dados sobre matérias, votações nominais, senadores e atividades de comissões; e a \textbf{API Administrativa}, focada em transparência de gastos (CEAPS), gestão de pessoas, orçamento e contratos. Os formatos suportados incluem JSON, XML e CSV, com documentação técnica via Swagger UI. A API possui limite de 10 requisições por segundo para garantir estabilidade.
+
+\textbf{Portal de Dados Abertos da Câmara dos Deputados:} O fornecimento de dados legislativos pela Câmara iniciou-se em 2006 através do sistema SIT Câmara (Web Services) \cite{dadosabertoscamara2024}. Com a Lei de Acesso à Informação em 2011, o portal foi rebatizado como ``Dados Abertos'', eliminando a obrigatoriedade de cadastro prévio. Em 2017, lançou-se a API RESTful v2, substituindo os antigos Web Services por arquitetura mais moderna. O portal oferece \textit{endpoints} para deputados (perfis biográficos, discursos, frentes parlamentares), proposições (texto integral, tramitação), votações (incluindo voto individual de cada parlamentar) e cotas parlamentares (CEAP). Os formatos incluem JSON e XML via API, além de CSV, XLSX e ODS para \textit{downloads} em massa. O portal é referência em transparência legislativa, alimentando projetos como a Operação Serenata de Amor, Radar Governamental e VotoBom.
+
+Embora esses portais representem avanços significativos na transparência passiva, situam-se no degrau mais básico da Escada de Arnstein --- informação bruta sem mediação interpretativa. O cidadão comum, sem conhecimento técnico sobre APIs ou contabilidade pública, enfrenta barreiras substanciais para transformar dados dispersos em fiscalização efetiva.
+
+\subsubsection{Ferramentas de Fiscalização da Câmara dos Deputados}
+
+O ecossistema de transparência para a Câmara dos Deputados é mais desenvolvido que para o Senado, contando com diversas iniciativas consolidadas:
+
+\textbf{Operação Serenata de Amor:} Projeto pioneiro de código aberto, lançado em 2016 via financiamento coletivo, que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares \cite{albuquerque2018serenata}. Desenvolvido pela Open Knowledge Brasil, é composto por dois sistemas complementares:
+
+\begin{itemize}
+    \item \textbf{Rosie:} Algoritmo de \textit{machine learning} desenvolvido em Python que audita a Cota para Exercício da Atividade Parlamentar (CEAP). Opera através de cinco classificadores principais: (1) \textit{meal price outlier} --- identifica refeições com valores acima da média para o local; (2) \textit{irregular companies} --- detecta gastos em empresas com situação cadastral irregular na Receita Federal; (3) \textit{traveled speeds} --- cruza gastos para identificar deslocamentos fisicamente impossíveis; (4) \textit{monthly subquota limit} --- verifica excesso nos limites mensais por categoria; e (5) \textit{election expenses} --- identifica uso indevido da cota para financiar campanhas.
+    \item \textbf{Jarbas:} Interface \textit{web} desenvolvida em Django que permite aos cidadãos navegar pelos casos suspeitos identificados pela Rosie, visualizar notas fiscais digitalizadas e formalizar denúncias.
+\end{itemize}
+
+Até 2018, o projeto identificou \textbf{8.276 reembolsos suspeitos} envolvendo 735 deputados, totalizando aproximadamente \textbf{R\$ 3,6 milhões} em potenciais irregularidades. Um mutirão inicial resultou em 629 denúncias formais ao Congresso. Atualmente, a equipe principal migrou o foco para o projeto ``Querido Diário'', que aplica técnicas similares a diários oficiais municipais.
+
+\textbf{De Olho no Congresso:} Plataforma \textit{web} moderna focada em gastos de Deputados Federais \cite{deolhonocongresso2024}. Com mais de \textbf{55 mil visitantes} e \textbf{95 mil consultas} realizadas, a ferramenta oferece interface acessível que inclui:
+
+\begin{itemize}
+    \item \textbf{Rankings Múltiplos:} Top 50 deputados com maiores gastos, ranking de partidos por consumo da cota e ranking de empresas fornecedoras --- incluindo filtro específico para ``empresas com sanções'' administrativas;
+    \item \textbf{Painel de Alertas:} Sistema de detecção automática de despesas atípicas, incluindo: valores significativamente acima da média geral, pagamentos idênticos repetidos ao mesmo fornecedor, notas fiscais emitidas em finais de semana, e intervalos menores que 3 dias entre pagamentos;
+    \item \textbf{Histórico Completo:} Gastos anuais e mensais com filtros por fornecedor, categoria e período, além de detalhamento de benefícios (auxílio-moradia, imóvel funcional) e equipe de gabinete.
+\end{itemize}
+
+A plataforma ressalta que os alertas são ``indicativos que merecem investigação'', servindo como guia para auditoria cidadã. Limita-se, porém, à Câmara dos Deputados e não oferece métricas de desempenho legislativo.
+
+\textbf{De Olho em Você:} Plataforma \textit{web} com foco em ``transparência que dá para entender'', abrangendo aproximadamente 549 parlamentares da Câmara dos Deputados \cite{deolhoemvoce2024}. A plataforma integra dados da API da Câmara e do Portal da Transparência, destacando-se pela cobertura das \textbf{Emendas PIX} (Transferências Especiais). Entre suas funcionalidades principais:
+
+\begin{itemize}
+    \item \textbf{Mapas de Distribuição:} Cada perfil de deputado apresenta visualização geoespacial do destino de suas emendas parlamentares, permitindo identificar concentração de recursos por município;
+    \item \textbf{Ranking de Cidades:} Classificação por faixa populacional das cidades que mais receberam Transferências Especiais (ex: municípios de até 20 mil habitantes);
+    \item \textbf{Comparador de Parlamentares:} Ferramenta que permite selecionar de 2 a 5 deputados para comparação lado a lado de gastos de cota, equipe de gabinete, emendas enviadas e fornecedores em comum;
+    \item \textbf{Painel de Fornecedores:} Ranking das empresas que mais recebem recursos, identificando padrões de concentração de gastos.
+\end{itemize}
+
+Entretanto, os rankings do ``De Olho em Você'' baseiam-se em métricas agregadas diretas (quem mais gastou, quem mais enviou emendas), \textbf{sem metodologia explícita de efetividade legislativa}. Além disso, a plataforma não contempla o Senado Federal.
+
+\subsubsection{Experiências Internacionais}
+
+\textbf{TheyWorkForYou (Reino Unido):} Lançada em 2004 e operada pela organização sem fins lucrativos mySociety \cite{mysociety2024}, a plataforma monitora cinco parlamentos britânicos: Câmara dos Comuns, Câmara dos Lordes, Parlamento Escocês, Senedd (País de Gales) e Assembleia da Irlanda do Norte \cite{theyworkforyou2024}. Em 2023/24, registrou mais de \textbf{4,8 milhões de visitas}. Entre suas funcionalidades:
+
+\begin{itemize}
+    \item \textbf{Hansard Pesquisável:} Arquivo completo de todos os discursos e debates parlamentares;
+    \item \textbf{Alertas por E-mail:} Notificações automáticas quando um parlamentar específico discursa ou quando uma palavra-chave é mencionada;
+    \item \textbf{Busca por Código Postal:} Identificação imediata do representante local.
+\end{itemize}
+
+A plataforma consolidou-se como referência mundial em \textit{civic tech} parlamentar, inspirando iniciativas em diversos países.
+
+\textbf{OpenSecrets (Estados Unidos):} Principal organização de pesquisa sobre dinheiro na política americana, resultante da fusão em 2021 entre o \textit{Center for Responsive Politics} (fundado em 1983 por dois ex-senadores) e o \textit{National Institute on Money in State Politics} \cite{opensecrets2024}. Vencedora de múltiplos \textit{Webby Awards}, a plataforma rastreia:
+
+\begin{itemize}
+    \item \textbf{Financiamento de Campanhas:} Contribuições individuais, PACs e Super PACs;
+    \item \textbf{Lobbying:} Gastos de empresas e grupos de interesse para influenciar legislação;
+    \item \textbf{Revolving Door:} Monitoramento de ex-congressistas que se tornaram lobistas;
+    \item \textbf{Dark Money:} Análise de fundos de origem não divulgada que influenciam eleições.
+\end{itemize}
+
+É fonte primária para veículos como \textit{The New York Times} e \textit{The Washington Post}, oferecendo APIs e exportações de dados para pesquisadores acadêmicos.
+
+\subsubsection{Lacuna Identificada e Diferencial do Tô De Olho}
+
+A análise sistemática dos trabalhos relacionados evidencia um cenário paradoxal: enquanto a Câmara dos Deputados --- com 513 parlamentares --- dispõe de ao menos três plataformas consolidadas de fiscalização cidadã, o Senado Federal permanece como uma ``caixa preta'' digital. Essa lacuna não é trivial. Os 81 senadores exercem mandatos de oito anos, atuam como câmara revisora de toda legislação federal e detêm competências exclusivas de alto impacto: confirmação de ministros do STF, julgamento de presidentes da República e aprovação de dívidas externas. A ausência de ferramentas de monitoramento específicas representa, portanto, uma falha sistêmica no ecossistema de \textit{accountability} brasileiro.
+
+Mais do que apenas replicar soluções existentes para o âmbito senatorial, o \textit{Tô De Olho} propõe-se a \textbf{sintetizar o melhor de cada iniciativa} analisada, superando limitações identificadas:
+
+\begin{itemize}
+    \item \textbf{Do ``De Olho em Você''}, incorporamos a \textbf{visualização geoespacial de Emendas PIX} --- permitindo que o cidadão identifique, em mapas interativos, quais municípios receberam recursos de cada senador --- e o \textbf{comparador de parlamentares}, que possibilita análise lado a lado de até cinco senadores em múltiplas dimensões;
+    
+    \item \textbf{Do ``De Olho no Congresso''}, adotamos o \textbf{painel de alertas automáticos} para despesas atípicas --- notas fiscais em finais de semana, valores acima da média, pagamentos repetidos em intervalos curtos --- e o \textbf{ranking de fornecedores}, incluindo cruzamento com empresas sob sanção administrativa;
+    
+    \item \textbf{Do ``Serenata de Amor''}, adotamos a filosofia de \textbf{código aberto} e documentação transparente.
+\end{itemize}
+
+O diferencial central do \textit{Tô De Olho}, entretanto, reside em uma contribuição original: a implementação de um \textbf{Índice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- métrica que penaliza a parcimônia --- ou \textit{quantidade de proposições} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional inspirado no \textit{State Legislative Effectiveness Score} (SLES) de Volden e Wiseman \cite{volden2018legislative}.
+
+Nosso índice pondera quatro dimensões objetivas, com pesos públicos e metodologia reprodutível:
+
+\begin{enumerate}
+    \item \textbf{Produtividade Legislativa (35\%)}: Avalia a capacidade de transformar proposições em leis, com multiplicadores por tipo (PEC: 3x, PLP: 2x) e estágio de tramitação alcançado;
+    
+    \item \textbf{Presença em Votações (25\%)}: Mensura o comparecimento efetivo às sessões deliberativas, descontando ausências justificadas por licença médica ou missão oficial;
+    
+    \item \textbf{Economia na Cota Parlamentar (20\%)}: Compara o uso individual da CEAPS com a mediana do Senado, premiando a eficiência no uso de recursos públicos;
+    
+    \item \textbf{Participação em Comissões (20\%)}: Pondera o engajamento em comissões permanentes e especiais, com bônus para cargos de liderança (presidente, relator).
+\end{enumerate}
+
+A exposição pública de critérios e pesos não é mera formalidade: representa um compromisso ético com a \textbf{transparência metodológica}. Diferente de rankings opacos, o cidadão poderá compreender --- e questionar --- os fundamentos da classificação, evitando que a plataforma seja percebida como veículo de viés político.
+
+Em síntese, o \textit{Tô De Olho} posiciona-se como a \textbf{primeira plataforma integrada} de fiscalização cidadã voltada ao Senado Federal, combinando três vertentes:
+
+\begin{enumerate}
+    \item \textbf{Consolidação Multi-Fonte}: Integra dados de três APIs oficiais (Legislativa, Administrativa e Portal da Transparência) em interface única;
+    \item \textbf{Inteligência de Dados}: Oferece alertas automáticos, rankings e visualizações que convertem dados brutos em informação acionável;
+    \item \textbf{Rigor Metodológico}: Fundamenta-se em literatura acadêmica sobre efetividade legislativa, com metodologia aberta a auditoria pública.
+\end{enumerate}
