@@ -13,52 +13,53 @@
 \contentsline {section}{\numberline {2}Fundamentação Teórica}{8}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Eixo Normativo-Institucional}{8}{subsection.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.1}Transparência Pública e Dados Abertos}{8}{subsubsection.2.1.1}%
-\contentsline {subsubsection}{\numberline {2.1.2}Emendas PIX e Desafios de Transparência Orçamentária}{9}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2}Emendas PIX e Desafios de Transparência Orçamentária}{10}{subsubsection.2.1.2}%
 \contentsline {subsection}{\numberline {2.2}Eixo Político-Participativo}{10}{subsection.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.1}Democracia Digital e Participação Cidadã}{10}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}Teoria Principal-Agente e Accountability}{11}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Civic Tech e Sociedade Civil}{12}{subsubsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.3}Eixo Técnico-Metodológico}{13}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Métricas de Efetividade Legislativa}{13}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}Visualização de Dados e Retórica Visual}{14}{subsubsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3}Arquitetura de Software: Monolito Modular}{15}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.2.3}Civic Tech e Sociedade Civil}{13}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Eixo Técnico-Metodológico}{14}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Métricas de Efetividade Legislativa}{14}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Visualização de Dados e Retórica Visual}{15}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Arquitetura de Software: Monolito Modular}{16}{subsubsection.2.3.3}%
 \contentsline {subsubsection}{\numberline {2.3.4}Engenharia de Dados: APIs e Processos ETL}{17}{subsubsection.2.3.4}%
 \contentsline {section}{\numberline {3}Metodologia}{18}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Abordagem de Desenvolvimento}{18}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Fontes de Dados}{19}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}API Legislativa do Senado}{19}{subsubsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.1}Abordagem de Desenvolvimento}{19}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Fontes de Dados}{20}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}API Legislativa do Senado}{20}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}API Administrativa do Senado}{20}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Portal da Transparência (CGU)}{20}{subsubsection.3.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.4}Limitações e Cobertura Temporal}{20}{subsubsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.3}Metodologia de Avaliação de Desempenho}{20}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.3}Metodologia de Avaliação de Desempenho}{21}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Produtividade Legislativa}{21}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Presença em Votações}{21}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Economia na Cota Parlamentar}{21}{subsubsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.4}Participação em Comissões}{21}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.2}Presença em Votações}{22}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Economia na Cota Parlamentar}{22}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Participação em Comissões}{22}{subsubsection.3.3.4}%
 \contentsline {subsubsection}{\numberline {3.3.5}Fórmula Final e Tratamento de Casos Especiais}{22}{subsubsection.3.3.5}%
 \contentsline {section}{\numberline {4}Requisitos}{22}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{22}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{24}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{23}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{25}{subsection.4.2}%
 \contentsline {section}{\numberline {5}Design}{25}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Arquitetura do Sistema}{25}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.1}Arquitetura do Sistema}{26}{subsection.5.1}%
 \contentsline {subsubsection}{\numberline {5.1.1}Organização em Módulos}{26}{subsubsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.2}Visão de Implantação}{26}{subsubsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.2}Visão de Implantação}{27}{subsubsection.5.1.2}%
 \contentsline {subsection}{\numberline {5.2}Stack Tecnológico}{27}{subsection.5.2}%
 \contentsline {subsubsection}{\numberline {5.2.1}Backend em Go}{27}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}Camada de Persistência}{28}{subsubsection.5.2.2}%
 \contentsline {subsubsection}{\numberline {5.2.3}Frontend em Next.js}{28}{subsubsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.3}Estratégia de Ingestão de Dados}{28}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.3}Estratégia de Ingestão de Dados}{29}{subsection.5.3}%
 \contentsline {subsection}{\numberline {5.4}Modelo de Dados}{29}{subsection.5.4}%
 \contentsline {section}{\numberline {6}Testes de Software}{30}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Testes Unitários}{30}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Testes de Integração}{30}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.2}Testes de Integração}{31}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Testes de Contrato}{31}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Implantação e Infraestrutura}{31}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Containerização}{31}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Pipeline de Integração e Entrega Contínua (CI/CD)}{31}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Infraestrutura Serverless no Google Cloud}{32}{subsection.7.3}%
-\contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{32}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Acesso e Visão Geral}{32}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Análise do Perfil Parlamentar}{33}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Ferramentas de Compartilhamento}{33}{subsection.8.3}%
-\contentsline {section}{\numberline {9}Considerações Finais}{33}{section.9}%
+\contentsline {section}{\numberline {7}Implantação e Infraestrutura}{32}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Containerização}{32}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Pipeline de Integração e Entrega Contínua (CI/CD)}{32}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Infraestrutura Serverless no Google Cloud}{33}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Estratégia Mobile-First e Acessibilidade}{33}{subsection.7.4}%
+\contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{33}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Acesso e Visão Geral}{33}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Análise do Perfil Parlamentar}{34}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Ferramentas de Compartilhamento}{34}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Considerações Finais}{34}{section.9}%

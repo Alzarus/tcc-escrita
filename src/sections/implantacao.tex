@@ -1,7 +1,7 @@
 \section{Implantação e Infraestrutura}
 \label{sec:implantacao}
 
-A arquitetura de implantação do \textit{Tô De Olho} foi projetada para garantir alta disponibilidade, escalabilidade elástica e baixo custo operacional, alinhando-se aos princípios da metodologia \textit{Twelve-Factor App} \cite{wiggins2017twelvefactor}. A infraestrutura baseia-se integralmente em serviços gerenciados na nuvem (\textit{Cloud Native}), eliminando a necessidade de provisionamento e manutenção de servidores físicos ou virtuais tradicionais.
+A arquitetura de implantação do \textit{Tô De Olho} foi projetada para garantir alta disponibilidade, escalabilidade elástica e baixo custo operacional, alinhando-se aos princípios da metodologia \textit{Twelve-Factor App} \cite{wiggins2017twelvefactor}. Balalaie et al. argumentam que a adoção de arquiteturas orientadas a serviços e práticas de DevOps é crucial para permitir o desenvolvimento ágil e a entrega contínua de valor em sistemas complexos \cite{balalaie2016microservices}. Seguindo essa premissa, a infraestrutura baseia-se integralmente em serviços gerenciados na nuvem (\textit{Cloud Native}), eliminando a necessidade de provisionamento e manutenção de servidores físicos ou virtuais tradicionais.
 
 \subsection{Containerização}
 
@@ -34,4 +34,8 @@ O ambiente de execução principal é o \textbf{Google Cloud Run}, uma plataform
     \item \textbf{Resiliência e Graceful Shutdown}: A aplicação implementa rotinas de desligamento gracioso para lidar com os sinais de interrupção (\texttt{SIGTERM}) da plataforma. Isso garante que requisições em andamento sejam finalizadas e conexões com o banco de dados sejam encerradas corretamente antes da destruição do contêiner \cite{nygard2018release}.
 \end{itemize}
 
-Para mitigar o problema de \textit{Cold Start} (latência inicial na subida de novas instâncias) \cite{silva2020serverless}, característico de arquiteturas \textit{serverless}, utilizam-se otimizações como a inicialização preguiçosa (\textit{lazy initialization}) de conexões pesadas e configurações de \textit{min-instances} em períodos críticos de tráfego eleitoral.
+Para mitigar o problema de \textit{Cold Start} (latência inicial na subida de novas instâncias) \cite{silva2020serverless}, característico de arquiteturas \textit{serverless}, utilizam-se otimizações como a inicialização preguiçosa (\textit{lazy initialization}) de conexões pesadas e configurações de \textit{min-instances} em períodos críticos. Adicionalmente, estratégias de resiliência como \textit{Exponential Backoff} com \textit{Jitter} são empregadas na comunicação entre serviços para evitar o efeito de manada (\textit{thundering herd}) em caso de falhas transientes, conforme recomendado pela arquitetura de referência da AWS \cite{aws2015backoff}. Para evoluções futuras, planeja-se a implementação do padrão \textit{Circuit Breaker} \cite{montesi2016circuit} e o aprofundamento da observabilidade distribuída baseada nos conceitos de \textit{Dapper} \cite{sigelman2010dapper} e nos três pilares de monitoramento modernos \cite{sridharan2018observability}.
+
+\subsection{Estratégia Mobile-First e Acessibilidade}
+
+A decisão de priorizar a experiência em dispositivos móveis (\textit{Mobile-First}) fundamenta-se na realidade do acesso à internet no Brasil. Dados da PNAD Contínua TIC 2024 revelam que o celular é o dispositivo de acesso exclusivo para a grande maioria dos internautas brasileiros, atingindo 99\% de penetração nas classes D e E \cite{pnad2024}. Portanto, garantir uma interface leve, responsiva e performática em conexões móveis não é apenas uma escolha técnica de \textit{frontend}, mas um requisito de inclusão digital indispensável para uma ferramenta de controle social.

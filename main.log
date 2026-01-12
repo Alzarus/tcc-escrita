@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 02:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 03:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -605,62 +605,136 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 )
 [1] [2] [3] [4] [5] [6] [7] (src/sections/fundamentacao.tex [8] [9] [10]
-[11] [12] [13] [14] [15] [16] [17]) (src/sections/metodologia.tex [18] [19]
-[20] [21
+
+LaTeX Warning: Citation `Saikali2021' on page 11 undefined on input line 69.
+
+
+LaTeX Warning: Citation `lemos2013cidades' on page 11 undefined on input line 6
+9.
+
+
+LaTeX Warning: Citation `farias2013possibilidades' on page 11 undefined on inpu
+t line 69.
+
+[11]
+
+LaTeX Warning: Citation `ogp2022parliament' on page 12 undefined on input line 
+89.
+
+
+LaTeX Warning: Citation `verhulst2016open' on page 12 undefined on input line 8
+9.
+
+[12]
+
+LaTeX Warning: Citation `basedosdados2024' on page 13 undefined on input line 1
+07.
+
+
+LaTeX Warning: Citation `colab2024' on page 13 undefined on input line 107.
+
+
+LaTeX Warning: Citation `dadosgov2024' on page 13 undefined on input line 107.
+
+[13] [14] [15] [16]
+
+LaTeX Warning: Citation `su2024modular' on page 17 undefined on input line 190.
+
+
+[17]
+
+LaTeX Warning: Citation `postgresql2024' on page 18 undefined on input line 206
+.
+
+) (src/sections/metodologia.tex [18] [19] [20] [21
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.111 \begin{equation}
-                      ]) [22] [23] [24] [25]
-<docs/diagrama_implantacao.png, id=601, 246.6816pt x 246.6816pt>
+l.87 \begin{equation}
+                     ]) [22] [23] [24] [25] [26]
+<docs/diagrama_implantacao.png, id=609, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
 Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 343.
 
 (pdftex.def)             Requested size: 317.0764pt x 317.10641pt.
- [26] [27
+ [27] [28
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.362 
-       <./docs/diagrama_implantacao.png>] [28]
-<docs/diagrama_er_modelo.png, id=638, 246.6816pt x 246.6816pt>
+l.370 
+       <./docs/diagrama_implantacao.png>]
+<docs/diagrama_er_modelo.png, id=636, 246.6816pt x 246.6816pt>
 File: docs/diagrama_er_modelo.png Graphic file (type png)
 <use docs/diagrama_er_modelo.png>
 Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 389.
 (pdftex.def)             Requested size: 317.0764pt x 317.10641pt.
- (src/sections/testes.tex
-[29
+ [29] (src/sections/testes.tex
+[30
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.5 
-     <./docs/diagrama_er_modelo.png>] [30]) (src/sections/implantacao.tex
-[31]) (src/sections/manual.tex [32]) (src/sections/conclusao.tex [33])
-(main.bbl [34] [35] [36] [37]) [38]
+l.12 A
+      dotou-se o padrão de \textit{Table-Driven Tests} (Testes Orientados a...
+ <./docs/diagrama_er_modelo.png>]) (src/sections/implantacao.tex
+
+LaTeX Warning: Citation `balalaie2016microservices' on page 31 undefined on inp
+ut line 4.
+
+[31] [32]
+
+LaTeX Warning: Citation `montesi2016circuit' on page 33 undefined on input line
+ 37.
+
+
+LaTeX Warning: Citation `sigelman2010dapper' on page 33 undefined on input line
+ 37.
+
+
+LaTeX Warning: Citation `sridharan2018observability' on page 33 undefined on in
+put line 37.
+
+
+LaTeX Warning: Citation `pnad2024' on page 33 undefined on input line 41.
+
+) (src/sections/manual.tex [33]) (src/sections/conclusao.tex [34]) (main.bbl
+[35] [36] [37] [38]) [39]
 Overfull \hbox (11.95119pt too wide) in paragraph at lines 432--433
 []\OT1/phv/m/sl/10.95 (-20) Cascading Style She-ets \OT1/phv/m/n/10.95 (-20) --
 - lin-gua-gem de fo-lhas de es-tilo uti-li-zada para de-fi-nir a apresenta[][]a
 o
  []
 
-[39] [40] [41] (main.aux)
+[40] [41] [42] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
  ***********
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D2A183A2BFC6333DCE903592203D4FE6;12863.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: D2A183A2BFC6333DCE903592203D4FE6;12863
+(rerunfilecheck)             After:  EC8DD075399549BFA2761A192B0731C9;13133.
  ) 
 Here is how much of TeX's memory you used:
- 15524 strings out of 467871
- 249194 string characters out of 5418376
+ 15523 strings out of 467871
+ 249191 string characters out of 5418376
  727019 words of memory out of 5000000
  43425 multiletter control sequences out of 15000+600000
- 672245 words of font info for 378 fonts, out of 8000000 for 9000
+ 672155 words of font info for 376 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1195b,677s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
@@ -673,9 +747,9 @@ rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro/App
 Data/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (45 pages, 1492363 bytes).
+Output written on main.pdf (46 pages, 1498600 bytes).
 PDF statistics:
- 911 PDF objects out of 1000 (max. 8388607)
- 270 named destinations out of 1000 (max. 500000)
+ 921 PDF objects out of 1000 (max. 8388607)
+ 272 named destinations out of 1000 (max. 500000)
  62472 words of extra memory for PDF output out of 74296 (max. 10000000)
 
