@@ -124,12 +124,7 @@
     \end{center}
 
 
-    % Sumário
-    \newpage
-    \thispagestyle{empty}
-    \tableofcontents
-    \newpage
-    \pagenumbering{arabic} % Volta para numeração arábica no texto principal
+% Sumário movido para o main.tex para permitir inserção de elementos pré-textuais
 }
 
 \setstretch{1.15} % Espaçamento entre linhas

@@ -37,6 +37,34 @@
 \pretextual
 
 % ---------------------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS OBRIGATÓRIOS E OPCIONAIS
+% ---------------------------------------------------------------------
+
+% Resumo em Português (Obrigatório)
+% Nota: O arquivo resumo.tex já contém \clearpage
+\input{src/sections/resumo}
+
+% Abstract em Inglês (Obrigatório)
+% Nota: O arquivo abstract.tex já contém \clearpage
+\input{src/sections/abstract}
+
+% Lista de Ilustrações (Opcional, mas recomendado)
+\clearpage
+\listoffigures
+
+% Lista de Tabelas (Opcional, mas recomendado)
+\clearpage
+\listoftables
+
+% Sumário (Obrigatório)
+\clearpage
+\tableofcontents
+\clearpage
+
+% Início da numeração arábica
+\pagenumbering{arabic}
+
+% ---------------------------------------------------------------------
 % INÍCIO DA PARTE ESCRITA 
 % ---------------------------------------------------------------------
 \input{src/sections/introducao}

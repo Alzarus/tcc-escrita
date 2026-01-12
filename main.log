@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 03:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 03:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -580,19 +580,47 @@ Package pdftex.def Info: src/images/logo-ads-nova.jpg  used on input line 37.
 
 {C:/Users/pedro/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/pedr
 o/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <./src/images/logo
--ads-nova.jpg>] [2] (main.toc
+-ads-nova.jpg>] (src/sections/resumo.tex [2]
+Underfull \hbox (badness 10000) in paragraph at lines 4--4
+[]\OT1/phv/b/n/19 (+20) Resumo|
+ []
+
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 7.
+) (src/sections/abstract.tex [3
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 4--4
+[]\OT1/phv/b/n/19 (+20) Abstract|
+ []
+
+) [4
+
+] (main.lof
 (C:\Users\pedro\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
-)
-[3])
-\tf@toc=\write4
-\openout4 = `main.toc'.
+))
+\tf@lof=\write4
+\openout4 = `main.lof'.
 
- [4] (src/sections/introducao.tex
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 3.
- (src/sections/objetivos.tex
+
+[5
+
+] (main.lot)
+\tf@lot=\write5
+\openout5 = `main.lot'.
+
+ [6
+
+] (main.toc [7
+
+])
+\tf@toc=\write6
+\openout6 = `main.toc'.
+
+ [8] (src/sections/introducao.tex
+(src/sections/objetivos.tex
 LaTeX Font Info:    Trying to load font information for TS1+phv on input line 8
 .
 
@@ -604,7 +632,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 )
-[1] [2] [3] [4] [5] [6] [7]) (src/sections/fundamentacao.tex [8] [9] [10]
+[1
+
+] [2] [3] [4] [5] [6] [7]) (src/sections/fundamentacao.tex [8] [9] [10]
 [11] [12] [13] [14] [15] [16] [17]) (src/sections/metodologia.tex [18] [19]
 [20] [21
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
@@ -614,7 +644,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
 l.87 \begin{equation}
                      ]) (src/sections/requisitos.tex [22] [23] [24])
 (src/sections/design.tex [25] [26]
-<docs/diagrama_implantacao.png, id=633, 246.6816pt x 246.6816pt>
+<docs/diagrama_implantacao.png, id=656, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
 Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 43.
@@ -624,13 +654,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.70 
+l.68 
       <./docs/diagrama_implantacao.png>]
 
 LaTeX Warning: Citation `kimball2013data' on page 29 undefined on input line 75
 .
 
-<docs/diagrama_er_modelo.png, id=659, 246.6816pt x 246.6816pt>
+<docs/diagrama_er_modelo.png, id=679, 246.6816pt x 246.6816pt>
 File: docs/diagrama_er_modelo.png Graphic file (type png)
 <use docs/diagrama_er_modelo.png>
 Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 89.
@@ -640,11 +670,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.12 A
-      dotou-se o padrão de \textit{Table-Driven Tests} (Testes Orientados a...
- <./docs/diagrama_er_modelo.png>]) (src/sections/implantacao.tex [31] [32])
-(src/sections/manual.tex [33]) (src/sections/conclusao.tex [34])
-(src/sections/agradecimentos.tex) (main.bbl [35] [36] [37] [38] [39] [40])
+l.7 
+     <./docs/diagrama_er_modelo.png>]) [31] (src/sections/implantacao.tex
+[32]) (src/sections/manual.tex [33]) (src/sections/conclusao.tex [34])
+(src/sections/agradecimentos.tex [35]) (main.bbl [36] [37] [38] [39] [40])
 [41] (src/sections/glossario.tex
 Overfull \hbox (11.95119pt too wide) in paragraph at lines 13--14
 []\OT1/phv/m/sl/10.95 (-20) Cascading Style She-ets \OT1/phv/m/n/10.95 (-20) --
@@ -665,13 +694,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: EC8DD075399549BFA2761A192B0731C9;13133.
  ) 
 Here is how much of TeX's memory you used:
- 15647 strings out of 467871
- 252325 string characters out of 5418376
- 727430 words of memory out of 5000000
- 43503 multiletter control sequences out of 15000+600000
- 672394 words of font info for 378 fonts, out of 8000000 for 9000
+ 15681 strings out of 467871
+ 253180 string characters out of 5418376
+ 726408 words of memory out of 5000000
+ 43521 multiletter control sequences out of 15000+600000
+ 672442 words of font info for 379 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,12n,93p,1195b,677s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,12n,93p,1528b,677s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmex10.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmmi10.pfb><C:/Users/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -682,9 +711,9 @@ rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro/App
 Data/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (48 pages, 1513039 bytes).
+Output written on main.pdf (52 pages, 1522344 bytes).
 PDF statistics:
- 984 PDF objects out of 1000 (max. 8388607)
- 300 named destinations out of 1000 (max. 500000)
+ 1007 PDF objects out of 1200 (max. 8388607)
+ 304 named destinations out of 1000 (max. 500000)
  62480 words of extra memory for PDF output out of 74296 (max. 10000000)
 
