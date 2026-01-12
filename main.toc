@@ -60,6 +60,6 @@
 \contentsline {subsection}{\numberline {7.4}Estratégia Mobile-First e Acessibilidade}{33}{subsection.7.4}%
 \contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{33}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Acesso e Visão Geral}{34}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Análise do Perfil Parlamentar}{34}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Ferramentas de Compartilhamento}{34}{subsection.8.3}%
-\contentsline {section}{\numberline {9}Considerações Finais}{34}{section.9}%
+\contentsline {subsection}{\numberline {8.2}Análise do Perfil Parlamentar}{35}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Ferramentas de Compartilhamento}{36}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Considerações Finais}{37}{section.9}%
