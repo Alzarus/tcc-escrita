@@ -64,7 +64,7 @@ O framework \textbf{Gin} foi escolhido por seu roteamento baseado em radix tree,
 
 \subsubsection{Frontend em Next.js}
 
-A escolha de \textbf{Next.js 15} justifica-se pela necessidade crítica de indexação por mecanismos de busca \cite{salim2024nextjs}. Diferentemente de SPAs que renderizam conteúdo apenas via JavaScript, Next.js oferece Server-Side Rendering (SSR) e Static Site Generation (SSG), entregando HTML pré-renderizado aos crawlers --- requisito fundamental para plataformas de fiscalização que dependem de descoberta orgânica.
+A escolha de \textbf{Next.js 16} justifica-se pela necessidade crítica de indexação por mecanismos de busca \cite{salim2024nextjs}. Diferentemente de SPAs que renderizam conteúdo apenas via JavaScript, Next.js oferece Server-Side Rendering (SSR) e Static Site Generation (SSG), entregando HTML pré-renderizado aos crawlers --- requisito fundamental para plataformas de fiscalização que dependem de descoberta orgânica.
 
 A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por sua integração declarativa com React. \textbf{Tailwind CSS 4} permite desenvolvimento ágil com classes utilitárias e geração otimizada de CSS em produção \cite{tailwindcss2024}.
 
@@ -74,7 +74,7 @@ A escolha do \textbf{Bun} como \textit{runtime} JavaScript fundamenta-se em estu
 
 A consolidação de dados dispersos em três APIs governamentais representa um dos maiores desafios técnicos do projeto. O processo segue o paradigma \textit{Extract, Transform, Load} (ETL), que conforme Vassiliadis \cite{vassiliadis2009survey} tipicamente consome entre 60\% e 80\% do esforço total em projetos de data warehousing.
 
-A estratégia adotada combina duas abordagens complementares: \textbf{backfill} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross \cite{kimball2013data}, operações de carga histórica devem privilegiar throughput sobre latência, utilizando arquivos CSV consolidados e bulk inserts. As fontes históricas incluem CEAPS (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
+A estratégia adotada combina duas abordagens complementares: \textbf{backfill} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross \cite{kimball2013toolkit}, operações de carga histórica devem privilegiar throughput sobre latência, utilizando arquivos CSV consolidados e bulk inserts. As fontes históricas incluem CEAPS (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
 
 A sincronização contínua opera via polling periódico, calibrado pela volatilidade de cada domínio: votações diárias às 03:00 BRT (baixo tráfego nas APIs), remunerações semanais aos domingos, e emendas mensalmente após fechamento contábil.
 
