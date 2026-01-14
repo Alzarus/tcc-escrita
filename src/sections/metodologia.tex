@@ -17,7 +17,7 @@ O desenvolvimento contou com apoio de ferramentas de inteligência artificial ge
 
 A divisão do trabalho ocorreu em cinco fases principais:
 \begin{enumerate}
-    \item \textbf{Fundação}: Estruturação do projeto em Golang, implementação do cliente para a API Legislativa do Senado, criação das \textit{migrations} do banco de dados e configuração inicial do \textit{frontend} em Next.js;
+    \item \textbf{Fundação}: Estruturação do projeto em Golang, implementação do cliente para a API Legislativa do Senado, criação das \textit{migrations} do banco de dados e configuração inicial do \textit{frontend} em Next.js utilizando Bun como \textit{runtime};
     \item \textbf{Ingestão de Dados}: Implementação do cliente para a API Administrativa, configuração do \textit{scheduler} para tarefas agendadas, coleta de votações nominais e carga de dados históricos;
     \item \textbf{Ranking e API}: Desenvolvimento do serviço de cálculo de rankings, criação dos \textit{endpoints} REST para consumo pelo \textit{frontend}, configuração do cache Redis e implementação de testes automatizados;
     \item \textbf{Frontend}: Desenvolvimento do \textit{dashboard} principal, interface de ranking interativo e páginas de perfil dos senadores;

@@ -68,6 +68,8 @@ A escolha de \textbf{Next.js 15} justifica-se pela necessidade crítica de index
 
 A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por sua integração declarativa com React. \textbf{Tailwind CSS 4} permite desenvolvimento ágil com classes utilitárias e geração otimizada de CSS em produção \cite{tailwindcss2024}.
 
+A escolha do \textbf{Bun} como \textit{runtime} JavaScript fundamenta-se em estudos comparativos recentes que demonstram seu desempenho superior em operações síncronas e processamento JSON \cite{smirnov2024bun}. Diferentemente do Node.js, que utiliza o motor V8, o Bun é construído sobre o JavaScriptCore (WebKit), resultando em tempos de inicialização significativamente menores --- característica vantajosa para o ciclo de desenvolvimento iterativo. Além do \textit{runtime}, o Bun incorpora gerenciador de pacotes nativo, eliminando dependências externas como npm ou Yarn e simplificando o \textit{pipeline} de \textit{build}.
+
 \subsection{Estratégia de Ingestão de Dados}
 
 A consolidação de dados dispersos em três APIs governamentais representa um dos maiores desafios técnicos do projeto. O processo segue o paradigma \textit{Extract, Transform, Load} (ETL), que conforme Vassiliadis \cite{vassiliadis2009survey} tipicamente consome entre 60\% e 80\% do esforço total em projetos de data warehousing.

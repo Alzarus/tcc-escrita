@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  12 JAN 2026 04:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  14 JAN 2026 01:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -657,41 +657,43 @@ s been already used, duplicate ignored
 l.68 
       <./docs/diagrama_implantacao.png>]
 
-LaTeX Warning: Citation `kimball2013data' on page 29 undefined on input line 75
+LaTeX Warning: Citation `kimball2013data' on page 29 undefined on input line 77
 .
 
-<docs/diagrama_er_modelo.png, id=685, 246.6816pt x 246.6816pt>
+[29]
+<docs/diagrama_er_modelo.png, id=696, 246.6816pt x 246.6816pt>
 File: docs/diagrama_er_modelo.png Graphic file (type png)
 <use docs/diagrama_er_modelo.png>
-Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 89.
+Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 91.
 (pdftex.def)             Requested size: 317.0764pt x 317.10641pt.
-[29]) (src/sections/testes.tex [30
+) (src/sections/testes.tex [30
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.7 
-     <./docs/diagrama_er_modelo.png>]) [31] (src/sections/implantacao.tex
-[32]) (src/sections/manual.tex [33]
-<src/images/placeholder_dashboard.png, id=743, 75.28125pt x 75.28125pt>
+l.5 
+     <./docs/diagrama_er_modelo.png>] [31]) (src/sections/implantacao.tex
+[32]) [33] (src/sections/manual.tex
+<src/images/placeholder_dashboard.png, id=744, 75.28125pt x 75.28125pt>
 File: src/images/placeholder_dashboard.png Graphic file (type png)
 <use src/images/placeholder_dashboard.png>
 Package pdftex.def Info: src/images/placeholder_dashboard.png  used on input li
 ne 13.
 (pdftex.def)             Requested size: 452.96826pt x 453.15434pt.
-<src/images/placeholder_mapa.png, id=746, 75.28125pt x 75.28125pt>
+ [34]
+<src/images/placeholder_mapa.png, id=752, 75.28125pt x 75.28125pt>
 File: src/images/placeholder_mapa.png Graphic file (type png)
 <use src/images/placeholder_mapa.png>
 Package pdftex.def Info: src/images/placeholder_mapa.png  used on input line 26
 .
 (pdftex.def)             Requested size: 452.96826pt x 453.15434pt.
- [34
+ [35
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.30 
-      <./src/images/placeholder_dashboard.png>] [35
+      <./src/images/placeholder_dashboard.png>] [36
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -699,28 +701,28 @@ s been already used, duplicate ignored
 l.39     \item \textbf
                       {Votações}: Histórico de posicionamentos do senador...
  <./src/images/placeholder_mapa.png>]
-<src/images/placeholder_perfil.png, id=761, 75.28125pt x 75.28125pt>
+<src/images/placeholder_perfil.png, id=767, 75.28125pt x 75.28125pt>
 File: src/images/placeholder_perfil.png Graphic file (type png)
 <use src/images/placeholder_perfil.png>
 Package pdftex.def Info: src/images/placeholder_perfil.png  used on input line 
 47.
 (pdftex.def)             Requested size: 452.96826pt x 453.15434pt.
-) [36
+) [37
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.89 
       <./src/images/placeholder_perfil.png>] (src/sections/conclusao.tex)
-(src/sections/agradecimentos.tex [37]) (main.bbl [38] [39] [40] [41] [42])
-[43] (src/sections/glossario.tex
+(src/sections/agradecimentos.tex [38]) (main.bbl [39] [40] [41] [42] [43])
+[44] (src/sections/glossario.tex
 Overfull \hbox (11.95119pt too wide) in paragraph at lines 13--14
 []\OT1/phv/m/sl/10.95 (-20) Cascading Style She-ets \OT1/phv/m/n/10.95 (-20) --
 - lin-gua-gem de fo-lhas de es-tilo uti-li-zada para de-fi-nir a apresenta[][]a
 o
  []
 
-[44] [45]) [46] (main.aux)
+[45] [46]) [47] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
@@ -729,14 +731,17 @@ L3 programming layer <2025-11-06>
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: EC8DD075399549BFA2761A192B0731C9;13133.
  ) 
 Here is how much of TeX's memory you used:
- 15711 strings out of 467871
- 254122 string characters out of 5418376
- 728600 words of memory out of 5000000
- 43546 multiletter control sequences out of 15000+600000
+ 15718 strings out of 467871
+ 254238 string characters out of 5418376
+ 728771 words of memory out of 5000000
+ 43550 multiletter control sequences out of 15000+600000
  672442 words of font info for 379 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1528b,677s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -750,9 +755,9 @@ rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro/App
 Data/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (54 pages, 1528886 bytes).
+Output written on main.pdf (55 pages, 1530780 bytes).
 PDF statistics:
- 1032 PDF objects out of 1200 (max. 8388607)
- 309 named destinations out of 1000 (max. 500000)
+ 1038 PDF objects out of 1200 (max. 8388607)
+ 312 named destinations out of 1000 (max. 500000)
  62495 words of extra memory for PDF output out of 74296 (max. 10000000)
 
