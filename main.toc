@@ -36,6 +36,7 @@
 \contentsline {subsubsection}{\numberline {3.3.3}Economia na Cota Parlamentar}{22}{subsubsection.3.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.4}Participação em Comissões}{22}{subsubsection.3.3.4}%
 \contentsline {subsubsection}{\numberline {3.3.5}Fórmula Final e Tratamento de Casos Especiais}{22}{subsubsection.3.3.5}%
+\contentsline {subsubsection}{\numberline {3.3.6}Limitações Metodológicas}{23}{subsubsection.3.3.6}%
 \contentsline {section}{\numberline {4}Requisitos}{23}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Requisitos Funcionais}{23}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Requisitos Não-Funcionais}{25}{subsection.4.2}%
@@ -43,12 +44,12 @@
 \contentsline {subsection}{\numberline {5.1}Arquitetura do Sistema}{26}{subsection.5.1}%
 \contentsline {subsubsection}{\numberline {5.1.1}Organização em Módulos}{27}{subsubsection.5.1.1}%
 \contentsline {subsubsection}{\numberline {5.1.2}Visão de Implantação}{27}{subsubsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.2}Stack Tecnológico}{27}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Backend em Go}{27}{subsubsection.5.2.1}%
-\contentsline {subsubsection}{\numberline {5.2.2}Camada de Persistência}{28}{subsubsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2}Stack Tecnológico}{28}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Backend em Go}{28}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Camada de Persistência}{29}{subsubsection.5.2.2}%
 \contentsline {subsubsection}{\numberline {5.2.3}Frontend em Next.js}{29}{subsubsection.5.2.3}%
 \contentsline {subsection}{\numberline {5.3}Estratégia de Ingestão de Dados}{29}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Modelo de Dados}{29}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.4}Modelo de Dados}{30}{subsection.5.4}%
 \contentsline {section}{\numberline {6}Testes de Software}{31}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Testes Unitários}{31}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Testes de Integração}{31}{subsection.6.2}%
@@ -57,7 +58,7 @@
 \contentsline {subsection}{\numberline {7.1}Containerização}{32}{subsection.7.1}%
 \contentsline {subsection}{\numberline {7.2}Pipeline de Integração e Entrega Contínua (CI/CD)}{33}{subsection.7.2}%
 \contentsline {subsection}{\numberline {7.3}Infraestrutura Serverless no Google Cloud}{33}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Estratégia Mobile-First e Acessibilidade}{33}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.4}Estratégia Mobile-First e Acessibilidade}{34}{subsection.7.4}%
 \contentsline {section}{\numberline {8}Manual do Usuário Simplificado}{34}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Acesso e Visão Geral}{34}{subsection.8.1}%
 \contentsline {subsection}{\numberline {8.2}Análise do Perfil Parlamentar}{36}{subsection.8.2}%
