@@ -76,6 +76,8 @@ A consolidação de dados dispersos em três APIs governamentais representa um d
 
 A estratégia adotada combina duas abordagens complementares: \textbf{backfill} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross \cite{kimball2013toolkit}, operações de carga histórica devem privilegiar throughput sobre latência, utilizando arquivos CSV consolidados e bulk inserts. As fontes históricas incluem CEAPS (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
 
+Para o módulo de emendas, o \textit{backfill} utiliza o CSV consolidado do Portal da Transparência, com leitura \textit{streaming} e detecção automática de delimitador. Como a identificação do autor é textual, o processo aplica normalização de grafia (remoção de acentos, espaços e pontuação) para casar \textit{nomeAutor} com o cadastro de senadores. A idempotência é garantida por chave composta \texttt{(codigoEmenda, senador\_id, ano)}, com upsert via \textit{ON CONFLICT}.
+
 A sincronização contínua opera via polling periódico, calibrado pela volatilidade de cada domínio: votações diárias às 03:00 BRT (baixo tráfego nas APIs), remunerações semanais aos domingos, e emendas mensalmente após fechamento contábil.
 
 Para garantir consistência, o sistema opera sob modelo \textit{at-least-once} com \textbf{idempotência} via chaves naturais compostas \cite{hummer2013modeldriven}. Falhas transientes são tratadas com retry exponencial ($t_{wait} = base \times 2^{tentativa}$) conforme recomendação AWS \cite{aws2015backoff}, timeout de 30 segundos e falha graciosa que permite continuidade da sincronização mesmo com fontes temporariamente indisponíveis.

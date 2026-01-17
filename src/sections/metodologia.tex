@@ -42,6 +42,8 @@ Documentada em \url{adm.senado.gov.br/adm-dadosabertos/swagger-ui}, esta interfa
 
 A API do Portal da Transparência (\url{api.portaldatransparencia.gov.br}) fornece dados de emendas parlamentares e transferências federais. O acesso requer autenticação via chave de API no \textit{header} \texttt{chave-api-dados}. O filtro \texttt{tipoEmenda=Transferência Especial} permite identificar as ``emendas PIX'', modalidade de repasse que dispensa convênio.
 
+Para a carga histórica, utiliza-se o CSV consolidado de emendas disponibilizado pelo Portal. A identificação do autor depende de normalização textual de \texttt{nomeAutor} para casar com o cadastro de senadores, garantindo ingestão consistente mesmo com variações de grafia.
+
 \subsubsection{Limitações e Cobertura Temporal}
 
 Cada fonte de dados apresenta limitações que impactam o escopo das análises:
