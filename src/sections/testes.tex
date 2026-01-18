@@ -18,16 +18,6 @@ Adotou-se o padrão de \textit{Table-Driven Tests} (Testes Orientados a Tabelas)
 
 A cobertura de código (\textit{code coverage}) foi monitorada com a ferramenta nativa \texttt{go test -cover}, estabelecendo-se uma meta mínima de 80\% para pacotes críticos do domínio.
 
-\subsection{Testes de Integração}
-
-Diferentemente dos testes unitários, que utilizam \textit{mocks} para isolar dependências, os testes de integração validam a interação entre os módulos do sistema e componentes de infraestrutura real, como o banco de dados PostgreSQL e o cache Redis.
-
-Para viabilizar esses testes de forma isolada e reproduzível, utilizou-se a biblioteca \texttt{testcontainers-go}. Esta ferramenta permite instanciar contêineres Docker descartáveis durante a execução da suíte de testes.
-
-\begin{enumerate}
-    \item \textbf{Persistência de Dados}: Testes que verificam se as operações de escrita e leitura no PostgreSQL respeitam as restrições de integridade referencial e unicidade, essenciais para a idempotência da ingestão.
-    \item \textbf{Mecanismos de Cache}: Validação das estratégias de invalidação e expiração de chaves no Redis, garantindo que o usuário final não visualize dados obsoletos.
-\end{enumerate}
 
 \subsection{Testes de Contrato}
 

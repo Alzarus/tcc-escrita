@@ -6,7 +6,7 @@ Para a categorização dos requisitos não-funcionais, adotou-se o modelo de qua
 
 \subsection{Requisitos Funcionais}
 
-Conforme destacado na análise de trabalhos relacionados (Seção 1.6), o \textit{Tô De Olho} sintetiza funcionalidades de plataformas consolidadas como \textit{De Olho em Você} e \textit{De Olho no Congresso}, adaptando-as ao contexto do Senado Federal. Os requisitos funcionais foram organizados em sete módulos:
+Conforme destacado na análise de trabalhos relacionados (Seção 1.6), o \textit{Tô De Olho} sintetiza funcionalidades de plataformas consolidadas como \textit{De Olho em Você} e \textit{De Olho no Congresso}, adaptando-as ao contexto do Senado Federal. Os requisitos funcionais foram organizados em seis módulos:
 
 \textbf{Módulo de Senadores:}
 \begin{itemize}
@@ -19,8 +19,6 @@ Conforme destacado na análise de trabalhos relacionados (Seção 1.6), o \texti
 \begin{itemize}
     \item \textbf{[RF04]} O sistema deve importar os lançamentos da Cota Parlamentar (CEAPS) através das APIs de Dados Abertos do Senado.
     \item \textbf{[RF05]} O sistema deve permitir visualizar o gasto acumulado por tipo de despesa (passagens, correios, consultorias, combustível).
-    \item \textbf{[RF06]} O sistema deve exibir os fornecedores que mais receberam recursos de um determinado senador.
-    \item \textbf{[RF07]} O sistema deve gerar alertas automáticos para despesas atípicas: valores acima da média, pagamentos em finais de semana, intervalos menores que 3 dias entre pagamentos ao mesmo fornecedor.
 \end{itemize}
 
 \textbf{Módulo de Emendas e Orçamento:}
@@ -35,21 +33,14 @@ Conforme destacado na análise de trabalhos relacionados (Seção 1.6), o \texti
     \item \textbf{[RF11]} O sistema deve listar as votações nominais recentes e o voto de cada senador (Sim/Não/Abstenção).
     \item \textbf{[RF12]} O sistema deve exibir a participação do senador em comissões permanentes e especiais, incluindo cargo ocupado (titular, suplente, presidente, relator).
     \item \textbf{[RF13]} O sistema deve listar proposições de autoria do senador, com indicação do tipo (PEC, PLP, PL) e estágio de tramitação.
-    \item \textbf{[RF14]} O sistema deve exibir discursos proferidos pelo senador em plenário, com data e tema.
-    \item \textbf{[RF15]} O sistema deve exibir a agenda pública de reuniões de comissões, permitindo visualizar pautas futuras.
-    \item \textbf{[RF16]} O sistema deve apresentar links para os perfis oficiais do senador em redes sociais (Twitter/X, Instagram, Facebook).
 \end{itemize}
 
-\textbf{Módulo de Gabinete:}
-\begin{itemize}
-    \item \textbf{[RF17]} O sistema deve exibir a lista de servidores do gabinete do senador, incluindo cargo e vínculo.
-    \item \textbf{[RF18]} O sistema deve apresentar a folha de pagamento do gabinete, com remuneração mensal por servidor.
-\end{itemize}
+% \textbf{Módulo de Gabinete:}
+% (Removido do escopo inicial - ver Trabalhos Futuros)
 
 \textbf{Módulo de Comparação e Análise:}
 \begin{itemize}
     \item \textbf{[RF19]} O sistema deve permitir comparar de 2 a 5 senadores lado a lado em múltiplas dimensões: despesas, emendas, votações e fornecedores em comum.
-    \item \textbf{[RF20]} O sistema deve exibir ranking de fornecedores com cruzamento de sanções administrativas, identificando empresas com situação cadastral irregular.
     \item \textbf{[RF21]} O sistema deve mostrar indicadores de confiança: data da última sincronização, completude dos dados e fonte de cada informação.
 \end{itemize}
 

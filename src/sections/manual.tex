@@ -1,54 +1,114 @@
-\section{Manual do Usuário Simplificado}
+\section{Manual do Usuário: A Jornada do Cidadão}
 \label{sec:manual}
 
-O \textit{Tô De Olho} foi concebido sob a premissa de máxima acessibilidade, removendo barreiras de entrada para o cidadão comum. Diferentemente de sistemas governamentais tradicionais, a plataforma não exige cadastro, \textit{login} ou conhecimentos técnicos prévios. Esta seção descreve os fluxos principais de interação, desenhados para permitir uma fiscalização intuitiva e eficiente.
+Para demonstrar a efetividade do \textit{Tô De Olho} como ferramenta de controle social, esta seção apresenta um **Cenário de Uso** prático. A narrativa ilustra o fluxo natural de um cidadão eleitor que deseja auditar a atuação dos senadores do seu estado, simulando a descoberta de informações na plataforma.
 
-\subsection{Acesso e Visão Geral}
+\subsection{Passo 1: O Primeiro Contato e a Transparência}
 
-Ao acessar o endereço \url{https://todeolho.org}, o usuário é recepcionado pela \textbf{Página Inicial}, que atua como um painel de síntese ("\textit{dashboard}"). O destaque visual é dado aos rankings dinâmicos, apresentando os "Top 3" senadores em critérios positivos, como maior economia na Cota Parlamentar e maior assiduidade em votações (Figura \ref{fig:dashboard}).
+Ao acessar \url{https://todeolho.org}, o usuário é recepcionado pela \textbf{Página Inicial} (Figura \ref{fig:dashboard}). Imediatamente, visualiza-se o pódio com os ``Top 3'' senadores mais bem avaliados pelo algoritmo. Para compreender a origem das notas, aciona-se o botão ``Entenda o Cálculo''.
+
+O sistema abre o modal de \textbf{Metodologia} (Figura \ref{fig:metodologia}), explicando de forma clara os pesos atribuídos a cada critério: Produtividade (35\%), Presença (25\%), Economia (20\%) e Comissões (20\%). Satisfeito com a transparência dos critérios, o usuário prossegue.
 
 \begin{figure}[H]
     \centering
-    \caption{Página Inicial com Rankings e Destaques}
-    \includegraphics[width=1.0\textwidth]{src/images/placeholder_dashboard.png} % Substituir por print real
+    \caption{Página Inicial: Dashboard e Destaques}
+    \includegraphics[width=1.0\textwidth]{src/images/dashboard.png}
     \label{fig:dashboard}
     \small{Fonte: O Autor (2026).}
 \end{figure}
 
-\begin{enumerate}
-    \item \textbf{Barra de Busca Global}: Localizada no topo de todas as páginas, permite localizar senadores por nome, apelido parlamentar ou estado (UF). A busca possui recurso de autocompletar, facilitando a navegação.
-    \item \textbf{Mapa Interativo}: Visualização geográfica que permite filtrar senadores clicando diretamente nos estados do mapa do Brasil (Figura \ref{fig:busca_mapa}).
-\end{enumerate}
-
 \begin{figure}[H]
     \centering
-    \caption{Recursos de Busca e Navegação por Mapa}
-    \includegraphics[width=1.0\textwidth]{src/images/placeholder_mapa.png} % Substituir por print real
-    \label{fig:busca_mapa}
+    \caption{Modal de Metodologia: Transparência dos Critérios}
+    \includegraphics[width=1.0\textwidth]{src/images/modal_metodologia.png}
+    \label{fig:metodologia}
     \small{Fonte: O Autor (2026).}
 \end{figure}
 
-\subsection{Análise do Perfil Parlamentar}
+\subsection{Passo 2: Explorando o Ranking Completo}
 
-Ao selecionar um senador, o cidadão tem acesso à \textbf{Ficha Parlamentar}, estruturada em abas temáticas para evitar sobrecarga cognitiva:
-
-\begin{itemize}
-    \item \textbf{Visão Geral}: Apresenta o "Score de Efetividade" (gráfico radar) e dados biográficos essenciais.
-    \item \textbf{Análise de Gastos}: Gráficos de evolução temporal das despesas da CEAPS. É possível "mergulhar" nos dados (\textit{drill-down}) clicando nas barras do gráfico para visualizar a lista detalhada de notas fiscais daquele mês.
-    \item \textbf{Emendas e Recursos}: Exibe o destino das emendas parlamentares. O destaque é o mapa de "Emendas PIX", onde cada ponto representa um município beneficiado, permitindo ao usuário verificar se recursos foram enviados para sua cidade sem finalidade definida.
-    \item \textbf{Votações}: Histórico de posicionamentos do senador (Sim/Não/Abstenção/Ausência) em votações nominais no plenário.
-\end{itemize}
-
-A Figura \ref{fig:ficha_senador} ilustra a consolidação dessas informações na interface do usuário.
+Desejando ver como estão os senadores do seu estado, o cidadão clica em ``Ver Ranking Completo'' e é direcionado para a listagem geral (Figura \ref{fig:ranking_completo}). Utilizando os filtros laterais, seleciona-se o estado (UF) e ordena-se a lista pelo critério de ``Economia de Verba''. A interface responde instantaneamente, permitindo identificar rapidamente quem são os representantes mais econômicos.
 
 \begin{figure}[H]
     \centering
-    \caption{Ficha Parlamentar: Visão Geral e Gráficos}
-    \includegraphics[width=1.0\textwidth]{src/images/placeholder_perfil.png} % Substituir por print real
+    \caption{Ranking Completo com Filtros Ativos}
+    \includegraphics[width=1.0\textwidth]{src/images/ranking_completo.png}
+    \label{fig:ranking_completo}
+    \small{Fonte: O Autor (2026).}
+\end{figure}
+
+\subsection{Passo 3: A Lupa no Parlamentar}
+
+Interessado por um nome específico na lista, o usuário seleciona o perfil do senador para uma auditoria detalhada. A \textbf{Ficha Parlamentar} se abre (Figura \ref{fig:ficha_senador}), exibindo o ``Score de Efetividade'' em um gráfico radar. Nota-se que o senador tem alta pontuação em ``Presença'', mas baixa em ``Proposições''.
+
+Para investigar a baixa produtividade, navega-se pelas abas:
+
+\begin{itemize}
+    \item \textbf{Votações (Figura \ref{fig:votacoes})}: Analisa-se o histórico de votos em plenário, verificando se o parlamentar seguiu a orientação partidária ou votou de acordo com convicções pessoais em pautas polêmicas.
+    \item \textbf{Despesas (Figura \ref{fig:despesas})}: No gráfico de gastos, percebe-se um pico anormal em dezembro. Ao clicar na barra correspondente, o sistema exibe a lista de notas fiscais, revelando gastos elevados com divulgação de atividade parlamentar.
+    \item \textbf{Emendas (Figura \ref{fig:mapa_emendas})}: O mapa interativo mostra que a maior parte dos recursos indicados pelo senador foi para apenas dois municípios, sugerindo uma concentração em colégios eleitorais específicos.
+    \item \textbf{Comissões (Figura \ref{fig:comissoes})}: Por fim, verifica-se que o senador é suplente em apenas uma comissão, confirmando a baixa atividade legislativa.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \caption{Ficha Parlamentar: Visão Geral e Radar}
+    \includegraphics[width=1.0\textwidth]{src/images/ficha_parlamentar.png}
     \label{fig:ficha_senador}
     \small{Fonte: O Autor (2026).}
 \end{figure}
 
-\subsection{Ferramentas de Compartilhamento}
+\begin{figure}[H]
+    \centering
+    \caption{Histórico de Votações Nominais}
+    \includegraphics[width=1.0\textwidth]{src/images/ficha_votacoes_detalhe.png}
+    \label{fig:votacoes}
+    \small{Fonte: O Autor (2026).}
+\end{figure}
 
-Reconhecendo o papel das redes sociais na disseminação política, todas as visualizações (gráficos e rankings) possuem botões de compartilhamento direto para WhatsApp, Twitter/X e Facebook. Ao clicar, o sistema gera automaticamente uma imagem sintetizada ("\textit{card}") com as estatísticas do senador, facilitando a viralização de informações factuais e a fiscalização coletiva.
+\begin{figure}[H]
+    \centering
+    \caption{Detalhamento de Gastos (CEAPS)}
+    \includegraphics[width=1.0\textwidth]{src/images/ficha_ceaps_detalhe.png}
+    \label{fig:despesas}
+    \small{Fonte: O Autor (2026).}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Mapa de Distribuição de Emendas}
+    \includegraphics[width=1.0\textwidth]{src/images/mapa_emendas_detalhe.png}
+    \label{fig:mapa_emendas}
+    \small{Fonte: O Autor (2026).}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Participação em Comissões}
+    \includegraphics[width=1.0\textwidth]{src/images/ficha_comissoes_detalhe.png}
+    \label{fig:comissoes}
+    \small{Fonte: O Autor (2026).}
+\end{figure}
+
+\subsection{Passo 4: A Decisão Comparativa}
+
+Ainda em dúvida entre dois candidatos, utiliza-se a ferramenta de comparação. Na página de ranking ou no perfil, marca-se a caixa de seleção ``Comparar'' para o Senador A e o Senador B. O \textbf{Dock de Comparação} surge no rodapé da tela (Figura \ref{fig:dock}), confirmando a seleção.
+
+Ao clicar em ``Comparar Agora'', o usuário é levado à tela de Comparação Lado-a-Lado (Figura \ref{fig:comparacao_tela}), onde visualiza os gráficos dos dois parlamentares sobrepostos. A comparação revela que, embora o Senador A seja mais econômico, o Senador B possui uma produção legislativa significativamente superior e presença constante em comissões importantes. Munido de dados concretos e comparáveis, encerra-se a jornada com informações suficientes para uma decisão de voto fundamentada.
+
+\begin{figure}[H]
+    \centering
+    \caption{Dock de Seleção para Comparação}
+    \includegraphics[width=1.0\textwidth]{src/images/dock_comparacao.png}
+    \label{fig:dock}
+    \small{Fonte: O Autor (2026).}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Tela de Comparação Lado-a-Lado (Resultado)}
+    \includegraphics[width=1.0\textwidth]{src/images/comparacao_tela.png}
+    \label{fig:comparacao_tela}
+    \small{Fonte: O Autor (2026).}
+\end{figure}
+% Seção 8.3 removida

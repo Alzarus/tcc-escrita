@@ -39,3 +39,12 @@ Para mitigar o problema de \textit{Cold Start} (latência inicial na subida de n
 \subsection{Estratégia Mobile-First e Acessibilidade}
 
 A decisão de priorizar a experiência em dispositivos móveis (\textit{Mobile-First}) fundamenta-se na realidade do acesso à internet no Brasil. Dados da PNAD Contínua TIC 2024 revelam que o celular é o dispositivo de acesso exclusivo para a grande maioria dos internautas brasileiros, atingindo 99\% de penetração nas classes D e E \cite{pnad2024}. Portanto, garantir uma interface leve, responsiva e performática em conexões móveis não é apenas uma escolha técnica de \textit{frontend}, mas um requisito de inclusão digital indispensável para uma ferramenta de controle social.
+
+Para assegurar a acessibilidade, o projeto segue as diretrizes da WCAG 2.1 (Web Content Accessibility Guidelines) nível AA. As implementações técnicas incluem:
+
+\begin{itemize}
+    \item \textbf{Semântica HTML}: Uso rigoroso de tags semânticas (\texttt{<main>}, \texttt{<nav>}, \texttt{<article>}) e atributos ARIA onde necessário, facilitando a navegação por leitores de tela.
+    \item \textbf{Tipografia Legível}: Adoção da fonte Inter (Google Fonts) com pesos e contrastes otimizados para leitura em telas pequenas.
+    \item \textbf{Internacionalização}: Configuração explícita do atributo \texttt{lang="pt-BR"} em todas as páginas, garantindo a correta pronúncia por assistentes de voz.
+    \item \textbf{Design Adaptativo}: Utilização do Tailwind CSS para criar layouts fluidos que se adaptam desde dispositivos móveis (320px) até monitores 4K, sem perda de funcionalidade.
+\end{itemize}
