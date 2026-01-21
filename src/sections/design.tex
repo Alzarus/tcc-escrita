@@ -8,7 +8,7 @@ Esta seção organiza as decisões técnicas em quatro dimensões interdependent
 
 A escolha arquitetural representa uma das decisões mais consequentes em projetos de software, com implicações que se estendem por todo o ciclo de vida do sistema. Em aplicações que integram múltiplas APIs externas --- como é o caso do \textit{Tô De Olho}, que consome dados de três órgãos governamentais distintos --- a arquitetura deve equilibrar a flexibilidade para evolução futura com a simplicidade operacional exigida pelo contexto acadêmico.
 
-Após análise de alternativas, optou-se pelo padrão de \textbf{monolito modular}. Esta abordagem, sistematizada em revisão de literatura recente \cite{laigner2024modular}, combina a organização interna característica de microsserviços --- com fronteiras claras entre domínios de negócio --- com a simplicidade de implantação dos monolitos tradicionais. A decisão fundamentou-se em quatro critérios:
+Após análise de alternativas, optou-se pelo padrão de \textbf{monolito modular}. Esta abordagem, sistematizada em revisão de literatura recente \cite{su2024modularmonolith}, combina a organização interna característica de microsserviços --- com fronteiras claras entre domínios de negócio --- com a simplicidade de implantação dos monolitos tradicionais. A decisão fundamentou-se em quatro critérios:
 
 \begin{itemize}
     \item \textbf{Simplicidade Operacional}: Um único contêiner Docker elimina a complexidade de orquestração distribuída. Em plataformas serverless como Google Cloud Run, essa característica traduz-se em escala automática (inclusive a zero) e custos proporcionais ao uso efetivo;
@@ -54,7 +54,7 @@ A seleção de tecnologias foi orientada por três critérios: desempenho em cen
 
 A linguagem Go foi selecionada após avaliação comparativa com Node.js e Python. O fator decisivo foi o modelo de \textbf{goroutines}: threads leves gerenciadas pelo runtime, consumindo aproximadamente 2KB de memória inicial --- em contraste com cerca de 1MB por thread de sistema operacional \cite{nanz2015comparative}. Essa eficiência viabiliza o processamento paralelo de centenas de requisições HTTP durante a ingestão.
 
-O framework \textbf{Gin} foi escolhido por seu roteamento baseado em radix tree, com desempenho até 40 vezes superior a alternativas \cite{alfian2024gin}. O ORM \textbf{GORM} oferece migrações automáticas e operações de upsert essenciais para garantia de idempotência. Para ambientes de produção, o sistema implementa connection pooling com limites configuráveis de conexões ociosas e máximas.
+O framework \textbf{Gin} foi escolhido por seu roteamento baseado em radix tree, com desempenho até 40 vezes superior a alternativas \cite{lie2024golang}. O ORM \textbf{GORM} oferece migrações automáticas e operações de upsert essenciais para garantia de idempotência. Para ambientes de produção, o sistema implementa connection pooling com limites configuráveis de conexões ociosas e máximas.
 
 \subsubsection{Camada de Persistência}
 
