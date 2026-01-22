@@ -2,7 +2,7 @@
 
 O design de sistemas de informação voltados à fiscalização cidadã deve conciliar requisitos aparentemente conflitantes: robustez suficiente para processar grandes volumes de dados governamentais, simplicidade operacional compatível com equipes reduzidas, e acessibilidade que permita ao cidadão comum compreender informações complexas. Conforme o paradigma de Design Science Research adotado neste trabalho \cite{hevner2004design}, as decisões de design devem ser orientadas tanto pela utilidade prática do artefato quanto pelo rigor teórico que fundamenta cada escolha.
 
-Esta seção organiza as decisões técnicas em quatro dimensões interdependentes: a arquitetura de software que estrutura o sistema, o stack tecnológico que a implementa, a estratégia de ingestão que alimenta a base de dados, e o modelo relacional que organiza as informações. Cada decisão é apresentada com suas alternativas consideradas e a justificativa para a escolha final, seguindo a tradição de documentação arquitetural proposta por Dragoni et al. \citeonline{dragoni2017microservices}.
+Esta seção organiza as decisões técnicas em quatro dimensões interdependentes: a arquitetura de software que estrutura o sistema, o stack tecnológico que a implementa, a estratégia de ingestão que alimenta a base de dados, e o modelo relacional que organiza as informações. Cada decisão é apresentada com suas alternativas consideradas e a justificativa para a escolha final, seguindo a tradição de documentação arquitetural proposta por Dragoni et al. (\citeyear{dragoni2017microservices}).
 
 \subsection{Arquitetura do Sistema}
 
@@ -17,7 +17,7 @@ Após análise de alternativas, optou-se pelo padrão de \textbf{monolito modula
     
     \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem os \textit{patterns} complexos (\textit{sagas}, \textit{two-phase \textit{commit}}) exigidos por sistemas distribuídos;
     
-    \item \textbf{Estratégia MonolithFirst}: Martin Fowler \citeonline{fowler2015monolith} argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto''. A estrutura modular atual permite extração futura de serviços independentes apenas onde houver necessidade comprovada.
+    \item \textbf{Estratégia MonolithFirst}: Martin Fowler (\citeyear{fowler2015monolith}) argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto''. A estrutura modular atual permite extração futura de serviços independentes apenas onde houver necessidade comprovada.
 \end{itemize}
 
 \subsubsection{Organização em Módulos}
@@ -72,9 +72,9 @@ A escolha do \textbf{\textit{Bun}} como \textit{runtime JavaScript} fundamenta-s
 
 \subsection{Estratégia de Ingestão de Dados}
 
-A consolidação de dados dispersos em três \textit{APIs} governamentais representa um dos maiores desafios técnicos do projeto. O processo segue o paradigma \textit{Extract, Transform, Load} (\textit{ETL}), conforme Vassiliadis \citeonline{vassiliadis2009survey} tipicamente consome entre 60\% e 80\% do esforço total em projetos de \textit{data warehousing}.
+A consolidação de dados dispersos em três \textit{APIs} governamentais representa um dos maiores desafios técnicos do projeto. O processo segue o paradigma \textit{Extract, Transform, Load} (\textit{ETL}), conforme Vassiliadis (\citeyear{vassiliadis2009survey}) tipicamente consome entre 60\% e 80\% do esforço total em projetos de \textit{data warehousing}.
 
-A estratégia adotada combina duas abordagens complementares: \textbf{\textit{backfill}} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross \citeonline{kimball2013toolkit}, operações de carga histórica devem privilegiar \textit{throughput} sobre latência, utilizando arquivos \textit{CSV} consolidados e \textit{bulk inserts}. As fontes históricas incluem \textit{CEAPS} (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
+A estratégia adotada combina duas abordagens complementares: \textbf{\textit{backfill}} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross (\citeyear{kimball2013toolkit}), operações de carga histórica devem privilegiar \textit{throughput} sobre latência, utilizando arquivos \textit{CSV} consolidados e \textit{bulk inserts}. As fontes históricas incluem \textit{CEAPS} (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
 
 Para o módulo de emendas, o \textit{backfill} utiliza o \textit{CSV} consolidado do Portal da Transparência, com leitura \textit{streaming} e detecção automática de delimitador. Como a identificação do autor é textual, o processo aplica normalização de grafia (remoção de acentos, espaços e pontuação) para casar \textit{nomeAutor} com o cadastro de senadores. A idempotência é garantida por chave composta \texttt{(codigoEmenda, senador\_id, ano)}, com \textit{upsert} via \textit{ON CONFLICT}.
 

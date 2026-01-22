@@ -22,7 +22,7 @@
 \contentsline {subsubsection}{\numberline {2.3.1}Métricas de Efetividade Legislativa}{14}{subsubsection.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.3.2}Visualização de Dados e Retórica Visual}{15}{subsubsection.2.3.2}%
 \contentsline {subsubsection}{\numberline {2.3.3}Arquitetura de Software: Monolito Modular}{16}{subsubsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.4}Engenharia de Dados: APIs e Processos ETL}{18}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.4}Engenharia de Dados: APIs e Processos ETL}{17}{subsubsection.2.3.4}%
 \contentsline {section}{\numberline {3}Metodologia}{19}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Abordagem de Desenvolvimento}{19}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Fontes de Dados}{20}{subsection.3.2}%

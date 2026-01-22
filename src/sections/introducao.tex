@@ -12,7 +12,7 @@ A literatura evidencia que TICs ampliam possibilidades de participação, mas s�
 
 O Senado Federal disponibiliza dados públicos por meio de APIs próprias, enquanto a Controladoria-Geral da União (CGU) mantém o Portal da Transparência com dados de emendas parlamentares. Contudo, essas fontes encontram-se fragmentadas em órgãos distintos: a API Legislativa do Senado concentra informações sobre matérias e votações; a API Administrativa do Senado reúne dados da CEAPS e remunerações de gabinete; e o Portal da Transparência da CGU hospeda os registros de emendas e transferências federais. Para construir uma visão completa de um único senador, o cidadão precisaria consultar três sistemas de dois órgãos diferentes, com interfaces, formatos e periodicidades de atualização distintos.
 
-Essa fragmentação adquire contornos mais graves quando analisamos as ``Transferências Especiais'' --- popularmente conhecidas como ``emendas PIX''. Criada em 2019, essa modalidade dispensa convênio e transfere recursos federais diretamente a estados e municípios. Alencar \citeonline{alencar2024emendaspix} demonstra que, do total de R\$ 20,5 bilhões transferidos por essa via, apenas R\$ 933 milhões tiveram prestação de contas adequada --- menos de 5\%. Em 2020, primeiro ano de vigência, as transferências especiais representavam 6,4\% das emendas individuais; em 2023, esse percentual saltou para 32,4\%. A distribuição é ainda mais desigual: no mesmo estado, alguns municípios receberam mais de R\$ 4.500 \textit{per capita}, enquanto outros receberam menos de R\$ 1 --- sem qualquer justificativa pública dos parlamentares.
+Essa fragmentação adquire contornos mais graves quando analisamos as ``Transferências Especiais'' --- popularmente conhecidas como ``emendas PIX''. Criada em 2019, essa modalidade dispensa convênio e transfere recursos federais diretamente a estados e municípios. Alencar (\citeyear{alencar2024emendaspix}) demonstra que, do total de R\$ 20,5 bilhões transferidos por essa via, apenas R\$ 933 milhões tiveram prestação de contas adequada --- menos de 5\%. Em 2020, primeiro ano de vigência, as transferências especiais representavam 6,4\% das emendas individuais; em 2023, esse percentual saltou para 32,4\%. A distribuição é ainda mais desigual: no mesmo estado, alguns municípios receberam mais de R\$ 4.500 \textit{per capita}, enquanto outros receberam menos de R\$ 1 --- sem qualquer justificativa pública dos parlamentares.
 
 Além da barreira técnica imposta pela fragmentação dos dados, há uma barreira social igualmente relevante. Segundo o Indicador de Alfabetismo Funcional \cite{inaf2024}, 29\% da população brasileira entre 15 e 64 anos é funcionalmente analfabeta, o que limita severamente a capacidade de interpretar planilhas, gráficos e relatórios disponibilizados nos portais oficiais. Nesse contexto, a simples disponibilização de dados brutos não garante transparência efetiva: é necessária uma ferramenta que consolide as informações dispersas e as apresente de forma visual e acessível, permitindo ao cidadão comum avaliar qualitativamente seus representantes \cite{avelino2021democracia}.
 
@@ -31,9 +31,9 @@ O sistema organiza os dados em três dimensões complementares do mandato parlam
 O diferencial da plataforma reside em quatro pilares:
 
 \begin{enumerate}
-    \item \textbf{\textit{Ranking} Metodologicamente Fundamentado}: desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness \textit{Score}} (LES) de Volden e Wiseman \citeonline{volden2014lawmakers}, o algoritmo de avaliação pondera produtividade legislativa (35\%), presença em votações (25\%), economia na cota parlamentar (20\%) e participação em comissões (20\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
+    \item \textbf{\textit{Ranking} Metodologicamente Fundamentado}: desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness \textit{Score}} (LES) de Volden e Wiseman (\citeyear{volden2014lawmakers}), o algoritmo de avaliação pondera produtividade legislativa (35\%), presença em votações (25\%), economia na cota parlamentar (20\%) e participação em comissões (20\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
     
-    \item \textbf{Visualização Orientada à Ação}: seguindo os princípios de retórica visual de Hullman \citeonline{hullman2011visualization}, cada dado absoluto é contextualizado com médias comparativas, reduzindo a possibilidade de interpretações manipuladas e estimulando conclusões informadas;
+    \item \textbf{Visualização Orientada à Ação}: seguindo os princípios de retórica visual de Hullman (\citeyear{hullman2011visualization}), cada dado absoluto é contextualizado com médias comparativas, reduzindo a possibilidade de interpretações manipuladas e estimulando conclusões informadas;
     
     \item \textbf{Acessibilidade como Requisito}: a interface segue as diretrizes WCAG 2.1 nível AA, garantindo navegação por leitores de tela, contraste adequado e operação via teclado --- essencial para atingir os 29\% de brasileiros funcionalmente analfabetos identificados pelo INAF \cite{inaf2024};
     
@@ -46,7 +46,7 @@ Em síntese, o \textit{Tô De Olho} atua como um ``auditor digital'', automatiza
 
 \subsection{Trabalhos Relacionados}
 
-Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. À luz da Escada de Participação de Arnstein \citeonline{arnstein1969ladder}, podemos classificar essas ferramentas conforme o grau de poder que conferem ao cidadão.
+Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. À luz da Escada de Participação de Arnstein (\citeyear{arnstein1969ladder}), podemos classificar essas ferramentas conforme o grau de poder que conferem ao cidadão.
 
 \subsubsection{Portais Oficiais (Nível Informação)}
 
@@ -131,7 +131,7 @@ Mais do que apenas replicar soluções existentes para o âmbito senatorial, o \
     \item \textbf{Do ``Serenata de Amor''}, adotamos a filosofia de \textbf{código aberto} e documentação transparente.
 \end{itemize}
 
-O diferencial central do \textit{Tô De Olho}, entretanto, reside em uma contribuição original: a implementação de um \textbf{Índice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- métrica que penaliza a parcimônia --- ou \textit{quantidade de proposições} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness \textit{Score}} (LES) de Volden e Wiseman \citeonline{volden2014lawmakers}.
+O diferencial central do \textit{Tô De Olho}, entretanto, reside em uma contribuição original: a implementação de um \textbf{Índice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- métrica que penaliza a parcimônia --- ou \textit{quantidade de proposições} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness \textit{Score}} (LES) de Volden e Wiseman (\citeyear{volden2014lawmakers}).
 
 Nosso índice pondera quatro dimensões objetivas, com pesos públicos e metodologia reprodutível:
 
