@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  21 JAN 2026 22:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  21 JAN 2026 23:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -645,7 +645,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
                                                   \__shipout_drop_firstpage_...
 l.104 
       ] [23]
-<imagens/comparador-v2.png, id=749, 1429.34pt x 1308.89pt>
+<imagens/comparador-v2.png, id=753, 1429.34pt x 1308.89pt>
 File: imagens/comparador-v2.png Graphic file (type png)
 <use imagens/comparador-v2.png>
 Package pdftex.def Info: imagens/comparador-v2.png  used on input line 138.
@@ -658,7 +658,7 @@ s been already used, duplicate ignored
 l.4 
      <./imagens/comparador-v2.png (PNG copy)>] [25] [26])
 (src/sections/design.tex [27] [28]
-<docs/diagrama_implantacao.png, id=790, 246.6816pt x 246.6816pt>
+<docs/diagrama_implantacao.png, id=794, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
 Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 43.
@@ -672,7 +672,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.56 
       <./docs/diagrama_implantacao.png>] [30]
-<docs/diagrama_er_modelo.png, id=830, 246.6816pt x 246.6816pt>
+<docs/diagrama_er_modelo.png, id=834, 246.6816pt x 246.6816pt>
 File: docs/diagrama_er_modelo.png Graphic file (type png)
 <use docs/diagrama_er_modelo.png>
 Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 93.
@@ -706,7 +706,7 @@ l.15 ...twidth]{src/images/\textit{dashboard}.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-<src/images/modal_metodologia.png, id=901, 1220.56pt x 1308.89pt>
+<src/images/modal_metodologia.png, id=905, 1220.56pt x 1308.89pt>
 File: src/images/modal_metodologia.png Graphic file (type png)
 <use src/images/modal_metodologia.png>
 Package pdftex.def Info: src/images/modal_metodologia.png  used on input line 2
@@ -719,7 +719,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.27 
      ]
-<src/images/ranking_completo.png, id=907, 1220.56pt x 1308.89pt>
+<src/images/ranking_completo.png, id=911, 1220.56pt x 1308.89pt>
 File: src/images/ranking_completo.png Graphic file (type png)
 <use src/images/ranking_completo.png>
 Package pdftex.def Info: src/images/ranking_completo.png  used on input line 35
@@ -739,13 +739,13 @@ s been already used, duplicate ignored
 l.48     \item \textbf
                       {Despesas (Figura \ref{fig:despesas})}: No gráfico de...
  <./src/images/ranking_completo.png (PNG copy)>]
-<src/images/ficha_parlamentar.png, id=921, 1429.34pt x 1308.89pt>
+<src/images/ficha_parlamentar.png, id=925, 1429.34pt x 1308.89pt>
 File: src/images/ficha_parlamentar.png Graphic file (type png)
 <use src/images/ficha_parlamentar.png>
 Package pdftex.def Info: src/images/ficha_parlamentar.png  used on input line 5
 6.
 (pdftex.def)             Requested size: 452.96826pt x 414.79904pt.
-<src/images/ficha_votacoes_detalhe.png, id=922, 1027.84pt x 940.51375pt>
+<src/images/ficha_votacoes_detalhe.png, id=926, 1027.84pt x 940.51375pt>
 File: src/images/ficha_votacoes_detalhe.png Graphic file (type png)
 <use src/images/ficha_votacoes_detalhe.png>
 Package pdftex.def Info: src/images/ficha_votacoes_detalhe.png  used on input l
@@ -758,7 +758,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.68 
       <./src/images/ficha_parlamentar.png (PNG copy)>]
-<src/images/ficha_ceaps_detalhe.png, id=928, 1027.84pt x 940.51375pt>
+<src/images/ficha_ceaps_detalhe.png, id=932, 1027.84pt x 940.51375pt>
 File: src/images/ficha_ceaps_detalhe.png Graphic file (type png)
 <use src/images/ficha_ceaps_detalhe.png>
 Package pdftex.def Info: src/images/ficha_ceaps_detalhe.png  used on input line
@@ -771,7 +771,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.76 
       <./src/images/ficha_votacoes_detalhe.png>]
-<src/images/mapa_emendas_detalhe.png, id=934, 1027.84pt x 940.51375pt>
+<src/images/mapa_emendas_detalhe.png, id=938, 1027.84pt x 940.51375pt>
 File: src/images/mapa_emendas_detalhe.png Graphic file (type png)
 <use src/images/mapa_emendas_detalhe.png>
 Package pdftex.def Info: src/images/mapa_emendas_detalhe.png  used on input lin
@@ -784,7 +784,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.84 
       <./src/images/ficha_ceaps_detalhe.png>]
-<src/images/ficha_comissoes_detalhe.png, id=941, 1027.84pt x 940.51375pt>
+<src/images/ficha_comissoes_detalhe.png, id=945, 1027.84pt x 940.51375pt>
 File: src/images/ficha_comissoes_detalhe.png Graphic file (type png)
 <use src/images/ficha_comissoes_detalhe.png>
 Package pdftex.def Info: src/images/ficha_comissoes_detalhe.png  used on input 
@@ -797,7 +797,7 @@ as been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.92 
       <./src/images/mapa_emendas_detalhe.png>]
-<src/images/dock_comparacao.png, id=949, 1220.56pt x 1308.89pt>
+<src/images/dock_comparacao.png, id=953, 1220.56pt x 1308.89pt>
 File: src/images/dock_comparacao.png Graphic file (type png)
 <use src/images/dock_comparacao.png>
 Package pdftex.def Info: src/images/dock_comparacao.png  used on input line 102
@@ -810,7 +810,7 @@ as been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.106 
        <./src/images/ficha_comissoes_detalhe.png>]
-<src/images/comparacao_tela.png, id=955, 957.5775pt x 1027.84pt>
+<src/images/comparacao_tela.png, id=959, 957.5775pt x 1027.84pt>
 File: src/images/comparacao_tela.png Graphic file (type png)
 <use src/images/comparacao_tela.png>
 Package pdftex.def Info: src/images/comparacao_tela.png  used on input line 110
@@ -865,9 +865,9 @@ Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro
 dro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/User
 s/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/U
 sers/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (63 pages, 3430189 bytes).
+Output written on main.pdf (63 pages, 3430986 bytes).
 PDF statistics:
- 1155 PDF objects out of 1200 (max. 8388607)
+ 1159 PDF objects out of 1200 (max. 8388607)
  258 named destinations out of 1000 (max. 500000)
  79434 words of extra memory for PDF output out of 89155 (max. 10000000)
 
