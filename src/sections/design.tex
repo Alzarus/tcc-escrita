@@ -11,32 +11,32 @@ A escolha arquitetural representa uma das decisões mais consequentes em projeto
 Após análise de alternativas, optou-se pelo padrão de \textbf{monolito modular}. Esta abordagem, sistematizada em revisão de literatura recente \cite{su2024modularmonolith}, combina a organização interna característica de microsserviços --- com fronteiras claras entre domínios de negócio --- com a simplicidade de implantação dos monolitos tradicionais. A decisão fundamentou-se em quatro critérios:
 
 \begin{itemize}
-    \item \textbf{Simplicidade Operacional}: Um único contêiner Docker elimina a complexidade de orquestração distribuída. Em plataformas serverless como Google Cloud Run, essa característica traduz-se em escala automática (inclusive a zero) e custos proporcionais ao uso efetivo;
+    \item \textbf{Simplicidade Operacional}: Um único contêiner \textit{Docker} elimina a complexidade de orquestração distribuída. Em plataformas \textit{serverless} como \textit{Google \textit{Cloud Run}}, essa característica traduz-se em escala automática (inclusive a zero) e custos proporcionais ao uso efetivo;
     
     \item \textbf{Latência Previsível}: A comunicação entre módulos ocorre via chamadas de função em memória, eliminando a variabilidade de latência inerente a redes --- fator crítico para operações que agregam dados de múltiplos domínios;
     
-    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem os patterns complexos (sagas, two-phase commit) exigidos por sistemas distribuídos;
+    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem os \textit{patterns} complexos (\textit{sagas}, \textit{two-phase \textit{commit}}) exigidos por sistemas distribuídos;
     
     \item \textbf{Estratégia MonolithFirst}: Martin Fowler argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto'' \cite{fowler2015monolith}. A estrutura modular atual permite extração futura de serviços independentes apenas onde houver necessidade comprovada.
 \end{itemize}
 
 \subsubsection{Organização em Módulos}
 
-A estrutura interna segue os princípios de \textit{Bounded Contexts} do Domain-Driven Design \cite{evans2003ddd}, onde cada módulo representa um contexto de domínio com responsabilidades claramente delimitadas. O diretório \texttt{internal/} organiza-se em cinco módulos principais, cada um encapsulando um aspecto da fiscalização parlamentar:
+A estrutura interna segue os princípios de \textit{Bounded Contexts} do \textit{Domain-Driven Design} \cite{evans2003ddd}, onde cada módulo representa um contexto de domínio com responsabilidades claramente delimitadas. O diretório \texttt{internal/} organiza-se em cinco módulos principais, cada um encapsulando um aspecto da fiscalização parlamentar:
 
 \begin{itemize}
     \item \texttt{internal/senador}: Gerencia dados cadastrais e mandatos históricos, atuando como ``fonte de verdade'' para identificação de parlamentares;
     \item \texttt{internal/ceaps}: Processa despesas da Cota Parlamentar, implementando detecção de anomalias e agregações por categoria;
     \item \texttt{internal/votacao}: Coleta votações nominais e calcula métricas como presença e fidelidade partidária;
     \item \texttt{internal/emenda}: Integra dados do Portal da Transparência, com tratamento especial para ``emendas PIX'';
-    \item \texttt{internal/ranking}: Orquestra o cálculo de scores conforme metodologia definida na Seção~3.3.
+    \item \texttt{internal/\textit{ranking}}: Orquestra o cálculo de \textit{scores} conforme metodologia definida na Seção~3.3.
 \end{itemize}
 
-Módulos transversais complementam a estrutura: \texttt{internal/api} expõe endpoints REST, \texttt{internal/scheduler} gerencia tarefas agendadas, e \texttt{internal/cache} abstrai operações no Redis. Os módulos comunicam-se exclusivamente através de interfaces Go, respeitando o princípio de inversão de dependência.
+Módulos transversais complementam a estrutura: \texttt{internal/api} expõe \textit{endpoints REST}, \texttt{internal/\textit{scheduler}} gerencia tarefas agendadas, e \texttt{internal/cache} abstrai operações no \textit{Redis}. Os módulos comunicam-se exclusivamente através de interfaces \textit{Go}, respeitando o princípio de inversão de dependência.
 
 \subsubsection{Visão de Implantação}
 
-A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do sistema, ilustrando o fluxo de dados desde as fontes governamentais até o usuário final. O backend executa no Google Cloud Run, consumindo dados armazenados em PostgreSQL (Cloud SQL) e Redis (Memorystore). O frontend, desenvolvido em Next.js, é hospedado na Vercel para otimização de distribuição global.
+A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do sistema, ilustrando o fluxo de dados desde as fontes governamentais até o usuário final. O \textit{backend} executa no \textit{Google \textit{Cloud Run}}, consumindo dados armazenados em \textit{PostgreSQL} (\textit{Cloud SQL}) e \textit{Redis} (\textit{Memorystore}). O \textit{frontend}, desenvolvido em \textit{Next.js}, é hospedado na \textit{Vercel} para otimização de distribuição global.
 
 \begin{figure}[!htb]
     \centering
@@ -48,39 +48,39 @@ A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do siste
 
 \subsection{Stack Tecnológico}
 
-A seleção de tecnologias foi orientada por três critérios: desempenho em cenários de alta concorrência (característicos de pipelines de ingestão), manutenibilidade a longo prazo (considerando a natureza open-source do projeto), e adequação ao domínio (priorizando ferramentas com suporte robusto a operações analíticas).
+A seleção de tecnologias foi orientada por três critérios: desempenho em cenários de alta concorrência (característicos de \textit{pipelines} de ingestão), manutenibilidade a longo prazo (considerando a natureza \textit{open-source} do projeto), e adequação ao domínio (priorizando ferramentas com suporte robusto a operações analíticas).
 
-\subsubsection{Backend em Go}
+\subsubsection{\textit{Backend} em \textit{Go}}
 
-A linguagem Go foi selecionada após avaliação comparativa com Node.js e Python. O fator decisivo foi o modelo de \textbf{goroutines}: threads leves gerenciadas pelo runtime, consumindo aproximadamente 2KB de memória inicial --- em contraste com cerca de 1MB por thread de sistema operacional \cite{nanz2015comparative}. Essa eficiência viabiliza o processamento paralelo de centenas de requisições HTTP durante a ingestão.
+A linguagem \textit{Go} foi selecionada após avaliação comparativa com \textit{Node.js} e \textit{Python}. O fator decisivo foi o modelo de \textbf{\textit{goroutines}}: \textit{threads} leves gerenciadas pelo \textit{runtime}, consumindo aproximadamente 2KB de memória inicial --- em contraste com cerca de 1MB por \textit{thread} de sistema operacional \cite{nanz2015comparative}. Essa eficiência viabiliza o processamento paralelo de centenas de requisições \textit{HTTP} durante a ingestão.
 
-O framework \textbf{Gin} foi escolhido por seu roteamento baseado em radix tree, com desempenho até 40 vezes superior a alternativas \cite{lie2024golang}. O ORM \textbf{GORM} oferece migrações automáticas e operações de upsert essenciais para garantia de idempotência. Para ambientes de produção, o sistema implementa connection pooling com limites configuráveis de conexões ociosas e máximas.
+O \textit{framework} \textbf{\textit{Gin}} foi escolhido por seu roteamento baseado em \textit{radix tree}, com desempenho até 40 vezes superior a alternativas \cite{lie2024golang}. O \textit{ORM} \textbf{\textit{GORM}} oferece migrações automáticas e operações de \textit{upsert} essenciais para garantia de idempotência. Para ambientes de produção, o sistema implementa \textit{connection pooling} com limites configuráveis de conexões ociosas e máximas.
 
 \subsubsection{Camada de Persistência}
 
-\textbf{PostgreSQL} foi selecionado por sua robustez em consultas analíticas e suporte a CTEs (\textit{Common Table Expressions}), essenciais para agregações complexas. Originado em 1986 na UC Berkeley \cite{stonebraker1986postgres}, o banco garante conformidade ACID crítica para operações de ingestão concorrente.
+\textbf{\textit{PostgreSQL}} foi selecionado por sua robustez em consultas analíticas e suporte a \textit{CTEs} (\textit{Common Table Expressions}), essenciais para agregações complexas. Originado em 1986 na \textit{UC Berkeley} \cite{stonebraker1986postgres}, o banco garante conformidade \textit{ACID} crítica para operações de ingestão concorrente.
 
-\textbf{Redis} atua como cache para rankings pré-computados, alcançando latências de 100--500 microssegundos por operação \cite{redis2024}. Esta camada evita recálculos custosos a cada requisição, materializando resultados após cada ciclo de sincronização.
+\textbf{\textit{Redis}} atua como \textit{cache} para \textit{rankings} pré-computados, alcançando latências de 100--500 microssegundos por operação \cite{redis2024}. Esta camada evita recálculos custosos a cada requisição, materializando resultados após cada ciclo de sincronização.
 
-\subsubsection{Frontend em Next.js}
+\subsubsection{\textit{Frontend} em \textit{Next.js}}
 
-A escolha de \textbf{Next.js 16} justifica-se pela necessidade crítica de indexação por mecanismos de busca \cite{salim2024nextjs}. Diferentemente de SPAs que renderizam conteúdo apenas via JavaScript, Next.js oferece Server-Side Rendering (SSR) e Static Site Generation (SSG), entregando HTML pré-renderizado aos crawlers --- requisito fundamental para plataformas de fiscalização que dependem de descoberta orgânica.
+A escolha de \textbf{\textit{Next.js} 16} justifica-se pela necessidade crítica de indexação por mecanismos de busca \cite{salim2024nextjs}. Diferentemente de \textit{SPAs} que renderizam conteúdo apenas via \textit{JavaScript}, \textit{Next.js} oferece \textit{Server-Side Rendering} (\textit{SSR}) e \textit{Static Site Generation} (\textit{SSG}), entregando \textit{HTML} pré-renderizado aos \textit{crawlers} --- requisito fundamental para plataformas de fiscalização que dependem de descoberta orgânica.
 
-A biblioteca \textbf{Recharts} foi selecionada para visualização de dados por sua integração declarativa com React. \textbf{Tailwind CSS 4} permite desenvolvimento ágil com classes utilitárias e geração otimizada de CSS em produção \cite{tailwindcss2024}.
+A biblioteca \textbf{\textit{Recharts}} foi selecionada para visualização de dados por sua integração declarativa com \textit{React}. \textbf{\textit{Tailwind CSS 4}} permite desenvolvimento ágil com classes utilitárias e geração otimizada de \textit{CSS} em produção \cite{tailwindcss2024}.
 
-A escolha do \textbf{Bun} como \textit{runtime} JavaScript fundamenta-se em estudos comparativos recentes que demonstram seu desempenho superior em operações síncronas e processamento JSON \cite{smirnov2024bun}. Diferentemente do Node.js, que utiliza o motor V8, o Bun é construído sobre o JavaScriptCore (WebKit), resultando em tempos de inicialização significativamente menores --- característica vantajosa para o ciclo de desenvolvimento iterativo. Além do \textit{runtime}, o Bun incorpora gerenciador de pacotes nativo, eliminando dependências externas como npm ou Yarn e simplificando o \textit{pipeline} de \textit{build}.
+A escolha do \textbf{\textit{Bun}} como \textit{runtime JavaScript} fundamenta-se em estudos comparativos recentes que demonstram seu desempenho superior em operações síncronas e processamento \textit{JSON} \cite{smirnov2024bun}. Diferentemente do \textit{Node.js}, que utiliza o motor \textit{V8}, o \textit{Bun} é construído sobre o \textit{JavaScriptCore} (\textit{WebKit}), resultando em tempos de inicialização significativamente menores --- característica vantajosa para o ciclo de desenvolvimento iterativo. Além do \textit{runtime}, o \textit{Bun} incorpora gerenciador de pacotes nativo, eliminando dependências externas como \textit{npm} ou \textit{Yarn} e simplificando o \textit{pipeline} de \textit{build}.
 
 \subsection{Estratégia de Ingestão de Dados}
 
-A consolidação de dados dispersos em três APIs governamentais representa um dos maiores desafios técnicos do projeto. O processo segue o paradigma \textit{Extract, Transform, Load} (ETL), que conforme Vassiliadis \cite{vassiliadis2009survey} tipicamente consome entre 60\% e 80\% do esforço total em projetos de data warehousing.
+A consolidação de dados dispersos em três \textit{APIs} governamentais representa um dos maiores desafios técnicos do projeto. O processo segue o paradigma \textit{Extract, Transform, Load} (\textit{ETL}), que conforme Vassiliadis \cite{vassiliadis2009survey} tipicamente consome entre 60\% e 80\% do esforço total em projetos de \textit{data warehousing}.
 
-A estratégia adotada combina duas abordagens complementares: \textbf{backfill} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross \cite{kimball2013toolkit}, operações de carga histórica devem privilegiar throughput sobre latência, utilizando arquivos CSV consolidados e bulk inserts. As fontes históricas incluem CEAPS (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
+A estratégia adotada combina duas abordagens complementares: \textbf{\textit{backfill}} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross \cite{kimball2013toolkit}, operações de carga histórica devem privilegiar \textit{throughput} sobre latência, utilizando arquivos \textit{CSV} consolidados e \textit{bulk inserts}. As fontes históricas incluem \textit{CEAPS} (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
 
-Para o módulo de emendas, o \textit{backfill} utiliza o CSV consolidado do Portal da Transparência, com leitura \textit{streaming} e detecção automática de delimitador. Como a identificação do autor é textual, o processo aplica normalização de grafia (remoção de acentos, espaços e pontuação) para casar \textit{nomeAutor} com o cadastro de senadores. A idempotência é garantida por chave composta \texttt{(codigoEmenda, senador\_id, ano)}, com upsert via \textit{ON CONFLICT}.
+Para o módulo de emendas, o \textit{backfill} utiliza o \textit{CSV} consolidado do Portal da Transparência, com leitura \textit{streaming} e detecção automática de delimitador. Como a identificação do autor é textual, o processo aplica normalização de grafia (remoção de acentos, espaços e pontuação) para casar \textit{nomeAutor} com o cadastro de senadores. A idempotência é garantida por chave composta \texttt{(codigoEmenda, senador\_id, ano)}, com \textit{upsert} via \textit{ON CONFLICT}.
 
-A sincronização contínua opera via polling periódico, calibrado pela volatilidade de cada domínio: votações diárias às 03:00 BRT (baixo tráfego nas APIs), remunerações semanais aos domingos, e emendas mensalmente após fechamento contábil.
+A sincronização contínua opera via \textit{polling} periódico, calibrado pela volatilidade de cada domínio: votações diárias às 03:00 \textit{BRT} (baixo tráfego nas \textit{APIs}), remunerações semanais aos domingos, e emendas mensalmente após fechamento contábil.
 
-Para garantir consistência, o sistema opera sob modelo \textit{at-least-once} com \textbf{idempotência} via chaves naturais compostas \cite{hummer2013modeldriven}. Falhas transientes são tratadas com retry exponencial ($t_{wait} = base \times 2^{tentativa}$) conforme recomendação AWS \cite{aws2015backoff}, timeout de 30 segundos e falha graciosa que permite continuidade da sincronização mesmo com fontes temporariamente indisponíveis.
+Para garantir consistência, o sistema opera sob modelo \textit{at-least-once} com \textbf{idempotência} via chaves naturais compostas \cite{hummer2013modeldriven}. Falhas transientes são tratadas com \textit{retry} exponencial ($t_{wait} = base \times 2^{tentativa}$) conforme recomendação \textit{AWS} \cite{aws2015backoff}, \textit{timeout} de 30 segundos e falha graciosa que permite continuidade da sincronização mesmo com fontes temporariamente indisponíveis.
 
 \subsection{Modelo de Dados}
 

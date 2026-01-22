@@ -3,7 +3,7 @@
 
 O desenvolvimento do \textit{Tô De Olho} enquadra-se no paradigma da \textit{Design Science Research} (DSR), abordagem metodológica adequada para pesquisas que visam a construção e avaliação de artefatos tecnológicos destinados a resolver problemas organizacionais identificados \cite{hevner2004design}. O problema abordado --- a fragmentação de dados públicos sobre a atuação de senadores federais em múltiplas APIs governamentais não integradas --- demanda a construção de um artefato de software capaz de consolidar, processar e apresentar essas informações de forma acessível ao cidadão.
 
-Esta seção detalha a abordagem de desenvolvimento iterativo adotada, as fontes de dados governamentais integradas e a metodologia de avaliação de desempenho parlamentar inspirada no \textit{Legislative Effectiveness Score}.
+Esta seção detalha a abordagem de desenvolvimento iterativo adotada, as fontes de dados governamentais integradas e a metodologia de avaliação de desempenho parlamentar inspirada no \textit{Legislative Effectiveness \textit{Score}}.
 
 \subsection{Abordagem de Desenvolvimento}
 
@@ -13,14 +13,14 @@ Optou-se, portanto, por uma abordagem \textbf{iterativa e incremental}, na qual 
 
 O desenvolvimento contou com apoio de ferramentas de inteligência artificial generativa como assistentes de codificação, seguindo a tendência contemporânea de \textit{AI-assisted software development} \cite{peng2023impact}. Tais ferramentas, baseadas em modelos de linguagem de grande escala (LLMs), foram empregadas para aceleração de tarefas operacionais como geração de código \textit{boilerplate}, refatoração e \textit{debugging}. O uso de assistentes de IA em desenvolvimento de software representa uma evolução natural das ferramentas de produtividade, análoga à adoção de IDEs com \textit{autocomplete} e analisadores estáticos de código.
 
-É fundamental distinguir entre \textbf{assistência operacional} e \textbf{autoria intelectual}. As decisões estruturantes do projeto --- arquitetura do sistema, design do algoritmo de ranking, seleção de fontes de dados, modelagem do domínio e interpretação de resultados --- foram integralmente concebidas, avaliadas e validadas pelo desenvolvedor. A ferramenta de IA atuou como acelerador de implementação, não como substituto do julgamento técnico.
+É fundamental distinguir entre \textbf{assistência operacional} e \textbf{autoria intelectual}. As decisões estruturantes do projeto --- arquitetura do sistema, design do algoritmo de \textit{ranking}, seleção de fontes de dados, modelagem do domínio e interpretação de resultados --- foram integralmente concebidas, avaliadas e validadas pelo desenvolvedor. A ferramenta de IA atuou como acelerador de implementação, não como substituto do julgamento técnico.
 
 A divisão do trabalho ocorreu em cinco fases principais:
 \begin{enumerate}
-    \item \textbf{Fundação}: Estruturação do projeto em Golang, implementação do cliente para a API Legislativa do Senado, criação das \textit{migrations} do banco de dados e configuração inicial do \textit{frontend} em Next.js utilizando Bun como \textit{runtime};
+    \item \textbf{Fundação}: Estruturação do projeto em \textit{Golang}, implementação do cliente para a API Legislativa do Senado, criação das \textit{migrations} do banco de dados e configuração inicial do \textit{frontend} em \textit{Next.js} utilizando \textit{Bun} como \textit{runtime};
     \item \textbf{Ingestão de Dados}: Implementação do cliente para a API Administrativa, configuração do \textit{scheduler} para tarefas agendadas, coleta de votações nominais e carga de dados históricos;
-    \item \textbf{Ranking e API}: Desenvolvimento do serviço de cálculo de rankings, criação dos \textit{endpoints} REST para consumo pelo \textit{frontend}, configuração do cache Redis e implementação de testes automatizados;
-    \item \textbf{Frontend}: Desenvolvimento do \textit{dashboard} principal, interface de ranking interativo e páginas de perfil dos senadores;
+    \item \textbf{\textit{Ranking} e API}: Desenvolvimento do serviço de cálculo de \textit{rankings}, criação dos \textit{endpoints} REST para consumo pelo \textit{frontend}, configuração do cache \textit{Redis} e implementação de testes automatizados;
+    \item \textbf{\textit{Frontend}}: Desenvolvimento do \textit{dashboard} principal, interface de \textit{ranking} interativo e páginas de perfil dos senadores;
     \item \textbf{Emendas e Polimento}: Integração com o Portal da Transparência para dados de emendas parlamentares, visualizações de dados e preparação para \textit{deploy}.
 \end{enumerate}
 
@@ -56,15 +56,15 @@ Cada fonte de dados apresenta limitações que impactam o escopo das análises:
 
 \subsection{Metodologia de Avaliação de Desempenho}
 
-A avaliação objetiva do desempenho parlamentar é elemento central para a participação cidadã. Conforme a escada de participação de Arnstein \cite{arnstein1969ladder}, o acesso a informações claras é pré-requisito para que cidadãos avancem de níveis consultivos para controle social efetivo. A construção de rankings requer transparência metodológica \cite{hullman2011visualization}. Ressalta-se que o índice proposto não pretende mensurar ``qualidade moral'' ou ``mérito político'' subjetivo dos parlamentares, mas sim oferecer um instrumento comparativo fundamentado em critérios observáveis e quantificáveis de produtividade e gestão fiscal.
+A avaliação objetiva do desempenho parlamentar é elemento central para a participação cidadã. Conforme a escada de participação de Arnstein \cite{arnstein1969ladder}, o acesso a informações claras é pré-requisito para que cidadãos avancem de níveis consultivos para controle social efetivo. A construção de \textit{rankings} requer transparência metodológica \cite{hullman2011visualization}. Ressalta-se que o índice proposto não pretende mensurar ``qualidade moral'' ou ``mérito político'' subjetivo dos parlamentares, mas sim oferecer um instrumento comparativo fundamentado em critérios observáveis e quantificáveis de produtividade e gestão fiscal.
 
-O cálculo do \textit{score} de cada senador é inspirado no \textit{Legislative Effectiveness Score} (LES), metodologia desenvolvida por Volden e Wiseman para avaliar a efetividade legislativa de parlamentares americanos \cite{volden2024legislative}. O LES define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei'' \cite{volden2014lawmakers}.
+O cálculo do \textit{score} de cada senador é inspirado no \textit{Legislative Effectiveness \textit{Score}} (LES), metodologia desenvolvida por Volden e Wiseman para avaliar a efetividade legislativa de parlamentares americanos \cite{volden2024legislative}. O LES define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei'' \cite{volden2014lawmakers}.
 
 Para a adaptação brasileira, manteve-se a filosofia de valorizar o avanço de proposições através do processo legislativo, incorporando critérios adicionais relevantes ao contexto de fiscalização cidadã. O índice proposto compõe-se de quatro dimensões objetivamente mensuráveis:
 
 \begin{table}[H]
 \centering
-\caption{Critérios do algoritmo de ranking}
+\caption{Critérios do algoritmo de \textit{ranking}}
 \label{tab:criterios}
 \begin{tabular}{|l|c|l|}
 \hline
@@ -111,7 +111,7 @@ Pontuação atribuída conforme o nível de engajamento: membro titular (+2 pont
 Cada métrica é normalizada de 0 a 100 antes da ponderação:
 
 \begin{equation}
-Score = (P_L \times 0.35) + (P_V \times 0.25) + (E_C \times 0.20) + (P_C \times 0.20)
+\textit{Score} = (P_L \times 0.35) + (P_V \times 0.25) + (E_C \times 0.20) + (P_C \times 0.20)
 \end{equation}
 
 Onde:
@@ -122,7 +122,7 @@ Onde:
     \item \textbf{Participação em Comissões (20\%)}: Pondera o engajamento em comissões, com bônus para cargos de liderança.
 \end{itemize}
 
-Casos especiais são tratados da seguinte forma: senadores novos (suplentes) requerem período mínimo de 30 dias para entrar no ranking; licenças curtas mantêm o senador no ranking com ajuste nos denominadores; licenças longas (>30 dias) congelam o score; dados indisponíveis causam reponderação proporcional dos demais critérios.
+Casos especiais são tratados da seguinte forma: senadores novos (suplentes) requerem período mínimo de 30 dias para entrar no \textit{ranking}; licenças curtas mantêm o senador no \textit{ranking} com ajuste nos denominadores; licenças longas (>30 dias) congelam o \textit{score}; dados indisponíveis causam reponderação proporcional dos demais critérios.
 
 \subsubsection{Limitações Metodológicas e Ciclo Eleitoral}
 \label{sec:limitacoes}
@@ -141,7 +141,7 @@ Essa assincronia impõe desafios para a comparação direta de desempenho acumul
     \par\small{Fonte: Autoria Própria}
 \end{figure}
 
-Para garantir a isonomia do ranking, adotaram-se duas decisões metodológicas:
+Para garantir a isonomia do \textit{ranking}, adotaram-se duas decisões metodológicas:
 
 \begin{enumerate}
     \item \textbf{Filtro Anual como Padrão}: A comparação principal é realizada dentro de janelas de tempo anuais (ex: desempenho em 2024), período em que todos os parlamentares ativos estiveram submetidos às mesmas condições de tempo;

@@ -45,9 +45,9 @@
 \contentsline {subsubsection}{\numberline {5.1.1}Organização em Módulos}{28}{subsubsection.5.1.1}%
 \contentsline {subsubsection}{\numberline {5.1.2}Visão de Implantação}{29}{subsubsection.5.1.2}%
 \contentsline {subsection}{\numberline {5.2}Stack Tecnológico}{29}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Backend em Go}{30}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.1}\textit {Backend} em \textit {Go}}{30}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}Camada de Persistência}{30}{subsubsection.5.2.2}%
-\contentsline {subsubsection}{\numberline {5.2.3}Frontend em Next.js}{30}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.3}\textit {Frontend} em \textit {Next.js}}{30}{subsubsection.5.2.3}%
 \contentsline {subsection}{\numberline {5.3}Estratégia de Ingestão de Dados}{31}{subsection.5.3}%
 \contentsline {subsection}{\numberline {5.4}Modelo de Dados}{31}{subsection.5.4}%
 \contentsline {section}{\numberline {6}Testes de Software}{32}{section.6}%
@@ -55,12 +55,12 @@
 \contentsline {subsection}{\numberline {6.2}Testes de Contrato}{33}{subsection.6.2}%
 \contentsline {section}{\numberline {7}Implantação e Infraestrutura}{33}{section.7}%
 \contentsline {subsection}{\numberline {7.1}Containerização}{34}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Pipeline de Integração e Entrega Contínua (CI/CD)}{34}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Infraestrutura Serverless no Google Cloud}{34}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Estratégia Mobile-First e Acessibilidade}{35}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.2}\textit {Pipeline} de Integração e Entrega Contínua (CI/CD)}{34}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Infraestrutura \textit {Serverless} no \textit {Google Cloud}}{34}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Estratégia \textit {Mobile}-First e Acessibilidade}{35}{subsection.7.4}%
 \contentsline {section}{\numberline {8}Manual do Usuário: A Jornada do Cidadão}{35}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Passo 1: O Primeiro Contato e a Transparência}{36}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Passo 2: Explorando o Ranking Completo}{37}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.2}Passo 2: Explorando o \textit {Ranking} Completo}{37}{subsection.8.2}%
 \contentsline {subsection}{\numberline {8.3}Passo 3: A Lupa no Parlamentar}{38}{subsection.8.3}%
 \contentsline {subsection}{\numberline {8.4}Passo 4: A Decisão Comparativa}{43}{subsection.8.4}%
 \contentsline {section}{\numberline {9}Considerações Finais}{45}{section.9}%

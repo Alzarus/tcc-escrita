@@ -1,8 +1,8 @@
 \section{Visão geral }
 
-O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência parlamentar focada no Senado Federal. Sua proposta é aproximar cidadãos dos dados legislativos oficiais, convertendo informação dispersa em conhecimento fiscalizável e de fácil compreensão. O projeto vai além dos dados abertos básicos, integrando fontes complexas como a Cota para o Exercício da Atividade Parlamentar dos Senadores (CEAPS) e as ``emendas PIX''. Ao combinar uma arquitetura de \textbf{monolito modular} em Go, ingestão via APIs oficiais (Senado e Portal da Transparência) e um \textit{front-end} em Next.js, a plataforma busca reduzir a assimetria de informação sobre os 81 senadores da República \cite{Gomes2010}.
+O \textit{Tô De Olho} é uma plataforma \textit{web} de transparência parlamentar focada no Senado Federal. Sua proposta é aproximar cidadãos dos dados legislativos oficiais, convertendo informação dispersa em conhecimento fiscalizável e de fácil compreensão. O projeto vai além dos dados abertos básicos, integrando fontes complexas como a Cota para o Exercício da Atividade Parlamentar dos Senadores (CEAPS) e as ``emendas PIX''. Ao combinar uma arquitetura de \textbf{monolito modular} em \textit{Go}, ingestão via APIs oficiais (Senado e Portal da Transparência) e um \textit{front-end} em \textit{Next.js}, a plataforma busca reduzir a assimetria de informação sobre os 81 senadores da República \cite{Gomes2010}.
 
-A literatura evidencia que TICs ampliam possibilidades de participação, mas só geram valor quando articuladas a contextos de uso. Avelino et al. mapeiam iniciativas, reforçando que tecnologias exigem visualizações para o controle social \cite{avelino2021democracia}. Com um corpo legislativo menor e mais ``caro'' \textit{per capita} que a Câmara, o Senado carece de ferramentas que cruzem votações com a execução orçamentária. À luz desses estudos, o \textit{Tô De Olho} procura transformar transparência passiva em \textit{accountability} ativa \cite{pateman1970, gomes2019}.
+A literatura evidencia que TICs ampliam possibilidades de participação, mas só geram valor quando articuladas a contextos de uso. Avelino et al. mapeiam iniciativas, reforçando que tecnologias exigem visualizações para o controle social \cite{avelino2021democracia}. Com um corpo legislativo menor e mais ``caro'' \textit{per capita} que a Câmara, o Senado carece de ferramentas que cruzem votações com a execução orçamentária. À luz desses estudos, o \textit{Tô De Olho} procura transformar transparência passiva em prestação de contas ativa \cite{pateman1970, gomes2019}.
 
 % Recomendo manter cada seção ou subseção de texto em um arquivo separado e depois utilizados com o comando include, conforme o exemplo a seguir. Porém, se preferir, também pode deixar seu texto neste arquivo
 \input{src/sections/objetivos}
@@ -31,7 +31,7 @@ O sistema organiza os dados em três dimensões complementares do mandato parlam
 O diferencial da plataforma reside em quatro pilares:
 
 \begin{enumerate}
-    \item \textbf{Ranking Metodologicamente Fundamentado}: inspirado no \textit{State Legislative Effectiveness Score} (SLES) de Volden e Wiseman \cite{volden2024legislative}, o algoritmo de avaliação pondera produtividade legislativa (35\%), presença em votações (25\%), economia na cota parlamentar (20\%) e participação em comissões (20\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
+    \item \textbf{\textit{Ranking} Metodologicamente Fundamentado}: desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness \textit{Score}} (LES) de Volden e Wiseman \cite{volden2014lawmakers}, o algoritmo de avaliação pondera produtividade legislativa (35\%), presença em votações (25\%), economia na cota parlamentar (20\%) e participação em comissões (20\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
     
     \item \textbf{Visualização Orientada à Ação}: seguindo os princípios de retórica visual de Hullman \cite{hullman2011visualization}, cada dado absoluto é contextualizado com médias comparativas, reduzindo a possibilidade de interpretações manipuladas e estimulando conclusões informadas;
     
@@ -67,7 +67,7 @@ O ecossistema de transparência para a Câmara dos Deputados é mais desenvolvid
 \textbf{Operação Serenata de Amor:} Projeto pioneiro de código aberto, lançado em 2016 via financiamento coletivo, que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares \cite{albuquerque2018serenata}. Desenvolvido pela Open Knowledge Brasil, é composto por dois sistemas complementares:
 
 \begin{itemize}
-    \item \textbf{Rosie:} Algoritmo de \textit{machine learning} desenvolvido em Python que audita a Cota para Exercício da Atividade Parlamentar (CEAP). Opera através de cinco classificadores principais: (1) \textit{meal price outlier} --- identifica refeições com valores acima da média para o local; (2) \textit{irregular companies} --- detecta gastos em empresas com situação cadastral irregular na Receita Federal; (3) \textit{traveled speeds} --- cruza gastos para identificar deslocamentos fisicamente impossíveis; (4) \textit{monthly subquota limit} --- verifica excesso nos limites mensais por categoria; e (5) \textit{election expenses} --- identifica uso indevido da cota para financiar campanhas.
+    \item \textbf{Rosie:} Algoritmo de \textit{machine learning} desenvolvido em Python que audita a Cota para Exercício da Atividade Parlamentar (CEAP). Opera através de cinco classificadores principais: (1) \textit{meal price \textit{outlier}} --- identifica refeições com valores acima da média para o local; (2) \textit{irregular companies} --- detecta gastos em empresas com situação cadastral irregular na Receita Federal; (3) \textit{traveled speeds} --- cruza gastos para identificar deslocamentos fisicamente impossíveis; (4) \textit{monthly subquota limit} --- verifica excesso nos limites mensais por categoria; e (5) \textit{election expenses} --- identifica uso indevido da cota para financiar campanhas.
     \item \textbf{Jarbas:} Interface \textit{web} desenvolvida em Django que permite aos cidadãos navegar pelos casos suspeitos identificados pela Rosie, visualizar notas fiscais digitalizadas e formalizar denúncias.
 \end{itemize}
 
@@ -76,7 +76,7 @@ Até 2018, o projeto identificou \textbf{8.276 reembolsos suspeitos} envolvendo 
 \textbf{De Olho no Congresso:} Plataforma \textit{web} moderna focada em gastos de Deputados Federais \cite{deolhonocongresso2024}. Com mais de \textbf{55 mil visitantes} e \textbf{95 mil consultas} realizadas, a ferramenta oferece interface acessível que inclui:
 
 \begin{itemize}
-    \item \textbf{Rankings Múltiplos:} Top 50 deputados com maiores gastos, ranking de partidos por consumo da cota e ranking de empresas fornecedoras --- incluindo filtro específico para ``empresas com sanções'' administrativas;
+    \item \textbf{\textit{Rankings} Múltiplos:} Top 50 deputados com maiores gastos, \textit{ranking} de partidos por consumo da cota e \textit{ranking} de empresas fornecedoras --- incluindo filtro específico para ``empresas com sanções'' administrativas;
     \item \textbf{Painel de Alertas:} Sistema de detecção automática de despesas atípicas, incluindo: valores significativamente acima da média geral, pagamentos idênticos repetidos ao mesmo fornecedor, notas fiscais emitidas em finais de semana, e intervalos menores que 3 dias entre pagamentos;
     \item \textbf{Histórico Completo:} Gastos anuais e mensais com filtros por fornecedor, categoria e período, além de detalhamento de benefícios (auxílio-moradia, imóvel funcional) e equipe de gabinete.
 \end{itemize}
@@ -87,12 +87,12 @@ A plataforma ressalta que os alertas são ``indicativos que merecem investigaç�
 
 \begin{itemize}
     \item \textbf{Mapas de Distribuição:} Cada perfil de deputado apresenta visualização geoespacial do destino de suas emendas parlamentares, permitindo identificar concentração de recursos por município;
-    \item \textbf{Ranking de Cidades:} Classificação por faixa populacional das cidades que mais receberam Transferências Especiais (ex: municípios de até 20 mil habitantes);
+    \item \textbf{\textit{Ranking} de Cidades:} Classificação por faixa populacional das cidades que mais receberam Transferências Especiais (ex: municípios de até 20 mil habitantes);
     \item \textbf{Comparador de Parlamentares:} Ferramenta que permite selecionar de 2 a 5 deputados para comparação lado a lado de gastos de cota, equipe de gabinete, emendas enviadas e fornecedores em comum;
-    \item \textbf{Painel de Fornecedores:} Ranking das empresas que mais recebem recursos, identificando padrões de concentração de gastos.
+    \item \textbf{Painel de Fornecedores:} \textit{Ranking} das empresas que mais recebem recursos, identificando padrões de concentração de gastos.
 \end{itemize}
 
-Entretanto, os rankings do ``De Olho em Você'' baseiam-se em métricas agregadas diretas (quem mais gastou, quem mais enviou emendas), \textbf{sem metodologia explícita de efetividade legislativa}. Além disso, a plataforma não contempla o Senado Federal.
+Entretanto, os \textit{rankings} do ``De Olho em Você'' baseiam-se em métricas agregadas diretas (quem mais gastou, quem mais enviou emendas), \textbf{sem metodologia explícita de efetividade legislativa}. Além disso, a plataforma não contempla o Senado Federal.
 
 \subsubsection{Experiências Internacionais}
 
@@ -109,29 +109,29 @@ A plataforma consolidou-se como referência mundial em \textit{civic tech} parla
 \textbf{OpenSecrets (Estados Unidos):} Principal organização de pesquisa sobre dinheiro na política americana, resultante da fusão em 2021 entre o \textit{Center for Responsive Politics} (fundado em 1983 por dois ex-senadores) e o \textit{National Institute on Money in State Politics} \cite{opensecrets2024}. Vencedora de múltiplos \textit{Webby Awards}, a plataforma rastreia:
 
 \begin{itemize}
-    \item \textbf{Financiamento de Campanhas:} Contribuições individuais, PACs e Super PACs;
-    \item \textbf{Lobbying:} Gastos de empresas e grupos de interesse para influenciar legislação;
-    \item \textbf{Revolving Door:} Monitoramento de ex-congressistas que se tornaram lobistas;
-    \item \textbf{Dark Money:} Análise de fundos de origem não divulgada que influenciam eleições.
+    \item \textbf{Financiamento de Campanhas:} Contribuições individuais, \textit{PACs} e \textit{Super PACs};
+    \item \textbf{\textit{Lobbying}:} Gastos de empresas e grupos de interesse para influenciar legislação;
+    \item \textbf{\textit{Revolving Door}:} Monitoramento de ex-congressistas que se tornaram lobistas;
+    \item \textbf{\textit{Dark Money}:} Análise de fundos de origem não divulgada que influenciam eleições.
 \end{itemize}
 
 É fonte primária para veículos como \textit{The New York Times} e \textit{The Washington Post}, oferecendo APIs e exportações de dados para pesquisadores acadêmicos.
 
 \subsubsection{Lacuna Identificada e Diferencial do Tô De Olho}
 
-A análise sistemática dos trabalhos relacionados evidencia um cenário paradoxal: enquanto a Câmara dos Deputados --- com 513 parlamentares --- dispõe de ao menos três plataformas consolidadas de fiscalização cidadã, o Senado Federal permanece como uma ``caixa preta'' digital. Essa lacuna não é trivial. Os 81 senadores exercem mandatos de oito anos, atuam como câmara revisora de toda legislação federal e detêm competências exclusivas de alto impacto: confirmação de ministros do STF, julgamento de presidentes da República e aprovação de dívidas externas. A ausência de ferramentas de monitoramento específicas representa, portanto, uma falha sistêmica no ecossistema de \textit{accountability} brasileiro. Adicionalmente, com a aproximação das eleições gerais de 2026, torna-se imperativo oferecer ao eleitorado ferramentas que permitam uma análise retrospectiva e fundamentada do mandato dos senadores que buscarão a reeleição ou outros cargos majoritários.
+A análise sistemática dos trabalhos relacionados evidencia um cenário paradoxal: enquanto a Câmara dos Deputados --- com 513 parlamentares --- dispõe de ao menos três plataformas consolidadas de fiscalização cidadã, o Senado Federal permanece como uma ``caixa preta'' digital. Essa lacuna não é trivial. Os 81 senadores exercem mandatos de oito anos, atuam como câmara revisora de toda legislação federal e detêm competências exclusivas de alto impacto: confirmação de ministros do STF, julgamento de presidentes da República e aprovação de dívidas externas. A ausência de ferramentas de monitoramento específicas representa, portanto, uma falha sistêmica no ecossistema de prestação de contas brasileiro. Adicionalmente, com a aproximação das eleições gerais de 2026, torna-se imperativo oferecer ao eleitorado ferramentas que permitam uma análise retrospectiva e fundamentada do mandato dos senadores que buscarão a reeleição ou outros cargos majoritários.
 
 Mais do que apenas replicar soluções existentes para o âmbito senatorial, o \textit{Tô De Olho} propõe-se a \textbf{sintetizar o melhor de cada iniciativa} analisada, superando limitações identificadas:
 
 \begin{itemize}
     \item \textbf{Do ``De Olho em Você''}, incorporamos a \textbf{visualização geoespacial de Emendas PIX} --- permitindo que o cidadão identifique, em mapas interativos, quais municípios receberam recursos de cada senador --- e o \textbf{comparador de parlamentares}, que possibilita análise lado a lado de até cinco senadores em múltiplas dimensões;
     
-    \item \textbf{Do ``De Olho no Congresso''}, adotamos o \textbf{painel de alertas automáticos} para despesas atípicas --- notas fiscais em finais de semana, valores acima da média, pagamentos repetidos em intervalos curtos --- e o \textbf{ranking de fornecedores}, incluindo cruzamento com empresas sob sanção administrativa;
+    \item \textbf{Do ``De Olho no Congresso''}, adotamos o \textbf{painel de alertas automáticos} para despesas atípicas --- notas fiscais em finais de semana, valores acima da média, pagamentos repetidos em intervalos curtos --- e o \textbf{\textit{ranking} de fornecedores}, incluindo cruzamento com empresas sob sanção administrativa;
     
     \item \textbf{Do ``Serenata de Amor''}, adotamos a filosofia de \textbf{código aberto} e documentação transparente.
 \end{itemize}
 
-O diferencial central do \textit{Tô De Olho}, entretanto, reside em uma contribuição original: a implementação de um \textbf{Índice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- métrica que penaliza a parcimônia --- ou \textit{quantidade de proposições} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional inspirado no \textit{State Legislative Effectiveness Score} (SLES) de Volden e Wiseman \cite{volden2024legislative}.
+O diferencial central do \textit{Tô De Olho}, entretanto, reside em uma contribuição original: a implementação de um \textbf{Índice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- métrica que penaliza a parcimônia --- ou \textit{quantidade de proposições} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness \textit{Score}} (LES) de Volden e Wiseman \cite{volden2014lawmakers}.
 
 Nosso índice pondera quatro dimensões objetivas, com pesos públicos e metodologia reprodutível:
 
@@ -145,12 +145,12 @@ Nosso índice pondera quatro dimensões objetivas, com pesos públicos e metodol
     \item \textbf{Participação em Comissões (20\%)}: Pondera o engajamento em comissões permanentes e especiais, com bônus para cargos de liderança (presidente, relator).
 \end{enumerate}
 
-A exposição pública de critérios e pesos não é mera formalidade: representa um compromisso ético com a \textbf{transparência metodológica}. Diferente de rankings opacos, o cidadão poderá compreender --- e questionar --- os fundamentos da classificação, evitando que a plataforma seja percebida como veículo de viés político.
+A exposição pública de critérios e pesos não é mera formalidade: representa um compromisso ético com a \textbf{transparência metodológica}. Diferente de \textit{rankings} opacos, o cidadão poderá compreender --- e questionar --- os fundamentos da classificação, evitando que a plataforma seja percebida como veículo de viés político.
 
 Em síntese, o \textit{Tô De Olho} posiciona-se como a \textbf{primeira plataforma integrada} de fiscalização cidadã voltada ao Senado Federal, combinando três vertentes:
 
 \begin{enumerate}
     \item \textbf{Consolidação Multi-Fonte}: Integra dados de três APIs oficiais (Legislativa, Administrativa e Portal da Transparência) em interface única;
-    \item \textbf{Inteligência de Dados}: Oferece alertas automáticos, rankings e visualizações que convertem dados brutos em informação acionável;
+    \item \textbf{Inteligência de Dados}: Oferece alertas automáticos, \textit{rankings} e visualizações que convertem dados brutos em informação acionável;
     \item \textbf{Rigor Metodológico}: Fundamenta-se em literatura acadêmica sobre efetividade legislativa, com metodologia aberta a auditoria pública.
 \end{enumerate}
