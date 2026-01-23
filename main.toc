@@ -27,14 +27,14 @@
 \contentsline {subsection}{\numberline {3.1}Abordagem de Desenvolvimento}{19}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Fontes de Dados}{20}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}API Legislativa do Senado}{20}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}API Administrativa do Senado}{21}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2}API Administrativa do Senado}{20}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Portal da Transparência (CGU)}{21}{subsubsection.3.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.4}Limitações e Cobertura Temporal}{21}{subsubsection.3.2.4}%
 \contentsline {subsection}{\numberline {3.3}Metodologia de Avaliação de Desempenho}{21}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Produtividade Legislativa}{22}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Presença em Votações}{22}{subsubsection.3.3.2}%
 \contentsline {subsubsection}{\numberline {3.3.3}Economia na Cota Parlamentar}{22}{subsubsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.4}Participação em Comissões}{23}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.4}Participação em Comissões}{22}{subsubsection.3.3.4}%
 \contentsline {subsubsection}{\numberline {3.3.5}Fórmula Final e Tratamento de Casos Especiais}{23}{subsubsection.3.3.5}%
 \contentsline {subsubsection}{\numberline {3.3.6}Limitações Metodológicas e Ciclo Eleitoral}{23}{subsubsection.3.3.6}%
 \contentsline {section}{\numberline {4}Requisitos}{25}{section.4}%
