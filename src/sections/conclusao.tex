@@ -1,16 +1,16 @@
 \section{Considerações Finais}
 
-Este trabalho apresentou o \textit{Tô De Olho}, uma plataforma \textit{web} que centraliza e democratiza o acesso aos dados do Senado Federal. A arquitetura de \textbf{monolito modular} em \textit{Go}, combinada com a ingestão de dados via APIs oficiais, mostrou-se adequada para consolidar informações dispersas em três fontes distintas. O \textit{front-end} em \textit{Next.js} oferece ao cidadão uma interface acessível para fiscalizar despesas da CEAPS, acompanhar votações nominais e avaliar o desempenho dos 81 senadores por meio de um \textit{ranking} com metodologia transparente.
+Este trabalho apresentou o \textit{Tô De Olho}, uma plataforma \textit{web} que centraliza e democratiza o acesso aos dados do Senado Federal. A arquitetura de \textbf{monolito modular} em \textit{Go}, combinada com a ingestão de dados via APIs oficiais, mostrou-se adequada para consolidar informações dispersas em três fontes distintas. O \textit{front-end} em \textit{Next.js} oferece ao cidadão uma interface acessível para fiscalizar despesas da CEAPS, acompanhar votações nominais e avaliar o desempenho dos 81 senadores por meio de uma classificação (\textit{ranking}) com metodologia transparente.
 
 
 Uma limitação relevante deste trabalho é a ausência do módulo de fórum para debate cívico, inicialmente planejado mas não implementado devido a restrições de prazo. Conforme aponta Costa (\citeyear{duarte2019}), a gestão pública digital efetiva requer não apenas transparência, mas também canais de participação direta. O \textit{Tô De Olho} avança significativamente na dimensão da prestação de contas, porém ainda não contempla espaços deliberativos.
 
 A principal barreira encontrada durante o desenvolvimento, contudo, transcendeu os desafios técnicos de ingestão de dados. A tradução da complexidade do Regimento Interno do Senado em regras de negócio determinísticas revelou-se um exercício de contínuo compromisso. Simplificar a atuação parlamentar --- intrinsecamente política e negociada --- em métricas quantitativas impôs reducionismos necessários ao modelo de dados, mas que devem ser interpretados com cautela. A experiência reforçou que ferramentas de \textit{civic tech} são meios, e não fins; elas iluminam dados, mas a interpretação do contexto permanece uma atribuição insubstituível do cidadão.
 
-Para trabalhos futuros, almeja-se a implementação das funcionalidades mapeadas nos Requisitos mas não contempladas no \textit{MVP} (\textit{Minimum Viable Product}), a saber:
+Para trabalhos futuros, almeja-se a implementação das funcionalidades mapeadas nos Requisitos mas não contempladas no Produto Mínimo Viável (MVP), a saber:
 \begin{enumerate}
     \item \textbf{Módulo de Gabinete (RF17, RF18)}: Visualização da lista de servidores comissionados e folha de pagamento detalhada;
-    \item \textbf{Módulo de Fornecedores Suplementar (RF06, RF07, RF20)}: \textit{Ranking} de recebedores, alertas de despesas atípicas e cruzamento com sanções administrativas;
+    \item \textbf{Módulo de Fornecedores Suplementar (RF06, RF07, RF20)}: Classificação de recebedores, alertas de despesas atípicas e cruzamento com sanções administrativas;
     \item \textbf{Atividade Legislativa Expandida (RF14-RF16)}: Inclusão de discursos em plenário, agenda de comissões e integração com redes sociais oficiais.
 \end{enumerate}
 

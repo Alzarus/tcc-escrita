@@ -44,11 +44,11 @@ Conforme destacado na análise de trabalhos relacionados (Seção 1.6), o \texti
     \item \textbf{[RF21]} O sistema deve mostrar indicadores de confiança: data da última sincronização, completude dos dados e fonte de cada informação.
 \end{itemize}
 
-\textbf{Módulo de \textit{Ranking} e \textit{Score}:}
+\textbf{Módulo de Classificação e Pontuação:}
 \begin{itemize}
-    \item \textbf{[RF22]} O sistema deve calcular e exibir o \textit{Score} de efetividade legislativa de cada senador, baseado no algoritmo de \textit{ranking} do projeto.
-    \item \textbf{[RF23]} O sistema deve apresentar gráfico radar com as quatro dimensões do \textit{Score}: Produtividade Legislativa, Presença em Votações, Economia na Cota e Participação em Comissões.
-    \item \textbf{[RF24]} O sistema deve permitir ordenar e filtrar senadores por cada critério individual do \textit{ranking}.
+    \item \textbf{[RF22]} O sistema deve calcular e exibir a pontuação (\textit{Score}) de efetividade legislativa de cada senador, baseado no algoritmo de classificação (\textit{ranking}) do projeto.
+    \item \textbf{[RF23]} O sistema deve apresentar gráfico radar com as quatro dimensões da pontuação (\textit{Score}): Produtividade Legislativa, Presença em Votações, Economia na Cota e Participação em Comissões.
+    \item \textbf{[RF24]} O sistema deve permitir ordenar e filtrar senadores por cada critério individual da classificação.
 \end{itemize}
 
 \subsection{Requisitos Não-Funcionais}
@@ -61,8 +61,8 @@ Conforme destacado na análise de trabalhos relacionados (Seção 1.6), o \texti
 
 \textbf{Usabilidade e Acessibilidade:}
 \begin{itemize}
-    \item \textbf{[RNF03]} O sistema deve ser acessível via navegadores \textit{web} em dispositivos \textit{desktop} e \textit{mobile}.
-    \item \textbf{[RNF04]} A interface deve seguir o padrão \textit{mobile-first} para garantir boa experiência em dispositivos móveis.
+    \item \textbf{[RNF03]} O sistema deve ser acessível via navegadores \textit{web} em computadores de mesa (\textit{desktop}) e dispositivos móveis (\textit{mobile}).
+    \item \textbf{[RNF04]} A interface deve seguir o padrão de prioridade para dispositivos móveis (\textit{mobile-first}) para garantir boa experiência em telas pequenas.
     \item \textbf{[RNF05]} O sistema deve seguir as diretrizes de acessibilidade WCAG 2.1 nível AA.
 \end{itemize}
 
@@ -81,6 +81,6 @@ Conforme destacado na análise de trabalhos relacionados (Seção 1.6), o \texti
 \textbf{Manutenibilidade:}
 \begin{itemize}
     \item \textbf{[RNF10]} A arquitetura modular deve permitir atualizações isoladas de cada módulo sem impacto em outros componentes.
-    \item \textbf{[RNF11]} O código deve seguir padrões de desenvolvimento (\textit{linting}, formatação) e estar documentado.
-    \item \textbf{[RNF12]} O sistema deve possuir \textit{pipelines} de CI/CD para integração e \textit{deploy} contínuos.
+    \item \textbf{[RNF11]} O código deve seguir padrões de desenvolvimento (análise estática, formatação) e estar documentado.
+    \item \textbf{[RNF12]} O sistema deve possuir esteiras (\textit{pipelines}) de CI/CD para integração e implantação (\textit{deploy}) contínuos.
 \end{itemize}

@@ -11,17 +11,17 @@ A natureza do projeto --- integração de múltiplas APIs governamentais com est
 
 Optou-se, portanto, por uma abordagem \textbf{iterativa e incremental}, na qual o trabalho foi organizado em ciclos de desenvolvimento focados em entregas funcionais. Cada ciclo produzia um incremento utilizável do sistema, permitindo validação contínua das funcionalidades implementadas e ajustes baseados nos aprendizados obtidos durante a integração com cada API.
 
-O desenvolvimento contou com apoio de ferramentas de inteligência artificial generativa como assistentes de codificação, seguindo a tendência contemporânea de \textit{AI-assisted software development} \cite{peng2023impact}. Tais ferramentas, baseadas em modelos de linguagem de grande escala (LLMs), foram empregadas para aceleração de tarefas operacionais como geração de código \textit{boilerplate}, refatoração e \textit{debugging}. O uso de assistentes de IA em desenvolvimento de software representa uma evolução natural das ferramentas de produtividade, análoga à adoção de IDEs com \textit{autocomplete} e analisadores estáticos de código.
+O desenvolvimento contou com apoio de ferramentas de inteligência artificial generativa como assistentes de codificação, seguindo a tendência contemporânea de desenvolvimento de software assistido por IA (\textit{AI-assisted software development}) \cite{peng2023impact}. Tais ferramentas, baseadas em modelos de linguagem de grande escala (LLMs), foram empregadas para aceleração de tarefas operacionais como geração de código padrão (\textit{boilerplate}), refatoração e depuração (\textit{debugging}). O uso de assistentes de IA em desenvolvimento de software representa uma evolução natural das ferramentas de produtividade, análoga à adoção de IDEs com preenchimento automático (\textit{autocomplete}) e analisadores estáticos de código.
 
 É fundamental distinguir entre \textbf{assistência operacional} e \textbf{autoria intelectual}. As decisões estruturantes do projeto --- arquitetura do sistema, design do algoritmo de \textit{ranking}, seleção de fontes de dados, modelagem do domínio e interpretação de resultados --- foram integralmente concebidas, avaliadas e validadas pelo desenvolvedor. A ferramenta de IA atuou como acelerador de implementação, não como substituto do julgamento técnico.
 
 A divisão do trabalho ocorreu em cinco fases principais:
 \begin{enumerate}
-    \item \textbf{Fundação}: Estruturação do projeto em \textit{Golang}, implementação do cliente para a API Legislativa do Senado, criação das \textit{migrations} do banco de dados e configuração inicial do \textit{frontend} em \textit{Next.js} utilizando \textit{Bun} como \textit{runtime};
-    \item \textbf{Ingestão de Dados}: Implementação do cliente para a API Administrativa, configuração do \textit{scheduler} para tarefas agendadas, coleta de votações nominais e carga de dados históricos;
-    \item \textbf{\textit{Ranking} e API}: Desenvolvimento do serviço de cálculo de \textit{rankings}, criação dos \textit{endpoints} REST para consumo pelo \textit{frontend}, configuração do cache \textit{Redis} e implementação de testes automatizados;
-    \item \textbf{\textit{Frontend}}: Desenvolvimento do \textit{dashboard} principal, interface de \textit{ranking} interativo e páginas de perfil dos senadores;
-    \item \textbf{Emendas e Polimento}: Integração com o Portal da Transparência para dados de emendas parlamentares, visualizações de dados e preparação para \textit{deploy}.
+    \item \textbf{Fundação}: Estruturação do projeto em \textit{Go}, implementação do cliente para a API Legislativa do Senado, criação das migrações (\textit{migrations}) do banco de dados e configuração inicial do \textit{front-end} em \textit{Next.js} utilizando \textit{Bun} como ambiente de execução (\textit{runtime});
+    \item \textbf{Ingestão de Dados}: Implementação do cliente para a API Administrativa, configuração do agendador (\textit{scheduler}) para tarefas agendadas, coleta de votações nominais e carga de dados históricos;
+    \item \textbf{Classificação e API}: Desenvolvimento do serviço de cálculo de pontuações, criação dos pontos de acesso (\textit{endpoints}) REST para consumo pelo \textit{front-end}, configuração do cache \textit{Redis} e implementação de testes automatizados;
+    \item \textbf{\textit{Front-end}}: Desenvolvimento do painel principal (\textit{dashboard}), interface de classificação interativa e páginas de perfil dos senadores;
+    \item \textbf{Emendas e Polimento}: Integração com o Portal da Transparência para dados de emendas parlamentares, visualizações de dados e preparação para implantação (\textit{deploy}).
 \end{enumerate}
 
 \subsection{Fontes de Dados}
@@ -40,7 +40,7 @@ Documentada em \url{adm.senado.gov.br/adm-dadosabertos/swagger-ui}, esta interfa
 
 \subsubsection{Portal da Transparência (CGU)}
 
-A API do Portal da Transparência (\url{api.portaldatransparencia.gov.br}) fornece dados de emendas parlamentares e transferências federais. O acesso requer autenticação via chave de API no \textit{header} \texttt{chave-api-dados}. O filtro \texttt{tipoEmenda=Transferência Especial} permite identificar as ``emendas PIX'', modalidade de repasse que dispensa convênio.
+A API do Portal da Transparência (\url{api.portaldatransparencia.gov.br}) fornece dados de emendas parlamentares e transferências federais. O acesso requer autenticação via chave de API no cabeçalho (\textit{header}) \texttt{chave-api-dados}. O filtro \texttt{tipoEmenda=Transferência Especial} permite identificar as ``emendas PIX'', modalidade de repasse que dispensa convênio.
 
 Para a carga histórica, utiliza-se o CSV consolidado de emendas disponibilizado pelo Portal. A identificação do autor depende de normalização textual de \texttt{nomeAutor} para casar com o cadastro de senadores, garantindo ingestão consistente mesmo com variações de grafia.
 
@@ -56,9 +56,9 @@ Cada fonte de dados apresenta limitações que impactam o escopo das análises:
 
 \subsection{Metodologia de Avaliação de Desempenho}
 
-A avaliação objetiva do desempenho parlamentar é elemento central para a participação cidadã. Conforme a escada de participação de Arnstein (\citeyear{arnstein1969ladder}), o acesso a informações claras é pré-requisito para que cidadãos avancem de níveis consultivos para controle social efetivo. A construção de \textit{rankings} requer transparência metodológica \cite{hullman2011visualization}. Ressalta-se que o índice proposto não pretende mensurar ``qualidade moral'' ou ``mérito político'' subjetivo dos parlamentares, mas sim oferecer um instrumento comparativo fundamentado em critérios observáveis e quantificáveis de produtividade e gestão fiscal.
+A avaliação objetiva do desempenho parlamentar é elemento central para a participação cidadã. Conforme a escada de participação de Arnstein (\citeyear{arnstein1969ladder}), o acesso a informações claras é pré-requisito para que cidadãos avancem de níveis consultivos para controle social efetivo. A construção de índices de classificação (\textit{rankings}) requer transparência metodológica \cite{hullman2011visualization}. Ressalta-se que o índice proposto não pretende mensurar ``qualidade moral'' ou ``mérito político'' subjetivo dos parlamentares, mas sim oferecer um instrumento comparativo fundamentado em critérios observáveis e quantificáveis de produtividade e gestão fiscal.
 
-O cálculo do \textit{score} de cada senador é inspirado no \textit{Legislative Effectiveness \textit{Score}} (LES), metodologia desenvolvida por Volden e Wiseman (\citeyear{volden2014lawmakers}) para avaliar a efetividade legislativa de parlamentares americanos. O LES define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei''.
+O cálculo da pontuação (\textit{score}) de cada senador é inspirado no \textit{Legislative Effectiveness Score} (LES), metodologia desenvolvida por Volden e Wiseman (\citeyear{volden2014lawmakers}) para avaliar a efetividade legislativa de parlamentares americanos. O LES define efetividade legislativa como ``a capacidade comprovada de avançar itens da agenda de um parlamentar através do processo legislativo até sua transformação em lei''.
 
 Para a adaptação brasileira, manteve-se a filosofia de valorizar o avanço de proposições através do processo legislativo, incorporando critérios adicionais relevantes ao contexto de fiscalização cidadã. O índice proposto compõe-se de quatro dimensões objetivamente mensuráveis:
 
@@ -70,7 +70,7 @@ Para a adaptação brasileira, manteve-se a filosofia de valorizar o avanço de 
 \hline
 \textbf{Critério} & \textbf{Peso} & \textbf{Justificativa} \\
 \hline
-Produtividade Legislativa & 35\% & Core do LES: capacidade de aprovar proposições \\
+Produtividade Legislativa & 35\% & Núcleo (\textit{Core}) do LES: capacidade de aprovar proposições \\
 Presença em Votações & 25\% & Compromisso efetivo com o mandato \\
 Economia na Cota (CEAPS) & 20\% & Responsabilidade fiscal \\
 Participação em Comissões & 20\% & Trabalho técnico especializado \\
@@ -122,12 +122,12 @@ Onde:
     \item $P_C$: Participação em Comissões.
 \end{itemize}
 
-Casos especiais são tratados da seguinte forma: senadores novos (suplentes) requerem período mínimo de 30 dias para entrar no \textit{ranking}; licenças curtas mantêm o senador no \textit{ranking} com ajuste nos denominadores; licenças longas (>30 dias) congelam o \textit{score}; dados indisponíveis causam reponderação proporcional dos demais critérios.
+Casos especiais são tratados da seguinte forma: senadores novos (suplentes) requerem período mínimo de 30 dias para entrar na classificação; licenças curtas mantêm o senador na lista com ajuste nos denominadores; licenças longas (>30 dias) congelam a pontuação; dados indisponíveis causam reponderação proporcional dos demais critérios.
 
 \subsubsection{Limitações Metodológicas e Ciclo Eleitoral}
 \label{sec:limitacoes}
 
-A renovação do Senado Federal em terços alternados --- 1/3 em uma eleição, 2/3 na seguinte --- implica que senadores ativos na 57ª legislatura possuem mandatos iniciados em anos distintos (2019 ou 2023). O índice proposto não normaliza automaticamente por tempo de mandato ativo no MVP, optando por oferecer filtros temporais que permitem ao usuário realizar comparações contextualizadas.
+A renovação do Senado Federal em terços alternados --- 1/3 em uma eleição, 2/3 na seguinte --- implica que senadores ativos na 57ª legislatura possuem mandatos iniciados em anos distintos (2019 ou 2023). O índice proposto não normaliza automaticamente por tempo de mandato ativo no Produto Mínimo Viável (MVP), optando por oferecer filtros temporais que permitem ao usuário realizar comparações contextualizadas.
 
 Uma característica singular do Senado Federal é o seu sistema de renovação parcial: a cada quatro anos, alternam-se as eleições para um terço ou dois terços das cadeiras. Isso implica que, em um dado momento, convivem senadores em estágios distintos de seus mandatos de oito anos. Por exemplo, na 57ª Legislatura (2023-2027), coexistem parlamentares eleitos em 2018 (encerrando mandato) e parlamentares eleitos em 2022 (iniciando mandato).
 
@@ -141,7 +141,7 @@ Essa assincronia impõe desafios para a comparação direta de desempenho acumul
     \par\small{Fonte: Autoria Própria}
 \end{figure}
 
-Para garantir a isonomia do \textit{ranking}, adotaram-se duas decisões metodológicas:
+Para garantir a isonomia da classificação, adotaram-se duas decisões metodológicas:
 
 \begin{enumerate}
     \item \textbf{Filtro Anual como Padrão}: A comparação principal é realizada dentro de janelas de tempo anuais (ex: desempenho em 2024), período em que todos os parlamentares ativos estiveram submetidos às mesmas condições de tempo;

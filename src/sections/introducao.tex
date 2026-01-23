@@ -31,7 +31,7 @@ O sistema organiza os dados em três dimensões complementares do mandato parlam
 O diferencial da plataforma reside em quatro pilares:
 
 \begin{enumerate}
-    \item \textbf{\textit{Ranking} Metodologicamente Fundamentado}: desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness \textit{Score}} (LES) de Volden e Wiseman (\citeyear{volden2014lawmakers}), o algoritmo de avaliação pondera produtividade legislativa (35\%), presença em votações (25\%), economia na cota parlamentar (20\%) e participação em comissões (20\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
+    \item \textbf{Classificação Metodologicamente Fundamentada}: desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness Score} (LES) de Volden e Wiseman (\citeyear{volden2014lawmakers}), o algoritmo de avaliação pondera produtividade legislativa (35\%), presença em votações (25\%), economia na cota parlamentar (20\%) e participação em comissões (20\%). Os critérios e pesos são públicos, permitindo ao cidadão compreender --- e questionar --- a metodologia;
     
     \item \textbf{Visualização Orientada à Ação}: seguindo os princípios de retórica visual de Hullman (\citeyear{hullman2011visualization}), cada dado absoluto é contextualizado com médias comparativas, reduzindo a possibilidade de interpretações manipuladas e estimulando conclusões informadas;
     
@@ -67,7 +67,7 @@ O ecossistema de transparência para a Câmara dos Deputados é mais desenvolvid
 \textbf{Operação Serenata de Amor:} Projeto pioneiro de código aberto, lançado em 2016 via financiamento coletivo, que utiliza inteligência artificial para detectar irregularidades em gastos parlamentares \cite{albuquerque2018serenata}. Desenvolvido pela Open Knowledge Brasil, é composto por dois sistemas complementares:
 
 \begin{itemize}
-    \item \textbf{Rosie:} Algoritmo de \textit{machine learning} desenvolvido em Python que audita a Cota para Exercício da Atividade Parlamentar (CEAP). Opera através de cinco classificadores principais: (1) \textit{meal price \textit{outlier}} --- identifica refeições com valores acima da média para o local; (2) \textit{irregular companies} --- detecta gastos em empresas com situação cadastral irregular na Receita Federal; (3) \textit{traveled speeds} --- cruza gastos para identificar deslocamentos fisicamente impossíveis; (4) \textit{monthly subquota limit} --- verifica excesso nos limites mensais por categoria; e (5) \textit{election expenses} --- identifica uso indevido da cota para financiar campanhas.
+    \item \textbf{Rosie:} Algoritmo de aprendizado de máquina (\textit{machine learning}) desenvolvido em Python que audita a Cota para Exercício da Atividade Parlamentar (CEAP). Opera através de cinco classificadores principais: (1) \textit{meal price outlier} (valor de refeição atípico) --- identifica refeições com valores acima da média para o local; (2) \textit{irregular companies} (empresas irregulares) --- detecta gastos em empresas com situação cadastral irregular na Receita Federal; (3) \textit{traveled speeds} (velocidades de deslocamento) --- cruza gastos para identificar deslocamentos fisicamente impossíveis; (4) \textit{monthly subquota limit} (limite de subcota mensal) --- verifica excesso nos limites mensais por categoria; e (5) \textit{election expenses} (despesas eleitorais) --- identifica uso indevido da cota para financiar campanhas.
     \item \textbf{Jarbas:} Interface \textit{web} desenvolvida em Django que permite aos cidadãos navegar pelos casos suspeitos identificados pela Rosie, visualizar notas fiscais digitalizadas e formalizar denúncias.
 \end{itemize}
 
@@ -76,7 +76,7 @@ Até 2018, o projeto identificou \textbf{8.276 reembolsos suspeitos} envolvendo 
 \textbf{De Olho no Congresso:} Plataforma \textit{web} moderna focada em gastos de Deputados Federais \cite{deolhonocongresso2024}. Com mais de \textbf{55 mil visitantes} e \textbf{95 mil consultas} realizadas, a ferramenta oferece interface acessível que inclui:
 
 \begin{itemize}
-    \item \textbf{\textit{Rankings} Múltiplos:} Top 50 deputados com maiores gastos, \textit{ranking} de partidos por consumo da cota e \textit{ranking} de empresas fornecedoras --- incluindo filtro específico para ``empresas com sanções'' administrativas;
+    \item \textbf{Classificações Múltiplas:} Top 50 deputados com maiores gastos, classificação  de partidos por consumo da cota e lista de empresas fornecedoras --- incluindo filtro específico para ``empresas com sanções'' administrativas;
     \item \textbf{Painel de Alertas:} Sistema de detecção automática de despesas atípicas, incluindo: valores significativamente acima da média geral, pagamentos idênticos repetidos ao mesmo fornecedor, notas fiscais emitidas em finais de semana, e intervalos menores que 3 dias entre pagamentos;
     \item \textbf{Histórico Completo:} Gastos anuais e mensais com filtros por fornecedor, categoria e período, além de detalhamento de benefícios (auxílio-moradia, imóvel funcional) e equipe de gabinete.
 \end{itemize}
@@ -89,10 +89,10 @@ A plataforma ressalta que os alertas são ``indicativos que merecem investigaç�
     \item \textbf{Mapas de Distribuição:} Cada perfil de deputado apresenta visualização geoespacial do destino de suas emendas parlamentares, permitindo identificar concentração de recursos por município;
     \item \textbf{\textit{Ranking} de Cidades:} Classificação por faixa populacional das cidades que mais receberam Transferências Especiais (ex: municípios de até 20 mil habitantes);
     \item \textbf{Comparador de Parlamentares:} Ferramenta que permite selecionar de 2 a 5 deputados para comparação lado a lado de gastos de cota, equipe de gabinete, emendas enviadas e fornecedores em comum;
-    \item \textbf{Painel de Fornecedores:} \textit{Ranking} das empresas que mais recebem recursos, identificando padrões de concentração de gastos.
+    \item \textbf{Painel de Fornecedores:} Classificação das empresas que mais recebem recursos, identificando padrões de concentração de gastos.
 \end{itemize}
 
-Entretanto, os \textit{rankings} do ``De Olho em Você'' baseiam-se em métricas agregadas diretas (quem mais gastou, quem mais enviou emendas), \textbf{sem metodologia explícita de efetividade legislativa}. Além disso, a plataforma não contempla o Senado Federal.
+Entretanto, as classificações do ``De Olho em Você'' baseiam-se em métricas agregadas diretas (quem mais gastou, quem mais enviou emendas), \textbf{sem metodologia explícita de efetividade legislativa}. Além disso, a plataforma não contempla o Senado Federal.
 
 \subsubsection{Experiências Internacionais}
 
@@ -126,12 +126,12 @@ Mais do que apenas replicar soluções existentes para o âmbito senatorial, o \
 \begin{itemize}
     \item \textbf{Do ``De Olho em Você''}, incorporamos a \textbf{visualização geoespacial de Emendas PIX} --- permitindo que o cidadão identifique, em mapas interativos, quais municípios receberam recursos de cada senador --- e o \textbf{comparador de parlamentares}, que possibilita análise lado a lado de até cinco senadores em múltiplas dimensões;
     
-    \item \textbf{Do ``De Olho no Congresso''}, adotamos o \textbf{painel de alertas automáticos} para despesas atípicas --- notas fiscais em finais de semana, valores acima da média, pagamentos repetidos em intervalos curtos --- e o \textbf{\textit{ranking} de fornecedores}, incluindo cruzamento com empresas sob sanção administrativa;
+    \item \textbf{Do ``De Olho no Congresso''}, adotamos o \textbf{painel de alertas automáticos} para despesas atípicas --- notas fiscais em finais de semana, valores acima da média, pagamentos repetidos em intervalos curtos --- e a \textbf{classificação de fornecedores}, incluindo cruzamento com empresas sob sanção administrativa;
     
     \item \textbf{Do ``Serenata de Amor''}, adotamos a filosofia de \textbf{código aberto} e documentação transparente.
 \end{itemize}
 
-O diferencial central do \textit{Tô De Olho}, entretanto, reside em uma contribuição original: a implementação de um \textbf{Índice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- métrica que penaliza a parcimônia --- ou \textit{quantidade de proposições} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness \textit{Score}} (LES) de Volden e Wiseman (\citeyear{volden2014lawmakers}).
+O diferencial central do \textit{Tô De Olho}, entretanto, reside em uma contribuição original: a implementação de um \textbf{Índice de Efetividade Legislativa} adaptado ao contexto brasileiro. Enquanto as ferramentas existentes limitam-se a ordenar parlamentares por \textit{volume de gastos} --- métrica que penaliza a parcimônia --- ou \textit{quantidade de proposições} --- que ignora a qualidade e o impacto legislativo ---, propomos um modelo multidimensional desenvolvido a partir do estudo da metodologia \textit{Legislative Effectiveness Score} (LES) de Volden e Wiseman (\citeyear{volden2014lawmakers}).
 
 Nosso índice pondera quatro dimensões objetivas, com pesos públicos e metodologia reprodutível:
 
@@ -145,12 +145,12 @@ Nosso índice pondera quatro dimensões objetivas, com pesos públicos e metodol
     \item \textbf{Participação em Comissões (20\%)}: Pondera o engajamento em comissões permanentes e especiais, com bônus para cargos de liderança (presidente, relator).
 \end{enumerate}
 
-A exposição pública de critérios e pesos não é mera formalidade: representa um compromisso ético com a \textbf{transparência metodológica}. Diferente de \textit{rankings} opacos, o cidadão poderá compreender --- e questionar --- os fundamentos da classificação, evitando que a plataforma seja percebida como veículo de viés político.
+A exposição pública de critérios e pesos não é mera formalidade: representa um compromisso ético com a \textbf{transparência metodológica}. Diferente de classificações opacas, o cidadão poderá compreender --- e questionar --- os fundamentos da classificação, evitando que a plataforma seja percebida como veículo de viés político.
 
 Em síntese, o \textit{Tô De Olho} posiciona-se como a \textbf{primeira plataforma integrada} de fiscalização cidadã voltada ao Senado Federal, combinando três vertentes:
 
 \begin{enumerate}
     \item \textbf{Consolidação Multi-Fonte}: Integra dados de três APIs oficiais (Legislativa, Administrativa e Portal da Transparência) em interface única;
-    \item \textbf{Inteligência de Dados}: Oferece alertas automáticos, \textit{rankings} e visualizações que convertem dados brutos em informação acionável;
+    \item \textbf{Inteligência de Dados}: Oferece alertas automáticos, classificações e visualizações que convertem dados brutos em informação acionável;
     \item \textbf{Rigor Metodológico}: Fundamenta-se em literatura acadêmica sobre efetividade legislativa, com metodologia aberta a auditoria pública.
 \end{enumerate}

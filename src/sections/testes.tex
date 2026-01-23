@@ -3,7 +3,7 @@
 
 A garantia da qualidade em sistemas de transparência pública assume papel crítico, dado que falhas na apresentação de dados podem comprometer a confiança do cidadão nas instituições monitoradas. A estratégia de validação do \textit{Tô De Olho} fundamentou-se no modelo da Pirâmide de Testes \cite{myers2011art}, priorizando uma base sólida de testes automatizados de baixo nível para garantir \textit{feedback} rápido durante o ciclo de desenvolvimento.
 
-A implementação seguiu as diretrizes de \textit{Continuous Testing}, integrando as rotinas de verificação ao \textit{pipeline} de entrega contínua. Para isso, utilizou-se o ferramental nativo da linguagem \textit{Go}, complementado por bibliotecas específicas para cenários de integração.
+A implementação seguiu as diretrizes de Teste Contínuo (\textit{Continuous Testing}), integrando as rotinas de verificação à esteira (\textit{pipeline}) de entrega contínua. Para isso, utilizou-se o ferramental nativo da linguagem \textit{Go}, complementado por bibliotecas específicas para cenários de integração.
 
 \subsection{Testes Unitários}
 
@@ -12,8 +12,8 @@ Os testes unitários constituem a primeira linha de defesa contra regressões, f
 Adotou-se o padrão de \textit{Table-Driven Tests} (Testes Orientados a Tabelas), idiomático em \textit{Go}. Esta técnica permite testar múltiplos cenários (casos de sucesso, erros de borda, entradas inválidas) reutilizando a mesma lógica de asserção, o que aumenta a legibilidade e facilita a manutenção.
 
 \begin{itemize}
-    \item \textbf{Cálculo de \textit{Scores}}: Validação dos algoritmos de pontuação dos senadores, garantindo que os pesos da metodologia SLES (Seção \ref{sec:metodologia}) sejam aplicados corretamente sobre os dados brutos.
-    \item \textbf{\textit{Parsers} de Dados}: Verificação das rotinas de tratamento de dados provenientes das APIs do Senado, assegurando a correta conversão de formatos (XML, JSON) e tipos numéricos monetários.
+    \item \textbf{Cálculo de Pontuações (\textit{Scores})}: Validação dos algoritmos de pontuação dos senadores, garantindo que os pesos da metodologia SLES (Seção \ref{sec:metodologia}) sejam aplicados corretamente sobre os dados brutos.
+    \item \textbf{Analisadores (\textit{Parsers}) de Dados}: Verificação das rotinas de tratamento de dados provenientes das APIs do Senado, assegurando a correta conversão de formatos (XML, JSON) e tipos numéricos monetários.
 \end{itemize}
 
 A cobertura de código (\textit{code coverage}) foi monitorada com a ferramenta nativa \texttt{go test -cover}, estabelecendo-se uma meta mínima de 80\% para pacotes críticos do domínio.
@@ -23,4 +23,4 @@ A cobertura de código (\textit{code coverage}) foi monitorada com a ferramenta 
 
 Considerando que o \textit{Tô De Olho} depende integralmente da estabilidade de APIs de terceiros (Senado e Portal da Transparência), implementaram-se testes de contrato para detectar mudanças não anunciadas nos formatos de resposta (\textit{breaking changes}).
 
-Estes testes realizam requisições controladas às APIs externas e validam se a estrutura do JSON/XML retornado corresponde aos esquemas esperados pelos \textit{structs} da aplicação. Falhas nesta camada disparam alertas para a equipe de desenvolvimento, sinalizando a necessidade de adaptação nos adaptadores de integração antes que o erro impacte o ambiente de produção.
+Estes testes realizam requisições controladas às APIs externas e validam se a estrutura do JSON/XML retornado corresponde aos esquemas esperados pelas estruturas (\textit{structs}) da aplicação. Falhas nesta camada disparam alertas para o desenvolvedor, sinalizando a necessidade de adaptação nos adaptadores de integração antes que o erro impacte o ambiente de produção.

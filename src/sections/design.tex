@@ -2,7 +2,7 @@
 
 O design de sistemas de informação voltados à fiscalização cidadã deve conciliar requisitos aparentemente conflitantes: robustez suficiente para processar grandes volumes de dados governamentais, simplicidade operacional compatível com equipes reduzidas, e acessibilidade que permita ao cidadão comum compreender informações complexas. Conforme o paradigma de Design Science Research adotado neste trabalho \cite{hevner2004design}, as decisões de design devem ser orientadas tanto pela utilidade prática do artefato quanto pelo rigor teórico que fundamenta cada escolha.
 
-Esta seção organiza as decisões técnicas em quatro dimensões interdependentes: a arquitetura de software que estrutura o sistema, o stack tecnológico que a implementa, a estratégia de ingestão que alimenta a base de dados, e o modelo relacional que organiza as informações. Cada decisão é apresentada com suas alternativas consideradas e a justificativa para a escolha final, seguindo a tradição de documentação arquitetural proposta por Dragoni \textit{et al.} (\citeyear{dragoni2017microservices}).
+Esta seção organiza as decisões técnicas em quatro dimensões interdependentes: a arquitetura de software que estrutura o sistema, a pilha tecnológica (\textit{stack}) que a implementa, a estratégia de ingestão que alimenta a base de dados, e o modelo relacional que organiza as informações. Cada decisão é apresentada com suas alternativas consideradas e a justificativa para a escolha final, seguindo a tradição de documentação arquitetural proposta por Dragoni \textit{et al.} (\citeyear{dragoni2017microservices}).
 
 \subsection{Arquitetura do Sistema}
 
@@ -15,7 +15,7 @@ Após análise de alternativas, optou-se pelo padrão de \textbf{monolito modula
     
     \item \textbf{Latência Previsível}: A comunicação entre módulos ocorre via chamadas de função em memória, eliminando a variabilidade de latência inerente a redes --- fator crítico para operações que agregam dados de múltiplos domínios;
     
-    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem os \textit{patterns} complexos (\textit{sagas}, \textit{two-phase \textit{commit}}) exigidos por sistemas distribuídos;
+    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem os padrões complexos (\textit{sagas}, \textit{two-phase commit}) exigidos por sistemas distribuídos;
     
     \item \textbf{Estratégia MonolithFirst}: Martin Fowler (\citeyear{fowler2015monolith}) argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto''. A estrutura modular atual permite extração futura de serviços independentes apenas onde houver necessidade comprovada.
 \end{itemize}
@@ -29,14 +29,14 @@ A estrutura interna segue os princípios de \textit{Bounded Contexts} do \textit
     \item \texttt{internal/ceaps}: Processa despesas da Cota Parlamentar, implementando detecção de anomalias e agregações por categoria;
     \item \texttt{internal/votacao}: Coleta votações nominais e calcula métricas como presença e fidelidade partidária;
     \item \texttt{internal/emenda}: Integra dados do Portal da Transparência, com tratamento especial para ``emendas PIX'';
-    \item \texttt{internal/\textit{ranking}}: Orquestra o cálculo de \textit{scores} conforme metodologia definida na Seção~3.3.
+    \item \texttt{internal/ranking}: Orquestra o cálculo de pontuações (\textit{scores}) conforme metodologia definida na Seção~3.3.
 \end{itemize}
 
-Módulos transversais complementam a estrutura: \texttt{internal/api} expõe \textit{endpoints REST}, \texttt{internal/\textit{scheduler}} gerencia tarefas agendadas, e \texttt{internal/cache} abstrai operações no \textit{Redis}. Os módulos comunicam-se exclusivamente através de interfaces \textit{Go}, respeitando o princípio de inversão de dependência.
+Módulos transversais complementam a estrutura: \texttt{internal/api} expõe pontos de acesso (\textit{endpoints}) REST, \texttt{internal/scheduler} gerencia tarefas agendadas, e \texttt{internal/cache} abstrai operações no \textit{Redis}. Os módulos comunicam-se exclusivamente através de interfaces \textit{Go}, respeitando o princípio de inversão de dependência.
 
 \subsubsection{Visão de Implantação}
 
-A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do sistema, ilustrando o fluxo de dados desde as fontes governamentais até o usuário final. O \textit{backend} executa no \textit{Google \textit{Cloud Run}}, consumindo dados armazenados em \textit{PostgreSQL} (\textit{Cloud SQL}) e \textit{Redis} (\textit{Memorystore}). O \textit{frontend}, desenvolvido em \textit{Next.js}, é hospedado na \textit{Vercel} para otimização de distribuição global.
+A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do sistema, ilustrando o fluxo de dados desde as fontes governamentais até o usuário final. O \textit{back-end} executa no \textit{Google Cloud Run}, consumindo dados armazenados em \textit{PostgreSQL} (\textit{Cloud SQL}) e \textit{Redis} (\textit{Memorystore}). O \textit{front-end}, desenvolvido em \textit{Next.js}, é hospedado na \textit{Vercel} para otimização de distribuição global.
 
 \begin{figure}[!htb]
     \centering
@@ -50,21 +50,21 @@ A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do siste
 
 A seleção de tecnologias foi orientada por três critérios: desempenho em cenários de alta concorrência (característicos de \textit{pipelines} de ingestão), manutenibilidade a longo prazo (considerando a natureza \textit{open-source} do projeto), e adequação ao domínio (priorizando ferramentas com suporte robusto a operações analíticas).
 
-\subsubsection{\textit{Backend} em \textit{Go}}
+\subsubsection{\textit{Back-end} em \textit{Go}}
 
 A linguagem \textit{Go} foi selecionada após avaliação comparativa com \textit{Node.js} e \textit{Python}. O fator decisivo foi o modelo de \textbf{\textit{goroutines}}: \textit{threads} leves gerenciadas pelo \textit{runtime}, consumindo aproximadamente 2KB de memória inicial --- em contraste com cerca de 1MB por \textit{thread} de sistema operacional \cite{nanz2015comparative}. Essa eficiência viabiliza o processamento paralelo de centenas de requisições \textit{HTTP} durante a ingestão.
 
-O \textit{framework} \textbf{\textit{Gin}} foi escolhido por seu roteamento baseado em \textit{radix tree}, com desempenho até 40 vezes superior a alternativas \cite{lie2024golang}. O \textit{ORM} \textbf{\textit{GORM}} oferece migrações automáticas e operações de \textit{upsert} essenciais para garantia de idempotência. Para ambientes de produção, o sistema implementa \textit{connection pooling} com limites configuráveis de conexões ociosas e máximas.
+O \textit{framework} \textbf{\textit{Gin}} foi escolhido por seu roteamento baseado em árvore de prefixos (\textit{radix tree}), com desempenho até 40 vezes superior a alternativas \cite{lie2024golang}. O \textit{ORM} \textbf{\textit{GORM}} oferece migrações automáticas e operações de \textit{upsert} essenciais para garantia de idempotência. Para ambientes de produção, o sistema implementa agrupamento de conexões (\textit{connection pooling}) com limites configuráveis de conexões ociosas e máximas.
 
 \subsubsection{Camada de Persistência}
 
 \textbf{\textit{PostgreSQL}} foi selecionado por sua robustez em consultas analíticas e suporte a \textit{CTEs} (\textit{Common Table Expressions}), essenciais para agregações complexas. Originado em 1986 na \textit{UC Berkeley} \cite{stonebraker1986postgres}, o banco garante conformidade \textit{ACID} crítica para operações de ingestão concorrente.
 
-\textbf{\textit{Redis}} atua como \textit{cache} para \textit{rankings} pré-computados, alcançando latências de 100--500 microssegundos por operação \cite{redis2024}. Esta camada evita recálculos custosos a cada requisição, materializando resultados após cada ciclo de sincronização.
+\textbf{\textit{Redis}} atua como \textit{cache} para listas pré-computadas, alcançando latências de 100--500 microssegundos por operação \cite{redis2024}. Esta camada evita recálculos custosos a cada requisição, materializando resultados após cada ciclo de sincronização.
 
-\subsubsection{\textit{Frontend} em \textit{Next.js}}
+\subsubsection{\textit{Front-end} em \textit{Next.js}}
 
-A escolha de \textbf{\textit{Next.js} 16} justifica-se pela necessidade crítica de indexação por mecanismos de busca \cite{salim2024nextjs}. Diferentemente de \textit{SPAs} que renderizam conteúdo apenas via \textit{JavaScript}, \textit{Next.js} oferece \textit{Server-Side Rendering} (\textit{SSR}) e \textit{Static Site Generation} (\textit{SSG}), entregando \textit{HTML} pré-renderizado aos \textit{crawlers} --- requisito fundamental para plataformas de fiscalização que dependem de descoberta orgânica.
+A escolha de \textbf{\textit{Next.js} 16} justifica-se pela necessidade crítica de indexação por mecanismos de busca \cite{salim2024nextjs}. Diferentemente de \textit{SPAs} que renderizam conteúdo apenas via \textit{JavaScript}, \textit{Next.js} oferece renderização no servidor (\textit{Server-Side Rendering} - SSR) e geração estática (\textit{Static Site Generation} - SSG), entregando \textit{HTML} pré-renderizado aos robôs de indexação (\textit{crawlers}) --- requisito fundamental para plataformas de fiscalização que dependem de descoberta orgânica.
 
 A biblioteca \textbf{\textit{Recharts}} foi selecionada para visualização de dados por sua integração declarativa com \textit{React}. \textbf{\textit{Tailwind CSS 4}} permite desenvolvimento ágil com classes utilitárias e geração otimizada de \textit{CSS} em produção \cite{tailwindcss2024}.
 
@@ -74,13 +74,13 @@ A escolha do \textbf{\textit{Bun}} como \textit{runtime JavaScript} fundamenta-s
 
 A consolidação de dados dispersos em três \textit{APIs} governamentais representa um dos maiores desafios técnicos do projeto. O processo segue o paradigma \textit{Extract, Transform, Load} (\textit{ETL}), conforme Vassiliadis (\citeyear{vassiliadis2009survey}) tipicamente consome entre 60\% e 80\% do esforço total em projetos de \textit{data warehousing}.
 
-A estratégia adotada combina duas abordagens complementares: \textbf{\textit{backfill}} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross (\citeyear{kimball2013toolkit}), operações de carga histórica devem privilegiar \textit{throughput} sobre latência, utilizando arquivos \textit{CSV} consolidados e \textit{bulk inserts}. As fontes históricas incluem \textit{CEAPS} (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
+A estratégia adotada combina duas abordagens complementares: \textbf{\textit{backfill}} para carga histórica inicial e \textbf{sincronização contínua} para manutenção incremental. Conforme Kimball e Ross (\citeyear{kimball2013toolkit}), operações de carga histórica devem privilegiar vazão (\textit{throughput}) sobre latência, utilizando arquivos \textit{CSV} consolidados e inserções em lote (\textit{bulk inserts}). As fontes históricas incluem \textit{CEAPS} (2008--2025, ~500 mil registros), votações (2019--presente) e emendas (2015--presente).
 
 Para o módulo de emendas, o \textit{backfill} utiliza o \textit{CSV} consolidado do Portal da Transparência, com leitura \textit{streaming} e detecção automática de delimitador. Como a identificação do autor é textual, o processo aplica normalização de grafia (remoção de acentos, espaços e pontuação) para casar \textit{nomeAutor} com o cadastro de senadores. A idempotência é garantida por chave composta \texttt{(codigoEmenda, senador\_id, ano)}, com \textit{upsert} via \textit{ON CONFLICT}.
 
 A sincronização contínua opera via \textit{polling} periódico, calibrado pela volatilidade de cada domínio: votações diárias às 03:00 \textit{BRT} (baixo tráfego nas \textit{APIs}), remunerações semanais aos domingos, e emendas mensalmente após fechamento contábil.
 
-Para garantir consistência, o sistema opera sob modelo \textit{at-least-once} com \textbf{idempotência} via chaves naturais compostas \cite{hummer2013modeldriven}. Falhas transientes são tratadas com \textit{retry} exponencial ($t_{wait} = base \times 2^{tentativa}$) conforme recomendação \textit{AWS} \cite{aws2015backoff}, \textit{timeout} de 30 segundos e falha graciosa que permite continuidade da sincronização mesmo com fontes temporariamente indisponíveis.
+Para garantir consistência, o sistema opera sob modelo \textit{at-least-once} com \textbf{idempotência} via chaves naturais compostas \cite{hummer2013modeldriven}. Falhas transientes são tratadas com espera exponencial (\textit{exponential backoff}, $t_{wait} = base \times 2^{tentativa}$) conforme recomendação \textit{AWS} \cite{aws2015backoff}, tempo limite (\textit{timeout}) de 30 segundos e falha graciosa que permite continuidade da sincronização mesmo com fontes temporariamente indisponíveis.
 
 \subsection{Modelo de Dados}
 
