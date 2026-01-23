@@ -17,7 +17,7 @@ Após análise de alternativas, optou-se pelo padrão de \textbf{monolito modula
     
     \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem os padrões complexos (\textit{sagas}, \textit{two-phase commit}) exigidos por sistemas distribuídos;
     
-    \item \textbf{Estratégia MonolithFirst}: Martin Fowler (\citeyear{fowler2015monolith}) argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto''. A estrutura modular atual permite extração futura de serviços independentes apenas onde houver necessidade comprovada.
+    \item \textbf{Estratégia MonolithFirst}: Fowler (\citeyear{fowler2015monolith}) argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto''. A estrutura modular atual permite extração futura de serviços independentes apenas onde houver necessidade comprovada.
 \end{itemize}
 
 \subsubsection{Organização em Módulos}
@@ -29,10 +29,10 @@ A estrutura interna segue os princípios de \textit{Bounded Contexts} do \textit
     \item \texttt{internal/ceaps}: Processa despesas da Cota Parlamentar, implementando detecção de anomalias e agregações por categoria;
     \item \texttt{internal/votacao}: Coleta votações nominais e calcula métricas como presença e fidelidade partidária;
     \item \texttt{internal/emenda}: Integra dados do Portal da Transparência, com tratamento especial para ``emendas PIX'';
-    \item \texttt{internal/ranking}: Orquestra o cálculo de pontuações (\textit{scores}) conforme metodologia definida na Seção~3.3.
+    \item \texttt{internal/ranking}: Orquestra o cálculo de pontuações conforme metodologia definida na Seção~3.3.
 \end{itemize}
 
-Módulos transversais complementam a estrutura: \texttt{internal/api} expõe pontos de acesso (\textit{endpoints}) REST, \texttt{internal/scheduler} gerencia tarefas agendadas, e \texttt{internal/cache} abstrai operações no \textit{Redis}. Os módulos comunicam-se exclusivamente através de interfaces \textit{Go}, respeitando o princípio de inversão de dependência.
+Módulos transversais complementam a estrutura: \texttt{internal/api} expõe \textit{endpoints} REST, \texttt{internal/scheduler} gerencia tarefas agendadas, e \texttt{internal/cache} abstrai operações no \textit{Redis}. Os módulos comunicam-se exclusivamente através de interfaces \textit{Go}, respeitando o princípio de inversão de dependência.
 
 \subsubsection{Visão de Implantação}
 
