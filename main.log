@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  23 JAN 2026 00:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  23 JAN 2026 02:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -645,7 +645,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
                                                   \__shipout_drop_firstpage_...
 l.101 \end{equation}
                     ] [23]
-<imagens/comparador-v2.png, id=729, 1429.34pt x 1308.89pt>
+<imagens/comparador-v2.png, id=734, 1429.34pt x 1308.89pt>
 File: imagens/comparador-v2.png Graphic file (type png)
 <use imagens/comparador-v2.png>
 Package pdftex.def Info: imagens/comparador-v2.png  used on input line 138.
@@ -658,7 +658,7 @@ s been already used, duplicate ignored
 l.79 
       <./imagens/comparador-v2.png (PNG copy)>] (src/sections/requisitos.tex
 [25] [26]) (src/sections/design.tex [27] [28]
-<docs/diagrama_implantacao.png, id=768, 246.6816pt x 246.6816pt>
+<docs/diagrama_implantacao.png, id=773, 246.6816pt x 246.6816pt>
 File: docs/diagrama_implantacao.png Graphic file (type png)
 <use docs/diagrama_implantacao.png>
 Package pdftex.def Info: docs/diagrama_implantacao.png  used on input line 43.
@@ -672,7 +672,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.56 
       <./docs/diagrama_implantacao.png>] [30]
-<docs/diagrama_er_modelo.png, id=806, 246.6816pt x 246.6816pt>
+<docs/diagrama_er_modelo.png, id=811, 246.6816pt x 246.6816pt>
 File: docs/diagrama_er_modelo.png Graphic file (type png)
 <use docs/diagrama_er_modelo.png>
 Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 93.
@@ -689,12 +689,12 @@ LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <17> not available
 (Font)              Font shape `OT1/phv/b/sl' tried instead on input line 17.
 
 [34]) (src/sections/manual.tex [35]
-<src/images/dashboard.png, id=877, 1220.56pt x 1308.89pt>
+<src/images/dashboard.png, id=882, 1220.56pt x 1308.89pt>
 File: src/images/dashboard.png Graphic file (type png)
 <use src/images/dashboard.png>
 Package pdftex.def Info: src/images/dashboard.png  used on input line 15.
 (pdftex.def)             Requested size: 452.96826pt x 485.73969pt.
-<src/images/modal_metodologia.png, id=878, 1220.56pt x 1308.89pt>
+<src/images/modal_metodologia.png, id=883, 1220.56pt x 1308.89pt>
 File: src/images/modal_metodologia.png Graphic file (type png)
 <use src/images/modal_metodologia.png>
 Package pdftex.def Info: src/images/modal_metodologia.png  used on input line 2
@@ -707,7 +707,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.27 
       <./src/images/dashboard.png (PNG copy)>]
-<src/images/ranking_completo.png, id=884, 1220.56pt x 1308.89pt>
+<src/images/ranking_completo.png, id=889, 1220.56pt x 1308.89pt>
 File: src/images/ranking_completo.png Graphic file (type png)
 <use src/images/ranking_completo.png>
 Package pdftex.def Info: src/images/ranking_completo.png  used on input line 35
@@ -727,13 +727,13 @@ s been already used, duplicate ignored
 l.48     \item \textbf
                       {Despesas (Figura \ref{fig:despesas})}: No gráfico de...
  <./src/images/ranking_completo.png (PNG copy)>]
-<src/images/ficha_parlamentar.png, id=898, 1429.34pt x 1308.89pt>
+<src/images/ficha_parlamentar.png, id=903, 1429.34pt x 1308.89pt>
 File: src/images/ficha_parlamentar.png Graphic file (type png)
 <use src/images/ficha_parlamentar.png>
 Package pdftex.def Info: src/images/ficha_parlamentar.png  used on input line 5
 6.
 (pdftex.def)             Requested size: 452.96826pt x 414.79904pt.
-<src/images/ficha_votacoes_detalhe.png, id=899, 1027.84pt x 940.51375pt>
+<src/images/ficha_votacoes_detalhe.png, id=904, 1027.84pt x 940.51375pt>
 File: src/images/ficha_votacoes_detalhe.png Graphic file (type png)
 <use src/images/ficha_votacoes_detalhe.png>
 Package pdftex.def Info: src/images/ficha_votacoes_detalhe.png  used on input l
@@ -746,7 +746,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.68 
       <./src/images/ficha_parlamentar.png (PNG copy)>]
-<src/images/ficha_ceaps_detalhe.png, id=905, 1027.84pt x 940.51375pt>
+<src/images/ficha_ceaps_detalhe.png, id=910, 1027.84pt x 940.51375pt>
 File: src/images/ficha_ceaps_detalhe.png Graphic file (type png)
 <use src/images/ficha_ceaps_detalhe.png>
 Package pdftex.def Info: src/images/ficha_ceaps_detalhe.png  used on input line
@@ -759,7 +759,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.76 
       <./src/images/ficha_votacoes_detalhe.png>]
-<src/images/mapa_emendas_detalhe.png, id=911, 1027.84pt x 940.51375pt>
+<src/images/mapa_emendas_detalhe.png, id=916, 1027.84pt x 940.51375pt>
 File: src/images/mapa_emendas_detalhe.png Graphic file (type png)
 <use src/images/mapa_emendas_detalhe.png>
 Package pdftex.def Info: src/images/mapa_emendas_detalhe.png  used on input lin
@@ -772,7 +772,7 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.84 
       <./src/images/ficha_ceaps_detalhe.png>]
-<src/images/ficha_comissoes_detalhe.png, id=918, 1027.84pt x 940.51375pt>
+<src/images/ficha_comissoes_detalhe.png, id=923, 1027.84pt x 940.51375pt>
 File: src/images/ficha_comissoes_detalhe.png Graphic file (type png)
 <use src/images/ficha_comissoes_detalhe.png>
 Package pdftex.def Info: src/images/ficha_comissoes_detalhe.png  used on input 
@@ -785,7 +785,7 @@ as been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.92 
       <./src/images/mapa_emendas_detalhe.png>]
-<src/images/dock_comparacao.png, id=926, 1220.56pt x 1308.89pt>
+<src/images/dock_comparacao.png, id=931, 1220.56pt x 1308.89pt>
 File: src/images/dock_comparacao.png Graphic file (type png)
 <use src/images/dock_comparacao.png>
 Package pdftex.def Info: src/images/dock_comparacao.png  used on input line 102
@@ -798,7 +798,7 @@ as been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.106 
        <./src/images/ficha_comissoes_detalhe.png>]
-<src/images/comparacao_tela.png, id=932, 957.5775pt x 1027.84pt>
+<src/images/comparacao_tela.png, id=937, 957.5775pt x 1027.84pt>
 File: src/images/comparacao_tela.png Graphic file (type png)
 <use src/images/comparacao_tela.png>
 Package pdftex.def Info: src/images/comparacao_tela.png  used on input line 110
@@ -822,7 +822,7 @@ l.7
 ! Undefined control sequence.
 <recently read> \As 
                     
-l.507 ...}}{\~o}es municipais brasileiras de 2004}
+l.514 ...}}{\~o}es municipais brasileiras de 2004}
                                                   .
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -846,10 +846,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 866C1E1150BC3667090767CF3C8A1A88;13731.
  ) 
 Here is how much of TeX's memory you used:
- 15838 strings out of 467871
- 257450 string characters out of 5418376
- 730185 words of memory out of 5000000
- 43632 multiletter control sequences out of 15000+600000
+ 15843 strings out of 467871
+ 257546 string characters out of 5418376
+ 730404 words of memory out of 5000000
+ 43636 multiletter control sequences out of 15000+600000
  684391 words of font info for 441 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1544b,667s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -865,9 +865,9 @@ Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/pedro
 dro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/User
 s/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/U
 sers/pedro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (63 pages, 3898638 bytes).
+Output written on main.pdf (63 pages, 3899835 bytes).
 PDF statistics:
- 1131 PDF objects out of 1200 (max. 8388607)
- 259 named destinations out of 1000 (max. 500000)
+ 1136 PDF objects out of 1200 (max. 8388607)
+ 260 named destinations out of 1000 (max. 500000)
  79439 words of extra memory for PDF output out of 89155 (max. 10000000)
 
