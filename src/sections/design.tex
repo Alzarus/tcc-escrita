@@ -6,19 +6,7 @@ Esta seção organiza as decisões técnicas em quatro dimensões interdependent
 
 \subsection{Arquitetura do Sistema}
 
-A escolha arquitetural representa uma das decisões mais consequentes em projetos de software, com implicações que se estendem por todo o ciclo de vida do sistema. Em aplicações que integram múltiplas APIs externas --- como é o caso do \textit{Tô De Olho}, que consome dados de três órgãos governamentais distintos --- a arquitetura deve equilibrar a flexibilidade para evolução futura com a simplicidade operacional exigida pelo contexto acadêmico.
-
-Após análise de alternativas, optou-se pelo padrão de \textbf{monolito modular}. Esta abordagem, sistematizada em revisão de literatura recente \cite{su2024modularmonolith}, combina a organização interna característica de microsserviços --- com fronteiras claras entre domínios de negócio --- com a simplicidade de implantação dos monolitos tradicionais. A decisão fundamentou-se em quatro critérios:
-
-\begin{itemize}
-    \item \textbf{Simplicidade Operacional}: Um único contêiner \textit{Docker} elimina a complexidade de orquestração distribuída. Em plataformas \textit{serverless} como \textit{Google \textit{Cloud Run}}, essa característica traduz-se em escala automática (inclusive a zero) e custos proporcionais ao uso efetivo;
-    
-    \item \textbf{Latência Previsível}: A comunicação entre módulos ocorre via chamadas de função em memória, eliminando a variabilidade de latência inerente a redes --- fator crítico para operações que agregam dados de múltiplos domínios;
-    
-    \item \textbf{Consistência Transacional}: Operações que envolvem múltiplos módulos compartilham uma única transação de banco de dados, garantindo atomicidade sem os padrões complexos (\textit{sagas}, \textit{two-phase commit}) exigidos por sistemas distribuídos;
-    
-    \item \textbf{Estratégia MonolithFirst}: Fowler (\citeyear{fowler2015monolith}) argumenta que ``quase todos os casos de sucesso de microsserviços começaram com um monolito que cresceu grande demais e foi decomposto''. A estrutura modular atual permite extração futura de serviços independentes apenas onde houver necessidade comprovada.
-\end{itemize}
+A escolha arquitetural representa uma das decisões mais consequentes em projetos de software. Conforme já apresentado e justificado na Introdução, optou-se pela arquitetura de \textbf{monolito modular}. Esta abordagem combina a organização interna característica de microsserviços --- com fronteiras claras entre domínios de negócio --- com a simplicidade operacional necessária ao contexto acadêmico, eliminando a complexidade de orquestração distribuída.
 
 \subsubsection{Organização em Módulos}
 
