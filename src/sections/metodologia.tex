@@ -13,14 +13,14 @@ Optou-se, portanto, por uma abordagem \textbf{iterativa e incremental}, na qual 
 
 O desenvolvimento contou com apoio de ferramentas de inteligência artificial generativa como assistentes de codificação, seguindo a tendência contemporânea de desenvolvimento de software assistido por IA (\textit{AI-assisted software development}) \cite{peng2023impact}. Tais ferramentas, baseadas em modelos de linguagem de grande escala (LLMs), foram empregadas para aceleração de tarefas operacionais como geração de código padrão (\textit{boilerplate}), refatoração e depuração (\textit{debugging}). O uso de assistentes de IA em desenvolvimento de software representa uma evolução natural das ferramentas de produtividade, análoga à adoção de IDEs com preenchimento automático (\textit{autocomplete}) e analisadores estáticos de código.
 
-É fundamental distinguir entre \textbf{assistência operacional} e \textbf{autoria intelectual}. As decisões estruturantes do projeto --- arquitetura do sistema, design do algoritmo de \textit{ranking}, seleção de fontes de dados, modelagem do domínio e interpretação de resultados --- foram integralmente concebidas, avaliadas e validadas pelo desenvolvedor. A ferramenta de IA atuou como acelerador de implementação, não como substituto do julgamento técnico.
+É fundamental distinguir entre \textbf{assistência operacional} e \textbf{autoria intelectual}. As decisões estruturantes do projeto --- arquitetura do sistema, projeto do algoritmo de \textit{ranking}, seleção de fontes de dados, modelagem do domínio e interpretação de resultados --- foram integralmente concebidas, avaliadas e validadas pelo desenvolvedor. A ferramenta de IA atuou como acelerador de implementação, não como substituto do julgamento técnico.
 
 A divisão do trabalho ocorreu em cinco fases principais:
 \begin{enumerate}
     \item \textbf{Fundação}: Estruturação do projeto em \textit{Go}, implementação do cliente para a API Legislativa do Senado, criação das migrações (\textit{migrations}) do banco de dados e configuração inicial do \textit{front-end} em \textit{Next.js} utilizando \textit{Bun} como ambiente de execução (\textit{runtime});
     \item \textbf{Ingestão de Dados}: Implementação do cliente para a API Administrativa, configuração do agendador (\textit{scheduler}) para tarefas agendadas, coleta de votações nominais e carga de dados históricos;
     \item \textbf{Classificação e API}: Desenvolvimento do serviço de cálculo de pontuações, criação dos pontos de acesso (\textit{endpoints}) REST para consumo pelo \textit{front-end}, configuração do cache \textit{Redis} e implementação de testes automatizados;
-    \item \textbf{\textit{Front-end}}: Desenvolvimento do painel principal (\textit{dashboard}), interface de classificação interativa e páginas de perfil dos senadores;
+    \item \textbf{\textit{Front-end}}: Desenvolvimento do painel de dados, interface de classificação interativa e páginas de perfil dos senadores;
     \item \textbf{Emendas e Polimento}: Integração com o Portal da Transparência para dados de emendas parlamentares, visualizações de dados e preparação para implantação.
 \end{enumerate}
 
