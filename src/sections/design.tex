@@ -24,11 +24,11 @@ Módulos transversais complementam a estrutura: \texttt{internal/api} expõe \te
 
 \subsubsection{Visão de Implantação}
 
-A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do sistema, ilustrando o fluxo de dados desde as fontes governamentais até o usuário final. O \textit{back-end} executa no \textit{Google Cloud Run}, consumindo dados armazenados em \textit{PostgreSQL} (\textit{Cloud SQL}) e \textit{Redis} (\textit{Memorystore}). O \textit{front-end}, desenvolvido em \textit{Next.js}, é hospedado na \textit{Vercel} para otimização de distribuição global.
+A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do sistema, ilustrando o fluxo de dados desde as fontes governamentais até o usuário final. Tanto o \textit{back-end} quanto o \textit{front-end} são executados em contêineres no \textit{Google Cloud Run}, garantindo escalabilidade unificada. O \textit{back-end} consome dados armazenados em \textit{PostgreSQL} (\textit{Cloud SQL}) e \textit{Redis} (\textit{Memorystore}), enquanto o \textit{scheduler} opera como um módulo interno do serviço principal, aproveitando a mesma infraestrutura.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{docs/diagrama_implantacao.png}
+    \includegraphics[width=0.95\textwidth]{imagens/arquitetura-implantacao.png}
     \caption{Arquitetura de implantação do sistema Tô De Olho}
     \label{fig:implantacao}
     \par\small{Fonte: Autoria Própria}
@@ -42,7 +42,7 @@ A seleção de tecnologias foi orientada por três critérios: desempenho em cen
 
 A linguagem \textit{Go} foi selecionada após avaliação comparativa com \textit{Node.js} e \textit{Python}. O fator decisivo foi o modelo de \textbf{\textit{goroutines}}: \textit{threads} leves gerenciadas pelo \textit{runtime}, consumindo aproximadamente 2KB de memória inicial --- em contraste com cerca de 1MB por \textit{thread} de sistema operacional \cite{nanz2015comparative}. Essa eficiência viabiliza o processamento paralelo de centenas de requisições \textit{HTTP} durante a ingestão.
 
-O \textit{framework} \textbf{\textit{Gin}} foi escolhido por seu roteamento baseado em árvore de prefixos (\textit{radix tree}), com desempenho até 40 vezes superior a alternativas \cite{lie2024golang}. O \textit{ORM} \textbf{\textit{GORM}} oferece migrações automáticas e operações de \textit{upsert} essenciais para garantia de idempotência. Para ambientes de produção, o sistema implementa agrupamento de conexões (\textit{connection pooling}) com limites configuráveis de conexões ociosas e máximas.
+O \textit{framework} \textbf{\textit{Gin}} foi escolhido por seu roteamento baseado em árvore de prefixos (\textit{radix tree}), com desempenho até 40 vezes superior a alternativas \cite{lie2024golang}. O \textit{ORM} \textbf{\textit{GORM}} oferece migrações automáticas e operações de \textit{upsert} essenciais para evitar duplicação de registros. Para ambientes de produção, o sistema implementa agrupamento de conexões (\textit{connection pooling}) com limites configuráveis de conexões ociosas e máximas.
 
 \subsubsection{Camada de Persistência}
 

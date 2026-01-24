@@ -3,6 +3,8 @@
 
 A arquitetura de implantação do \textit{Tô De Olho} foi projetada para garantir alta disponibilidade, escalabilidade elástica e baixo custo operacional, alinhando-se aos princípios da metodologia \textit{Twelve-Factor App} \cite{wiggins2017twelvefactor}. Balalaie \textit{et al.} argumentam que a adoção de arquiteturas orientadas a serviços e práticas de \textit{DevOps} é crucial para permitir o desenvolvimento ágil e a entrega contínua de valor em sistemas complexos \cite{balalaie2016microservices}. Seguindo essa premissa, a infraestrutura baseia-se integralmente em serviços gerenciados na nuvem (\textit{Cloud Native}), eliminando a necessidade de provisionamento e manutenção de servidores físicos ou virtuais tradicionais.
 
+
+
 \subsection{Containerização}
 
 A portabilidade da aplicação é assegurada pelo uso de contêineres \textit{Docker}. O processo de construção das imagens utiliza a técnica de \textit{Multi-Stage Builds}, recomendada pelas melhores práticas de segurança \cite{googlecontainers2024}. Esta abordagem divide o processo em dois estágios:
