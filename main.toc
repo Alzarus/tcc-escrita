@@ -30,9 +30,9 @@
 \contentsline {subsubsection}{\numberline {3.2.2}API Administrativa do Senado}{21}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Portal da Transparência (CGU)}{21}{subsubsection.3.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.4}Limitações e Cobertura Temporal}{21}{subsubsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.3}Metodologia de Avaliação de Desempenho}{22}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.3}Avaliação de Desempenho}{22}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Produtividade Legislativa}{22}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Presença em Votações}{22}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.2}Presença em Votações}{23}{subsubsection.3.3.2}%
 \contentsline {subsubsection}{\numberline {3.3.3}Economia na Cota Parlamentar}{23}{subsubsection.3.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.4}Participação em Comissões}{23}{subsubsection.3.3.4}%
 \contentsline {subsubsection}{\numberline {3.3.5}Fórmula Final e Tratamento de Casos Especiais}{23}{subsubsection.3.3.5}%
