@@ -58,7 +58,7 @@
 \contentsline {subsection}{\numberline {7.2}\textit {Pipeline} de Integração e Entrega Contínua (CI/CD)}{35}{subsection.7.2}%
 \contentsline {subsection}{\numberline {7.3}Infraestrutura \textit {Serverless} no \textit {Google Cloud}}{35}{subsection.7.3}%
 \contentsline {subsection}{\numberline {7.4}Estratégia \textit {Mobile}-First e Acessibilidade}{36}{subsection.7.4}%
-\contentsline {section}{\numberline {8}Manual do Usuário: A Jornada do Cidadão}{37}{section.8}%
+\contentsline {section}{\numberline {8}Manual do Usuário: A Jornada do Cidadão}{36}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Passo 1: O Primeiro Contato e a Transparência}{37}{subsection.8.1}%
 \contentsline {subsection}{\numberline {8.2}Passo 2: Explorando o \textit {Ranking} Completo}{39}{subsection.8.2}%
 \contentsline {subsection}{\numberline {8.3}Passo 3: A Lupa no Parlamentar}{40}{subsection.8.3}%
