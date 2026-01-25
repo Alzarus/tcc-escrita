@@ -211,7 +211,7 @@ A estratégia de ingestão do \textit{Tô De Olho} segue as três fases clássic
 O processo combina duas estratégias complementares de carga:
 
 \begin{itemize}
-    \item \textbf{\textit{Backfill} (Carga Histórica)}: Execução única para ingestão do histórico completo desde um ano configurável (padrão: 2019). Esta flexibilidade, implementada via variável de ambiente, permite ajustar o escopo temporal conforme necessidades específicas --- por exemplo, restringir a dados de 2023 em ambiente de desenvolvimento para acelerar testes, ou expandir para 2015 para análises de longo prazo;
+    \item \textbf{\textit{Backfill} (Preenchimento Retroativo)}: Execução única para ingestão do histórico completo desde um ano configurável (padrão: 2019). Esta flexibilidade, implementada via variável de ambiente, permite ajustar o escopo temporal conforme necessidades específicas --- por exemplo, restringir a dados de 2023 em ambiente de desenvolvimento para acelerar testes, ou expandir para 2015 para análises de longo prazo;
     
     \item \textbf{Sincronização Incremental}: Tarefas agendadas (\textit{CronJobs}) executadas diariamente às 03:00 BRT, capturando apenas atualizações desde a última sincronização. Esta abordagem otimiza o consumo de recursos e respeita os limites de requisição das APIs oficiais.
 \end{itemize}
