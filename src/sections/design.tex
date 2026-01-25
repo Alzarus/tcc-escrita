@@ -74,23 +74,25 @@ A consistência segue o modelo de entrega \textit{at-least-once} (pelo menos uma
 
 O modelo relacional constitui o alicerce sobre o qual todas as funcionalidades são construídas. O projeto priorizou dois objetivos: garantir integridade referencial durante ingestão concorrente, e otimizar consultas analíticas frequentes como agregações de gastos por senador, período e categoria.
 
-A Figura~\ref{fig:er-diagram} apresenta o diagrama entidade-relacionamento.
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=0.7\textwidth]{docs/diagrama_er_modelo.png}
-\caption{Diagrama entidade-relacionamento do sistema Tô De Olho}
-\label{fig:er-diagram}
-\par\small{Fonte: Autoria Própria}
-\end{figure}
-
 As entidades organizam-se em torno de \textbf{Senador}, a entidade central identificada por código parlamentar único. Relacionamentos 1:N conectam o senador a: \textbf{Mandato} (legislatura, tipo, período), \textbf{Despesa CEAPS} (com chave composta para idempotência), \textbf{Votação} (tabela associativa com sessão), \textbf{Servidor de Gabinete} (nome, cargo, remuneração), \textbf{Emenda} (incluindo Transferências Especiais) e \textbf{Comissão Membro} (participação com cargo e período).
+
+A Figura~\ref{fig:er-diagram} apresenta o esquema relacional de dados consolidado.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{docs/diagrama_er_modelo.png}
+    \caption{Esquema Relacional de Dados do sistema Tô De Olho}
+    \label{fig:er-diagram}
+    \par\small{Fonte: Autoria Própria}
+\end{figure}
 
 Para otimizar consultas frequentes, foram criados os seguintes índices compostos:
 
 \begin{itemize}
     \item \texttt{idx\_despesa\_senador\_ano} --- totalização de gastos por período;
-    \item \texttt{idx\_votacao\_sessao\_senador} --- cálculo de presença em votações;
-    \item \texttt{idx\_emenda\_senador\_tipo} --- filtros por modalidade de emenda;
+    \item \texttt{idx\_votacao\_unica} --- chave composta (senador, sessão) para cálculo de presença;
+    \item \texttt{idx\_emenda\_unique} --- garantia de idempotência (senador, ano, número);
     \item \texttt{idx\_comissao\_senador} --- agregação de participação em comissões.
 \end{itemize}
+
+

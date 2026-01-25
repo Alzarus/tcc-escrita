@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  25 JAN 2026 00:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  25 JAN 2026 00:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -677,7 +677,7 @@ l.50
 <docs/diagrama_er_modelo.png, id=815, 246.6816pt x 246.6816pt>
 File: docs/diagrama_er_modelo.png Graphic file (type png)
 <use docs/diagrama_er_modelo.png>
-Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 81.
+Package pdftex.def Info: docs/diagrama_er_modelo.png  used on input line 83.
 (pdftex.def)             Requested size: 317.0764pt x 317.10641pt.
  [32])
 (src/sections/testes.tex [33
@@ -685,44 +685,45 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.12 A
-      dotou-se o padrão de \textit{Table-Driven Tests} (Testes Orientados a...
- <./docs/diagrama_er_modelo.png>]) (src/sections/implantacao.tex [34]
+l.8 \subsection{Testes Unitários}
+                                   <./docs/diagrama_er_modelo.png>])
+(src/sections/implantacao.tex [34]
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <17> not available
 (Font)              Font shape `OT1/phv/b/sl' tried instead on input line 19.
- [35])
-(src/sections/manual.tex [36]
+ [35]) (src/sections/manual.tex [36]
 <src/images/dashboard.png, id=883, 1220.56pt x 1308.89pt>
 File: src/images/dashboard.png Graphic file (type png)
 <use src/images/dashboard.png>
 Package pdftex.def Info: src/images/dashboard.png  used on input line 15.
 (pdftex.def)             Requested size: 452.96826pt x 485.73969pt.
-<src/images/modal_metodologia.png, id=884, 1220.56pt x 1308.89pt>
+ [37]
+<src/images/modal_metodologia.png, id=888, 1220.56pt x 1308.89pt>
 File: src/images/modal_metodologia.png Graphic file (type png)
 <use src/images/modal_metodologia.png>
 Package pdftex.def Info: src/images/modal_metodologia.png  used on input line 2
 3.
 (pdftex.def)             Requested size: 452.96826pt x 485.73969pt.
- [37
+
+[38
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.27 
       <./src/images/dashboard.png (PNG copy)>]
-<src/images/ranking_completo.png, id=890, 1220.56pt x 1308.89pt>
+<src/images/ranking_completo.png, id=894, 1220.56pt x 1308.89pt>
 File: src/images/ranking_completo.png Graphic file (type png)
 <use src/images/ranking_completo.png>
 Package pdftex.def Info: src/images/ranking_completo.png  used on input line 35
 .
 (pdftex.def)             Requested size: 452.96826pt x 485.73969pt.
- [38
+ [39
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.39 
-      <./src/images/modal_metodologia.png (PNG copy)>] [39
+      <./src/images/modal_metodologia.png (PNG copy)>] [40
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -730,117 +731,105 @@ s been already used, duplicate ignored
 l.48     \item \textbf
                       {Despesas (Figura \ref{fig:despesas})}: No gráfico de...
  <./src/images/ranking_completo.png (PNG copy)>]
-<src/images/ficha_parlamentar.png, id=904, 1429.34pt x 1308.89pt>
+<src/images/ficha_parlamentar.png, id=908, 1429.34pt x 1308.89pt>
 File: src/images/ficha_parlamentar.png Graphic file (type png)
 <use src/images/ficha_parlamentar.png>
 Package pdftex.def Info: src/images/ficha_parlamentar.png  used on input line 5
 6.
 (pdftex.def)             Requested size: 452.96826pt x 414.79904pt.
-<src/images/ficha_votacoes_detalhe.png, id=905, 1027.84pt x 940.51375pt>
+<src/images/ficha_votacoes_detalhe.png, id=909, 1027.84pt x 940.51375pt>
 File: src/images/ficha_votacoes_detalhe.png Graphic file (type png)
 <use src/images/ficha_votacoes_detalhe.png>
 Package pdftex.def Info: src/images/ficha_votacoes_detalhe.png  used on input l
 ine 64.
 (pdftex.def)             Requested size: 452.96826pt x 414.48747pt.
- [40
+ [41
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.68 
       <./src/images/ficha_parlamentar.png (PNG copy)>]
-<src/images/ficha_ceaps_detalhe.png, id=910, 1027.84pt x 940.51375pt>
+<src/images/ficha_ceaps_detalhe.png, id=915, 1027.84pt x 940.51375pt>
 File: src/images/ficha_ceaps_detalhe.png Graphic file (type png)
 <use src/images/ficha_ceaps_detalhe.png>
 Package pdftex.def Info: src/images/ficha_ceaps_detalhe.png  used on input line
  72.
 (pdftex.def)             Requested size: 452.96826pt x 414.48747pt.
- [41
+ [42
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.76 
       <./src/images/ficha_votacoes_detalhe.png>]
-<src/images/mapa_emendas_detalhe.png, id=917, 1027.84pt x 940.51375pt>
+<src/images/mapa_emendas_detalhe.png, id=921, 1027.84pt x 940.51375pt>
 File: src/images/mapa_emendas_detalhe.png Graphic file (type png)
 <use src/images/mapa_emendas_detalhe.png>
 Package pdftex.def Info: src/images/mapa_emendas_detalhe.png  used on input lin
 e 80.
 (pdftex.def)             Requested size: 452.96826pt x 414.48747pt.
- [42
+ [43
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.84 
       <./src/images/ficha_ceaps_detalhe.png>]
-<src/images/ficha_comissoes_detalhe.png, id=923, 1027.84pt x 940.51375pt>
+<src/images/ficha_comissoes_detalhe.png, id=927, 1027.84pt x 940.51375pt>
 File: src/images/ficha_comissoes_detalhe.png Graphic file (type png)
 <use src/images/ficha_comissoes_detalhe.png>
 Package pdftex.def Info: src/images/ficha_comissoes_detalhe.png  used on input 
 line 88.
 (pdftex.def)             Requested size: 452.96826pt x 414.48747pt.
- [43
+ [44
 pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.92 
       <./src/images/mapa_emendas_detalhe.png>]
-<src/images/dock_comparacao.png, id=931, 1220.56pt x 1308.89pt>
+<src/images/dock_comparacao.png, id=935, 1220.56pt x 1308.89pt>
 File: src/images/dock_comparacao.png Graphic file (type png)
 <use src/images/dock_comparacao.png>
 Package pdftex.def Info: src/images/dock_comparacao.png  used on input line 102
 .
 (pdftex.def)             Requested size: 452.96826pt x 485.73969pt.
- [44
+ [45
 pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.106 
        <./src/images/ficha_comissoes_detalhe.png>]
-<src/images/comparacao_tela.png, id=937, 957.5775pt x 1027.84pt>
+<src/images/comparacao_tela.png, id=941, 957.5775pt x 1027.84pt>
 File: src/images/comparacao_tela.png Graphic file (type png)
 <use src/images/comparacao_tela.png>
 Package pdftex.def Info: src/images/comparacao_tela.png  used on input line 110
 .
 (pdftex.def)             Requested size: 452.96826pt x 486.2059pt.
-) [45
+) [46
 pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.89 
       <./src/images/dock_comparacao.png (PNG copy)>]
-(src/sections/conclusao.tex [46
+(src/sections/conclusao.tex [47
 pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.7 
      <./src/images/comparacao_tela.png>]) (src/sections/agradecimentos.tex
-[47]) (main.bbl [48] [49] [50] [51] [52]
-! Undefined control sequence.
-<recently read> \As 
-                    
-l.505 ...}}{\~o}es municipais brasileiras de 2004}
-                                                  .
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-) [53] (src/sections/glossario.tex
+[48]) (main.bbl [49] [50] [51] [52] [53]) [54] (src/sections/glossario.tex
 Overfull \hbox (11.95119pt too wide) in paragraph at lines 13--14
 []\OT1/phv/m/sl/10.95 (-20) Cascading Style She-ets \OT1/phv/m/n/10.95 (-20) --
 - lin-gua-gem de fo-lhas de es-tilo uti-li-zada para de-fi-nir a apresenta[][]a
 o
  []
 
-[54] [55]) [56] (main.aux)
+[55] [56]) [57] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
@@ -850,9 +839,9 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  15828 strings out of 467871
- 257352 string characters out of 5418376
- 730281 words of memory out of 5000000
- 43631 multiletter control sequences out of 15000+600000
+ 257357 string characters out of 5418376
+ 729276 words of memory out of 5000000
+ 43630 multiletter control sequences out of 15000+600000
  683418 words of font info for 433 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,14n,93p,1544b,667s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -867,9 +856,9 @@ ocal/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/Users/pedro/Ap
 pData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro
 /AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (64 pages, 3355144 bytes).
+Output written on main.pdf (65 pages, 3355889 bytes).
 PDF statistics:
- 1132 PDF objects out of 1200 (max. 8388607)
- 261 named destinations out of 1000 (max. 500000)
+ 1136 PDF objects out of 1200 (max. 8388607)
+ 262 named destinations out of 1000 (max. 500000)
  78927 words of extra memory for PDF output out of 89155 (max. 10000000)
 
