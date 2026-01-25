@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  25 JAN 2026 01:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.3)  25 JAN 2026 01:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -839,7 +839,7 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Here is how much of TeX's memory you used:
  15834 strings out of 467871
  257417 string characters out of 5418376
- 729276 words of memory out of 5000000
+ 729277 words of memory out of 5000000
  43630 multiletter control sequences out of 15000+600000
  683871 words of font info for 437 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -855,7 +855,7 @@ ocal/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pedro/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/Users/pedro/Ap
 pData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/pedro
 /AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (65 pages, 3480629 bytes).
+Output written on main.pdf (65 pages, 3480633 bytes).
 PDF statistics:
  1137 PDF objects out of 1200 (max. 8388607)
  262 named destinations out of 1000 (max. 500000)
