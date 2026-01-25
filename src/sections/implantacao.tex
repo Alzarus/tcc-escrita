@@ -23,8 +23,8 @@ A automação do ciclo de vida do software é gerenciada via \textit{GitHub Acti
 \begin{itemize}
     \item \textbf{Verificação (\textit{Linting} \& \textit{Vet})}: Análise estática do código para garantir conformidade com os padrões de estilo da linguagem \textit{Go} e detecção prévia de construções suspeitas.
     \item \textbf{Testes Automatizados}: Execução de todas as suítes de testes unitários e de integração. A falha em qualquer teste bloqueia imediatamente o processo de entrega.
-    \item \textbf{Construção e Publicação}: Construção da imagem \textit{Docker} e publicação no \textit{Google Artifact Registry}, versionada com o \textit{hash} do \textit{commit} (\textit{SHA}).
-    \item \textbf{Implantação}: Atualização do serviço no \textit{Google Cloud Run}, utilizando a estratégia de atualização gradual (\textit{rolling update}) para garantir tempo de inatividade zero (\textit{zero downtime}) durante a transição de versões.
+    \item \textbf{Construção e Publicação (\textit{build} e \textit{push})}: Construção da imagem \textit{Docker} e publicação no \textit{Google Artifact Registry}, versionada com o \textit{hash} do \textit{commit} (\textit{SHA}).
+    \item \textbf{Implantação (\textit{deploy})}: Atualização do serviço no \textit{Google Cloud Run}, utilizando a estratégia de atualização gradual (\textit{rolling update}) para garantir tempo de inatividade zero (\textit{zero downtime}) durante a transição de versões.
 \end{itemize}
 
 \subsection{Infraestrutura \textit{Serverless} no \textit{Google Cloud}}
