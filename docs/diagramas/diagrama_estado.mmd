@@ -1,0 +1,74 @@
+stateDiagram-v2
+    %% ==========================================
+    %% DIAGRAMA DE ESTADO - Senador
+    %% Principal objeto do sistema Tô De Olho
+    %% ==========================================
+
+    [*] --> Eleito: Resultado eleitoral<br/>confirmado
+
+    state "Mandato Ativo" as Ativo {
+        [*] --> EmExercicio
+        
+        EmExercicio: Em Exercício
+        EmExercicio: - Participa de votações
+        EmExercicio: - Apresenta proposições
+        EmExercicio: - Utiliza CEAPS
+        EmExercicio: - Integra comissões
+
+        Licenciado: Licenciado
+        Licenciado: - Não participa de votações
+        Licenciado: - CEAPS suspenso
+        Licenciado: - Score congelado
+
+        Afastado: Afastado
+        Afastado: - Cargo executivo
+        Afastado: - Suplente assume
+
+        EmExercicio --> Licenciado: Solicitar licença<br/>(médica/pessoal)
+        Licenciado --> EmExercicio: Retornar ao<br/>exercício
+        
+        EmExercicio --> Afastado: Assumir cargo<br/>executivo
+        Afastado --> EmExercicio: Retornar ao<br/>Senado
+        
+        Licenciado --> Afastado: Assumir cargo<br/>durante licença
+    }
+
+    state "Mandato Encerrado" as Encerrado {
+        [*] --> FimMandato
+        
+        FimMandato: Fim do Mandato
+        FimMandato: - Dados históricos mantidos
+        FimMandato: - Score arquivado
+
+        Renunciou: Renunciou
+        Renunciou: - Registro histórico
+        Renunciou: - Suplente convocado
+
+        Cassado: Cassado
+        Cassado: - Perda de mandato
+        Cassado: - Registro judicial
+    }
+
+    Ativo --> Encerrado: Fim da legislatura<br/>(8 anos)
+    Ativo --> Renunciou: Renúncia voluntária
+    Ativo --> Cassado: Decisão judicial<br/>ou do Senado
+
+    Encerrado --> Eleito: Reeleito em<br/>nova eleição
+
+    Renunciou --> [*]
+    Cassado --> [*]
+    
+    note right of Ativo
+        Estados durante o mandato
+        afetam o cálculo do ranking:
+        - Em Exercício: score calculado
+        - Licenciado: score congelado
+        - Afastado: badge "Afastado"
+    end note
+
+    note right of Encerrado
+        Dados históricos são
+        preservados para análise
+        retrospectiva e comparação
+        entre legislaturas.
+    end note

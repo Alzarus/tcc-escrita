@@ -1,0 +1,58 @@
+flowchart TD
+    %% ==========================================
+    %% DIAGRAMA DE ATIVIDADES - Cálculo do Ranking
+    %% Principal atividade do sistema Tô De Olho
+    %% ==========================================
+
+    %% Estilos
+    classDef inicio fill:#34a853,stroke:#0d652d,stroke-width:2px,color:white,font-weight:bold;
+    classDef fim fill:#ea4335,stroke:#c5221f,stroke-width:2px,color:white,font-weight:bold;
+    classDef processo fill:#1a73e8,stroke:#1557b0,stroke-width:2px,color:white;
+    classDef decisao fill:#fbbc04,stroke:#ea8600,stroke-width:2px,color:black;
+    classDef subprocesso fill:#4285f4,stroke:#1a73e8,stroke-width:2px,color:white;
+
+    %% Início
+    Start([Início]):::inicio
+
+    %% Fork para buscar dados em paralelo
+    Start --> Fork1{{"Fork: Buscar Dados"}}
+
+    %% Ramos paralelos de busca
+    Fork1 --> BuscaProp["Buscar Proposições<br/>do Senador"]:::processo
+    Fork1 --> BuscaVot["Buscar Votações<br/>do Senador"]:::processo
+    Fork1 --> BuscaCEAPS["Buscar Despesas<br/>CEAPS"]:::processo
+    Fork1 --> BuscaCom["Buscar Comissões<br/>do Senador"]:::processo
+
+    %% Join após busca
+    BuscaProp --> Join1{{"Join"}}
+    BuscaVot --> Join1
+    BuscaCEAPS --> Join1
+    BuscaCom --> Join1
+
+    %% Cálculo individual de cada dimensão
+    Join1 --> CalcProd["Calcular Score<br/>Produtividade (35%)"]:::subprocesso
+    CalcProd --> CalcPres["Calcular Score<br/>Presença (25%)"]:::subprocesso
+    CalcPres --> CalcEcon["Calcular Score<br/>Economia CEAPS (20%)"]:::subprocesso
+    CalcEcon --> CalcComi["Calcular Score<br/>Comissões (20%)"]:::subprocesso
+
+    %% Normalização
+    CalcComi --> Normaliza["Normalizar Scores<br/>(0-100)"]:::processo
+
+    %% Cálculo do Score Final
+    Normaliza --> CalcFinal["Aplicar Pesos e<br/>Calcular Score Final"]:::processo
+
+    %% Verificação de cache
+    CalcFinal --> VerificaCache{"Cache Redis<br/>válido?"}:::decisao
+
+    %% Caminho com cache
+    VerificaCache -->|Sim| RetornaCache["Retornar Ranking<br/>do Cache"]:::processo
+
+    %% Caminho sem cache
+    VerificaCache -->|Não| OrdenaRanking["Ordenar Senadores<br/>por Score"]:::processo
+    OrdenaRanking --> AtribuiPosicao["Atribuir Posições<br/>no Ranking"]:::processo
+    AtribuiPosicao --> SalvaCache["Salvar no<br/>Cache Redis"]:::processo
+    SalvaCache --> RetornaRanking["Retornar<br/>Ranking Atualizado"]:::processo
+
+    %% Fim
+    RetornaCache --> Fim([Fim]):::fim
+    RetornaRanking --> Fim

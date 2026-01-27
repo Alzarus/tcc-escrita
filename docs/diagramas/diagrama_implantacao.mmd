@@ -1,0 +1,102 @@
+flowchart TD
+    %% Global Graph Settings
+    %% Direction Top-Down for clear hierarchy
+
+    %% ==========================================
+    %% 1. DEFINIÇÃO DE ESTILOS (Paleta "Bonita")
+    %% ==========================================
+    %% Laranja/Amarelo para Fontes Externas (Igual screenshot)
+    classDef source fill:#fbbc04,stroke:#ea8600,stroke-width:2px,color:white,font-weight:bold;
+    
+    %% Azul para Processamento/Cloud Run (Igual screenshot)
+    classDef process fill:#1a73e8,stroke:#1557b0,stroke-width:2px,color:white,font-weight:bold;
+    
+    %% Verde para Dados/Persistência (Igual screenshot)
+    classDef data fill:#34a853,stroke:#0d652d,stroke-width:2px,color:white,font-weight:bold;
+    
+    %% Cinza Escuro para Usuário/GitHub
+    classDef actor fill:#5f6368,stroke:#202124,stroke-width:2px,color:white,font-weight:bold;
+
+    %% Estilo dos Subgrafos (Caixas) - Fundo claro e borda suave
+    classDef container fill:#ffffff,stroke:#5f6368,stroke-width:2px,stroke-dasharray: 0;
+    classDef cloud fill:#f8f9fa,stroke:#4285f4,stroke-width:2px,stroke-dasharray: 5 5;
+
+    %% ==========================================
+    %% 2. ESTRUTURA DO DIAGRAMA
+    %% ==========================================
+    
+    %% Coluna da Esquerda: DevOps
+    subgraph DevOps ["DEVOPS & CI/CD"]
+        direction TB
+        GitHub(GitHub<br/>Repositorio):::actor
+        Actions(GitHub Actions<br/>Build & Deploy):::actor
+        GitHub --> Actions
+    end
+
+    %% Área Principal: CLOUD e DADOS
+    subgraph MainArea ["PLATAFORMA E INFRAESTRUTURA"]
+        direction TB
+        
+        %% Fontes de Dados (Topo)
+        subgraph Sources ["FONTES DE DADOS EXTERNAS"]
+            direction LR
+            Legis([API Legislativa<br/>Senado]):::source
+            Adm([API Administrativa<br/>Senado]):::source
+            Portal([Portal da<br/>Transparência]):::source
+        end
+
+        %% Backend e Frontend (Cloud Run)
+        subgraph GCP ["GOOGLE CLOUD PLATFORM"]
+            direction TB
+            
+            subgraph CloudRun ["Cloud Run (Compute)"]
+                direction LR
+                %% Frontend e Backend lado a lado ou topo-baixo
+                Frontend["Front-end<br/>(Next.js)"]:::process
+                Backend["Back-end API<br/>(Go Monolith)"]:::process
+                Scheduler["Scheduler<br/>(Internal Module)"]:::process
+            end
+            
+            subgraph Storage ["Armazenamento & Cache"]
+                direction LR
+                SQL[("Cloud SQL<br/>PostgreSQL")]:::data
+                Redis[("Memorystore<br/>Redis")]:::data
+            end
+        end
+    end
+
+    %% Usuário (Base)
+    User([Usuário<br/>Navegador/Mobile]):::actor
+
+    %% ==========================================
+    %% 3. CONEXÕES
+    %% ==========================================
+    
+    %% Fluxo do Usuário
+    User == HTTPS ==> Frontend
+
+    %% Comunicação Interna
+    Frontend -- gRPC/HTTP --> Backend
+    Backend -- Leitura/Escrita --> SQL
+    Backend -- Cache --> Redis
+    
+    %% Scheduler (Lógico) -> Backend
+    Scheduler -.-> Backend
+
+    %% Ingestão de Dados (ETL)
+    Backend -. ETL/Sync .-> Legis
+    Backend -. ETL/Sync .-> Adm
+    Backend -. ETL/Sync .-> Portal
+
+    %% Deploy (CI/CD)
+    Actions -. Deploy .-> Frontend
+    Actions -. Deploy .-> Backend
+
+    %% ==========================================
+    %% 4. APLICAÇÃO DE ESTILOS EM SUBGRAFOS
+    %% ==========================================
+    class DevOps container
+    class GCP container
+    class CloudRun cloud
+    class Storage cloud
+    class Sources container

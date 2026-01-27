@@ -1,0 +1,121 @@
+flowchart TB
+    %% ==========================================
+    %% DIAGRAMA DE COMPONENTES - Tô De Olho
+    %% Arquitetura de software do sistema
+    %% ==========================================
+
+    %% Estilos
+    classDef frontend fill:#4285f4,stroke:#1a73e8,stroke-width:2px,color:white,font-weight:bold;
+    classDef backend fill:#34a853,stroke:#0d652d,stroke-width:2px,color:white,font-weight:bold;
+    classDef modulo fill:#1a73e8,stroke:#1557b0,stroke-width:2px,color:white;
+    classDef externo fill:#fbbc04,stroke:#ea8600,stroke-width:2px,color:black,font-weight:bold;
+    classDef dados fill:#ea4335,stroke:#c5221f,stroke-width:2px,color:white,font-weight:bold;
+    classDef transversal fill:#9334e6,stroke:#7627bb,stroke-width:2px,color:white;
+
+    %% ==========================================
+    %% CAMADA DE APRESENTAÇÃO
+    %% ==========================================
+    subgraph Apresentacao ["CAMADA DE APRESENTACAO (Frontend)"]
+        direction TB
+        
+        subgraph NextJS ["Next.js 15 (React 19 + TypeScript)"]
+            direction LR
+            Pages["Pages<br/>/ranking, /senador/[id]<br/>/comparar, /metodologia"]:::frontend
+            Components["Components<br/>RankingTable, RadarChart<br/>SenadorCard, ComparatorDock"]:::frontend
+            Hooks["Hooks<br/>useSenadores<br/>useRanking<br/>useComparator"]:::frontend
+            Services["Services<br/>api.ts<br/>(fetch wrapper)"]:::frontend
+        end
+    end
+
+    %% ==========================================
+    %% CAMADA DE NEGÓCIO
+    %% ==========================================
+    subgraph Negocio ["CAMADA DE NEGOCIO (Backend Go)"]
+        direction TB
+        
+        subgraph API ["API REST (Gin Router)"]
+            direction LR
+            Router["Router<br/>/api/v1/*"]:::backend
+            Handlers["Handlers<br/>senador, ranking<br/>ceaps, votacao"]:::backend
+        end
+
+        subgraph Modulos ["Módulos de Domínio"]
+            direction LR
+            ModSenador["Senador<br/>model, repository<br/>handler, sync"]:::modulo
+            ModCEAPS["CEAPS<br/>model, repository<br/>handler, sync"]:::modulo
+            ModVotacao["Votação<br/>model, repository<br/>handler, sync"]:::modulo
+            ModComissao["Comissão<br/>model, repository<br/>handler, sync"]:::modulo
+            ModProposicao["Proposição<br/>model, repository<br/>handler, sync"]:::modulo
+            ModEmenda["Emenda<br/>model, repository<br/>service, sync"]:::modulo
+            ModRanking["Ranking<br/>model, service<br/>handler"]:::modulo
+        end
+
+        subgraph Transversais ["Componentes Transversais"]
+            direction LR
+            Scheduler["Scheduler<br/>(cron jobs)"]:::transversal
+            Cache["Cache<br/>(abstração Redis)"]:::transversal
+        end
+    end
+
+    %% ==========================================
+    %% CAMADA DE INTEGRAÇÃO
+    %% ==========================================
+    subgraph Integracao ["CAMADA DE INTEGRACAO (Clients HTTP)"]
+        direction LR
+        LegisClient["LegisClient<br/>pkg/senado/legis"]:::externo
+        AdmClient["AdmClient<br/>pkg/senado/adm"]:::externo
+        TranspClient["TransparenciaClient<br/>pkg/transparencia"]:::externo
+    end
+
+    %% ==========================================
+    %% CAMADA DE DADOS
+    %% ==========================================
+    subgraph Dados ["CAMADA DE DADOS"]
+        direction LR
+        PostgreSQL[("PostgreSQL<br/>GORM ORM")]:::dados
+        Redis[("Redis<br/>Cache TTL")]:::dados
+    end
+
+    %% ==========================================
+    %% CONEXÕES
+    %% ==========================================
+    
+    %% Frontend -> Backend
+    Services --> Router
+
+    %% Router -> Handlers
+    Router --> Handlers
+    Handlers --> ModSenador
+    Handlers --> ModCEAPS
+    Handlers --> ModVotacao
+    Handlers --> ModComissao
+    Handlers --> ModProposicao
+    Handlers --> ModEmenda
+    Handlers --> ModRanking
+
+    %% Módulos -> Dados
+    ModSenador --> PostgreSQL
+    ModCEAPS --> PostgreSQL
+    ModVotacao --> PostgreSQL
+    ModComissao --> PostgreSQL
+    ModProposicao --> PostgreSQL
+    ModEmenda --> PostgreSQL
+    ModRanking --> PostgreSQL
+    ModRanking --> Redis
+    Cache --> Redis
+
+    %% Scheduler -> Sync
+    Scheduler -.-> ModSenador
+    Scheduler -.-> ModCEAPS
+    Scheduler -.-> ModVotacao
+    Scheduler -.-> ModComissao
+    Scheduler -.-> ModProposicao
+    Scheduler -.-> ModEmenda
+
+    %% Sync -> Clients
+    ModSenador -.-> LegisClient
+    ModVotacao -.-> LegisClient
+    ModComissao -.-> LegisClient
+    ModProposicao -.-> LegisClient
+    ModCEAPS -.-> AdmClient
+    ModEmenda -.-> TranspClient
