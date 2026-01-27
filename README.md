@@ -1,24 +1,58 @@
-#   📚  TCC Template - Relatório Técnico de TCC do Curso de ADS
+# 📄 TCC - Documentação e Texto Acadêmico
 
-Este projeto fornece um template para o modelo de relatório técnico de TCC do curso de Análise e Desenvolvimento de Sistemas (ADS) do IFBA, Campus Salvador.
+**Autor**: Pedro Batista de Almeida Filho  
+**Curso**: Análise e Desenvolvimento de Sistemas (ADS) - IFBA
 
-## Estrutura do Projeto
+---
 
-- **`main.tex`**: O arquivo principal do LaTeX.
-- **`src/sections/`**: Pasta contendo os capítulos e seções do relatório.
-- **`src/figures/`**: Pasta para armazenar as figuras utilizadas no documento.
-- **`refecencias.bib`**: Arquivo que contem a bibliografia/referências utilizadas.
+Este diretório contém os arquivos fontes em **LaTeX** referentes à parte escrita (monografia/relatório técnico) do projeto **Tô De Olho** (Plataforma de Transparência Parlamentar do Senado Federal).
 
-## Requisitos
+## 📂 Estrutura do Documento
 
-- LaTeX distribuição (por exemplo, TeX Live, MikTeX)
-- Editor LaTeX (por exemplo, TeXShop, Texmaker, VSCode com extensão LaTeX)
+A organização dos arquivos segue o padrão para compilação LaTeX:
 
-## Como Usar
+- **`main.tex`**: Arquivo mestre que estrutura o documento (chamadas de pacotes, metadados e inclusão de capítulos).
+- **`src/sections/`**: Contém o texto dividido por capítulos:
+  - `introducao.tex`: Contextualização e objetivos.
+  - `fundamentacao.tex`: Revisão bibliográfica e conceitos (DDD, Clean Arch, etc).
+  - `metodologia.tex`: Método de pesquisa e abordagem de desenvolvimento.
+  - `design.tex`, `implantacao.tex`, `testes.tex`: Detalhes técnicos da solução.
+- **`src/figures/`**: Diretório para imagens, gráficos e diagramas utilizados.
+- **`referencias.bib`**: Base de dados bibliográfica (formato BibTeX).
+- **`relatorio_tcc_ads_ifba.cls`**: Classe de formatação customizada para o padrão ABNT/IFBA.
 
-1. Abra o arquivo `main.tex` no seu editor LaTeX.
-2. Personalize o conteúdo conforme necessário.
-3. Compile o documento usando seu compilador LaTeX.
-4. Visualize o PDF resultante.
+## 🛠️ Como Compilar
 
-OBS: Caso as opções disponíveis no arquivo `main.tex`não sejam suficientes, sinta-se à vontade para alterar o arquivo de classe `relatorio_tcc_ads_ifba.cls`.
+### Pré-requisitos
+
+- Distribuição LaTeX (TeX Live, MikTeX ou similar).
+- Compilador `pdflatex` e `bibtex`.
+
+### Comandos de Compilação
+
+Para gerar o PDF final (`main.pdf`) com referências e índices atualizados, você pode usar os comandos abaixo.
+
+**Opção 1: Passo a passo (PowerShell)**
+
+```powershell
+# Executar na pasta tcc-escrita/
+pdflatex -interaction=nonstopmode main.tex
+bibtex main
+pdflatex -interaction=nonstopmode main.tex
+pdflatex -interaction=nonstopmode main.tex
+```
+
+**Opção 2: Comando Único (PowerShell)**
+
+```powershell
+# Executa toda a sequência de uma vez
+cd tcc-escrita; pdflatex -interaction=nonstopmode main.tex; bibtex main; pdflatex -interaction=nonstopmode main.tex; pdflatex -interaction=nonstopmode main.tex
+```
+
+### Notas sobre a Compilação
+
+- **Por que 3x pdflatex?** É necessário executar múltiplas vezes para resolver referências cruzadas (`\ref`, `\cite`), sumário e índices de figuras/tabelas.
+- **bibtex**: Processa o arquivo `referencias.bib` para gerar as citações corretamente.
+- **-interaction=nonstopmode**: Flag que impede a compilação de parar em erros não críticos, continuando até o final.
+
+> **Nota**: O projeto está configurado para o idioma Português (Brasil) e segue as normas da ABNT.
