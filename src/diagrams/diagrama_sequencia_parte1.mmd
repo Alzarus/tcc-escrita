@@ -1,0 +1,29 @@
+sequenceDiagram
+    %% ==========================================
+    %% DIAGRAMA DE SEQUÊNCIA - Parte 1
+    %% Requisição e Verificação de Cache
+    %% ==========================================
+
+    autonumber
+
+    participant U as Usuario
+    participant F as Frontend
+    participant A as API REST
+    participant R as RankingService
+    participant C as Cache Redis
+    participant DB as PostgreSQL
+
+    U->>+F: Acessar /ranking
+    F->>+A: GET /api/v1/ranking?ano=2025
+    A->>+R: CalcularRanking(ano)
+    R->>+C: GET ranking:2025
+    
+    alt Cache válido
+        C-->>R: Ranking cacheado
+        R-->>A: []SenadorScore
+        A-->>F: JSON Response
+        F-->>-U: Página do Ranking
+    else Cache expirado
+        C-->>-R: null
+        Note over R: Prossegue para<br/>cálculo (Parte 2)
+    end

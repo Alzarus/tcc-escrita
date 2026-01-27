@@ -1,0 +1,26 @@
+flowchart LR
+    %% ==========================================
+    %% DIAGRAMA DE CICLO DE VIDA DO DADO
+    %% Layout Linear Simples (Horizontal)
+    %% ==========================================
+
+    %% Estilos
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef process fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+    classDef external fill:#f5f5f5,stroke:#666,stroke-width:2px,stroke-dasharray: 5 5;
+
+    %% Nós
+    Fonte((Fontes<br/>Oficiais)):::external
+    Ingestao[Ingestão e<br/>Normalização]:::process
+    DB[(PostgreSQL)]:::storage
+    Rank[Ranking<br/>Service]:::process
+    Cache[(Redis<br/>TTL 1h)]:::storage
+    API((API REST)):::external
+
+    %% Fluxo
+    Fonte -->|Coleta| Ingestao
+    Ingestao -->|Upsert| DB
+    DB -->|Leitura| Rank
+    Rank -->|Cálculo| Cache
+    Cache -->|Entrega| API

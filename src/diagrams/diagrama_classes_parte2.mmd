@@ -1,0 +1,49 @@
+classDiagram
+    direction LR
+
+    %% ==========================================
+    %% DIAGRAMA DE CLASSES - Parte 2
+    %% Estruturas de Cálculo (Score)
+    %% ==========================================
+
+    class Senador {
+        +int ID
+        +string Nome
+        +string Partido
+        +string UF
+        +bool EmExercicio
+    }
+
+    class SenadorScore {
+        +int SenadorID
+        +string Nome
+        +string Partido
+        +string UF
+        +float64 Produtividade
+        +float64 Presenca
+        +float64 EconomiaCota
+        +float64 Comissoes
+        +float64 ScoreFinal
+        +int Posicao
+        +ScoreDetalhes Detalhes
+        +datetime CalculadoEm
+    }
+
+    class ScoreDetalhes {
+        +int TotalProposicoes
+        +int ProposicoesAprovadas
+        +int TransformadasEmLei
+        +int PontuacaoProposicoes
+        +int TotalVotacoes
+        +int VotacoesParticipadas
+        +float64 TaxaPresencaBruta
+        +float64 GastoCEAPS
+        +float64 TetoCEAPS
+        +int ComissoesAtivas
+        +int ComissoesTitular
+        +float64 PontosComissoes
+    }
+
+    %% Relacionamentos
+    Senador "1" ..> "1" SenadorScore : gera
+    SenadorScore "1" *-- "1" ScoreDetalhes : contém

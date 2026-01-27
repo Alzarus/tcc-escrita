@@ -127,6 +127,17 @@ Onde:
 
 Casos especiais são tratados da seguinte forma: senadores novos (suplentes) requerem período mínimo de 30 dias para entrar na classificação; licenças curtas mantêm o senador na lista com ajuste nos denominadores; licenças longas ($>30$ dias) congelam a pontuação; dados indisponíveis causam reponderação proporcional dos demais critérios.
 
+A Figura~\ref{fig:atividades} apresenta o diagrama de atividades que modela o fluxo algorítmico do cálculo de \textit{ranking}. O processo inicia com a busca paralela de dados das quatro dimensões (proposições, votações, CEAPS e comissões), seguida do cálculo de cada \textit{score} individual. Após a normalização e aplicação dos pesos, o sistema verifica o \textit{cache Redis}: se válido, retorna o resultado armazenado; caso contrário, ordena os senadores, atribui posições e persiste o novo \textit{ranking} no \textit{cache}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{src/images/diagrama_atividades.png}
+    \caption{Diagrama de Atividades: fluxo de cálculo do \textit{ranking}}
+    \label{fig:atividades}
+    \par\small{Fonte: Autoria Própria}
+\end{figure}
+
+
 \subsubsection{Limitações Metodológicas e Ciclo Eleitoral}
 \label{sec:limitacoes}
 

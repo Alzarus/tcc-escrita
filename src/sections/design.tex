@@ -22,6 +22,17 @@ A estrutura interna segue os princípios de \textit{Bounded Contexts} do \textit
 
 Módulos transversais complementam a estrutura: \texttt{internal/api} expõe \textit{endpoints} REST, \texttt{internal/scheduler} gerencia tarefas agendadas, e \texttt{internal/cache} abstrai operações no \textit{Redis}. Os módulos comunicam-se exclusivamente através de interfaces \textit{Go}, respeitando o princípio de inversão de dependência.
 
+A Figura~\ref{fig:componentes} apresenta o diagrama de componentes do sistema, ilustrando a organização em camadas e as dependências entre módulos. A arquitetura segue o padrão de camadas (Apresentação, Negócio, Integração, Dados), com fluxo unidirecional de dependências.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{src/images/diagrama_componentes.png}
+    \caption{Diagrama de Componentes do sistema Tô De Olho}
+    \label{fig:componentes}
+    \par\small{Fonte: Autoria Própria}
+\end{figure}
+
+
 \subsubsection{Visão de Implantação}
 
 A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do sistema, ilustrando o fluxo de dados desde as fontes governamentais até o usuário final. Tanto o \textit{back-end} quanto o \textit{front-end} são executados em contêineres no \textit{Google Cloud Run}, garantindo escalabilidade unificada. O \textit{back-end} consome dados armazenados em \textit{PostgreSQL} (\textit{Cloud SQL}) e \textit{Redis} (\textit{Memorystore}), enquanto o \textit{scheduler} opera como um módulo interno do serviço principal, aproveitando a mesma infraestrutura.
@@ -33,6 +44,29 @@ A Figura~\ref{fig:implantacao} apresenta a arquitetura de implantação do siste
     \label{fig:implantacao}
     \par\small{Fonte: Autoria Própria}
 \end{figure}
+
+\subsubsection{Fluxo de Requisições}
+
+O fluxo de requisições durante a consulta ao \textit{ranking} de senadores é apresentado em duas partes. A Figura~\ref{fig:sequencia1} ilustra a requisição inicial e verificação de \textit{cache}: o \textit{front-end} requisita dados à API REST, que delega ao \texttt{RankingService}. Este verifica o \textit{cache Redis} antes de prosseguir --- se o \textit{cache} for válido, retorna imediatamente o resultado armazenado.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{src/images/diagrama_sequencia_parte1.png}
+    \caption{Diagrama de Sequência (Parte 1): requisição e verificação de \textit{cache}}
+    \label{fig:sequencia1}
+    \par\small{Fonte: Autoria Própria}
+\end{figure}
+
+Caso o \textit{cache} esteja expirado, a Figura~\ref{fig:sequencia2} ilustra o cálculo efetivo do \textit{ranking}. As consultas às quatro dimensões (proposições, votações, CEAPS, comissões) são executadas em paralelo, e os resultados são normalizados, ponderados e persistidos no \textit{cache} com TTL de uma hora.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{src/images/diagrama_sequencia_parte2.png}
+    \caption{Diagrama de Sequência (Parte 2): cálculo do \textit{ranking} após \textit{cache miss}}
+    \label{fig:sequencia2}
+    \par\small{Fonte: Autoria Própria}
+\end{figure}
+
 
 \subsection{Stack Tecnológico}
 
@@ -86,6 +120,38 @@ A Figura~\ref{fig:er-diagram} apresenta o esquema relacional de dados consolidad
     \par\small{Fonte: Autoria Própria}
 \end{figure}
 
+As Figuras~\ref{fig:classes1} e~\ref{fig:classes2} apresentam o diagrama de classes UML correspondente à implementação em \textit{Go}, dividido para melhor legibilidade. As classes do domínio são mapeadas como \textit{structs} (estruturas de dados) e persistidas via \textit{GORM}. A Figura~\ref{fig:classes1} mostra as sete entidades de persistência, todas relacionadas à entidade central \texttt{Senador}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=0.75\textheight]{src/images/diagrama_classes_parte1.png}
+    \caption{Diagrama de Classes (Parte 1): entidades de persistência}
+    \label{fig:classes1}
+    \par\small{Fonte: Autoria Própria}
+\end{figure}
+
+A Figura~\ref{fig:classes2} apresenta as estruturas de cálculo do \textit{ranking}. A classe \texttt{SenadorScore}, não persistida em banco, representa o resultado calculado pelo algoritmo e inclui a estrutura aninhada \texttt{ScoreDetalhes} para auditoria dos valores brutos utilizados no cálculo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{src/images/diagrama_classes_parte2.png}
+    \caption{Diagrama de Classes (Parte 2): estruturas de cálculo do \textit{score}}
+    \label{fig:classes2}
+    \par\small{Fonte: Autoria Própria}
+\end{figure}
+
+
+A Figura~\ref{fig:ciclo_vida} apresenta o ciclo de vida do dado no sistema, detalhando o fluxo desde a ingestão até a disponibilização para o usuário. Os dados brutos são coletados diariamente das APIs oficiais, normalizados e persistidos no banco de dados com garantia de idempotência (\textit{upsert}). O \texttt{RankingService} agrega essas informações, aplica os pesos da metodologia e persiste o resultado final no \textit{cache Redis} com TTL de uma hora, garantindo alta performance na consulta.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{src/images/diagrama_ciclo_vida.png}
+    \caption{Diagrama de Ciclo de Vida do Dado: ingestão, processamento e \textit{cache}}
+    \label{fig:ciclo_vida}
+    \par\small{Fonte: Autoria Própria}
+\end{figure}
+
+
 Para otimizar consultas frequentes, foram criados os seguintes índices compostos:
 
 \begin{itemize}
@@ -94,5 +160,6 @@ Para otimizar consultas frequentes, foram criados os seguintes índices composto
     \item \texttt{idx\_emenda\_unique} --- garantia de idempotência (senador, ano, número);
     \item \texttt{idx\_comissao\_senador} --- agregação de participação em comissões.
 \end{itemize}
+
 
 

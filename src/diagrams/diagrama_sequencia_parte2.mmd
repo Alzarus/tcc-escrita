@@ -1,0 +1,40 @@
+sequenceDiagram
+    %% ==========================================
+    %% DIAGRAMA DE SEQUÊNCIA - Parte 2
+    %% Cálculo do Ranking (Cache Miss)
+    %% ==========================================
+
+    autonumber
+
+    participant R as RankingService
+    participant DB as PostgreSQL
+    participant C as Cache Redis
+
+    Note over R,DB: Continuação: Cache Miss
+    
+    par Buscar dados em paralelo
+        R->>+DB: Estatísticas Proposições
+        DB-->>-R: resultado
+    and
+        R->>+DB: Estatísticas Votações
+        DB-->>-R: resultado
+    and
+        R->>+DB: Totais CEAPS
+        DB-->>-R: resultado
+    and
+        R->>+DB: Participações Comissões
+        DB-->>-R: resultado
+    end
+
+    R->>R: calcularProdutividade()
+    R->>R: calcularPresenca()
+    R->>R: calcularEconomiaCEAPS()
+    R->>R: calcularComissoes()
+    R->>R: normalizarScores(0-100)
+    R->>R: aplicarPesos()
+    R->>R: ordenarPorScoreFinal()
+    
+    R->>+C: SET ranking:2025 (TTL: 1h)
+    C-->>-R: OK
+    
+    Note over R: Retorna []SenadorScore

@@ -1,0 +1,81 @@
+classDiagram
+    direction LR
+
+    %% ==========================================
+    %% DIAGRAMA DE CLASSES - Parte 1
+    %% Entidades de Persistência (Domínio)
+    %% ==========================================
+
+    class Senador {
+        +int ID
+        +int CodigoParlamentar
+        +string Nome
+        +string Partido
+        +string UF
+        +string FotoURL
+        +bool EmExercicio
+        --
+        +TableName() string
+    }
+
+    class Mandato {
+        +int ID
+        +int SenadorID
+        +int Legislatura
+        +datetime Inicio
+        +datetime Fim
+        +string Tipo
+    }
+
+    class DespesaCEAPS {
+        +int ID
+        +int SenadorID
+        +int Ano
+        +string TipoDespesa
+        +string Fornecedor
+        +float64 Valor
+    }
+
+    class Votacao {
+        +int ID
+        +int SenadorID
+        +string SessaoID
+        +datetime Data
+        +string Voto
+        +string Materia
+    }
+
+    class Emenda {
+        +uint ID
+        +uint SenadorID
+        +int Ano
+        +string Tipo
+        +string Localidade
+        +float64 ValorPago
+    }
+
+    class ComissaoMembro {
+        +int ID
+        +int SenadorID
+        +string SiglaComissao
+        +string Participacao
+        +datetime DataInicio
+    }
+
+    class Proposicao {
+        +int ID
+        +int SenadorID
+        +string SiglaSubtipo
+        +int AnoMateria
+        +string Ementa
+        +string Estagio
+        +int Pontuacao
+    }
+
+    %% Relacionamentos
+    Senador "1" --o "*" Mandato : possui
+    Senador "1" --o "*" DespesaCEAPS : registra
+    Senador "1" --o "*" Votacao : participa
+    Senador "1" --o "*" Emenda : destina
+    Senador "1" --o "*" ComissaoMembro : integra
+    Senador "1" --o "*" Proposicao : autoria
