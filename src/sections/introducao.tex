@@ -46,7 +46,17 @@ Em síntese, o \textit{Tô De Olho} atua como um ``auditor digital'', automatiza
 
 \subsection{Trabalhos Relacionados}
 
-Diversas iniciativas no Brasil e no mundo buscam promover a transparência política por meio da tecnologia. À luz da Escada de Participação de Arnstein (\citeyear{arnstein1969ladder}), podemos classificar essas ferramentas conforme o grau de poder que conferem ao cidadão.
+Para situar as iniciativas de transparência legislativa no espectro da participação cidadã, adotamos como referência analítica a ``Escada da Participação Cidadã'' (\textit{Ladder of Citizen Participation}), proposta por Arnstein (\citeyear{arnstein1969ladder}) em seu trabalho seminal. A tipologia organiza oito degraus de participação em três faixas, conforme o grau de poder efetivamente conferido aos cidadãos:
+
+\begin{itemize}
+    \item \textbf{Não-participação} (degraus 1--2): \textit{Manipulação} e \textit{Terapia} --- o objetivo real é ``educar'' ou ``curar'' os participantes, não ouvi-los. Comitês consultivos sem poder deliberativo exemplificam essa categoria;
+    
+    \item \textbf{Participação simbólica} (degraus 3--5): \textit{Informação}, \textit{Consulta} e \textit{Pacificação} --- cidadãos podem ouvir e ser ouvidos, mas sem garantia de que suas vozes influenciem decisões. Audiências públicas sem caráter vinculante e pesquisas de opinião situam-se neste nível;
+    
+    \item \textbf{Poder cidadão} (degraus 6--8): \textit{Parceria}, \textit{Delegação de Poder} e \textit{Controle Cidadão} --- redistribuição efetiva de poder decisório. Orçamentos participativos vinculantes e conselhos com poder de veto exemplificam esses degraus superiores.
+\end{itemize}
+
+Essa escala é especialmente útil para avaliar ferramentas de \textit{civic tech} (tecnologia cívica): ao classificar cada iniciativa em um degrau, torna-se possível identificar se a tecnologia efetivamente redistribui poder ou apenas simula participação. A seguir, aplicamos esse referencial para analisar as principais iniciativas de transparência legislativa no Brasil e no mundo.
 
 \subsubsection{Portais Oficiais (Nível Informação)}
 
@@ -58,7 +68,7 @@ O portal registra entre 1,3 e 1,5 milhão de usuários únicos mensais, com apro
 
 \textbf{Portal de Dados Abertos da Câmara dos Deputados:} O fornecimento de dados legislativos pela Câmara iniciou-se em 2006 através do sistema SIT Câmara (Web Services) \cite{dadosabertoscamara2024}. Com a Lei de Acesso à Informação em 2011, o portal foi rebatizado como ``Dados Abertos'', eliminando a obrigatoriedade de cadastro prévio. Em 2017, lançou-se a API RESTful v2, substituindo os antigos Web Services por arquitetura mais moderna. O portal oferece \textit{endpoints} para deputados (perfis biográficos, discursos, frentes parlamentares), proposições (texto integral, tramitação), votações (incluindo voto individual de cada parlamentar) e cotas parlamentares (CEAP). Os formatos incluem JSON e XML via API, além de CSV, XLSX e ODS para \textit{downloads} em massa. O portal é referência em transparência legislativa, alimentando projetos como a Operação Serenata de Amor, Radar Governamental e VotoBom.
 
-Embora esses portais representem avanços significativos na transparência passiva, situam-se no degrau mais básico da Escada de Arnstein --- informação bruta sem mediação interpretativa. O cidadão comum, sem conhecimento técnico sobre APIs ou contabilidade pública, enfrenta barreiras substanciais para transformar dados dispersos em fiscalização efetiva.
+Embora esses portais representem avanços significativos na transparência passiva, situam-se no \textbf{degrau 3 (Informação)} da Escada de Arnstein: disponibilizam dados brutos de forma unidirecional, sem mediação interpretativa nem canal de retorno ao cidadão. O cidadão comum, sem conhecimento técnico sobre APIs ou contabilidade pública, enfrenta barreiras substanciais para transformar dados dispersos em fiscalização efetiva. Em outras palavras, esses portais cumprem o requisito mínimo da transparência ativa, mas não avançam para os degraus de consulta ou pacificação.
 
 \subsubsection{Ferramentas de Fiscalização da Câmara dos Deputados}
 
@@ -94,6 +104,8 @@ A plataforma ressalta que os alertas são ``indicativos que merecem investigaç�
 
 Entretanto, as classificações do ``De Olho em Você'' baseiam-se em métricas agregadas diretas (quem mais gastou, quem mais enviou emendas), \textbf{sem metodologia explícita de efetividade legislativa}. Além disso, a plataforma não contempla o Senado Federal.
 
+Na Escada de Arnstein, essas ferramentas situam-se entre os \textbf{degraus 3 e 4} --- \textit{Informação} e \textit{Consulta}. Diferentemente dos portais oficiais, que se limitam à disponibilização unidirecional de dados brutos, essas plataformas transformam informação pública em conhecimento acionável: alertas de anomalias, classificações comparativas e, no caso da Serenata de Amor, mecanismos de denúncia formal via Jarbas. Contudo, nenhuma delas institui canais de deliberação entre cidadãos e representantes, permanecendo aquém dos degraus de poder cidadão.
+
 \subsubsection{Experiências Internacionais}
 
 \textbf{TheyWorkForYou (Reino Unido):} Lançada em 2004 e operada pela organização sem fins lucrativos mySociety \cite{mysociety2024}, a plataforma monitora cinco parlamentos britânicos: Câmara dos Comuns, Câmara dos Lordes, Parlamento Escocês, Senedd (País de Gales) e Assembleia da Irlanda do Norte \cite{theyworkforyou2024}. Em 2023/24, registrou mais de \textbf{4,8 milhões de visitas}. Entre suas funcionalidades:
@@ -104,7 +116,7 @@ Entretanto, as classificações do ``De Olho em Você'' baseiam-se em métricas 
     \item \textbf{Busca por Código Postal:} Identificação imediata do representante local.
 \end{itemize}
 
-A plataforma consolidou-se como referência mundial em \textit{civic tech} (tecnologia cívica) parlamentar, inspirando iniciativas em diversos países.
+A plataforma consolidou-se como referência mundial em \textit{civic tech} parlamentar, inspirando iniciativas em diversos países.
 
 \textbf{OpenSecrets (Estados Unidos):} Principal organização de pesquisa sobre dinheiro na política americana, resultante da fusão em 2021 entre o \textit{Center for Responsive Politics} (fundado em 1983 por dois ex-senadores) e o \textit{National Institute on Money in State Politics} \cite{opensecrets2024}. Vencedora de múltiplos \textit{Webby Awards}, a plataforma rastreia:
 
@@ -116,6 +128,8 @@ A plataforma consolidou-se como referência mundial em \textit{civic tech} (tecn
 \end{itemize}
 
 É fonte primária para veículos como \textit{The New York Times} e \textit{The Washington Post}, oferecendo APIs e exportações de dados para pesquisadores acadêmicos.
+
+Ambas as plataformas operam predominantemente no \textbf{degrau 3 (Informação)} da escada, com o TheyWorkForYou aproximando-se do \textbf{degrau 4 (Consulta)} ao oferecer alertas personalizados que habilitam o monitoramento ativo e contínuo dos representantes pelo cidadão.
 
 \subsubsection{Lacuna Identificada e Diferencial do Tô De Olho}
 
@@ -146,6 +160,8 @@ Nosso índice pondera quatro dimensões objetivas, com pesos públicos e metodol
 \end{enumerate}
 
 A exposição pública de critérios e pesos não é mera formalidade: representa um compromisso ético com a \textbf{transparência metodológica}. Diferente de classificações opacas, o cidadão poderá compreender --- e questionar --- os fundamentos da classificação, evitando que a plataforma seja percebida como veículo de viés político.
+
+À luz da Escada de Arnstein, o \textit{Tô De Olho} posiciona-se entre os \textbf{degraus 3 e 5} --- \textit{Informação} e \textit{Pacificação}. A plataforma ultrapassa o degrau puramente informativo dos portais oficiais ao oferecer \textit{rankings} contextualizados, alertas de anomalias e comparativos visuais que empoderam o cidadão para exercer pressão informada sobre seus representantes. Contudo, por não incorporar mecanismos de deliberação vinculante (como consultas populares com efeito decisório), a ferramenta não alcança os degraus superiores de poder cidadão. Reconhecer essa limitação estrutural é fundamental: como adverte Arnstein (\citeyear{arnstein1969ladder}), ``participação sem redistribuição de poder é um processo vazio e frustrante para os desprovidos de poder''. O projeto assume, portanto, o papel de \textbf{pré-condição} para a participação efetiva, fornecendo a base informacional qualificada sem a qual os degraus superiores da escada são inatingíveis.
 
 Em síntese, o \textit{Tô De Olho} posiciona-se como a \textbf{primeira plataforma integrada} de fiscalização cidadã voltada ao Senado Federal, combinando três vertentes:
 
